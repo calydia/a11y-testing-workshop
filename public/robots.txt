@@ -1,0 +1,5 @@
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+Sitemap: https://a11y-workshop.sanna.ninja/sitemap-index.xml

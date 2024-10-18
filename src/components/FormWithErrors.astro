@@ -1,0 +1,68 @@
+---
+
+---
+<div class="bg-slate-300 dark:bg-slate-900 w-full py-8 my-12">
+  <div class="mx-auto max-w-[40em]">
+    <h3 class="mt-0">Some basic form controls to test</h3>
+
+    <form class="mt-4">
+      <label for="text" class="block mb-2">Text input</label>
+      <input name="text" type="text" class="p-4"></input>
+
+      <fieldset class="block my-4-px p-4-px">
+        <legend class="px-2">Choose your favorite</legend>
+        <div class="option">
+          <input type="radio" id="html" name="fav_language" value="HTML" class="p-4 mr-2" />
+          <label for="html">HTML</label>
+        </div>
+        <div class="option">
+          <input type="radio" id="css" name="fav_language" value="CSS" class="p-4 mr-2" />
+          <label for="css">CSS</label>
+        </div>
+        <div class="option">
+          <input type="radio" id="javascript" name="fav_language" value="JavaScript" class="p-4 mr-2" />
+          <label>JavaScript</label>
+        </div>
+      </fieldset>
+
+      <fieldset class="block my-4-px p-4-px">
+        <legend class="px-2">Choose your favorite</legend>
+        <div class="option">
+          <input type="checkbox" id="a11y" name="fav_language_multi" value="a11y" class="p-4 mr-2" />
+          <label for="a11y" class="">A11Y</label>
+        </div>
+        <div class="option">
+          <input type="checkbox" id="accessibility" name="fav_language_multi" value="accessibility" class="p-4 mr-2" />
+          <label for="accessibility">Accessibility</label>
+        </div>
+        <div class="option">
+          <input type="checkbox" id="web" name="fav_language_multi" value="web" class="p-4 mr-2" />
+          <label for="web">Web accessibility</label>
+        </div>
+      </fieldset>
+
+      <label class="block mb-2">Choose a color:</label>
+      <select name="colors" id="colors">
+        <option value="red" class="flex flex-wrap items-center gap-2 m-2">Red</option>
+        <option value="blue" class="flex flex-wrap items-center gap-2 m-2">Blue</option>
+        <option value="green" class="flex flex-wrap items-center gap-2 m-2">Green</option>
+        <option value="yellow" class="flex flex-wrap items-center gap-2 m-2">Yellow</option>
+      </select>
+
+      <div class="mt-8">
+        <button id="no-action-button" class="button" type="submit">
+          This submit button does nothing...
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  const buttonToggle = document.querySelectorAll('#no-action-button');
+  buttonToggle.forEach((toggle) => {
+    toggle.addEventListener('click', (event) => {
+      event.preventDefault();
+    });
+  });
+</script>

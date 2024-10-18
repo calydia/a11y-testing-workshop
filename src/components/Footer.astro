@@ -1,0 +1,39 @@
+---
+import { Icon } from 'astro-icon/components';
+
+const currentPath = '/' + Astro.props.currentPage;
+---
+
+<footer class="p-4-px lg:px-8-px lg:py-4-px border-t-8 border-solid border-blue-tory bg-lt-blue-light dark:bg-dk-purple">
+  <div class="text-center">
+    <button id="back-to-top" class="text-center button--alternative hover--border item--transition">
+      <Icon name="arrow-up-circle-solid" class="h-12 w-12 mx-auto" />
+      Back to top
+    </button>
+  </div>
+  <div class="md:flex md:justify-between max-w-[1500px] mx-auto">
+    <a href=https://sanna.ninja" class="py-3 my-4 text-lt-blue-dark dark:text-dk-blue-light">
+      A11ying with Sanna - I would if I could
+    </a>
+    <div class="flex items-center">
+      <div class="flex flex-col">
+        <a href=https://sanna.ninja" class="py-3 my-4 text-lt-blue-dark dark:text-dk-blue-light">
+          A11ying with Sanna - Web Content Accessibility Guidelines
+        </a>
+      </div>
+    </div>
+  </div>
+  <script is:inline src="/skip-content.js"></script>
+</footer>
+
+<script>
+  const backToTop = document.querySelectorAll('#back-to-top');
+
+  backToTop.forEach((button) => {
+    button.addEventListener('click', () => {
+      const target = document.getElementById('page-top');
+      (target as HTMLElement).setAttribute('tabindex', '-1');
+      (target as HTMLElement).focus();
+    });
+  });
+</script>

@@ -1,0 +1,36 @@
+---
+import { Image } from 'astro:assets';
+
+import catImage from '../images/cat.jpg';
+
+const title = '/' + Astro.props.title;
+const ariaLabel = '/' + Astro.props.ariaLabel;
+const alt = '/' + Astro.props.alt;
+
+---
+
+<li class="grid items-stretch p-2 border-solid border-4 gradient-border-light bg-lt-blue-light text-lt-gray
+dark:gradient-border-dark dark:bg-dk-purple dark:text-white
+">
+  <a href="#" aria-label={ariaLabel ? ariaLabel : null}
+    class="post-link border-2 border-transparent focus:outline focus:outline-4 focus:outline-offset-15	focus:outline-black dark:focus:outline-white hover:border-lt-purple dark:hover:border-dk-blue-light">
+    <Image
+      src={catImage}
+      alt=""
+      width="500"
+      height="300"
+    />
+    <div class="self-center text-center">
+      <span class="post-title block text-lg font-bold md:text-2xl py-4 px-2
+      after:bg-black after:h-0.5 after:block after:w-10 after:mt-4 after:mb-0 after:mx-auto after:content-['']
+      dark:after:bg-white">
+        Card example title
+      </span>
+      <span class="sr-only">on</span>
+      <span class="block text-base md:text-xl pb-4">
+        January 20th, 2023
+        <span aria-hidden="true"> | </span><span class="sr-only">in category</span> News
+      </span>
+    </div>
+  </a>
+</li>

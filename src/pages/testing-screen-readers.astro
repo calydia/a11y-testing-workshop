@@ -1,0 +1,145 @@
+---
+import Layout from '../layouts/Layout.astro';
+import FormWithErrors from '../components/FormWithErrors.astro';
+import CardOk from '../components/CardOk.astro';
+import CardNotOk from '../components/CardNotOk.astro';
+
+import MenuComponent from '../components/MenuComponent';
+import MenuComponentFixed from '../components/MenuComponentFixed';
+---
+<Layout title="Testing screen readers">
+  <main>
+    <div class="my-8 mx-4 max-w-[80em] lg:mx-auto">
+      <div class="mx-auto max-w-[40em]">
+        <h1 id="skip-target">
+          Testing screen readers
+        </h1>
+        <div>
+          <p>
+            One thing to remember is that nothing is better than having an actual screen reader user (or even plural) do the testing. When you don't use the screen reader daily, you won't be as fluent with it as someone who relies on it. That being said, there are times when you can't have access to a person who could do the testing, and then it's up to you.
+          </p>
+          <p>
+            In the optimal case, you would test with many screen readers and browsers. But the important thing is to test with at least one. Not all screen readers work the same, and some work better with a different browser than the other. I recommend checking out <a href="https://webaim.org/projects/screenreadersurvey9/">WebAIM's Screen Reader User Surveys</a> for some data about the most popular screen readers, browsers, and devices.
+          </p>
+          <p>
+            Usually, keyboard and screen reader functionality go partially hand in hand. If you can access an element with a keyboard, if it's not specifically hidden from the screen readers, you should be able to access it with a screen reader as well.
+          </p>
+          <p>
+            Here are a few things you should at least test for:
+          </p>
+          <ul class="list-disc ml-4">
+            <li>
+              Access to elements.
+            </li>
+            <li>
+              Everything that has ARIA in it. And I mean everything. Check even the most simple elements.
+            </li>
+            <li>
+              Media alternative texts. Do they make sense? Are they in the correct language? Automated testing tools can check that the text is there but that's as far as they can go.
+            </li>
+          </ul>
+          <p>
+            Again, I've added some mistakes on this page for you to locate. What kind of errors can you find?
+          </p>
+
+          <h2>Want to do more testing with a screen reader?</h2>
+          <p>
+            If you didn't get enough, you can visit my <a href="https://a11y.ing">accessibility site</a> for more demos. A few demos to mention are:
+          </p>
+          <ul class="list-disc ml-4">
+            <li>
+              <a href="https://a11y.ing/en/demo/perceivable/1-1-1-non-text-content-alt-attribute">1.1.1 Non-text content</a> - the image alternative texts
+            </li>
+            <li>
+              <a href="https://a11y.ing/en/demo/operable/2-5-3-label-in-name">2.5.3 Label In Name</a> - the importance of having the visual information in any accessible labels
+            </li>
+          </ul>
+          <p>
+            Or you can take a look at something you've created or been a part of creating. Real-life examples are always the best to help you see potential issues in how things are done.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <FormWithErrors />
+
+    <div class="my-8 mx-4 max-w-[80em] lg:mx-auto">
+      <div class="mx-auto max-w-[40em]">
+        <h2>Menus</h2>
+
+        <p>Listen to the menu functionalities. Here ARIA really makes a difference for the user.</p>
+
+        <MenuComponent client:load />
+
+        <MenuComponentFixed client:load/>
+
+        <h2>Cards</h2>
+        <p>With cards the most common mistake we make is to decide for the user what content is important in the card.
+          The accessible name should contain the visually shown text. And this means all of it.
+        </p>
+
+        <p>One reason we make the mistake of restricting the amount of content is that we feel it will be too heavy for the listener.
+          But we often also forget that screen reader users listen to the content with much faster pace than we do.
+        </p>
+
+        <p>One thing to know is that VoiceOver behaves a bit different in Sonoma than it does in Ventura!</p>
+
+        <ul class="grid grid-cols-1 md:grid-cols-2 gap-y-8 md:gap-8" role="list">
+          <CardOk index="1" alt="" />
+          <CardNotOk index="2" title="Interesting headline for this card" ariaLabel="ARIA Label: We are overriding the visible content and causing confusion" alt="dafesfadas" />
+          <CardNotOk index="3" title="Super interesting card!" ariaLabel="" alt="A fluffy cat sniffs her new crocheted bed." />
+          <CardNotOk index="4" title="What is this card?" />
+        </ul>
+
+        <p>One recommendation that is given in accessibility audits is to have the image below the heading.
+          That way it is clear for assistive technology users that this image is related to the heading.</p>
+
+        <p>If possible, this can be done by visually moving the image. So the structure in the DOM could be heading, text, image and then you can move the image with CSS to the correct place.</p>
+
+        <p>If you read this far, great! Now pause for just a moment to think how you feel about these types of cards or content teasers etc. Should the whole element be clickable or just the heading or a link button? There is no right or wrong answer, only preferences.</p>
+
+        <h2>Language</h2>
+
+        <p>The page language must be correct, CMS like Drupal usually handles it automatically. But for any text in another language, you need to specify the language with the lang attribute. <span lang="fi">Tämä teksti on suomea</span>.</p>
+        <p>When the language is marked correctly, the screen readers can read it correctly. Note that some screen readers require you to install language packages separately. So if your screen reader doesn't switch language, that might be the reason. You only need to make sure you mark the language correctly, the users worry about the rest.</p>
+
+        <div class="mt-12 lg:-ml-12 lg:-mr-12 p-12 border-solid border-4 border-lt-code-border dark:border-dk-code-border">
+          <h2 class="mt-0 mb-8">Screen reader usage</h2>
+          <p>Choose a screen reader you want to test with. Our laptops have VoiceOver in them you can use. If you've never used a screen reader before, let's start from the very beginning.</p>
+
+          <ol class="list-decimal	ml-4">
+            <li>Take a look at the screen reader settings. If you'll use VoiceOver, they are located under Accessibility > VoiceOver</li>
+            <li>You can find a VoiceOver Training on the settings page, but don't focus on it now. VoiceOver Utility has much more VoiceOver settings. What you want to do now is to check that you use the VoiceOver modifier you prefer. VoiceOver modifier is shortened in a lot of guides to VO.</li>
+            <li>Learn to toggle VoiceOver on and off. You can do it in the settings or use keyboard shortcuts.</li>
+            <li>Press VO + shift + F11. What happens?</li>
+            <li>Press VO + a. What happens? To stop, press crtl.</li>
+          </ol>
+
+          <h3>Now on to the actual usage:</h3>
+          <ol class="list-decimal	ml-4">
+            <li> I've hidden some mistakes on this page. Check the examples with a screen reader.</li>
+            <li>
+              Open up the VoiceOver rotor: VO + u. You can switch between different lists with the arrow keys (there are settings to define what lists are available in the Web settings, where the last tab is Web Rotor).<br>
+              </br>
+              With the rotor you can check for page headings and their levels much easier (you can press a number to show only that level of headings), you can check the page links and landmarks among many others. Test the different options available to you in the rotor and see how the results are shown.
+            </li>
+          </ol>
+
+          <h3>Some homework for you:</h3>
+
+          <ol class="list-decimal	ml-4">
+            <li>Familiarise yourself with desktop VoiceOver settings (or the screen reader of your choosing). You can tweak them to your liking.</li>
+            <li>Apple has a lot of good instructions for VoiceOver on all their devices, those can be helpful as well, at least check them out so you know where to find them if you need them.</li>
+            <li>Familiarise yourself a bit with whatever screen reader is available on your phone. iOs has VoiceOver and Android has TalkBack.
+              <ol class="list-decimal	ml-4">
+                <li>Learn to turn it on an off.</li>
+                <li>Learn how you should move from one element to another and how you can activate elements.</li>
+                <li>Learn to start and stop reading content.</li>
+              </ol>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>

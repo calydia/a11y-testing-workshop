@@ -1,0 +1,450 @@
+--- 
+import ThemeToggle from '../components/ThemeToggle.astro';
+import SkipLink from '../components/SkipLink.astro';
+import MainNavigation from '../components/MainNavigation.astro';
+import Footer from '../components/Footer.astro';
+const { title, metaDescription, currentUrl } = Astro.props
+
+import '@fontsource/satisfy';
+import '@fontsource/atkinson-hyperlegible';
+import '@fontsource/lato';
+
+---
+<html lang="en">
+  <head>
+    <title>{ title } | Testing for accessibility</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content={ title } />
+    <meta name="description" content={ metaDescription } />
+    <meta
+      property="og:description"
+      content={ metaDescription }
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en" />
+    <meta property="og:site_name" content="Testing for accessibility" />
+    <link rel="shortcut icon" href="/favicons/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicons/favicon.ico" type="image/x-icon">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="sitemap" href="/sitemap-index.xml" />
+  </head>
+  <body class="font-sans hyphens-auto">
+    <header id="page-top" class="bg-gradient-to-r from-lt-perfume via-lt-blue-light to-lt-perfume
+      dark:from-dk-purple-header dark:via-dk-blue-header dark:to-dk-purple-header">
+      <SkipLink skipId="skip" skipTarget="#skip-target" />
+      <div class="flex flex-wrap justify-end gap-1">
+        <ThemeToggle />
+      </div>
+      <div class="text-center clear-both lg:clear:none">
+        <div>
+          <a href="/en" class="inline-block border-y-4 border-transparent p-4
+            hover:border-y-4 hover:border-lt-purple dark:hover:border-dk-blue-light
+            focus:outline focus:outline-2 focus:outline-offset-4 	focus:outline-black dark:focus:outline-white">
+            <span class="block text-3xl font-title text-black dark:text-white dark:text-shadow-text">A11ying with Sanna - Testing for accessibility</span>
+            <span class="block text-xl mt-2 font-title leading-none text-blue-tory dark:text-lt-perfume dark:text-shadow-text">A little testing workshop</span>
+        </a>
+        </div>
+      </div>
+      <MainNavigation currentUrl={ currentUrl } />
+    </header>
+    <main class={`text-lg lg:text-xl mb-8 md:mb-12 max-w-7xl md:mx-auto text-lt-gray dark:text-dk-gray`}>
+      <slot />
+    </main>
+    <slot name="blogs" />
+    <Footer />
+    <div itemscope itemtype="https://schema.org/WebSite">
+      <meta itemprop="url" content="https://a11y-workshop.sanna.ninja/"/>
+      <meta itemprop="name" content="Testing for accessibility" />
+    </div>  
+  </body>
+</html>
+
+<style is:global>
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
+
+  :root {
+    --quote-icon: url('/icons/iconmonstr-quote-light.svg');
+    --external-icon: url('/icons/icons8-external-link-light.svg');
+    --exclamation-icon: url('/icons/hi-exclamation-circle-light.svg');
+    --nav-background: rgba(255,255,255,0.2);
+    --nav-border: rgba(255,255,255,0.4);
+    --menu-header-background: rgba(0,0,0,0.4);
+    --text-demo-color: #ccc;
+  }
+  :root.dark {
+    --quote-icon: url('/icons/iconmonstr-quote-dark.svg');
+    --external-icon: url('/icons/icons8-external-link-dark.svg');
+    --exclamation-icon: url('/icons/hi-exclamation-circle-dark.svg');
+    --nav-background: rgba(0,0,0,0.1);
+    --nav-border: rgba(0,0,0,0.4);
+    --menu-header-background: rgba(255,255,255,0.4);
+    --text-demo-color: #333333;
+  }
+
+  .light .main-image--wrapper::before{
+    background-color: rgba(230, 200, 252, 0.2);
+    background: linear-gradient(to right, rgba(187, 201, 247, 0.4) 0%, rgba(230,202, 252, 0.4) 50%, rgba(187, 201, 247, 0.4) 100%);
+  }
+
+  .dark .main-image--wrapper::before {
+    background-color: rgba(53, 3, 94, 0.2);
+    background: linear-gradient(to right, rgba(24, 57, 154, 0.3) 0%, rgba(53, 3, 94, 0.3) 50%, rgba(24, 57, 154, 0.3) 100%);
+  }
+
+  .gradient-border-light {
+    border-image: linear-gradient(to right, #46037e 0%, RoyalBlue 50%, #46037e 100%);
+    border-image-slice: 1;
+  }
+
+  .gradient-border-dark {
+    border-image: linear-gradient(to right, #46037e 0%, RoyalBlue 50%, #46037e 100%);
+    border-image-slice: 1;
+  }
+
+  .text-shadow-text {
+    text-shadow: rgb(0 0 0 / 46%) 4px 4px 6px;
+  }
+
+  .light {
+    @apply bg-lt-bg;
+  }
+  .dark {
+    @apply bg-dk-blue-darkest;
+  }
+  .dark .logo-dark,
+  .light .logo-light {
+    @apply hidden invisible;
+  }
+
+  .light .darkmode-light {
+    @apply hidden invisible;
+  }
+
+  .dark .darkmode-dark{
+    @apply hidden invisible;
+  }
+
+  p {
+    @apply text-lg md:text-xl mb-8 leading-relaxed md:leading-relaxed font-light;
+  }
+
+  .introduction p {
+    @apply text-xl md:text-2xl leading-relaxed md:leading-relaxed;
+  }
+
+  h1, h2, h3, h4 {
+    @apply text-lt-gray-heading dark:text-dk-gray-heading;
+  }
+
+  h1 {
+    @apply first-letter:capitalize text-3xl font-bold font-heading mt-4 mb-4 lg:mb-8 lg:text-4xl relative;
+  }
+  h2 {
+    @apply mb-4 text-2xl lg:text-3xl font-bold mt-12 font-heading relative;
+  }
+
+  h3 {
+    @apply mb-4 text-xl lg:text-2xl font-bold mt-12 font-heading relative;
+  }
+
+  h4 {
+    @apply mb-4 text-lg lg:text-xl font-bold mt-12 font-heading relative;
+  }
+
+  h1::before,
+  h2::before,
+  h3::before,
+  h4::before {
+    content: '';
+
+    @apply bg-lt-perfume dark:bg-dk-purple-header absolute block z-[-1] bottom-0 w-10 h-2.5;
+  }
+
+  .custom-grid {
+    grid-template-columns: 1fr 280px;
+  }
+
+  blockquote {
+    @apply relative bg-slate-300 dark:bg-slate-900 my-8 p-6 border-solid border-l-8 border-l-lt-purple dark:border-l-dk-blue-light;
+  }
+
+  .box p:first-of-type,
+  blockquote p:first-of-type {
+    @apply mt-0;
+  }
+
+  .box p:last-of-type {
+    @apply mb-0;
+  }
+
+  blockquote cite {
+    @apply block text-base not-italic mt-4 lg:text-right;
+  }
+
+  blockquote::after {
+    @apply block absolute right-[-4px] md:right-[-2rem] top-[-2rem] text-7xl bg-no-repeat bg-center h-16 w-16;
+
+    background-image: var(--quote-icon);
+    background-size: 4rem;
+    content: '';
+  }
+
+  strong {
+    @apply font-bold;
+  }
+  code {
+    @apply text-base border-solid border py-0.5 px-1 mx-0.5 inline-block bg-lt-code-bg border-lt-code-border dark:bg-dk-code-bg dark:border-dk-code-border shadow-lg;
+  }
+
+  main {
+    @apply text-lg lg:text-xl;
+  }
+
+  #main-menu-nav a,
+  main a,
+  footer a {
+    @apply text-lt-blue-dark dark:text-dk-blue-light;
+    @apply hover:underline hover:underline-offset-4 hover:text-lt-purple hover:decoration-2 dark:hover:text-wheat;
+    @apply focus:text-lt-purple dark:focus:text-wheat focus:outline-2 focus:outline-offset-2 focus:no-underline focus:outline-lt-purple dark:focus:outline-wheat;
+  }
+
+  .bodytext ul,
+  .box ul {
+    @apply list-disc ml-5 leading-loose;
+  }
+
+  a[aria-current=true],
+  a[aria-current="page"],
+  #main-menu-nav a[aria-current="page"],
+  .active-link {
+    @apply underline decoration-2 underline-offset-4 text-lt-purple dark:text-wheat;
+    @apply hover:decoration-4;
+  }
+
+  button[aria-current="true"] {
+    @apply underline decoration-2 underline-offset-4 text-lt-purple dark:text-wheat;
+    @apply hover:decoration-4;
+  }
+
+  ol {
+    @apply list-decimal leading-normal;
+
+    margin-block-start: 0.25em;
+    margin-block-end: 0.25em;
+    margin-inline-start: 1.5em;
+    margin-inline-end: 0;
+    padding-inline-start: 0;
+  }
+
+  ol, ul {
+    @apply font-light;
+  }
+
+  ol li,
+  ul li {
+    @apply my-4;
+  }
+
+  .bodytext ol, ul {
+    @apply mb-8;
+  }
+  
+  .bodytext ol ol,
+  .bodytext ul ul {
+    @apply mb-0;
+  }
+
+  blockquote ul {
+    @apply list-disc;
+  }
+
+  blockquote ol,
+  blockquote ul {
+    margin-block-start: 0.25em;
+    margin-block-end: 0.25em;
+    margin-inline-start: 1.5em;
+    margin-inline-end: 0;
+    padding-inline-start: 0;
+  }
+
+  blockquote p:last-of-type {
+    @apply mb-0;
+  }
+
+  .hide-menu {
+    @apply hidden invisible;
+  }
+
+  .menu-button[aria-expanded="false"] + ul {
+    @apply hidden invisible;
+  }
+
+  .menu-button[aria-expanded="true"] .menu-button--icon  {
+    @apply rotate-180;
+  }
+
+  .menu-toggle[aria-expanded="false"] + ul {
+    @apply max-lg:hidden max-lg:invisible;
+  }
+
+  .menu-toggle[aria-expanded="true"] .menu-open {
+    @apply max-lg:hidden max-lg:invisible;
+  }
+  .menu-toggle[aria-expanded="false"] .menu-close {
+    @apply max-lg:hidden max-lg:invisible;
+  }
+
+  .button {
+    @apply bg-lt-blue-dark text-white border-4 border-transparent dark:bg-dk-blue-light dark:text-black py-3 px-5;
+    @apply hover:border-4 hover:border-lt-blue-dark hover:bg-transparent hover:text-lt-blue-dark dark:hover:text-dk-blue-light dark:hover:border-dk-blue-light;
+    @apply focus:outline focus:outline-2 focus:outline-offset-4 focus:outline-black dark:focus:outline-white;
+  }
+
+  .button--alternative {
+    @apply text-lt-blue-dark dark:text-dk-blue-light py-2 px-3;
+  }
+
+  .item--transition {
+    @apply transition-colors ease-in-out duration-300;
+    @apply hover:transition-colors hover:ease-in-out hover:duration-300;
+  }
+
+  .hover--border {
+    @apply border-y-4 border-transparent;
+    @apply hover:border-y-4 hover:border-lt-purple dark:hover:border-dk-blue-light;
+    @apply focus:outline focus:outline-2 focus:outline-offset-4	focus:outline-black dark:focus:outline-white;
+  }
+
+  input[type="text"] {
+    @apply py-3.5 px-4 my-2 text-black border-2 m-0 border-solid border-black dark:border-white;
+    @apply focus:outline focus:outline-2 focus:outline-offset-4	focus:outline-black dark:focus:outline-white;
+  }
+
+  main a {
+    @apply underline;
+  }
+
+  main a[href^="https://"]::after {
+    @apply inline-block bg-no-repeat bg-right-bottom h-6 w-6;
+
+    background-image: var(--external-icon);
+    background-size: 1.25rem 1.25rem;
+    content: '';
+  }
+
+  .nav-bar {
+    @apply pb-4 ;
+    background-color: var(--nav-background);
+    border-top: 1px solid var(--nav-border);
+  }
+
+
+  /* Visuals */
+  .color-contrast {
+    color: var(--text-demo-color);
+  }
+
+  /* Menu component */
+  .hide {
+    @apply hidden invisible;
+  }
+
+  /* Forms */
+  input {
+    color: var(--input-color);
+    border: 1px solid var(--input-border-color);
+    font-size: 1.125rem;
+    padding: var(--spacing-default);
+  }
+
+  select {
+    border: 1px solid var(--input-border-color);
+    color: var(--input-color);
+    padding: var(--spacing-default);
+  }
+</style>
+
+<script>
+  document.addEventListener('keyup', (event) => {
+
+    if (event.code == "Escape") {
+      const targetClass = (event.target as HTMLButtonElement).classList;
+      const currentExpanded = (event.target as HTMLButtonElement).getAttribute('aria-expanded');
+
+      /**
+       * Main menu
+       */
+
+      // If we press esc when focused on a menu button or the toggle.
+      if (targetClass.contains('menu-button') || targetClass.contains('menu-toggle') || targetClass.contains('mobile-menu-toggle')) {
+        (event.target as HTMLButtonElement).setAttribute('aria-expanded', 'false');
+        (event.target as HTMLButtonElement).focus();
+      }
+
+      // If we press esc when focused on a menu button or the toggle.
+      if (targetClass.contains('side-menu-button') || targetClass.contains('menu-toggle') || targetClass.contains('mobile-menu-toggle')) {
+        (event.target as HTMLButtonElement).setAttribute('aria-expanded', 'false');
+        (event.target as HTMLButtonElement).focus();
+      }
+
+      // If esc is pressed on a menu button with aria-expanded as false, close the menu and focus the toggle.
+      if (targetClass.contains('menu-button') && currentExpanded == 'false') {
+        const menuToggle = document.getElementById('main-menu-toggle');
+        (menuToggle as HTMLButtonElement).setAttribute('aria-expanded', 'false');
+        (menuToggle as HTMLButtonElement).focus();
+      }
+
+      // If esc is pressed on a menu plus/minus button with aria-expanded as false, close the menu and focus the previous button.
+      if (targetClass.contains('mobile-menu-toggle') && currentExpanded == 'false') {
+        const closestMenuButton = (event.target as HTMLAnchorElement).closest('.menu-button-ul');
+        if (closestMenuButton) {
+          (closestMenuButton.previousSibling as HTMLButtonElement).setAttribute('aria-expanded', 'false');
+          (closestMenuButton.previousSibling as HTMLButtonElement).focus();
+        }
+      }
+
+      // Find closest menu button or menu toggle, close menu elements accordingly.
+      if ((event.target as HTMLElement).tagName == 'A') {
+        const closestMenuLevelToggle = (event.target as HTMLAnchorElement).closest('.menu-lower-level');
+        const closestMenuButton = (event.target as HTMLAnchorElement).closest('.menu-button-ul');
+        const closestMenuToggle = (event.target as HTMLAnchorElement).closest('#main-menu');
+
+        if (closestMenuLevelToggle) {
+          (closestMenuLevelToggle.previousSibling as HTMLButtonElement).setAttribute('aria-expanded', 'false');
+          (closestMenuLevelToggle.previousSibling as HTMLButtonElement).focus();
+        } else if (closestMenuButton) {
+          (closestMenuButton.previousSibling as HTMLButtonElement).setAttribute('aria-expanded', 'false');
+          (closestMenuButton.previousSibling as HTMLButtonElement).focus();
+        } else if (closestMenuToggle) {
+          const menuToggle = document.getElementById('main-menu-toggle');
+          (menuToggle as HTMLButtonElement).setAttribute('aria-expanded', 'false');
+          (menuToggle as HTMLButtonElement).focus();
+        }
+      }
+
+      /**
+       * Language switcher
+       */
+
+      // If we press esc when focused on language switcher toggle.
+      if (targetClass.contains('lang-switcher')) {
+        (event.target as HTMLButtonElement).setAttribute('aria-expanded', 'false');
+        (event.target as HTMLButtonElement).focus();
+      }
+
+      // Close the language swicher if we press esc in a language switcher link
+      if ((event.target as HTMLElement).tagName == 'A') {
+        const closestMenuToggle = (event.target as HTMLAnchorElement).closest('#lang-switcher');
+
+        if (closestMenuToggle) {
+          const menuToggle = document.getElementById('language-menu-button');
+          (menuToggle as HTMLButtonElement).setAttribute('aria-expanded', 'false');
+          (menuToggle as HTMLButtonElement).focus();
+        }
+      }
+    }
+  });
+</script>

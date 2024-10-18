@@ -1,0 +1,64 @@
+---
+  import { Icon } from 'astro-icon/components';
+---
+
+<nav id="main-menu-nav" aria-labelledby="main-menu-label" class="text-black dark:text-white py-1 mt-2 nav-bar" aria-label="Main">
+  <button id="main-menu-toggle" class="menu-toggle flex items-center gap-2 mt-2 mx-auto text-black border-y-4 border-transparent dark:text-white lg:hidden lg:invisible
+  hover:border-y-4 hover:border-lt-purple dark:hover:border-dk-blue-light
+  focus:outline focus:outline-2 focus:outline-offset-4 	focus:outline-black dark:focus:outline-white"
+    aria-expanded="false" aria-controls="main-menu" aria-haspopup="true">
+    <Icon name="bars-3-solid" class="menu-open h-8 w-8" aria-hidden="true" />
+    <Icon name="x-mark-solid" class="menu-close h-8 w-8" aria-hidden="true" />
+    <span>Menu</span>
+  </button>
+  <ul id="main-menu" class="text-left mx-auto lg:visible lg:flex lg:flex-wrap lg:justify-center mt-4 p-0 mb-0
+    max-lg:absolute max-lg:z-20 lg:w-[90%] max-lg:mx-auto max-lg:left-0 max-lg:right-0 max-lg:p-4 max-lg:border-2 max-lg:border-solid max-lg:border-black max-lg:dark:border-white max-lg:bg-lt-code-bg max-lg:dark:bg-dk-code-bg"
+  >
+  <li>
+    <a class="px-4 py-3 text-base font-menu block lg:mx-2" href="/">
+      Home
+    </a>
+  </li>
+  <li>
+    <a class="px-4 py-3 text-base font-menu block lg:mx-2" href="/testing-visuals">
+      Visuals
+    </a>
+  </li>
+  <li>
+    <a class="px-4 py-3 text-base font-menu block lg:mx-2" href="/testing-zooming">
+      Zooming
+    </a>
+  </li>
+  <li>
+    <a class="px-4 py-3 text-base font-menu block lg:mx-2" href="/testing-keyboard-accessibility">
+      Keyboard
+    </a>
+  </li>
+  <li>
+    <a class="px-4 py-3 text-base font-menu block lg:mx-2" href="/testing-automated-tools">
+      Automated tools
+    </a>
+  </li>
+  <li>
+    <a class="px-4 py-3 text-base font-menu block lg:mx-2" href="/testing-screen-readers">
+      Screen readers
+    </a>
+  </li>
+  <li>
+    <a class="px-4 py-3 text-base font-menu block lg:mx-2" href="/resources">
+      Resources
+    </a>
+  </li>
+</ul>
+</nav>
+
+<script>
+
+  const subButton = document.querySelector('#main-menu-toggle');
+
+  subButton?.addEventListener('click', () => {
+    const currentExpanded = subButton.getAttribute('aria-expanded');
+    (currentExpanded == 'true') ? subButton.setAttribute('aria-expanded', 'false') : subButton.setAttribute('aria-expanded', 'true');
+  });
+
+</script>
