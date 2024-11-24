@@ -4,142 +4,140 @@ import FormWithErrors from '../components/FormWithErrors.astro';
 ---
 
 <Layout title="Testing keyboard functionality">
-  <main>
-    <div class="my-8 mx-4 max-w-[80em] lg:mx-auto">
-      <div class="mx-auto max-w-[40em]">
-        <h1 id="skip-target">
-          Testing keyboard functionality
-        </h1>
+  <div class="my-8 mx-4 max-w-[80em] lg:mx-auto">
+    <div class="mx-auto max-w-[40em]">
+      <h1 id="skip-target">
+        Testing keyboard functionality
+      </h1>
 
-        <div>
-          <p>Testing for keyboard accessibility boils down to a few questions:</p>
-          <ul>
-            <li>
-              Can you access all the content on the page? Links, buttons, etc.
-            </li>
-            <li>
-              If there are dialogs, is the focus maintained properly? Whenever a dialog is open, the focus should remain inside that element and not go behind the open dialog.
-            </li>
-            <li>
-              Do you actually know where you are on the page when you move from one element to another?
-            </li>
-            <li>
-              <p>Are there keyboard shortcuts that use only letter (including upper- and lower-case letters), punctuation, number, or symbol characters?</p>
-              <ul>
-                <li>
-                  The user needs to be able to either turn these off or change the shortcuts. On basic websites these are quite rare.
-                </li>
-              </ul>
-            </li>
-            <li>
-              Is there a skip to content type link as the first focusable element on the page? It can be always visible or become visible when focused.
-            </li>
-            <li>
-              If there are more repeating blocks on the site, can those be skipped? E.g. does the element have a skip link before all the content?
-            </li>
-            <li>
-              Is the focus order logical?
-            </li>
-          </ul>
-          <p>
-            When you navigate with a keyboard, the idea is to jump from one focusable element to the next. The focus isn't supposed to move to e.g. text content or headings. <a href="/answers" class="sr-only focus:outline-0">Do you know where you are?</a>
-          </p>
-          <p>
-            The item you are focusing on should have a visible enough focus style. According to WCAG, the browser default style is enough to pass the criterion, but it's better to have more visible styles. Also, WCAG 2.2 might bring on changes.
-          </p>
+      <div>
+        <p>Testing for keyboard accessibility boils down to a few questions:</p>
+        <ul>
+          <li>
+            Can you access all the content on the page? Links, buttons, etc.
+          </li>
+          <li>
+            If there are dialogs, is the focus maintained properly? Whenever a dialog is open, the focus should remain inside that element and not go behind the open dialog.
+          </li>
+          <li>
+            Do you actually know where you are on the page when you move from one element to another?
+          </li>
+          <li>
+            <p>Are there keyboard shortcuts that use only letter (including upper- and lower-case letters), punctuation, number, or symbol characters?</p>
+            <ul>
+              <li>
+                The user needs to be able to either turn these off or change the shortcuts. On basic websites these are quite rare.
+              </li>
+            </ul>
+          </li>
+          <li>
+            Is there a skip to content type link as the first focusable element on the page? It can be always visible or become visible when focused.
+          </li>
+          <li>
+            If there are more repeating blocks on the site, can those be skipped? E.g. does the element have a skip link before all the content?
+          </li>
+          <li>
+            Is the focus order logical?
+          </li>
+        </ul>
+        <p>
+          When you navigate with a keyboard, the idea is to jump from one focusable element to the next. The focus isn't supposed to move to e.g. text content or headings. <a href="/answers" class="sr-only focus:outline-0">Do you know where you are?</a>
+        </p>
+        <p>
+          The item you are focusing on should have a visible enough focus style. According to WCAG, the browser default style is enough to pass the criterion, but it's better to have more visible styles. Also, WCAG 2.2 might bring on changes.
+        </p>
 
-          <h2>How to operate the keyboard</h2>
-          <ul>
-            <li>
-              Use the <code>tab</code> key to move from one element to the next.
-            </li>
-            <li>
-              Use <code>shift</code> + <code>tab</code> to move from one element to the previous one.
-            </li>
-            <li>
-              To visit a link, press <code>enter</code>.
-            </li>
-            <li>
-              To press a button, press <code>enter</code> or <code>space</code>.
-            </li>
-            <li>
-              When inside a radio button set, press arrow keys to move between the options.
-            </li>
-          </ul>
+        <h2>How to operate the keyboard</h2>
+        <ul>
+          <li>
+            Use the <code>tab</code> key to move from one element to the next.
+          </li>
+          <li>
+            Use <code>shift</code> + <code>tab</code> to move from one element to the previous one.
+          </li>
+          <li>
+            To visit a link, press <code>enter</code>.
+          </li>
+          <li>
+            To press a button, press <code>enter</code> or <code>space</code>.
+          </li>
+          <li>
+            When inside a radio button set, press arrow keys to move between the options.
+          </li>
+        </ul>
 
-          <h3>Safari has a setting that allows tabbing</h3>
-          <p>If you use Safari, know that you will need to first allow tabbing or otherwise it's not going to work.</p><p>
-            Go to Safari / Preferences / Advanced and System Preferences / Accessibility: Press Tab to highlight each item on a web page
-          </p>
-        </div>
+        <h3>Safari has a setting that allows tabbing</h3>
+        <p>If you use Safari, know that you will need to first allow tabbing or otherwise it's not going to work.</p><p>
+          Go to Safari / Preferences / Advanced and System Preferences / Accessibility: Press Tab to highlight each item on a web page
+        </p>
       </div>
     </div>
+  </div>
 
-    <FormWithErrors />
+  <FormWithErrors />
 
-    <div class="my-8 mx-4 max-w-[80em] lg:mx-auto">
-      <div class="mx-auto max-w-[40em]">
-        <h2>Element semantics</h2>
-        <p>You might have heard the saying "A link is not a button" or vice versa. And this is not a minor thing. Links and buttons are semantic elements with different functions. A button does something on the page, for example, opens a modal. A link will take you somewhere, usually to another page.</p>
-        <p>We all have probably met the button-looking links, which are quite common these days. While they can be great for catching people's eye and getting them to click on these "CTA buttons", there is also a downside. These can be confusing for users because you can't visually tell if is it a link or a button. And if you are a user who activates buttons with a spacebar but the element is actually a link... well. Try what happens with the link below this paragraph.</p>
-        <a href="#" class="button inline-block">This is a link button</a>
-        <p>Another thing that is not a button is a <code>{`<div>`}</code>. Use <code>{`<button>`}</code> for elements that open and close modals. That will save you time and reduce the number of reported bugs.</p>
+  <div class="my-8 mx-4 max-w-[80em] lg:mx-auto">
+    <div class="mx-auto max-w-[40em]">
+      <h2>Element semantics</h2>
+      <p>You might have heard the saying "A link is not a button" or vice versa. And this is not a minor thing. Links and buttons are semantic elements with different functions. A button does something on the page, for example, opens a modal. A link will take you somewhere, usually to another page.</p>
+      <p>We all have probably met the button-looking links, which are quite common these days. While they can be great for catching people's eye and getting them to click on these "CTA buttons", there is also a downside. These can be confusing for users because you can't visually tell if is it a link or a button. And if you are a user who activates buttons with a spacebar but the element is actually a link... well. Try what happens with the link below this paragraph.</p>
+      <a href="#" class="button inline-block">This is a link button</a>
+      <p>Another thing that is not a button is a <code>{`<div>`}</code>. Use <code>{`<button>`}</code> for elements that open and close modals. That will save you time and reduce the number of reported bugs.</p>
 
-        <h3 class="text-3xl	lg:text-4xl">Elements with multiple links to it</h3>
+      <h3 class="text-3xl	lg:text-4xl">Elements with multiple links to it</h3>
 
-        <p>
-          You might have seen implementations of cards where you have separate links to the target. For example, in an image, heading and then a link button. While this technically is allowed, it is not recommended for several reasons.
-          It can get tedious to try to go through a list of items when you have multiple links for one item. Accessibility rules also dictate that you should always link to the same target with the same link text. This implementation breaks that as well.
-        </p>
-        <p>
-          This type of approach can be also often seen in search results. Avoid it if you can.
-        </p>
-        <p>
-          Note that for a screen reader user a link with the URL as the text is not an optimal user experience.
-        </p>
+      <p>
+        You might have seen implementations of cards where you have separate links to the target. For example, in an image, heading and then a link button. While this technically is allowed, it is not recommended for several reasons.
+        It can get tedious to try to go through a list of items when you have multiple links for one item. Accessibility rules also dictate that you should always link to the same target with the same link text. This implementation breaks that as well.
+      </p>
+      <p>
+        This type of approach can be also often seen in search results. Avoid it if you can.
+      </p>
+      <p>
+        Note that for a screen reader user a link with the URL as the text is not an optimal user experience.
+      </p>
 
-        <div class="border-t-2 mb-8">
-          <a href="#"><h3>First element</h3></a>
-          <p>This is some description</p>
-          <a href="#">https://the-url-of-this-page</a>
-        </div>
-        <div class="border-t-2 mb-8">
-          <a href="#"><h3>Second element</h3></a>
-          <p>This is some description</p>
-          <a href="#">https://the-url-of-this-page</a>
-        </div>
-        <div class="border-t-2 mb-8">
-          <a href="#"><h3>Third element</h3></a>
-          <p>This is some description</p>
-          <a href="#">https://the-url-of-this-page</a>
-        </div>
-        <div class="border-t-2 border-b-2 pb-10 mb-8">
-          <a href="#"><h3>Fourth element</h3></a>
-          <p>This is some description</p>
-          <a href="#">https://the-url-of-this-page</a>
-        </div>
+      <div class="border-t-2 mb-8">
+        <a href="#"><h3>First element</h3></a>
+        <p>This is some description</p>
+        <a href="#">https://the-url-of-this-page</a>
+      </div>
+      <div class="border-t-2 mb-8">
+        <a href="#"><h3>Second element</h3></a>
+        <p>This is some description</p>
+        <a href="#">https://the-url-of-this-page</a>
+      </div>
+      <div class="border-t-2 mb-8">
+        <a href="#"><h3>Third element</h3></a>
+        <p>This is some description</p>
+        <a href="#">https://the-url-of-this-page</a>
+      </div>
+      <div class="border-t-2 border-b-2 pb-10 mb-8">
+        <a href="#"><h3>Fourth element</h3></a>
+        <p>This is some description</p>
+        <a href="#">https://the-url-of-this-page</a>
+      </div>
 
-        <div class="button inline-block">Can you access this button with a keyboard?</div>
+      <div class="button inline-block">Can you access this button with a keyboard?</div>
 
-        <div class="mt-12 lg:-ml-12 lg:-mr-12 p-12 border-solid border-4 border-lt-code-border dark:border-dk-code-border">
-          <h2 class="mt-0 mb-8">Your tasks</h2>
-          <p>Practice keyboard usage.</p>
-          <ol class="list-decimal	ml-4">
-            <li>
-              Basic usage: move from one element both forwards and backwards, activate buttons and links.
-            </li>
-            <li>
-              Navigate forms. Make sure you know how to use the different types of basic form elements.
-            </li>
-            <li>
-              Activate the link button on this page with the space key. What happened?
-            </li>
-            <li>
-              Check the last example on this page with multiple links for the same element and the button at the end.
-            </li>
-          </ol>
-        </div>
+      <div class="mt-12 lg:-ml-12 lg:-mr-12 p-12 border-solid border-4 border-lt-code-border dark:border-dk-code-border">
+        <h2 class="mt-0 mb-8">Your tasks</h2>
+        <p>Practice keyboard usage.</p>
+        <ol class="list-decimal	ml-4">
+          <li>
+            Basic usage: move from one element both forwards and backwards, activate buttons and links.
+          </li>
+          <li>
+            Navigate forms. Make sure you know how to use the different types of basic form elements.
+          </li>
+          <li>
+            Activate the link button on this page with the space key. What happened?
+          </li>
+          <li>
+            Check the last example on this page with multiple links for the same element and the button at the end.
+          </li>
+        </ol>
       </div>
     </div>
-  </main>
+  </div>
 </Layout>

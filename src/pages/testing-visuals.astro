@@ -9,169 +9,167 @@ import manWorking from '../images/man-working.jpg';
 ---
 
 <Layout title="Testing visuals">
-  <main>
-    <div class="my-8 mx-4 max-w-[80em] lg:mx-auto">
-      <div class="mx-auto max-w-[40em]">
-        <h1 id="skip-target">
-          Testing visuals
-        </h1>
-        <div>
-          <ul>
-            <li>
-              <p>
-                Check the colors on the site against each background color they are used with.
-              </p>
-              <ul>
-                <li>
-                  For large text (24px regular or 19px bold), the contrast needs to be 3:1.
-                </li>
-                <li>
-                  For regular text, the contrast needs to be 4.5:1. (For AAA level 7:1.)
-                </li>
-                <li>
-                  For non-text elements (UI components, graphical objects), the contrast needs to be 3:1.
-                </li>
-              </ul>
-            </li>
-            <li>
-              Is the font readable?
-            </li>
-            <li>
-              Is some meaning indicated only by color?
-            </li>
-            <li>
-              <p>
-                Is there enough spacing for the text? Recommendation:
-              </p>
-              <ul>
-                <li>
-                  1.5 line height for blocks of text.
-                </li>
-                <li>
-                  1-1.3 line height for headings (depends on the font and font size).
-                </li>
-              </ul>
-            </li>
-            <li>
-              The user needs to be able to set the spacing following the text paragraphs to at least 2 times the font size. The actual value on the site doesn't need to follow this.
-            </li>
-            <li>
-              Is the page structure logical?
-            </li>
-          </ul>
-        </div>
-
-        <p class="important">
-          You can use a <a href="https://cdpn.io/stevef/debug/YLMqbo">text spacing bookmarklet</a> to ensure the users can alter the text spacing as defined in the WCAG. Just add the bookmarklet and then press it. If you see no changes on the page, it most likely means that the site prevents the user from setting the values.
-        </p>
-
-        <p id="text-demo" class="text-demo">Just to demonstrate the effect of color contrast, you can press the next button to change the color contrast of this text paragraph to a lesser contrast. If you have a good screen and color vision, you might still be able to read the text. But not everyone is so lucky.</p>
-        <button id="color-toggle" class="button demo-button">Press this button to toggle color contrast</button>
-
-        <h2>Hover and focus styles</h2>
-
-        <p>Hover styles aren't required by WCAG. But if they are present, they need to comply with the rules. It is usually recommended to have at least two visual cues. Hover styles are recommended because they provide useful information for sighted users.</p>
-
-        <p>Focus styles do have requirements. Check that all interactive elements have focus styles that are visible enough. There are multiple styles of focuses on this site just to demonstrate different types of options.</p>
-
-        <h2>Image alternative texts</h2>
-
-        <p>While most of the image alternative texts are content, some images are added by us. Those need to have a good alternative text or they should be hidden from assistive technologies. And translations are super important! (For everything we add: images, texts etc)</p>
-
-        Here are some examples of alternative texts. Do you think they are descriptive enough? Did your expectations match the images?
-
-        <h3>Example aternative text: Logo</h3>
-
-        <p>A made up example: The logos shown would be links. All of the logo images have an alt "Logo". Do you as a user know where the link will take you?</p>
-
-        <div class="flex wrap gap-2">
-          <Image
-            src={logoExample}
-            alt="Example image with three logos: GitHub, GitLab and LinkedIn"
-            width="178"
-            height="80"
-          />
-        </div>
-
-        <p class="mt-4">With logos, add the text as the alt or in the case of links, describe the target. For example: LUT University front page/website.</p>
-
-        <h3>Example alternative text: Water</h3>
-
-        <p>Water is a realy generic alternative text. It can be a lot of things. Here are a couple of examples of very different images of water.</p>
-        <div class="flex wrap gap-2">
-          <Image
-            src={waterFirst}
-            alt="Water"
-            width="500"
-            height="357"
-            class="w-1/2 h-auto"
-          />
-          <Image
-            src={waterSecond}
-            alt="Water"
-            width="500"
-            height="357"
-            class="w-1/2 h-auto"
-          />
-        </div>
-        <p class="mt-4">While technically true, maybe they could be a bit more descriptive?</p>
-
-        <p>Again, technically yes, but my guesses wouldn't have been right. And not everyone has the same types of things in mind when they think of the seasons, right? Also, the word "image" is unnecessary because assistive technologies announce it by default and now it will be said twice.</p>
-
-        <h3>What should a good alt text have, then?</h3>
-        <p>Some recommendations:</p>
-        <ul class="list-disc ml-5 leading-loose">
-          <li>Don't add the word "image".</li>
-          <li>Don't add the word "logo". If it is a logo, just add the company name.</li>
-          <li>Describe what is in the image from the point-of-view of the context where it is used.</li>
-          <li>If the image is a link, describe the target instead of the image.</li>
+  <div class="my-8 mx-4 max-w-[80em] lg:mx-auto">
+    <div class="mx-auto max-w-[40em]">
+      <h1 id="skip-target">
+        Testing visuals
+      </h1>
+      <div>
+        <ul>
+          <li>
+            <p>
+              Check the colors on the site against each background color they are used with.
+            </p>
+            <ul>
+              <li>
+                For large text (24px regular or 19px bold), the contrast needs to be 3:1.
+              </li>
+              <li>
+                For regular text, the contrast needs to be 4.5:1. (For AAA level 7:1.)
+              </li>
+              <li>
+                For non-text elements (UI components, graphical objects), the contrast needs to be 3:1.
+              </li>
+            </ul>
+          </li>
+          <li>
+            Is the font readable?
+          </li>
+          <li>
+            Is some meaning indicated only by color?
+          </li>
+          <li>
+            <p>
+              Is there enough spacing for the text? Recommendation:
+            </p>
+            <ul>
+              <li>
+                1.5 line height for blocks of text.
+              </li>
+              <li>
+                1-1.3 line height for headings (depends on the font and font size).
+              </li>
+            </ul>
+          </li>
+          <li>
+            The user needs to be able to set the spacing following the text paragraphs to at least 2 times the font size. The actual value on the site doesn't need to follow this.
+          </li>
+          <li>
+            Is the page structure logical?
+          </li>
         </ul>
+      </div>
 
-        <p>And finally, if the image really doesn't bring any meaning to the context where it is used, just leave the alt text empty. That way you'll reduce unnecessary clutter from the users.</p>
+      <p class="important">
+        You can use a <a href="https://cdpn.io/stevef/debug/YLMqbo">text spacing bookmarklet</a> to ensure the users can alter the text spacing as defined in the WCAG. Just add the bookmarklet and then press it. If you see no changes on the page, it most likely means that the site prevents the user from setting the values.
+      </p>
 
-        <div class="mt-12 lg:-ml-12 lg:-mr-12 p-4 md:p-12 border-solid border-4 border-lt-code-border dark:border-dk-code-border">
-          <h2 class="mt-4 mb-8 md:mt-0">Your tasks</h2>
-          <ol class="list-disc ml-5 leading-loose">
-            <li>
-              Test the text spacing bookmarklet (or use a CSS snippet type solution to tweak the site code). If you test it on this page, you can see how it behaves when you have an issue.
-            </li>
-            <li>
-              Take a look at the image examples on this page. Were you able to tell the season images apart?
-            </li>
-            <li>
-              Let's think about image alternative texts for another moment. Think of this image:
-              <Image
-                src={manWorking}
-                alt="Man working on a computer at an office desk"
-                width={800}
-                height={533}
-                class="mt-4"
-              />
-              <ul class="list-disc ml-5 leading-loose mb-0">
-                <li>What could be a good alt text for this?</li>
-                <li>Would you change it if the image was added on a site that sells office supplies and office furniture?</li>
-                <li class="mb-0">How about on a site selling used laptops?</li>
-              </ul>
-            </li>
-          </ol>
-        </div>
+      <p id="text-demo" class="text-demo">Just to demonstrate the effect of color contrast, you can press the next button to change the color contrast of this text paragraph to a lesser contrast. If you have a good screen and color vision, you might still be able to read the text. But not everyone is so lucky.</p>
+      <button id="color-toggle" class="button demo-button">Press this button to toggle color contrast</button>
 
-        <div class="mt-12">Image credits:
-          <ul class="list-disc ml-5 leading-loose">
-            <li>
-              <a href="https://www.pexels.com/photo/photo-of-bubbles-underwater-1452701/">Photo by Berend de Kort</a> 
-            </li>
-            <li>
-              <a href="https://www.pexels.com/photo/fluid-pouring-in-pint-glass-416528/">Photo by Pixabay</a>
-            </li>
-            <li>
-              <a href="https://www.pexels.com/photo/man-in-white-dress-shirt-sitting-on-black-rolling-chair-while-facing-black-computer-set-and-smiling-840996/">Photo by Andrea Piacquadio</a>
-            </li>
-          </ul>
-        </div>
+      <h2>Hover and focus styles</h2>
+
+      <p>Hover styles aren't required by WCAG. But if they are present, they need to comply with the rules. It is usually recommended to have at least two visual cues. Hover styles are recommended because they provide useful information for sighted users.</p>
+
+      <p>Focus styles do have requirements. Check that all interactive elements have focus styles that are visible enough. There are multiple styles of focuses on this site just to demonstrate different types of options.</p>
+
+      <h2>Image alternative texts</h2>
+
+      <p>While most of the image alternative texts are content, some images are added by us. Those need to have a good alternative text or they should be hidden from assistive technologies. And translations are super important! (For everything we add: images, texts etc)</p>
+
+      Here are some examples of alternative texts. Do you think they are descriptive enough? Did your expectations match the images?
+
+      <h3>Example aternative text: Logo</h3>
+
+      <p>A made up example: The logos shown would be links. All of the logo images have an alt "Logo". Do you as a user know where the link will take you?</p>
+
+      <div class="flex wrap gap-2">
+        <Image
+          src={logoExample}
+          alt="Example image with three logos: GitHub, GitLab and LinkedIn"
+          width="178"
+          height="80"
+        />
+      </div>
+
+      <p class="mt-4">With logos, add the text as the alt or in the case of links, describe the target. For example: LUT University front page/website.</p>
+
+      <h3>Example alternative text: Water</h3>
+
+      <p>Water is a realy generic alternative text. It can be a lot of things. Here are a couple of examples of very different images of water.</p>
+      <div class="flex wrap gap-2">
+        <Image
+          src={waterFirst}
+          alt="Water"
+          width="500"
+          height="357"
+          class="w-1/2 h-auto"
+        />
+        <Image
+          src={waterSecond}
+          alt="Water"
+          width="500"
+          height="357"
+          class="w-1/2 h-auto"
+        />
+      </div>
+      <p class="mt-4">While technically true, maybe they could be a bit more descriptive?</p>
+
+      <p>Again, technically yes, but my guesses wouldn't have been right. And not everyone has the same types of things in mind when they think of the seasons, right? Also, the word "image" is unnecessary because assistive technologies announce it by default and now it will be said twice.</p>
+
+      <h3>What should a good alt text have, then?</h3>
+      <p>Some recommendations:</p>
+      <ul class="list-disc ml-5 leading-loose">
+        <li>Don't add the word "image".</li>
+        <li>Don't add the word "logo". If it is a logo, just add the company name.</li>
+        <li>Describe what is in the image from the point-of-view of the context where it is used.</li>
+        <li>If the image is a link, describe the target instead of the image.</li>
+      </ul>
+
+      <p>And finally, if the image really doesn't bring any meaning to the context where it is used, just leave the alt text empty. That way you'll reduce unnecessary clutter from the users.</p>
+
+      <div class="mt-12 lg:-ml-12 lg:-mr-12 p-4 md:p-12 border-solid border-4 border-lt-code-border dark:border-dk-code-border">
+        <h2 class="mt-4 mb-8 md:mt-0">Your tasks</h2>
+        <ol class="list-disc ml-5 leading-loose">
+          <li>
+            Test the text spacing bookmarklet (or use a CSS snippet type solution to tweak the site code). If you test it on this page, you can see how it behaves when you have an issue.
+          </li>
+          <li>
+            Take a look at the image examples on this page. Were you able to tell the season images apart?
+          </li>
+          <li>
+            Let's think about image alternative texts for another moment. Think of this image:
+            <Image
+              src={manWorking}
+              alt="Man working on a computer at an office desk"
+              width={800}
+              height={533}
+              class="mt-4"
+            />
+            <ul class="list-disc ml-5 leading-loose mb-0">
+              <li>What could be a good alt text for this?</li>
+              <li>Would you change it if the image was added on a site that sells office supplies and office furniture?</li>
+              <li class="mb-0">How about on a site selling used laptops?</li>
+            </ul>
+          </li>
+        </ol>
+      </div>
+
+      <div class="mt-12">Image credits:
+        <ul class="list-disc ml-5 leading-loose">
+          <li>
+            <a href="https://www.pexels.com/photo/photo-of-bubbles-underwater-1452701/">Photo by Berend de Kort</a> 
+          </li>
+          <li>
+            <a href="https://www.pexels.com/photo/fluid-pouring-in-pint-glass-416528/">Photo by Pixabay</a>
+          </li>
+          <li>
+            <a href="https://www.pexels.com/photo/man-in-white-dress-shirt-sitting-on-black-rolling-chair-while-facing-black-computer-set-and-smiling-840996/">Photo by Andrea Piacquadio</a>
+          </li>
+        </ul>
       </div>
     </div>
-  </main>
+  </div>
 </Layout>
 
 <script>
