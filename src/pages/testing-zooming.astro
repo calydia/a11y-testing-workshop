@@ -12,10 +12,10 @@ import firefoxExample from '../images/firefox-zoom.png';
       </h1>
       <div>
         <p>For WCAG compliance, you should ensure functionality with content zooming:</p>
-        <ul>
+        <ul class="list-disc ml-4">
           <li>
             <p>"Regular" zoom up to 400%. This doesn't mean you need to be able to zoom this high on a mobile device, the criterion defines that you need to test for vertical scrolling content at width equivalent to 320 CSS pixels.</p>
-            <ul>
+            <ul class="list-disc ml-4">
               <li>320 CSS pixels is equivalent to a starting viewport width of 1280 CSS pixels wide at 400% zoom.</li>
             </ul>
           </li>
@@ -28,7 +28,7 @@ import firefoxExample from '../images/firefox-zoom.png';
 
         <h2>Choosing the best units</h2>
         <p>There isn't one rule on what units to use. But there are a few sets of good defaults that work for most cases. But from the accessibility point-of-view, you can use any units you like as long as you don't break any WCAG criteria.</p>
-        <ul>
+        <ul class="list-disc ml-4">
           <li>Fonts: Use scalable units. Pixels in fonts are not optimal since they won't scale when the user zooms the page.</li>
           <li>Paddings: If you use scalable units with paddings, remember that they will scale when the user zooms the page. If you have a lot of nested content, you might run out of room.</li>
           <li>Margins: Font-related margins with scalable units. Horizontal margins might have room issues if you have a lot of nested elements.</li>
