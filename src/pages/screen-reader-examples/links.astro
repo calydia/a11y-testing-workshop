@@ -1,0 +1,38 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout
+    metaDescription="" currentUrl="/"
+  >
+  <div class="my-8 mx-4 max-w-[80em] lg:mx-auto">
+    <div class="mx-auto max-w-[40em]">
+      <h1 id="skip-target">
+        Help users understand your content
+      </h1>
+      <div>
+        <p>Using semantic HTML to provide structure to the page is important. With semantic HTML, assistive technologies will have much more information about the type of content on the page.</p>
+        <p>When you use semantic HTML, you reduce the need for ARIA markup. Semantic HTML is also more SEO friendly.</p>
+        
+        <h2>Headings provide structure</h2>
+        <p>Headings should tell the user what content is below them. When the page content has good headings, the user can understand the page structure better.</p>
+        <p>Headings shouldn't be used for visual purposes.</p>
+        
+        <h3>Pay attention to heading levels</h3>
+        <p>Each page should have one main heading, a H1 heading. After that, the heading levels should only increase by one. So after the H1 we should have only H2 headings. And after the H2s should come H3 headings.</p>
+        <p>While in many cases the wrong heading level doesn't necessarily cause problems, in the worst case the content will end up below the wrong section. And in these cases the headings violate accessibility requirements.</p>
+
+        <h2>Links should tell the user where they go</h2>
+        <p>Too generic link texts don't tell users much. In general it is recommended to avoid generic links such as <a href="#">read more</a> or <a href="#">click here</a>.</p>
+
+        <p>Links need to be understandable within their context. While it is possible to have <a href="#">read more</a> make sense in a sentence, it isn't very user friendly. And if you have multiple <a href="#">read more</a> links on the same page that say <a href="#">read more</a>, they should then also take the user to the exact same location.</p>
+  
+        <h3>Improve link texts above the accessibility requirements</h3>
+        <p>Aim to have link texts that are unique and understandable outside of their context. This is not a requirement before AAA level but it is better for accessibility.</p>
+        <p>
+          For example, <a href="#">read more about the topic</a> or <a href="#">read more about the author</a> are much better than just <a href="#">read more</a>.
+        </p>      
+      </div>
+    </div>
+  </div>
+</Layout>
