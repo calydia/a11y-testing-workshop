@@ -3,6 +3,7 @@ import ThemeToggle from '../components/ThemeToggle.astro';
 import SkipLink from '../components/SkipLink.astro';
 import MainNavigation from '../components/MainNavigation.astro';
 import Footer from '../components/Footer.astro';
+import { Icon } from 'astro-icon/components';
 const { title, metaDescription, currentUrl } = Astro.props
 
 import '@fontsource/satisfy';
@@ -36,16 +37,19 @@ import '@fontsource/lato';
       <div class="flex flex-wrap justify-end gap-1">
         <ThemeToggle />
       </div>
-      <div class="text-center clear-both lg:clear:none">
-        <div>
-          <a href="/en" class="inline-block border-y-4 border-transparent p-4
-            hover:border-y-4 hover:border-lt-purple dark:hover:border-dk-blue-light
-            focus:outline focus:outline-2 focus:outline-offset-4 	focus:outline-black dark:focus:outline-white">
-            <span class="block text-3xl font-title text-black dark:text-white dark:text-shadow-text">A11ying with Sanna - Testing for accessibility</span>
-            <span class="block text-xl mt-2 font-title leading-none text-blue-tory dark:text-lt-perfume dark:text-shadow-text">A little testing workshop</span>
+      <div class="max-w-4xl mx-auto flex flex-wrap items-center justify-center gap-3 clear-both md:gap-8 lg:clear:none">
+        <a href="/" class="inline-block border-y-4 border-transparent p-2
+          hover:border-y-4 hover:border-lt-purple dark:hover:border-dk-blue-light
+          focus:outline focus:outline-2 focus:outline-offset-4 	focus:outline-black dark:focus:outline-white">
+          <Icon name="a11ying-dark" class="logo-dark" height="173" width="348" aria-hidden="true" />
+          <Icon name="a11ying-light" class="logo-light" height="173" width="348" aria-hidden="true" />
+          <span class="sr-only">Go to the front page</span>
         </a>
+        <div>
+          <span class="block text-xl font-title text-black dark:text-white dark:text-shadow-text md:text-4xl">Testing for accessibility</span>
+          <span class="block text-xs mt-1 leading-none text-blue-tory dark:text-lt-perfume dark:text-shadow-text md:text-base">A little testing workshop</span>
         </div>
-      </div>
+      </div>      
       <MainNavigation currentUrl={ currentUrl } />
     </header>
     <main class={`text-lg lg:text-xl mb-8 md:mb-12 max-w-7xl md:mx-auto text-lt-gray dark:text-dk-gray`}>
@@ -364,6 +368,23 @@ import '@fontsource/lato';
     border: 1px solid var(--input-border-color);
     color: var(--input-color);
     padding: var(--spacing-default);
+  }
+
+  .logo-light,
+  .logo-dark {
+    @apply h-auto w-24;
+    @apply md:w-32;
+  }
+
+  .dark .logo-dark,
+  .light .logo-light {
+    @apply hidden invisible;
+  }
+  
+  footer .logo-light,
+  footer .logo-dark {
+    @apply h-auto w-24;
+    @apply md:w-28;
   }
 </style>
 

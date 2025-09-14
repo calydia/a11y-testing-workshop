@@ -12,14 +12,43 @@ const currentPath = '/' + Astro.props.currentPage;
     </button>
   </div>
   <div class="md:flex md:justify-between max-w-[1500px] mx-auto">
-    <a href=https://sanna.ninja" class="py-3 my-4 text-lt-blue-dark dark:text-dk-blue-light">
-      A11ying with Sanna - I would if I could
-    </a>
+    <div class="flex items-center">
+      <a
+        href="https://sanna.ninja"
+        rel="noopener noreferrer"
+        class="font-light"
+      >
+        Who am I?
+      </a>
+    </div>
     <div class="flex items-center">
       <div class="flex flex-col">
-        <a href=https://sanna.ninja" class="py-3 my-4 text-lt-blue-dark dark:text-dk-blue-light">
-          A11ying with Sanna - Web Content Accessibility Guidelines
-        </a>
+        <div class="md:-ml-4">
+          <Icon name="a11ying-dark" class="logo-dark" height="173" width="348" aria-hidden="true" />
+          <Icon name="a11ying-light" class="logo-light" height="173" width="348" aria-hidden="true" />
+        </div>
+        <nav aria-label="A11ying sites">
+          <ul class="m-0 p-0 pt-2">
+            <li>
+              <a
+                href="https://a11y.ing"
+                rel="noopener noreferrer"
+                class="font-light block py-2"
+              >
+                I would if I could
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://wcag.a11y.ing"
+                rel="noopener noreferrer"
+                class="font-light block py-2"
+              >
+                Almost, but not quite
+              </a>
+            </li>
+          </ul>
+        </nav>
       </div>
     </div>
   </div>
