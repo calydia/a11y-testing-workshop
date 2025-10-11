@@ -1,0 +1,20 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+    metaDescription="Workshop website to help get started with accessibility testing. The site is split into sections to help you focus on a specific thing." title="Welcome to testing for accessibility!" currentUrl="/"
+  >
+  <div class="my-8 mx-4 max-w-[80em] lg:mx-auto">
+    <div class="mx-auto max-w-[40em]">
+      <h1 id="skip-target">
+        Tests for some unnecessary use of ARIA and other attributes
+      </h1>
+      <div>
+        <button aria-label="This is a button" aria-labelledby="button-id"><span id="button-id">This is a button</span></button>
+        <br>
+        <a href="#" title="link-text" aria-label="Link text">Link text</a>
+      </div>
+    </div>
+  </div>
+</Layout>
