@@ -386,6 +386,31 @@ import '@fontsource/lato';
     @apply h-auto w-24;
     @apply md:w-28;
   }
+
+  /* ARIA tests styles */
+  .bad-practice {
+    font-size: 1rem !important;
+  }
+
+  .css-content-text::before {
+    content: 'This text is added with CSS content property.';
+  }
+
+  .css-content-icon::before {
+    content: '🔍';
+    margin-right: 0.5rem;
+  }
+
+  .css-content-icon-alt::before {
+    content: '🔍' / 'This is an alt text';
+    margin-right: 0.5rem;
+  }
+
+    .css-content-icon-alt-empty::before {
+    content: '🔍' / '';
+    margin-right: 0.5rem;
+  }
+
 </style>
 
 <script>

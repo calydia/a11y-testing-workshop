@@ -10,10 +10,16 @@ import Layout from '../layouts/Layout.astro';
       <h1 id="skip-target">
         Tests for some unnecessary use of ARIA and other attributes
       </h1>
-      <div>
+      <div class="flex flex-col gap-4 items-start">
         <button aria-label="This is a button" aria-labelledby="button-id"><span id="button-id">This is a button</span></button>
-        <br>
         <a href="#" title="link-text" aria-label="Link text">Link text</a>
+        <p class="bad-practice">This is some text that has CSS with !important.</p>
+        <h2>CSS content attribute</h2>
+        <p>Here is some text that uses CSS content attribute.</p>
+        <p class="css-content-text"></p>
+        <p class="css-content-icon">This icon has no alt.</p>
+        <p class="css-content-icon-alt">This icon has an alt (not a good one though).</p>
+        <p class="css-content-icon-alt-empty">This icon has an empty alt.</p>
       </div>
     </div>
   </div>
