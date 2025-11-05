@@ -20,6 +20,29 @@ import Layout from '../layouts/Layout.astro';
         <p class="css-content-icon">This icon has no alt.</p>
         <p class="css-content-icon-alt">This icon has an alt (not a good one though).</p>
         <p class="css-content-icon-alt-empty">This icon has an empty alt.</p>
+        <h2>Link / Button text quality</h2>
+        <p>Links and buttons that have too generic text. The second <span lang="fi">Lue lisää</span> button has no lang attribute.</p>
+        <button>Click here</button>
+        <a href="#">Read more</a>
+        <a href="#">More info</a>
+        <a href="#">Learn more</a>
+        <button><span lang="fi">Lue lisää</span></button>
+        <button><span>Lue lisää</span></button>
+        <a href="#" lang="fi">Tutustu</a>
+        <a href="#" lang="fi">täällä</a>
+        <a href="#" lang="fi">täältä</a>
+        <a href="#" lang="fi">here</a>
+        <h2>Nested interactive elements</h2>
+        Axe DevTools finds only the link inside the button, not a button inside a link.
+        <button>
+          <a href="#">Nested link inside button</a>
+        </button>
+        <a href="#">
+          <button>Nested button inside link</button>
+        </a>
+        <div role="button">
+          <a href="#">Nested link inside div with button role</a>
+        </div>
       </div>
     </div>
   </div>
