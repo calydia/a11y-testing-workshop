@@ -65,9 +65,8 @@ import '@fontsource/lato';
 </html>
 
 <style is:global>
-  @tailwind base;
-  @tailwind components;
-  @tailwind utilities;
+  @import "tailwindcss";
+  @config "../../tailwind.config.cjs";
 
   :root {
     --quote-icon: url('/icons/iconmonstr-quote-light.svg');
@@ -132,39 +131,86 @@ import '@fontsource/lato';
   }
 
   p {
-    @apply text-lg md:text-xl mb-8 leading-relaxed md:leading-relaxed font-light;
+    @apply text-lg mb-8 leading-relaxed font-light;
+
+    @variant md {
+      @apply text-xl leading-relaxed;
+    }
   }
 
   .introduction p {
-    @apply text-xl md:text-2xl leading-relaxed md:leading-relaxed;
+    @apply text-xl leading-relaxed;
+
+    @variant md {
+      @apply text-2xl leading-relaxed;
+    }
   }
 
-  h1, h2, h3, h4 {
-    @apply text-lt-gray-heading dark:text-dk-gray-heading;
+  :where(h1, h2, h3, h4) {
+    @apply text-lt-gray-heading;
+
+    @variant dark {
+      @apply text-dk-gray-heading;
+    }
   }
 
-  h1 {
-    @apply first-letter:capitalize text-3xl font-bold font-heading mt-4 mb-4 lg:mb-8 lg:text-4xl relative;
+  :where(h1) {
+    @apply first-letter:capitalize text-3xl font-bold font-heading mt-4 mb-4 relative;
+
+    @variant lg {
+      @apply mb-8 text-4xl;
+    }
   }
-  h2 {
-    @apply mb-4 text-2xl lg:text-3xl font-bold mt-12 font-heading relative;
+  :where(h2) {
+    @apply mb-4 text-2xl font-bold mt-12 font-heading relative;
+
+    @variant lg {
+      @apply text-3xl;
+    }
   }
 
-  h3 {
-    @apply mb-4 text-xl lg:text-2xl font-bold mt-12 font-heading relative;
+  :where(h3) {
+    @apply mb-4 text-xl font-bold mt-12 font-heading relative;
+
+    @variant lg {
+      @apply text-2xl;
+    }
   }
 
-  h4 {
-    @apply mb-4 text-lg lg:text-xl font-bold mt-12 font-heading relative;
+  :where(h4) {
+    @apply mb-4 text-lg font-bold mt-12 font-heading relative;
+
+    @variant lg {
+      @apply text-xl;
+    }
   }
 
-  h1::before,
-  h2::before,
-  h3::before,
-  h4::before {
+  :where(h1, h2, h3, h4)::before {
     content: '';
 
-    @apply bg-lt-perfume dark:bg-dk-purple-header absolute block z-[-1] bottom-0 w-10 h-2.5;
+    @apply bg-lt-perfume absolute block z-[-1] bottom-0 w-10 h-2.5;
+  }
+
+  .dark :where(h1, h2, h3, h4)::before {
+    @apply bg-dk-purple-header;
+  }
+
+  :where(h1, h2, h3, h4).mt-0 {
+    @apply mt-0;
+  }
+
+  :where(h1, h2, h3, h4).mt-4 {
+    @apply mt-4;
+  }
+
+  :where(h1, h2, h3, h4).mb-8 {
+    @apply mb-8;
+  }
+
+  @media (min-width: 48rem) {
+    :where(h1, h2, h3, h4).md\:mt-0 {
+      @apply mt-0;
+    }
   }
 
   .custom-grid {
@@ -172,7 +218,11 @@ import '@fontsource/lato';
   }
 
   blockquote {
-    @apply relative bg-slate-300 dark:bg-slate-900 my-8 p-6 border-solid border-l-8 border-l-lt-purple dark:border-l-dk-blue-light;
+    @apply relative bg-slate-300 my-8 p-6 border-solid border-l-8 border-l-lt-purple;
+
+    @variant dark {
+      @apply bg-slate-900 border-l-dk-blue-light;
+    }
   }
 
   .box p:first-of-type,
@@ -185,11 +235,19 @@ import '@fontsource/lato';
   }
 
   blockquote cite {
-    @apply block text-base not-italic mt-4 lg:text-right;
+    @apply block text-base not-italic mt-4;
+
+    @variant lg {
+      @apply text-right;
+    }
   }
 
   blockquote::after {
-    @apply block absolute right-[-4px] md:right-[-2rem] top-[-2rem] text-7xl bg-no-repeat bg-center h-16 w-16;
+    @apply block absolute right-[-4px] top-[-2rem] text-7xl bg-no-repeat bg-center h-16 w-16;
+
+    @variant md {
+      @apply right-[-2rem];
+    }
 
     background-image: var(--quote-icon);
     background-size: 4rem;
@@ -200,19 +258,47 @@ import '@fontsource/lato';
     @apply font-bold;
   }
   code {
-    @apply text-base border-solid border py-0.5 px-1 mx-0.5 inline-block bg-lt-code-bg border-lt-code-border dark:bg-dk-code-bg dark:border-dk-code-border shadow-lg;
+    @apply text-base border-solid border py-0.5 px-1 mx-0.5 inline-block bg-lt-code-bg border-lt-code-border shadow-lg;
+
+    @variant dark {
+      @apply bg-dk-code-bg border-dk-code-border;
+    }
   }
 
   main {
-    @apply text-lg lg:text-xl;
+    @apply text-lg;
+
+    @variant lg {
+      @apply text-xl;
+    }
   }
 
   #main-menu-nav a,
   main a,
   footer a {
-    @apply text-lt-blue-dark dark:text-dk-blue-light;
-    @apply hover:underline hover:underline-offset-4 hover:text-lt-purple hover:decoration-2 dark:hover:text-wheat;
-    @apply focus:text-lt-purple dark:focus:text-wheat focus:outline-2 focus:outline-offset-2 focus:no-underline focus:outline-lt-purple dark:focus:outline-wheat;
+    @apply text-lt-blue-dark;
+
+    @variant dark {
+      @apply text-dk-blue-light;
+    }
+
+    @variant hover {
+      @apply underline underline-offset-4 text-lt-purple decoration-2;
+    }
+
+    @variant focus {
+      @apply text-lt-purple outline-2 outline-offset-2 no-underline outline-lt-purple;
+    }
+
+    @variant dark {
+      @variant hover {
+        @apply text-wheat;
+      }
+
+      @variant focus {
+        @apply text-wheat outline-wheat;
+      }
+    }
   }
 
   .bodytext ul,
@@ -224,13 +310,27 @@ import '@fontsource/lato';
   a[aria-current="page"],
   #main-menu-nav a[aria-current="page"],
   .active-link {
-    @apply underline decoration-2 underline-offset-4 text-lt-purple dark:text-wheat;
-    @apply hover:decoration-4;
+    @apply underline decoration-2 underline-offset-4 text-lt-purple;
+
+    @variant dark {
+      @apply text-wheat;
+    }
+
+    @variant hover {
+      @apply decoration-4;
+    }
   }
 
   button[aria-current="true"] {
-    @apply underline decoration-2 underline-offset-4 text-lt-purple dark:text-wheat;
-    @apply hover:decoration-4;
+    @apply underline decoration-2 underline-offset-4 text-lt-purple;
+
+    @variant dark {
+      @apply text-wheat;
+    }
+
+    @variant hover {
+      @apply decoration-4;
+    }
   }
 
   ol {
@@ -252,7 +352,8 @@ import '@fontsource/lato';
     @apply my-4;
   }
 
-  .bodytext ol, ul {
+  .bodytext ol,
+  .bodytext ul {
     @apply mb-8;
   }
   
@@ -291,40 +392,102 @@ import '@fontsource/lato';
   }
 
   .menu-toggle[aria-expanded="false"] + ul {
-    @apply max-lg:hidden max-lg:invisible;
+    @variant max-lg {
+      @apply hidden invisible;
+    }
   }
 
   .menu-toggle[aria-expanded="true"] .menu-open {
-    @apply max-lg:hidden max-lg:invisible;
+    @variant max-lg {
+      @apply hidden invisible;
+    }
   }
   .menu-toggle[aria-expanded="false"] .menu-close {
-    @apply max-lg:hidden max-lg:invisible;
+    @variant max-lg {
+      @apply hidden invisible;
+    }
   }
 
   .button {
-    @apply bg-lt-blue-dark text-white border-4 border-transparent dark:bg-dk-blue-light dark:text-black py-3 px-5;
-    @apply hover:border-4 hover:border-lt-blue-dark hover:bg-transparent hover:text-lt-blue-dark dark:hover:text-dk-blue-light dark:hover:border-dk-blue-light;
-    @apply focus:outline focus:outline-2 focus:outline-offset-4 focus:outline-black dark:focus:outline-white;
+    @apply bg-lt-blue-dark text-white border-4 border-transparent py-3 px-5;
+
+    @variant dark {
+      @apply bg-dk-blue-light text-black;
+    }
+
+    @variant hover {
+      @apply border-4 border-lt-blue-dark bg-transparent text-lt-blue-dark;
+    }
+
+    @variant focus {
+      @apply outline-2 outline-offset-4 outline-black;
+    }
+
+    @variant dark {
+      @variant hover {
+        @apply text-dk-blue-light border-dk-blue-light;
+      }
+
+      @variant focus {
+        @apply outline-white;
+      }
+    }
   }
 
   .button--alternative {
-    @apply text-lt-blue-dark dark:text-dk-blue-light py-2 px-3;
+    @apply text-lt-blue-dark py-2 px-3;
+
+    @variant dark {
+      @apply text-dk-blue-light;
+    }
   }
 
   .item--transition {
     @apply transition-colors ease-in-out duration-300;
-    @apply hover:transition-colors hover:ease-in-out hover:duration-300;
+
+    @variant hover {
+      @apply transition-colors ease-in-out duration-300;
+    }
   }
 
   .hover--border {
     @apply border-y-4 border-transparent;
-    @apply hover:border-y-4 hover:border-lt-purple dark:hover:border-dk-blue-light;
-    @apply focus:outline focus:outline-2 focus:outline-offset-4	focus:outline-black dark:focus:outline-white;
+
+    @variant hover {
+      @apply border-y-4 border-lt-purple;
+    }
+
+    @variant focus {
+      @apply outline-2 outline-offset-4 outline-black;
+    }
+
+    @variant dark {
+      @variant hover {
+        @apply border-dk-blue-light;
+      }
+
+      @variant focus {
+        @apply outline-white;
+      }
+    }
   }
 
   input[type="text"] {
-    @apply py-3.5 px-4 my-2 text-black border-2 m-0 border-solid border-black dark:border-white;
-    @apply focus:outline focus:outline-2 focus:outline-offset-4	focus:outline-black dark:focus:outline-white;
+    @apply py-3.5 px-4 my-2 text-black border-2 m-0 border-solid border-black;
+
+    @variant dark {
+      @apply border-white;
+    }
+
+    @variant focus {
+      @apply outline-2 outline-offset-4 outline-black;
+    }
+
+    @variant dark {
+      @variant focus {
+        @apply outline-white;
+      }
+    }
   }
 
   main a {
@@ -373,7 +536,10 @@ import '@fontsource/lato';
   .logo-light,
   .logo-dark {
     @apply h-auto w-24;
-    @apply md:w-32;
+
+    @variant md {
+      @apply w-32;
+    }
   }
 
   .dark .logo-dark,
@@ -384,7 +550,10 @@ import '@fontsource/lato';
   footer .logo-light,
   footer .logo-dark {
     @apply h-auto w-24;
-    @apply md:w-28;
+
+    @variant md {
+      @apply w-28;
+    }
   }
 
   /* ARIA tests styles */
