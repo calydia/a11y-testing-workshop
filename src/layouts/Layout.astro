@@ -274,8 +274,8 @@ import '@fontsource/lato';
   }
 
   #main-menu-nav a,
-  main a,
-  footer a {
+  main a:not(.button),
+  footer a:not(.button) {
     @apply text-lt-blue-dark;
 
     @variant dark {
@@ -476,7 +476,7 @@ import '@fontsource/lato';
     @apply py-3.5 px-4 my-2 text-black border-2 m-0 border-solid border-black;
 
     @variant dark {
-      @apply border-white;
+      @apply border-white text-white;
     }
 
     @variant focus {
@@ -490,11 +490,11 @@ import '@fontsource/lato';
     }
   }
 
-  main a {
+  main a:not(.button) {
     @apply underline;
   }
 
-  main a[href^="https://"]::after {
+  main a:not(.button)[href^="https://"]::after {
     @apply inline-block bg-no-repeat bg-right-bottom h-6 w-6;
 
     background-image: var(--external-icon);
