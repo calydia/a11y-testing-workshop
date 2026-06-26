@@ -1,18 +1,20 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+import Layout from '../../../layouts/Layout.astro';
+import ScreenReaderExamplesNav from '../../../components/ScreenReaderExamplesNav.astro';
 ---
 
 <Layout
     title="Language attributes"
     metaDescription="Examples showing where to add the lang attribute when part of a page uses another language."
-    currentUrl="/screen-reader-examples/lang/"
+    currentUrl="/examples/screen-reader/lang/"
   >
   <div class="my-8 mx-4 max-w-[80em] lg:mx-auto">
-    <div class="mx-auto max-w-[40em]">
-      <h1 id="skip-target">
-        Where to define the language of parts of the page?
-      </h1>
-      <div>
+    <div class="mx-auto grid max-w-[72em] gap-8 lg:grid-cols-[16rem_minmax(0,40em)_16rem] lg:items-start lg:gap-12">
+      <div class="min-w-0 lg:col-start-2">
+        <h1 id="skip-target">
+          Where to define the language of parts of the page?
+        </h1>
+        <div>
         <p>The page language is English, but sometimes a small part of the content is in another language. When that happens, add the <code>lang</code> attribute to the element that contains the language change.</p>
         <p>Descendant elements inherit the language, so you do not usually need to repeat the same <code>lang</code> attribute on every nested element.</p>
 
@@ -35,6 +37,10 @@ import Layout from '../../layouts/Layout.astro';
             <a href="#" lang="fr">lien vers une ressource utile</a>.
           </p>
         </div>
+        </div>
+      </div>
+      <div class="lg:col-start-3 lg:row-start-1 lg:sticky lg:top-4">
+        <ScreenReaderExamplesNav currentUrl="/examples/screen-reader/lang/" />
       </div>
     </div>
   </div>

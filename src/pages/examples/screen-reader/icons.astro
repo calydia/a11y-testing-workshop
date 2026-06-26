@@ -1,18 +1,20 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+import Layout from '../../../layouts/Layout.astro';
+import ScreenReaderExamplesNav from '../../../components/ScreenReaderExamplesNav.astro';
 ---
 
 <Layout
     title="Accessible icons and SVGs"
     metaDescription="Examples of accessible and inaccessible SVG icons and CSS generated icons."
-    currentUrl="/screen-reader-examples/icons/"
+    currentUrl="/examples/screen-reader/icons/"
   >
   <div class="my-8 mx-4 max-w-[80em] lg:mx-auto">
-    <div class="mx-auto max-w-[40em]">
-      <h1 id="skip-target">
-        Accessible icons and SVGs
-      </h1>
-      <div>
+    <div class="mx-auto grid max-w-[72em] gap-8 lg:grid-cols-[16rem_minmax(0,40em)_16rem] lg:items-start lg:gap-12">
+      <div class="min-w-0 lg:col-start-2">
+        <h1 id="skip-target">
+          Accessible icons and SVGs
+        </h1>
+        <div>
         <p>Icons can be meaningful or decorative. Meaningful icons need an accessible name. Decorative icons should be hidden from assistive technologies so they do not add noise.</p>
         <p>Generated CSS content can be especially unpredictable. Different browser and screen reader combinations may expose generated text differently, so it is useful to test the patterns you use.</p>
 
@@ -161,6 +163,10 @@ import Layout from '../../layouts/Layout.astro';
             </figcaption>
           </figure>
         </div>
+        </div>
+      </div>
+      <div class="lg:col-start-3 lg:row-start-1 lg:sticky lg:top-4">
+        <ScreenReaderExamplesNav currentUrl="/examples/screen-reader/icons/" />
       </div>
     </div>
   </div>

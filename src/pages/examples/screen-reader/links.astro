@@ -1,16 +1,20 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+import Layout from '../../../layouts/Layout.astro';
+import ScreenReaderExamplesNav from '../../../components/ScreenReaderExamplesNav.astro';
 ---
 
 <Layout
-    metaDescription="" currentUrl="/"
+    title="Screen reader link examples"
+    metaDescription="Examples of link text and page structure patterns to test with screen readers."
+    currentUrl="/examples/screen-reader/links/"
   >
   <div class="my-8 mx-4 max-w-[80em] lg:mx-auto">
-    <div class="mx-auto max-w-[40em]">
-      <h1 id="skip-target">
-        Help users understand your content
-      </h1>
-      <div>
+    <div class="mx-auto grid max-w-[72em] gap-8 lg:grid-cols-[16rem_minmax(0,40em)_16rem] lg:items-start lg:gap-12">
+      <div class="min-w-0 lg:col-start-2">
+        <h1 id="skip-target">
+          Help users understand your content
+        </h1>
+        <div>
         <p>Using semantic HTML to provide structure to the page is important. With semantic HTML, assistive technologies will have much more information about the type of content on the page.</p>
         <p>When you use semantic HTML, you reduce the need for ARIA markup. Semantic HTML is also more SEO friendly.</p>
         
@@ -32,6 +36,10 @@ import Layout from '../../layouts/Layout.astro';
         <p>
           For example, <a href="#">read more about the topic</a> or <a href="#">read more about the author</a> are much better than just <a href="#">read more</a>.
         </p>      
+        </div>
+      </div>
+      <div class="lg:col-start-3 lg:row-start-1 lg:sticky lg:top-4">
+        <ScreenReaderExamplesNav currentUrl="/examples/screen-reader/links/" />
       </div>
     </div>
   </div>

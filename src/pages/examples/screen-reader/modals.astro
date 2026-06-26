@@ -1,18 +1,20 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+import Layout from '../../../layouts/Layout.astro';
+import ScreenReaderExamplesNav from '../../../components/ScreenReaderExamplesNav.astro';
 ---
 
 <Layout
     title="Accessible modal examples"
     metaDescription="Examples of accessible modal dialogs using ARIA attributes and the HTML dialog element."
-    currentUrl="/screen-reader-examples/modals/"
+    currentUrl="/examples/screen-reader/modals/"
   >
   <div class="my-8 mx-4 max-w-[80em] lg:mx-auto">
-    <div class="mx-auto max-w-[40em]">
-      <h1 id="skip-target">
-        More accessible modals
-      </h1>
-      <div>
+    <div class="mx-auto grid max-w-[72em] gap-8 lg:grid-cols-[16rem_minmax(0,40em)_16rem] lg:items-start lg:gap-12">
+      <div class="min-w-0 lg:col-start-2">
+        <h1 id="skip-target">
+          More accessible modals
+        </h1>
+        <div>
         <p>Modal dialogs need to move focus into the dialog when they open, keep keyboard focus inside the dialog while they are open, and return focus to the trigger when they close.</p>
         <p>These examples show two common approaches. The first uses ARIA attributes on regular HTML. The second uses the native HTML <code>&lt;dialog&gt;</code> element.</p>
 
@@ -85,7 +87,7 @@ import Layout from '../../layouts/Layout.astro';
           id="native-dialog"
           aria-labelledby="native-dialog-title"
           aria-describedby="native-dialog-description"
-          class="w-[calc(100%-2rem)] max-w-xl rounded-sm bg-lt-bg p-6 text-lt-gray shadow-2xl backdrop:bg-black/70 focus:outline focus:outline-2 focus:outline-offset-4 focus:outline-black dark:bg-dk-blue-darkest dark:text-dk-gray dark:focus:outline-white"
+          class="fixed inset-0 m-auto max-h-[90vh] w-[calc(100%-2rem)] max-w-xl overflow-auto rounded-sm bg-lt-bg p-6 text-lt-gray shadow-2xl backdrop:bg-black/70 focus:outline focus:outline-2 focus:outline-offset-4 focus:outline-black dark:bg-dk-blue-darkest dark:text-dk-gray dark:focus:outline-white"
           data-modal
         >
           <h3 id="native-dialog-title" class="mt-0">HTML dialog example</h3>
@@ -116,6 +118,10 @@ import Layout from '../../layouts/Layout.astro';
           </div>
         </dialog>
     
+        </div>
+      </div>
+      <div class="lg:col-start-3 lg:row-start-1 lg:sticky lg:top-4">
+        <ScreenReaderExamplesNav currentUrl="/examples/screen-reader/modals/" />
       </div>
     </div>
   </div>

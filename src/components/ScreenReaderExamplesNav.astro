@@ -1,0 +1,25 @@
+---
+const { currentUrl = '' } = Astro.props;
+
+const examples = [
+  { href: '/examples/screen-reader/links/', label: 'Links and page structure' },
+  { href: '/examples/screen-reader/icons/', label: 'Icons and SVGs' },
+  { href: '/examples/screen-reader/lang/', label: 'Language attributes' },
+  { href: '/examples/screen-reader/modals/', label: 'Modals' },
+];
+---
+
+<nav aria-labelledby="screen-reader-examples-nav-title" class="border-y-2 border-lt-perfume py-4 dark:border-dk-purple-header">
+  <h2 id="screen-reader-examples-nav-title" class="mt-0 text-lg lg:text-xl balanced-text hyphens-none">
+    Screen reader examples
+  </h2>
+  <ul class="m-0 list-disc space-y-1 pl-5 text-base leading-snug">
+    {examples.map((example) => (
+      <li>
+        <a href={example.href} aria-current={currentUrl === example.href ? 'page' : undefined}>
+          {example.label}
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>

@@ -1,5 +1,34 @@
 ---
   import { Icon } from 'astro-icon/components';
+
+  const { currentUrl = '/' } = Astro.props;
+
+  const navItems = [
+    { href: '/', label: 'Home' },
+    { href: '/testing-visuals', label: 'Visuals' },
+    { href: '/testing-zooming', label: 'Zooming' },
+    { href: '/testing-keyboard-accessibility', label: 'Keyboard' },
+    { href: '/testing-automated-tools', label: 'Automated tools' },
+    { href: '/testing-screen-readers', label: 'Screen readers' },
+    { href: '/examples', label: 'Examples' },
+    { href: '/resources', label: 'Resources' },
+  ];
+
+  const normalizeUrl = (url) => url === '/' ? '/' : url.replace(/\/$/, '');
+  const normalizedCurrentUrl = normalizeUrl(currentUrl);
+  const getCurrentState = (href) => {
+    const normalizedHref = normalizeUrl(href);
+
+    if (normalizedHref === '/') {
+      return normalizedCurrentUrl === '/' ? 'page' : undefined;
+    }
+
+    if (normalizedCurrentUrl === normalizedHref) {
+      return 'page';
+    }
+
+    return normalizedCurrentUrl.startsWith(`${normalizedHref}/`) ? 'true' : undefined;
+  };
 ---
 
 <nav id="main-menu-nav" aria-labelledby="main-menu-label" class="text-black dark:text-white py-1 mt-2 nav-bar" aria-label="Main">
@@ -14,41 +43,17 @@
   <ul id="main-menu" class="text-left mx-auto lg:visible lg:flex lg:flex-wrap lg:justify-center mt-4 p-0 mb-0
     max-lg:absolute max-lg:z-20 lg:w-[90%] max-lg:mx-auto max-lg:left-0 max-lg:right-0 max-lg:p-4 max-lg:border-2 max-lg:border-solid max-lg:border-black max-lg:dark:border-white max-lg:bg-lt-code-bg max-lg:dark:bg-dk-code-bg"
   >
-  <li>
-    <a class="px-4 py-3 text-base font-menu block lg:mx-2" href="/">
-      Home
-    </a>
-  </li>
-  <li>
-    <a class="px-4 py-3 text-base font-menu block lg:mx-2" href="/testing-visuals">
-      Visuals
-    </a>
-  </li>
-  <li>
-    <a class="px-4 py-3 text-base font-menu block lg:mx-2" href="/testing-zooming">
-      Zooming
-    </a>
-  </li>
-  <li>
-    <a class="px-4 py-3 text-base font-menu block lg:mx-2" href="/testing-keyboard-accessibility">
-      Keyboard
-    </a>
-  </li>
-  <li>
-    <a class="px-4 py-3 text-base font-menu block lg:mx-2" href="/testing-automated-tools">
-      Automated tools
-    </a>
-  </li>
-  <li>
-    <a class="px-4 py-3 text-base font-menu block lg:mx-2" href="/testing-screen-readers">
-      Screen readers
-    </a>
-  </li>
-  <li>
-    <a class="px-4 py-3 text-base font-menu block lg:mx-2" href="/resources">
-      Resources
-    </a>
-  </li>
+  {navItems.map((item) => (
+    <li>
+      <a
+        class="px-4 py-3 text-base font-menu block lg:mx-2"
+        href={item.href}
+        aria-current={getCurrentState(item.href)}
+      >
+        {item.label}
+      </a>
+    </li>
+  ))}
 </ul>
 </nav>
 
