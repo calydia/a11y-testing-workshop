@@ -17,23 +17,24 @@ import ScreenReaderExamplesNav from '../../../components/ScreenReaderExamplesNav
         <div>
         <p>The page language is English, but sometimes a small part of the content is in another language. When that happens, add the <code>lang</code> attribute to the element that contains the language change.</p>
         <p>Descendant elements inherit the language, so you do not usually need to repeat the same <code>lang</code> attribute on every nested element.</p>
+        <p>Note that the screen reader behaviour can vary between different screen readers and the browser that is used. Another thing that effects this are the language settings in the screen reader.</p>
 
         <h2>Language on the paragraph</h2>
         <p>This example has the <code>lang</code> attribute on the paragraph. The link inside the paragraph inherits the same language.</p>
 
         <div class="lang-example">
           <p lang="fr">
-            Voici un exemple en français avec un
+            Voici un exemple en français avec un{' '}
             <a href="#">lien vers une ressource utile</a>.
           </p>
         </div>
 
         <h2>Language repeated on nested elements</h2>
-        <p>This example repeats <code>lang="fr"</code> on the paragraph and the link. It should still work, but the language on the link is redundant because it already inherits French from the paragraph.</p>
+        <p>This example repeats <code>lang="fr"</code> on the paragraph and the link. It still works, but the language on the link is redundant because it already inherits French from the paragraph.</p>
 
         <div class="lang-example">
           <p lang="fr">
-            Voici un autre exemple en français avec un
+            Voici un autre exemple en français avec un{' '}
             <a href="#" lang="fr">lien vers une ressource utile</a>.
           </p>
         </div>

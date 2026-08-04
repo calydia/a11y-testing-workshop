@@ -3,9 +3,7 @@ import { Image } from 'astro:assets';
 
 import catImage from '../images/cat.jpg';
 
-const title = '/' + Astro.props.title;
-const ariaLabel = '/' + Astro.props.ariaLabel;
-const alt = '/' + Astro.props.alt;
+const { title, ariaLabel, alt } = Astro.props;
 
 ---
 
