@@ -1,0 +1,19 @@
+---
+interface Props {
+  title: string;
+  introduction: string;
+  entries?: import('./content/ContentCard.astro').ContentCardData[];
+}
+
+import ContentListing from './content/ContentListing.astro';
+
+const { title, introduction, entries = [] } = Astro.props;
+---
+
+<div class="my-8 mx-4 max-w-[80em] lg:mx-auto">
+  <div class="mx-auto max-w-[40em]">
+    <h1>{title}</h1>
+    <p>{introduction}</p>
+    <ContentListing entries={entries} />
+  </div>
+</div>

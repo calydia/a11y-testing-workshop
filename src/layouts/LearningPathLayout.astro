@@ -1,0 +1,5 @@
+---
+import ContentLayout from './ContentLayout.astro';
+const { title, description, summary } = Astro.props;
+---
+<ContentLayout title={title} description={description} summary={summary}><slot /></ContentLayout>

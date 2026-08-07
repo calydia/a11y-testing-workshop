@@ -1,0 +1,38 @@
+---
+import ContentLayout from './ContentLayout.astro';
+import ExerciseFixture from '../components/exercise/ExerciseFixture.astro';
+import ExerciseHints from '../components/exercise/ExerciseHints.astro';
+import ExerciseInstructions from '../components/exercise/ExerciseInstructions.astro';
+import ExerciseObjectives from '../components/exercise/ExerciseObjectives.astro';
+import ExerciseSolution from '../components/exercise/ExerciseSolution.astro';
+import ExerciseWorkspace from '../components/exercise/ExerciseWorkspace.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  summary: string;
+  difficulty: string;
+  estimatedMinutes: number;
+  objectives: string[];
+  fixture: string;
+  hints: string[];
+  solution?: {
+    summary: string;
+    findings: { title: string; explanation: string }[];
+  };
+}
+
+const { title, description, summary, difficulty, estimatedMinutes, objectives, fixture, hints, solution } = Astro.props;
+---
+
+<ContentLayout title={title} description={description} summary={summary}>
+  <dl slot="meta" class="mb-8 flex flex-wrap gap-x-8 gap-y-2 text-base">
+    <div><dt class="inline font-bold">Difficulty:</dt> <dd class="inline">{difficulty}</dd></div>
+    <div><dt class="inline font-bold">Estimated time:</dt> <dd class="inline">{estimatedMinutes} minutes</dd></div>
+  </dl>
+  <ExerciseObjectives objectives={objectives} />
+  <ExerciseInstructions><slot /></ExerciseInstructions>
+  <ExerciseWorkspace><ExerciseFixture fixtureKey={fixture} /></ExerciseWorkspace>
+  <ExerciseHints hints={hints} />
+  <ExerciseSolution solution={solution} />
+</ContentLayout>

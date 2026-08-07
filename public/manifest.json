@@ -1,6 +1,6 @@
 {
-  "name": "Testing for accessibility",
-  "short_name": "Testing",
+  "name": "Accessibility Testing Lab",
+  "short_name": "Testing Lab",
   "icons": [
     {
       "src": "/favicons/icon-192x192.png",

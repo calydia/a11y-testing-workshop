@@ -1,0 +1,8 @@
+---
+interface Props { objectives: string[] }
+const { objectives } = Astro.props;
+---
+<section aria-labelledby="exercise-objectives">
+  <h2 id="exercise-objectives">Objectives</h2>
+  <ul>{objectives.map((objective) => <li>{objective}</li>)}</ul>
+</section>

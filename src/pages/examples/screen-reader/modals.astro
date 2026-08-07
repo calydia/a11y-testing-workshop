@@ -142,17 +142,17 @@ import ScreenReaderExamplesNav from '../../../components/ScreenReaderExamplesNav
     '[tabindex]:not([tabindex="-1"])',
   ].join(',');
 
-  let activeModal = null;
-  let activeTrigger = null;
-  let inertElements = [];
+  let activeModal: HTMLElement | null = null;
+  let activeTrigger: HTMLElement | null = null;
+  let inertElements: HTMLElement[] = [];
 
-  const getFocusableElements = (modal) => {
-    return Array.from(modal.querySelectorAll(focusableSelector)).filter((element) => {
+  const getFocusableElements = (modal: HTMLElement): HTMLElement[] => {
+    return Array.from(modal.querySelectorAll(focusableSelector)).filter((element): element is HTMLElement => {
       return element instanceof HTMLElement && element.offsetParent !== null;
     });
   };
 
-  const focusFirstElement = (modal) => {
+  const focusFirstElement = (modal: HTMLElement) => {
     const focusableElements = getFocusableElements(modal);
     const firstElement = focusableElements[0] || modal;
 
@@ -168,8 +168,8 @@ import ScreenReaderExamplesNav from '../../../components/ScreenReaderExamplesNav
     activeTrigger = null;
   };
 
-  const makePageInert = (modalLayer) => {
-    inertElements = Array.from(document.body.children).filter((element) => {
+  const makePageInert = (modalLayer: HTMLElement) => {
+    inertElements = Array.from(document.body.children).filter((element): element is HTMLElement => {
       return element !== modalLayer && element instanceof HTMLElement && element.tagName !== 'SCRIPT';
     });
 
@@ -185,7 +185,7 @@ import ScreenReaderExamplesNav from '../../../components/ScreenReaderExamplesNav
     inertElements = [];
   };
 
-  const openAriaModal = (modal, trigger) => {
+  const openAriaModal = (modal: HTMLElement, trigger: HTMLElement) => {
     const overlay = document.querySelector(`[data-modal-overlay="${modal.id}"]`);
 
     if (!(overlay instanceof HTMLElement)) {
@@ -202,7 +202,7 @@ import ScreenReaderExamplesNav from '../../../components/ScreenReaderExamplesNav
     focusFirstElement(modal);
   };
 
-  const closeAriaModal = (modal) => {
+  const closeAriaModal = (modal: HTMLElement) => {
     const overlay = document.querySelector(`[data-modal-overlay="${modal.id}"]`);
 
     if (!(overlay instanceof HTMLElement)) {
@@ -216,14 +216,14 @@ import ScreenReaderExamplesNav from '../../../components/ScreenReaderExamplesNav
     restoreFocus();
   };
 
-  const openNativeDialog = (dialog, trigger) => {
+  const openNativeDialog = (dialog: HTMLDialogElement, trigger: HTMLElement) => {
     activeModal = dialog;
     activeTrigger = trigger;
     dialog.showModal();
     focusFirstElement(dialog);
   };
 
-  const closeNativeDialog = (dialog) => {
+  const closeNativeDialog = (dialog: HTMLDialogElement) => {
     dialog.close();
   };
 
@@ -238,7 +238,7 @@ import ScreenReaderExamplesNav from '../../../components/ScreenReaderExamplesNav
     }
   };
 
-  const trapFocus = (event) => {
+  const trapFocus = (event: KeyboardEvent) => {
     if (!activeModal || event.key !== 'Tab') {
       return;
     }
@@ -265,7 +265,7 @@ import ScreenReaderExamplesNav from '../../../components/ScreenReaderExamplesNav
     }
   };
 
-  document.querySelectorAll('[data-open-modal]').forEach((trigger) => {
+  document.querySelectorAll<HTMLElement>('[data-open-modal]').forEach((trigger) => {
     trigger.addEventListener('click', () => {
       if (!(trigger instanceof HTMLElement)) {
         return;
@@ -289,7 +289,7 @@ import ScreenReaderExamplesNav from '../../../components/ScreenReaderExamplesNav
     button.addEventListener('click', closeActiveModal);
   });
 
-  document.querySelectorAll('[data-modal-overlay]').forEach((overlay) => {
+  document.querySelectorAll<HTMLElement>('[data-modal-overlay]').forEach((overlay) => {
     overlay.addEventListener('click', (event) => {
       if (event.target === overlay) {
         closeActiveModal();
@@ -297,7 +297,7 @@ import ScreenReaderExamplesNav from '../../../components/ScreenReaderExamplesNav
     });
   });
 
-  document.querySelectorAll('dialog[data-modal]').forEach((dialog) => {
+  document.querySelectorAll<HTMLDialogElement>('dialog[data-modal]').forEach((dialog) => {
     dialog.addEventListener('close', restoreFocus);
     dialog.addEventListener('click', (event) => {
       if (event.target === dialog) {

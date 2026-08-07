@@ -1,12 +1,16 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
-test.describe('Front page accessibility', () => {    
-  test('should not have any automatically detectable accessibility issues', async ({ page }) => {
-    await page.goto('/');
+const routes = ['/', '/learn/', '/methods/', '/exercises/', '/journeys/', '/about/'];
 
-    const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
+test.describe('Landing page accessibility', () => {
+  for (const route of routes) {
+    test(`${route} has no automatically detectable accessibility issues`, async ({ page }) => {
+      await page.goto(route, { waitUntil: 'networkidle' });
 
-    expect(accessibilityScanResults.violations).toEqual([]);
-  });
+      const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
+
+      expect(accessibilityScanResults.violations).toEqual([]);
+    });
+  }
 });

@@ -1,0 +1,22 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  summary?: string;
+}
+
+const { title, description, summary } = Astro.props;
+---
+
+<BaseLayout title={title} metaDescription={description}>
+  <article class="my-8 mx-4 max-w-[80em] lg:mx-auto">
+    <div class="bodytext mx-auto max-w-[40em]">
+      <h1>{title}</h1>
+      {summary && <p class="introduction">{summary}</p>}
+      <slot name="meta" />
+      <slot />
+    </div>
+  </article>
+</BaseLayout>

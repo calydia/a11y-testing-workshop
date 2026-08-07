@@ -1,0 +1,10 @@
+---
+interface Props { hints: string[] }
+const { hints } = Astro.props;
+---
+{hints.length > 0 && (
+  <details class="my-8 border-2 border-lt-code-border p-4 dark:border-dk-code-border">
+    <summary class="cursor-pointer font-bold">Hints</summary>
+    <ol>{hints.map((hint) => <li>{hint}</li>)}</ol>
+  </details>
+)}

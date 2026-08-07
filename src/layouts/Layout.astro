@@ -4,7 +4,9 @@ import SkipLink from '../components/SkipLink.astro';
 import MainNavigation from '../components/MainNavigation.astro';
 import Footer from '../components/Footer.astro';
 import { Icon } from 'astro-icon/components';
-const { title, metaDescription, currentUrl } = Astro.props
+const { title, metaDescription } = Astro.props;
+const currentUrl = Astro.url.pathname;
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
 
 import '@fontsource/satisfy';
 import '@fontsource/atkinson-hyperlegible';
@@ -25,6 +27,7 @@ import '@fontsource/lato';
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="en" />
     <meta property="og:site_name" content="Accessibility Testing Lab" />
+    <link rel="canonical" href={canonicalUrl} />
     <link rel="shortcut icon" href="/favicons/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/favicons/favicon.ico" type="image/x-icon">
     <link rel="manifest" href="/manifest.json">
@@ -43,7 +46,7 @@ import '@fontsource/lato';
           focus:outline focus:outline-2 focus:outline-offset-4 	focus:outline-black dark:focus:outline-white">
           <Icon name="a11ying-dark" class="logo-dark" height="173" width="348" aria-hidden="true" />
           <Icon name="a11ying-light" class="logo-light" height="173" width="348" aria-hidden="true" />
-          <span class="sr-only">Go to the front page</span>
+          <span class="sr-only">Accessibility Testing Lab home</span>
         </a>
         <div>
           <span class="block text-xl font-title text-black dark:text-white dark:text-shadow-text md:text-4xl">Accessibility Testing Lab</span>
@@ -52,13 +55,13 @@ import '@fontsource/lato';
       </div>      
       <MainNavigation currentUrl={ currentUrl } />
     </header>
-    <main class={`text-lg lg:text-xl mb-8 md:mb-12 max-w-7xl md:mx-auto text-lt-gray dark:text-dk-gray`}>
+    <main id="skip-target" class={`text-lg lg:text-xl mb-8 md:mb-12 max-w-7xl md:mx-auto text-lt-gray dark:text-dk-gray`}>
       <slot />
     </main>
     <slot name="blogs" />
     <Footer />
     <div itemscope itemtype="https://schema.org/WebSite">
-      <meta itemprop="url" content="https://a11y-workshop.sanna.ninja/"/>
+      <meta itemprop="url" content="https://testing.a11y.ing/"/>
       <meta itemprop="name" content="Accessibility Testing Lab" />
     </div>  
   </body>

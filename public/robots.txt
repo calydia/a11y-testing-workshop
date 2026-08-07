@@ -2,4 +2,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://a11y-workshop.sanna.ninja/sitemap-index.xml
+Sitemap: https://testing.a11y.ing/sitemap-index.xml

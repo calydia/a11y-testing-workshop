@@ -6,8 +6,8 @@
   focus:outline focus:outline-2 focus:outline-offset-4 	focus:outline-black dark:focus:outline-white"
   >
     <span class="darkmode-dark">
-      <Icon name="moon-solid" class="h-8 w-8" aria-hidden="true" title="Switch to dark versio" />
-      <span class="sr-only">Switch to dark versio</span>
+      <Icon name="moon-solid" class="h-8 w-8" aria-hidden="true" title="Switch to dark version" />
+      <span class="sr-only">Switch to dark version</span>
     </span>
     <span class="darkmode-light">
       <Icon name="sun-solid" class="h-8 w-8" aria-hidden="true" title="Switch to light version" />
@@ -26,14 +26,14 @@
   const enableDarkMode = (store = true) => {
     document.documentElement.classList.add('dark');
     document.documentElement.classList.remove('light');
-    darkModeToggle.setAttribute('aria-pressed', 'true');
+    darkModeToggle?.setAttribute('aria-pressed', 'true');
     if (store) localStorage.setItem('darkMode', 'enabled');
   }
 
   const disableDarkMode = (store = true) => {
     document.documentElement.classList.remove('dark');
     document.documentElement.classList.add('light');
-    darkModeToggle.setAttribute('aria-pressed', 'false');
+    darkModeToggle?.setAttribute('aria-pressed', 'false');
     if (store) localStorage.setItem('darkMode', 'disabled');
   }
 
@@ -49,7 +49,7 @@
   if (darkMode === 'disabled') disableDarkMode();
   if (!darkMode) checkPreference();
 
-  darkModeToggle.addEventListener('click', () => {
+  darkModeToggle?.addEventListener('click', () => {
     darkMode = document.documentElement.classList.contains('dark');
 
     !darkMode ? enableDarkMode() : disableDarkMode();

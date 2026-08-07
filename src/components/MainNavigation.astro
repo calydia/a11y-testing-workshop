@@ -4,19 +4,15 @@
   const { currentUrl = '/' } = Astro.props;
 
   const navItems = [
-    { href: '/', label: 'Home' },
-    { href: '/testing-visuals', label: 'Visuals' },
-    { href: '/testing-zooming', label: 'Zooming' },
-    { href: '/testing-keyboard-accessibility', label: 'Keyboard' },
-    { href: '/testing-automated-tools', label: 'Automated tools' },
-    { href: '/testing-screen-readers', label: 'Screen readers' },
-    { href: '/examples', label: 'Examples' },
-    { href: '/resources', label: 'Resources' },
+    { href: '/learn/', label: 'Learning paths' },
+    { href: '/methods/', label: 'Testing methods' },
+    { href: '/exercises/', label: 'Exercises' },
+    { href: '/journeys/', label: 'Testing journeys' },
   ];
 
-  const normalizeUrl = (url) => url === '/' ? '/' : url.replace(/\/$/, '');
+  const normalizeUrl = (url: string) => url === '/' ? '/' : url.replace(/\/$/, '');
   const normalizedCurrentUrl = normalizeUrl(currentUrl);
-  const getCurrentState = (href) => {
+  const getCurrentState = (href: string) => {
     const normalizedHref = normalizeUrl(href);
 
     if (normalizedHref === '/') {
@@ -27,7 +23,7 @@
       return 'page';
     }
 
-    return normalizedCurrentUrl.startsWith(`${normalizedHref}/`) ? 'true' : undefined;
+    return undefined;
   };
 ---
 

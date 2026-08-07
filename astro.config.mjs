@@ -7,17 +7,9 @@ import react from "@astrojs/react";
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://a11y-workshop.sanna.ninja/',
+  site: 'https://testing.a11y.ing/',
   vite: {
     plugins: [tailwindcss()]
   },
-  integrations: [sitemap({
-    i18n: {
-      defaultLocale: 'en',
-      locales: {
-        en: 'en',
-        fi: 'fi'
-      }
-    }
-  }), react(), icon()],
+  integrations: [sitemap(), react(), icon()],
 });

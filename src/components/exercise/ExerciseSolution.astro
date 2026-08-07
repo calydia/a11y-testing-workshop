@@ -1,0 +1,17 @@
+---
+interface Finding { title: string; explanation: string }
+interface Props { solution?: { summary: string; findings: Finding[] } }
+const { solution } = Astro.props;
+---
+{solution && (
+  <details class="my-8 border-2 border-lt-code-border p-4 dark:border-dk-code-border">
+    <summary class="cursor-pointer font-bold">Solution</summary>
+    <p>{solution.summary}</p>
+    {solution.findings.map((finding) => (
+      <section>
+        <h3>{finding.title}</h3>
+        <p>{finding.explanation}</p>
+      </section>
+    ))}
+  </details>
+)}

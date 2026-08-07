@@ -1,6 +1,6 @@
-# Astro frontend for my accessibility website
+# Accessibility Testing Lab
 
-The frontend for an accessibility testing workshop.
+A hands-on environment for learning and practising accessibility testing, published at `testing.a11y.ing`.
 
 ## 🧞 Commands
 

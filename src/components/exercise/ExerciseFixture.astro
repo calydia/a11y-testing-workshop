@@ -1,0 +1,14 @@
+---
+import { getFixture } from '../../exercises/fixture-registry';
+
+interface Props { fixtureKey: string }
+const { fixtureKey } = Astro.props;
+const fixture = getFixture(fixtureKey);
+const FixtureComponent = fixture.component;
+---
+
+{fixture.kind === 'inline' ? (
+  <FixtureComponent />
+) : (
+  <iframe class="min-h-96 w-full border-2" src={`/exercise-fixtures/${fixtureKey}/`} title={fixture.title}></iframe>
+)}

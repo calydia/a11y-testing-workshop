@@ -1,0 +1,23 @@
+---
+import ContentCard, { type ContentCardData } from './ContentCard.astro';
+
+interface Props {
+  entries: ContentCardData[];
+  emptyMessage?: string;
+}
+
+const {
+  entries,
+  emptyMessage = 'No published content is available in this section yet.',
+} = Astro.props;
+---
+
+{entries.length > 0 ? (
+  <ul class="grid list-none gap-6 p-0 md:grid-cols-2" role="list">
+    {entries.map((entry) => <li class="m-0"><ContentCard {...entry} /></li>)}
+  </ul>
+) : (
+  <p class="box border-l-4 border-lt-purple bg-lt-blue-middle p-6 dark:border-dk-blue-light dark:bg-dk-code-bg">
+    {emptyMessage}
+  </p>
+)}

@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionLanding from '../../components/SectionLanding.astro';
+import { contentUrl, getVisibleEntries } from '../../lib/content';
+const entries = (await getVisibleEntries('exercises')).map((entry) => ({
+  href: contentUrl('exercises', entry.id), title: entry.data.title, summary: entry.data.summary,
+}));
+---
+
+<BaseLayout title="Exercises" metaDescription="Deliberately created examples for practising focused accessibility testing techniques.">
+  <SectionLanding title="Exercises" introduction="Investigate deliberately created examples and practise focused accessibility testing techniques." entries={entries} />
+</BaseLayout>

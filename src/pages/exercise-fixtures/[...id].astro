@@ -1,0 +1,23 @@
+---
+import { fixtureRegistry, type DocumentFixture } from '../../exercises/fixture-registry';
+
+export function getStaticPaths() {
+  return Object.entries(fixtureRegistry)
+    .filter(([, fixture]) => fixture.kind === 'document')
+    .map(([id, fixture]) => ({ params: { id }, props: { fixture } }));
+}
+
+const { fixture } = Astro.props as { fixture: DocumentFixture };
+const FixtureComponent = fixture.component;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{fixture.title}</title>
+  </head>
+  <body>
+    <FixtureComponent />
+  </body>
+</html>

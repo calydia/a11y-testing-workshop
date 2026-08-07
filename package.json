@@ -1,5 +1,5 @@
 {
-  "name": "a11y-testing-workshop",
+  "name": "accessibility-testing-lab",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
@@ -9,7 +9,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "test": "playwright install && playwright test",
-    "test:server": "astro dev --port 4322"
+    "test:server": "astro dev --port 4323"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.9",
