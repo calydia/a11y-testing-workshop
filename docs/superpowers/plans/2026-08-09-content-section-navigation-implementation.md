@@ -174,6 +174,31 @@ git diff --check
 git status --short
 ```
 
+## Task 8: Refine desktop centering and heading spacing
+
+### Files
+
+- Modify: `src/layouts/ContentLayout.astro`
+- Modify: `tests/screen-reader-methods.spec.js`
+
+### Work
+
+1. Add failing large-screen geometry assertions that compare the visible grid unit's left and right outer margins within a small rounding tolerance.
+2. Record the mobile introduction-to-first-heading distance and assert the desktop boundary is compact without changing mobile layout rules.
+3. Size the large-screen navigation grid to its visible 40em article column, bounded navigation column, and gap rather than inheriting the full 80em article width.
+4. Center the complete two-column grid so unused viewport space is distributed equally on both sides.
+5. Add a large-screen-only first-body-heading rule that prevents the separate header and body grid cells from adding their vertical margins together.
+6. Preserve all small-screen sizing, source order, and spacing.
+
+### Verification
+
+```sh
+npm run astro -- check
+npx playwright test tests/screen-reader-methods.spec.js --grep "section navigation reflows|desktop alignment" --workers 1
+npx playwright test --workers 1
+git diff --check
+```
+
 ## Completion criteria
 
 - Every published detail page can receive section navigation from its collection without a manually maintained link list.
@@ -183,4 +208,6 @@ git status --short
 - All four dynamic collection routes use the same navigation contract.
 - Empty collections remain truthful and do not require placeholder detail pages.
 - Legacy example routes and their submenu are not removed by this change.
+- The visible desktop article-plus-navigation unit has equal outer margins, with no unused grid space after the menu.
+- The first desktop body heading has compact separation from the introduction while mobile spacing remains unchanged.
 - Astro validation, production build, accessibility checks, and the complete Playwright suite pass.
