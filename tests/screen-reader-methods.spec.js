@@ -10,6 +10,11 @@ const visualMethod = {
   title: 'Testing visual accessibility',
 };
 
+const zoomMethod = {
+  path: '/methods/testing-zoom-and-reflow/',
+  title: 'Testing zoom and reflow',
+};
+
 const screenReaderMethods = [
   {
     path: '/methods/screen-reader-page-structure-and-links/',
@@ -29,7 +34,7 @@ const screenReaderMethods = [
   },
 ];
 
-const methods = [keyboardMethod, visualMethod, ...screenReaderMethods];
+const methods = [keyboardMethod, visualMethod, zoomMethod, ...screenReaderMethods];
 
 test('method detail pages provide collection-driven section navigation', async ({ page }) => {
   await page.goto(methods[1].path);
@@ -163,6 +168,16 @@ test('Testing visual accessibility renders a method without a demonstration', as
 
   const breadcrumb = page.getByRole('navigation', { name: 'Breadcrumbs' }).getByRole('listitem');
   await expect(breadcrumb).toHaveText(['Home/', 'Testing methods/', visualMethod.title]);
+});
+
+test('Testing zoom and reflow renders a method without a demonstration', async ({ page }) => {
+  const response = await page.goto(zoomMethod.path);
+  expect(response?.ok()).toBe(true);
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(zoomMethod.title);
+  for (const heading of ['What this method tests', 'What you need', 'Before you start', 'How to perform the test', 'What to observe', 'Interpreting the results', 'Limitations']) {
+    await expect(page.getByRole('heading', { level: 2, name: heading })).toBeVisible();
+  }
+  await expect(page.getByRole('heading', { level: 2, name: 'Demonstration' })).toHaveCount(0);
 });
 
 test('legacy screen-reader example routes remain available', async ({ request }) => {

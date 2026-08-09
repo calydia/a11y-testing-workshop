@@ -1,6 +1,7 @@
 import type { AstroComponentFactory } from 'astro/runtime/server/index.js';
 import KeyboardPreferencesFormFixture from '../components/exercise/fixtures/KeyboardPreferencesFormFixture.astro';
 import VisualAccountDashboardFixture from '../components/exercise/fixtures/VisualAccountDashboardFixture.astro';
+import ZoomAppointmentBookingFixture from '../components/exercise/fixtures/ZoomAppointmentBookingFixture.astro';
 
 export interface InlineFixture {
   kind: 'inline';
@@ -38,6 +39,17 @@ export const fixtureRegistry: Record<string, ExerciseFixtureDefinition> = {
       'color-only-status',
       'cramped-text',
       'weak-interaction-state',
+    ],
+  },
+  'zoom-appointment-booking': {
+    kind: 'document',
+    component: ZoomAppointmentBookingFixture,
+    title: 'Appointment booking zoom and reflow exercise',
+    intentionalViolations: [
+      'fixed-panel',
+      'unbreakable-reference',
+      'fixed-height-card',
+      'fixed-action-bar',
     ],
   },
 };

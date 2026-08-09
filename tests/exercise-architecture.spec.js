@@ -26,7 +26,9 @@ test('exercise listing contains published exercises in collection order', async 
   await expect(links).toHaveText([
     'Keyboard testing a preferences form',
     'Finding visual problems in an account dashboard',
+    'Testing an appointment booking at high zoom',
   ]);
   await expect(links.nth(0)).toHaveAttribute('href', '/exercises/keyboard-testing-a-preferences-form/');
   await expect(links.nth(1)).toHaveAttribute('href', '/exercises/finding-visual-problems-in-an-account-dashboard/');
+  await expect(links.nth(2)).toHaveAttribute('href', '/exercises/testing-an-appointment-booking-at-high-zoom/');
 });

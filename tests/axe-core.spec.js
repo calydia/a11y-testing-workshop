@@ -7,12 +7,14 @@ const routes = [
   '/methods/',
   '/methods/testing-keyboard-accessibility/',
   '/methods/testing-visual-accessibility/',
+  '/methods/testing-zoom-and-reflow/',
   '/methods/screen-reader-page-structure-and-links/',
   '/methods/screen-reader-icons-and-svg/',
   '/methods/screen-reader-language-changes/',
   '/methods/testing-modal-dialogs/',
   '/exercises/',
   '/exercises/finding-visual-problems-in-an-account-dashboard/',
+  '/exercises/testing-an-appointment-booking-at-high-zoom/',
   '/journeys/',
   '/about/',
 ];
@@ -23,7 +25,7 @@ test.describe('Landing page accessibility', () => {
       await page.goto(route, { waitUntil: 'networkidle' });
 
       const builder = new AxeBuilder({ page });
-      if (route === '/exercises/finding-visual-problems-in-an-account-dashboard/') builder.exclude('iframe');
+      if (route.startsWith('/exercises/') && route !== '/exercises/') builder.exclude('iframe');
       const accessibilityScanResults = await builder.analyze();
 
       expect(accessibilityScanResults.violations).toEqual([]);
