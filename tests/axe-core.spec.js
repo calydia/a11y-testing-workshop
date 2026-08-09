@@ -5,6 +5,7 @@ const routes = [
   '/',
   '/learn/',
   '/methods/',
+  '/methods/testing-keyboard-accessibility/',
   '/methods/screen-reader-page-structure-and-links/',
   '/methods/screen-reader-icons-and-svg/',
   '/methods/screen-reader-language-changes/',

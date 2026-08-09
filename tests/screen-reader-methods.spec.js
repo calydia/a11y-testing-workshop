@@ -1,6 +1,11 @@
 import { test, expect } from '@playwright/test';
 
-const methods = [
+const keyboardMethod = {
+  path: '/methods/testing-keyboard-accessibility/',
+  title: 'Testing keyboard accessibility',
+};
+
+const screenReaderMethods = [
   {
     path: '/methods/screen-reader-page-structure-and-links/',
     title: 'Testing page structure and links with a screen reader',
@@ -18,6 +23,8 @@ const methods = [
     title: 'Testing modal dialogs',
   },
 ];
+
+const methods = [keyboardMethod, ...screenReaderMethods];
 
 test('method detail pages provide collection-driven section navigation', async ({ page }) => {
   await page.goto(methods[1].path);
@@ -92,15 +99,18 @@ test('every section navigation link has a visible keyboard focus indicator', asy
   }
 });
 
-test('testing methods listing contains the four screen-reader methods', async ({ page }) => {
+test('testing methods listing contains all methods in collection order', async ({ page }) => {
   await page.goto('/methods/');
 
-  for (const method of methods) {
-    await expect(page.getByRole('link', { name: method.title })).toHaveAttribute('href', method.path);
+  const methodLinks = page.locator('main article h2 > a');
+  await expect(methodLinks).toHaveText(methods.map((method) => method.title));
+
+  for (const [index, method] of methods.entries()) {
+    await expect(methodLinks.nth(index)).toHaveAttribute('href', method.path);
   }
 });
 
-for (const method of methods) {
+for (const method of screenReaderMethods) {
   test(`${method.title} renders as a testing method`, async ({ page }) => {
     const response = await page.goto(method.path);
 
@@ -113,6 +123,26 @@ for (const method of methods) {
   });
 }
 
+test('Testing keyboard accessibility renders a method without a demonstration', async ({ page }) => {
+  const response = await page.goto(keyboardMethod.path);
+
+  expect(response?.ok()).toBe(true);
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(keyboardMethod.title);
+  for (const heading of ['What this method tests', 'What you need', 'Before you start', 'How to perform the test', 'What to observe', 'Interpreting the results', 'Limitations']) {
+    await expect(page.getByRole('heading', { level: 2, name: heading })).toBeVisible();
+  }
+  await expect(page.getByRole('heading', { level: 2, name: 'Demonstration' })).toHaveCount(0);
+  await expect(page.locator('[data-content-body]').getByRole('link', { name: 'Testing modal dialogs' })).toHaveAttribute('href', '/methods/testing-modal-dialogs/');
+
+  const sectionNavigation = page.getByRole('navigation', { name: 'Testing methods' });
+  await expect(sectionNavigation.getByRole('link', { name: keyboardMethod.title })).toHaveAttribute('aria-current', 'page');
+  await expect(sectionNavigation.getByRole('link', { name: methods[1].title })).not.toHaveAttribute('aria-current');
+
+  const breadcrumb = page.getByRole('navigation', { name: 'Breadcrumbs' }).getByRole('listitem');
+  await expect(breadcrumb).toHaveText(['Home/', 'Testing methods/', keyboardMethod.title]);
+  await expect(breadcrumb.last()).toHaveAttribute('aria-current', 'page');
+});
+
 test('legacy screen-reader example routes remain available', async ({ request }) => {
   for (const path of [
     '/examples/screen-reader/links/',
@@ -123,6 +153,11 @@ test('legacy screen-reader example routes remain available', async ({ request })
     const response = await request.get(path);
     expect(response.ok(), path).toBe(true);
   }
+});
+
+test('legacy keyboard workshop route remains available', async ({ request }) => {
+  const response = await request.get('/testing-keyboard-accessibility/');
+  expect(response.ok()).toBe(true);
 });
 
 test('primary navigation does not introduce an Examples section', async ({ page }) => {
