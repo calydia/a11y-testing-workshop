@@ -175,6 +175,79 @@ git diff --check
 git status --short
 ```
 
+## Task 8: Match and synchronize the fixture theme
+
+### Files
+
+- Modify: `src/pages/exercise-fixtures/[...id].astro`
+- Modify: `src/components/exercise/fixtures/KeyboardPreferencesFormFixture.astro`
+- Modify: `tests/keyboard-preferences-form-exercise.spec.js`
+
+### Work
+
+1. Add failing tests that set the Lab's stored light and dark preferences before loading the Exercise and standalone fixture.
+2. Assert the fixture document receives the matching `light` or `dark` class and exact Lab background, text, heading, link, border, and control colors.
+3. Assert toggling the parent Lab theme updates the same-origin iframe without reloading it.
+4. Load Atkinson Hyperlegible in the standalone fixture document.
+5. Initialize the fixture document theme in its head before visible content renders, using the same `darkMode` storage values and system-preference fallback as the Lab shell.
+6. Listen for same-origin storage changes and update the fixture document class.
+7. Replace the independent system palette with class-based styles using the Lab's exact light and dark tokens.
+8. Preserve all four intentional defect behaviors, especially the deliberately missing focus indicator.
+
+### Verification
+
+```sh
+npm run astro -- check
+npx playwright test tests/keyboard-preferences-form-exercise.spec.js --grep "theme|light|dark" --workers 1
+```
+
+## Task 9: Add reusable full-row Exercise disclosures
+
+### Files
+
+- Add: `src/components/exercise/ExerciseDisclosure.astro`
+- Modify: `src/components/exercise/ExerciseHints.astro`
+- Modify: `src/components/exercise/ExerciseSolution.astro`
+- Modify: `tests/keyboard-preferences-form-exercise.spec.js`
+
+### Work
+
+1. Add failing tests for both Hints and Solution summary rows.
+2. Assert each summary occupies the accordion's full content width within a small geometry tolerance.
+3. Assert hover visibly changes the complete row background in light and dark themes.
+4. Assert keyboard focus produces a solid high-contrast outline around the complete row.
+5. Assert the native disclosure marker remains visible and activation still changes the `open` state.
+6. Create `ExerciseDisclosure.astro` to own `<details>`, `<summary>`, border, summary interaction styles, and content padding.
+7. Refactor Hints and Solution to use the shared component while retaining their existing lists and solution sections.
+8. Keep the styling local to Exercise disclosures; do not add global `<details>` rules or alter legacy pages.
+
+### Verification
+
+```sh
+npm run astro -- check
+npx playwright test tests/keyboard-preferences-form-exercise.spec.js --grep "Hints|Solution|disclosure|hover|focus" --workers 1
+```
+
+## Task 10: Re-run final verification after refinements
+
+### Work
+
+1. Run focused Exercise behavior, theme, and disclosure tests.
+2. Run axe against the outer Exercise in both light and dark modes while maintaining the fixture boundary.
+3. Build the production site and visually review embedded and standalone fixture themes.
+4. Confirm changing the parent theme updates the iframe and does not change intentional defect behavior.
+5. Run the complete Playwright suite and review the final diff.
+
+### Verification
+
+```sh
+npm run astro -- check
+npm run build
+npx playwright test tests/keyboard-preferences-form-exercise.spec.js --workers 1
+npx playwright test --workers 1
+git diff --check
+```
+
 ## Completion criteria
 
 - The first published Exercise appears at the approved route and on `/exercises/`.
@@ -183,6 +256,9 @@ git status --short
 - The fixture has exactly the four approved keyboard defects and no hard trap.
 - Non-defective controls, return navigation, and the Lab shell remain keyboard operable.
 - Hints are progressive and the collapsed solution explains exactly four findings.
+- The fixture uses the selected Lab theme and exact Lab palette in embedded and standalone views.
+- Theme changes in the Lab update the embedded fixture without reloading it.
+- Hints and Solution use one reusable full-row disclosure treatment with complete hover and focus states.
 - Intentional defects are narrowly isolated from automated accessibility expectations.
 - Legacy workshop content remains unchanged.
 - Astro validation, production build, focused behavior tests, axe boundaries, and the complete Playwright suite pass.
