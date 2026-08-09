@@ -41,5 +41,7 @@ test('all dynamic content routes use the shared section navigation contract', as
     expect(source, route).toContain('SectionNavigation');
     expect(source, route).toContain('slot="navigation"');
     expect(source, route).toContain('createSectionNavigationItems');
+    expect(source, route).toContain('Breadcrumbs');
+    expect(source, route).toContain('slot="breadcrumb"');
   }
 });

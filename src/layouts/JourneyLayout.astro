@@ -3,6 +3,7 @@ import ContentLayout from './ContentLayout.astro';
 const { title, description, summary } = Astro.props;
 ---
 <ContentLayout title={title} description={description} summary={summary}>
+  <slot name="breadcrumb" slot="breadcrumb" />
   <slot name="navigation" slot="navigation" />
   <slot />
 </ContentLayout>

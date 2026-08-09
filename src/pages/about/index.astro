@@ -1,8 +1,10 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/navigation/Breadcrumbs.astro';
 ---
 
 <BaseLayout title="About this Lab" metaDescription="About Accessibility Testing Lab and its hands-on approach to learning accessibility testing.">
+  <Breadcrumbs slot="breadcrumb" items={[{ label: 'Home', href: '/' }, { label: 'About this Lab' }]} />
   <div class="my-8 mx-4 max-w-[80em] lg:mx-auto">
     <div class="mx-auto max-w-[40em]">
       <h1>About this Lab</h1>

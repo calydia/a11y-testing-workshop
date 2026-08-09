@@ -1,5 +1,6 @@
 ---
 import { render } from 'astro:content';
+import Breadcrumbs from '../../components/navigation/Breadcrumbs.astro';
 import SectionNavigation from '../../components/navigation/SectionNavigation.astro';
 import MethodLayout from '../../layouts/MethodLayout.astro';
 import { createSectionNavigationItems, getVisibleEntries } from '../../lib/content';
@@ -22,6 +23,10 @@ const { Content } = await render(entry);
   interpretation={entry.data.interpretation}
   limitations={entry.data.limitations}
 >
+  <Breadcrumbs
+    slot="breadcrumb"
+    items={[{ label: 'Home', href: '/' }, { label: 'Testing methods', href: '/methods/' }, { label: entry.data.title }]}
+  />
   <SectionNavigation
     slot="navigation"
     title="Testing methods"

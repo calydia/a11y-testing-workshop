@@ -12,6 +12,7 @@ const hasNavigation = Astro.slots.has('navigation');
 ---
 
 <BaseLayout title={title} metaDescription={description}>
+  <slot name="breadcrumb" slot="breadcrumb" />
   <article class="my-8 mx-4 max-w-[80em] lg:mx-auto">
     <div class:list={[
       'mx-auto',

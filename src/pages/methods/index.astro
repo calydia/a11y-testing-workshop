@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/navigation/Breadcrumbs.astro';
 import SectionLanding from '../../components/SectionLanding.astro';
 import { contentUrl, getVisibleEntries } from '../../lib/content';
 const entries = (await getVisibleEntries('testingMethods')).map((entry) => ({
@@ -8,5 +9,6 @@ const entries = (await getVisibleEntries('testingMethods')).map((entry) => ({
 ---
 
 <BaseLayout title="Testing methods" metaDescription="Reusable reference guides for performing specific accessibility testing techniques.">
+  <Breadcrumbs slot="breadcrumb" items={[{ label: 'Home', href: '/' }, { label: 'Testing methods' }]} />
   <SectionLanding title="Testing methods" introduction="Use these reference guides to learn how to perform specific accessibility testing techniques." entries={entries} />
 </BaseLayout>

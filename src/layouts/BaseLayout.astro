@@ -22,6 +22,7 @@ import '@fontsource/lato';
   <body class="font-sans hyphens-auto">
     <SiteHeader />
     <main id="skip-target" class={`text-lg lg:text-xl mb-8 md:mb-12 max-w-7xl md:mx-auto text-lt-gray dark:text-dk-gray`}>
+      <slot name="breadcrumb" />
       <slot />
     </main>
     <slot name="after-main" />

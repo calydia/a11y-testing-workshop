@@ -27,6 +27,7 @@ const { title, description, summary, difficulty, estimatedMinutes, objectives, f
 ---
 
 <ContentLayout title={title} description={description} summary={summary}>
+  <slot name="breadcrumb" slot="breadcrumb" />
   <slot name="navigation" slot="navigation" />
   <ExerciseMeta slot="meta" difficulty={difficulty} estimatedMinutes={estimatedMinutes} />
   <ExerciseObjectives objectives={objectives} />

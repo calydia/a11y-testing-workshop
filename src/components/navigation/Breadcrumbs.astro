@@ -1,0 +1,32 @@
+---
+export interface BreadcrumbItem {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  items: BreadcrumbItem[];
+}
+
+const { items } = Astro.props;
+const ancestors = items.slice(0, -1);
+if (ancestors.some((item) => !item.href)) {
+  throw new Error('Every breadcrumb item before the current page must have an href.');
+}
+---
+
+{items.length > 0 && (
+  <nav aria-label="Breadcrumbs" class="px-4 pt-4 text-base md:px-8">
+    <ul class="m-0 list-none p-0 leading-relaxed" role="list">
+      {items.map((item, index) => {
+        const isCurrent = index === items.length - 1;
+        return (
+          <li class="my-0 inline [overflow-wrap:anywhere]" aria-current={isCurrent ? 'page' : undefined}>
+            {isCurrent ? item.label : <a class="underline underline-offset-4" href={item.href}>{item.label}</a>}
+            {!isCurrent && <span data-breadcrumb-separator class="mx-2" aria-hidden="true">/</span>}
+          </li>
+        );
+      })}
+    </ul>
+  </nav>
+)}

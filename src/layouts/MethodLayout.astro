@@ -16,6 +16,7 @@ interface Props {
 const { title, description, summary, demonstration, interpretation, limitations } = Astro.props;
 ---
 <ContentLayout title={title} description={description} summary={summary}>
+  <slot name="breadcrumb" slot="breadcrumb" />
   <slot name="navigation" slot="navigation" />
   <slot />
   {demonstration && <MethodDemonstration demonstrationKey={demonstration} />}
