@@ -1,8 +1,8 @@
 import { test, expect } from '@playwright/test';
+import { readFile } from 'node:fs/promises';
 
 const sections = [
   { path: '/learn/', label: 'Learning paths' },
-  { path: '/methods/', label: 'Testing methods' },
   { path: '/exercises/', label: 'Exercises' },
   { path: '/journeys/', label: 'Testing journeys' },
 ];
@@ -33,4 +33,13 @@ test('site metadata describes Accessibility Testing Lab', async ({ page }) => {
     name: 'Accessibility Testing Lab',
     url: 'https://testing.a11y.ing/',
   });
+});
+
+test('all dynamic content routes use the shared section navigation contract', async () => {
+  for (const route of ['learn', 'methods', 'exercises', 'journeys']) {
+    const source = await readFile(new URL(`../src/pages/${route}/[...id].astro`, import.meta.url), 'utf8');
+    expect(source, route).toContain('SectionNavigation');
+    expect(source, route).toContain('slot="navigation"');
+    expect(source, route).toContain('createSectionNavigationItems');
+  }
 });

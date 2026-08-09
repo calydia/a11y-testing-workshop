@@ -1,0 +1,36 @@
+---
+import type { SectionNavigationItem } from '../../lib/content';
+
+interface Props {
+  title: string;
+  landingHref: string;
+  landingLabel: string;
+  items: SectionNavigationItem[];
+  currentPath: string;
+}
+
+const { title, landingHref, landingLabel, items, currentPath } = Astro.props;
+const normalizePath = (path: string) => path === '/' ? '/' : path.replace(/\/+$/, '');
+const normalizedCurrentPath = normalizePath(currentPath);
+const isCurrent = (href: string) => normalizePath(href) === normalizedCurrentPath;
+---
+
+<nav data-section-navigation aria-labelledby="section-navigation-title" class="border-y-2 border-lt-perfume py-4 dark:border-dk-purple-header">
+  <h2 id="section-navigation-title" class="balanced-text mt-0 text-lg hyphens-none lg:text-xl">
+    {title}
+  </h2>
+  <ul class="m-0 list-none space-y-1 p-0 text-base leading-snug">
+    <li class="my-2">
+      <a class="block py-1" href={landingHref} aria-current={isCurrent(landingHref) ? 'page' : undefined}>
+        {landingLabel}
+      </a>
+    </li>
+    {items.map((item) => (
+      <li class="my-2">
+        <a class="block py-1 [overflow-wrap:anywhere]" href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>
+          {item.label}
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>

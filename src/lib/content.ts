@@ -17,3 +17,18 @@ export async function getVisibleEntries<C extends CollectionKey>(collection: C) 
 }
 
 export const contentUrl = (section: string, id: string) => `/${section}/${id}/`;
+
+export interface SectionNavigationItem {
+  href: string;
+  label: string;
+}
+
+export function createSectionNavigationItems<C extends CollectionKey>(
+  entries: CollectionEntry<C>[],
+  section: string,
+): SectionNavigationItem[] {
+  return entries.map((entry) => ({
+    href: contentUrl(section, entry.id),
+    label: entry.data.title,
+  }));
+}

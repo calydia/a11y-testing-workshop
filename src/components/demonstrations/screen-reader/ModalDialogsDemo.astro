@@ -1,0 +1,144 @@
+<div class="space-y-12">
+  <section>
+    <h3>ARIA modal dialog</h3>
+    <p>This version uses <code>role="dialog"</code>, <code>aria-modal="true"</code>, and explicit names and descriptions. JavaScript provides the modal behavior.</p>
+    <button type="button" class="demo-button" data-open-modal="aria-modal-demo">Open ARIA modal</button>
+    <div class="fixed inset-0 z-50 hidden items-center justify-center bg-black/70 p-4" data-modal-overlay="aria-modal-demo">
+      <div id="aria-modal-demo" role="dialog" aria-modal="true" aria-labelledby="aria-modal-demo-title" aria-describedby="aria-modal-demo-description" class="modal-surface" tabindex="-1" data-modal>
+        <h4 id="aria-modal-demo-title" class="mt-0">ARIA modal example</h4>
+        <p id="aria-modal-demo-description">Focus is inside this dialog. Use Tab or Shift+Tab to move between controls, and Escape or the close button to close it.</p>
+        <label class="mb-6 block font-bold" for="aria-modal-demo-feedback">
+          Example input
+          <input id="aria-modal-demo-feedback" class="demo-input" type="text" placeholder="Type here" />
+        </label>
+        <div class="flex flex-wrap gap-3">
+          <button type="button" class="demo-button">Example action</button>
+          <button type="button" class="demo-button-secondary" data-close-modal>Close modal</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h3>HTML dialog element</h3>
+    <p>This version uses the native <code>&lt;dialog&gt;</code> element and <code>showModal()</code>. Test the same focus and announcement behavior.</p>
+    <button type="button" class="demo-button" data-open-modal="native-dialog-demo">Open dialog element modal</button>
+    <dialog id="native-dialog-demo" aria-labelledby="native-dialog-demo-title" aria-describedby="native-dialog-demo-description" class="modal-surface" data-modal>
+      <h4 id="native-dialog-demo-title" class="mt-0">HTML dialog example</h4>
+      <p id="native-dialog-demo-description">This modal uses the native dialog element. Focus remains inside and returns to the opener when it closes.</p>
+      <label class="mb-6 block font-bold" for="native-dialog-demo-feedback">
+        Example input
+        <input id="native-dialog-demo-feedback" class="demo-input" type="text" placeholder="Type here" />
+      </label>
+      <div class="flex flex-wrap gap-3">
+        <button type="button" class="demo-button">Example action</button>
+        <button type="button" class="demo-button-secondary" data-close-modal>Close dialog</button>
+      </div>
+    </dialog>
+  </section>
+</div>
+
+<style>
+  .demo-button, .demo-button-secondary { border-radius: .125rem; font-weight: 700; padding: .75rem 1rem; transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease; }
+  .demo-button { background: #54007b; border: 2px solid #54007b; color: white; }
+  .demo-button-secondary { background: transparent; border: 2px solid #54007b; color: #54007b; }
+  .demo-button:hover { background: #18399a; border-color: #18399a; }
+  .demo-button-secondary:hover { border-color: #18399a; color: #18399a; }
+  .demo-button:focus, .demo-button:focus-visible, .demo-button-secondary:focus, .demo-button-secondary:focus-visible, .modal-surface:focus, .demo-input:focus { outline: 2px solid black; outline-offset: 4px; }
+  :global(.dark) .demo-button { background: #35035e; border-color: #35035e; }
+  :global(.dark) .demo-button-secondary { border-color: #cfcfcf; color: #cfcfcf; }
+  :global(.dark) .demo-button:hover { background: #18399a; border-color: #18399a; }
+  :global(.dark) .demo-button-secondary:hover { border-color: white; color: white; }
+  :global(.dark) .demo-button:focus, :global(.dark) .demo-button-secondary:focus, :global(.dark) .modal-surface:focus, :global(.dark) .demo-input:focus { outline-color: white; }
+  .modal-surface { background: #fafafa; border: 0; border-radius: .125rem; color: #4d4d4d; inset: 0; margin: auto; max-height: 90vh; max-width: 36rem; overflow: auto; padding: 1.5rem; position: fixed; width: calc(100% - 2rem); }
+  :global(.dark) .modal-surface { background: #010017; color: #ababab; }
+  div.modal-surface { position: static; width: 100%; }
+  .demo-input { background: white; border: 2px solid #333; border-radius: .125rem; color: #4d4d4d; display: block; margin-top: .5rem; padding: .5rem .75rem; width: 100%; }
+  :global(.dark) .demo-input { background: black; border-color: #cfcfcf; color: white; }
+</style>
+
+<script>
+  const focusableSelector = ['a[href]', 'button:not([disabled])', 'input:not([disabled]):not([type="hidden"])', 'select:not([disabled])', 'textarea:not([disabled])', '[contenteditable]', '[tabindex]:not([tabindex="-1"])'].join(',');
+  let activeModal: HTMLElement | null = null;
+  let activeTrigger: HTMLElement | null = null;
+  let inertElements: HTMLElement[] = [];
+
+  const focusableElements = (modal: HTMLElement) => Array.from(modal.querySelectorAll(focusableSelector)).filter((element): element is HTMLElement => element instanceof HTMLElement && element.offsetParent !== null);
+  const focusFirst = (modal: HTMLElement) => (focusableElements(modal)[0] || modal).focus();
+  const restoreFocus = () => {
+    activeTrigger?.focus();
+    activeModal = null;
+    activeTrigger = null;
+  };
+  const makePageInert = (overlay: HTMLElement) => {
+    inertElements = Array.from(document.body.children).filter((element): element is HTMLElement => element instanceof HTMLElement && element !== overlay && element.tagName !== 'SCRIPT');
+    inertElements.forEach((element) => { element.inert = true; });
+  };
+  const restorePage = () => {
+    inertElements.forEach((element) => { element.inert = false; });
+    inertElements = [];
+    document.body.style.overflow = '';
+  };
+  const closeActive = () => {
+    if (activeModal instanceof HTMLDialogElement) {
+      activeModal.close();
+      return;
+    }
+    if (activeModal) {
+      const overlay = document.querySelector(`[data-modal-overlay="${activeModal.id}"]`);
+      if (overlay instanceof HTMLElement) {
+        overlay.classList.add('hidden');
+        overlay.classList.remove('flex');
+      }
+      restorePage();
+      restoreFocus();
+    }
+  };
+
+  document.querySelectorAll<HTMLElement>('[data-open-modal]').forEach((trigger) => {
+    trigger.addEventListener('click', () => {
+      const id = trigger.dataset.openModal;
+      const modal = id ? document.getElementById(id) : null;
+      if (!(modal instanceof HTMLElement)) return;
+      activeModal = modal;
+      activeTrigger = trigger;
+      if (modal instanceof HTMLDialogElement) modal.showModal();
+      else {
+        const overlay = document.querySelector(`[data-modal-overlay="${modal.id}"]`);
+        if (!(overlay instanceof HTMLElement)) return;
+        document.body.append(overlay);
+        overlay.classList.remove('hidden');
+        overlay.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+        makePageInert(overlay);
+      }
+      focusFirst(modal);
+    });
+  });
+  document.querySelectorAll('[data-close-modal]').forEach((button) => button.addEventListener('click', closeActive));
+  document.querySelectorAll<HTMLDialogElement>('dialog[data-modal]').forEach((dialog) => dialog.addEventListener('close', restoreFocus));
+  document.addEventListener('keydown', (event) => {
+    if (!activeModal) return;
+    if (event.key === 'Escape' && !(activeModal instanceof HTMLDialogElement)) {
+      event.preventDefault();
+      closeActive();
+      return;
+    }
+    if (event.key !== 'Tab') return;
+    const elements = focusableElements(activeModal);
+    if (elements.length === 0) {
+      event.preventDefault();
+      activeModal.focus();
+      return;
+    }
+    const first = elements[0];
+    const last = elements[elements.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  });
+</script>

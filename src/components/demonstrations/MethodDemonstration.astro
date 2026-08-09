@@ -1,0 +1,12 @@
+---
+import { getDemonstration, type DemonstrationKey } from '../../demonstrations/registry';
+
+interface Props { demonstrationKey: DemonstrationKey }
+const { demonstrationKey } = Astro.props;
+const Demonstration = getDemonstration(demonstrationKey);
+---
+
+<section aria-labelledby="method-demonstration-title">
+  <h2 id="method-demonstration-title">Demonstration</h2>
+  <Demonstration />
+</section>

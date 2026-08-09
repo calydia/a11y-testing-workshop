@@ -1,0 +1,41 @@
+<div class="space-y-10">
+  <section>
+    <h3>Headings provide structure</h3>
+    <p>Navigate through these headings with your screen reader's heading controls. Their text describes the content that follows, and their levels form a logical outline.</p>
+    <div class="border-2 border-lt-code-border p-4 dark:border-dk-code-border">
+      <h4 class="mt-0">Account settings</h4>
+      <p>Update your account details and preferences.</p>
+      <h5>Notification preferences</h5>
+      <p>Choose which notifications you want to receive.</p>
+    </div>
+  </section>
+
+  <section>
+    <h3>Compare generic and descriptive links</h3>
+    <p>Open your screen reader's links list or navigate through these links. The first group repeats generic text; the second identifies each destination.</p>
+    <div class="grid gap-4 md:grid-cols-2">
+      <div class="border-2 border-dashed border-lt-code-border p-4 dark:border-dk-code-border">
+        <h4 class="mt-0">Problematic link text</h4>
+        <ul>
+          <li><a href="#" data-demonstration-link>Read more</a> about testing headings.</li>
+          <li><a href="#" data-demonstration-link>Read more</a> about testing forms.</li>
+          <li><a href="#" data-demonstration-link>Click here</a> for screen-reader guidance.</li>
+        </ul>
+      </div>
+      <div class="border-2 border-lt-code-border p-4 dark:border-dk-code-border">
+        <h4 class="mt-0">Descriptive link text</h4>
+        <ul>
+          <li><a href="#" data-demonstration-link>Learn how to test headings</a>.</li>
+          <li><a href="#" data-demonstration-link>Learn how to test forms</a>.</li>
+          <li><a href="#" data-demonstration-link>Read the screen-reader guidance</a>.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+  document.querySelectorAll('[data-demonstration-link]').forEach((link) => {
+    link.addEventListener('click', (event) => event.preventDefault());
+  });
+</script>

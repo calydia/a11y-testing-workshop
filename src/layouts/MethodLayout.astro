@@ -1,5 +1,24 @@
 ---
 import ContentLayout from './ContentLayout.astro';
-const { title, description, summary } = Astro.props;
+import InterpretationList from '../components/content/InterpretationList.astro';
+import LimitationsList from '../components/content/LimitationsList.astro';
+import MethodDemonstration from '../components/demonstrations/MethodDemonstration.astro';
+import type { DemonstrationKey } from '../demonstrations/registry';
+
+interface Props {
+  title: string;
+  description: string;
+  summary: string;
+  demonstration?: DemonstrationKey;
+  interpretation: string[];
+  limitations: string[];
+}
+const { title, description, summary, demonstration, interpretation, limitations } = Astro.props;
 ---
-<ContentLayout title={title} description={description} summary={summary}><slot /></ContentLayout>
+<ContentLayout title={title} description={description} summary={summary}>
+  <slot name="navigation" slot="navigation" />
+  <slot />
+  {demonstration && <MethodDemonstration demonstrationKey={demonstration} />}
+  <InterpretationList items={interpretation} />
+  <LimitationsList items={limitations} />
+</ContentLayout>

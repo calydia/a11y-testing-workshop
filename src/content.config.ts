@@ -4,6 +4,12 @@ import { z } from 'astro/zod';
 
 const status = z.enum(['draft', 'published']).default('draft');
 const level = z.enum(['beginner', 'intermediate', 'advanced']);
+const demonstrationKey = z.enum([
+  'screen-reader/page-structure-and-links',
+  'screen-reader/icons-and-svg',
+  'screen-reader/language-changes',
+  'screen-reader/modal-dialogs',
+]);
 
 const common = {
   title: z.string(),
@@ -45,6 +51,9 @@ const testingMethods = defineCollection({
     tools: z.array(z.string()).default([]),
     platforms: z.array(z.string()).default([]),
     outcomes: z.array(z.string()).min(1),
+    demonstration: demonstrationKey.optional(),
+    interpretation: z.array(z.string()).default([]),
+    limitations: z.array(z.string()).default([]),
     relatedMethods: z.array(reference('testingMethods')).default([]),
     relatedExercises: z.array(reference('exercises')).default([]),
   }),

@@ -1,14 +1,16 @@
 ---
 import { render } from 'astro:content';
+import SectionNavigation from '../../components/navigation/SectionNavigation.astro';
 import ExerciseLayout from '../../layouts/ExerciseLayout.astro';
-import { getVisibleEntries } from '../../lib/content';
+import { createSectionNavigationItems, getVisibleEntries } from '../../lib/content';
 
 export async function getStaticPaths() {
   const entries = await getVisibleEntries('exercises');
-  return entries.map((entry) => ({ params: { id: entry.id }, props: { entry } }));
+  const navigationItems = createSectionNavigationItems(entries, 'exercises');
+  return entries.map((entry) => ({ params: { id: entry.id }, props: { entry, navigationItems } }));
 }
 
-const { entry } = Astro.props;
+const { entry, navigationItems } = Astro.props;
 const { Content } = await render(entry);
 ---
 
@@ -23,5 +25,13 @@ const { Content } = await render(entry);
   hints={entry.data.hints}
   solution={entry.data.solution}
 >
+  <SectionNavigation
+    slot="navigation"
+    title="Exercises"
+    landingHref="/exercises/"
+    landingLabel="All exercises"
+    items={navigationItems}
+    currentPath={Astro.url.pathname}
+  />
   <Content />
 </ExerciseLayout>

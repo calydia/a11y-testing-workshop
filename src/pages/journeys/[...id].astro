@@ -1,17 +1,27 @@
 ---
 import { render } from 'astro:content';
+import SectionNavigation from '../../components/navigation/SectionNavigation.astro';
 import JourneyLayout from '../../layouts/JourneyLayout.astro';
-import { getVisibleEntries } from '../../lib/content';
+import { createSectionNavigationItems, getVisibleEntries } from '../../lib/content';
 
 export async function getStaticPaths() {
   const entries = await getVisibleEntries('testingJourneys');
-  return entries.map((entry) => ({ params: { id: entry.id }, props: { entry } }));
+  const navigationItems = createSectionNavigationItems(entries, 'journeys');
+  return entries.map((entry) => ({ params: { id: entry.id }, props: { entry, navigationItems } }));
 }
 
-const { entry } = Astro.props;
+const { entry, navigationItems } = Astro.props;
 const { Content } = await render(entry);
 ---
 
 <JourneyLayout title={entry.data.title} description={entry.data.description} summary={entry.data.summary}>
+  <SectionNavigation
+    slot="navigation"
+    title="Testing journeys"
+    landingHref="/journeys/"
+    landingLabel="All testing journeys"
+    items={navigationItems}
+    currentPath={Astro.url.pathname}
+  />
   <Content />
 </JourneyLayout>

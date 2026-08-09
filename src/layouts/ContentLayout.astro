@@ -8,15 +8,36 @@ interface Props {
 }
 
 const { title, description, summary } = Astro.props;
+const hasNavigation = Astro.slots.has('navigation');
 ---
 
 <BaseLayout title={title} metaDescription={description}>
   <article class="my-8 mx-4 max-w-[80em] lg:mx-auto">
-    <div class="bodytext mx-auto max-w-[40em]">
-      <h1>{title}</h1>
-      {summary && <p class="introduction">{summary}</p>}
-      <slot name="meta" />
-      <slot />
+    <div class:list={[
+      'mx-auto',
+      hasNavigation ? 'lg:grid lg:max-w-[calc(40em+23rem)] lg:grid-cols-[minmax(0,40em)_minmax(14rem,20rem)] lg:items-start lg:gap-x-12' : 'max-w-[40em]',
+    ]}>
+      <header data-content-heading class:list={['bodytext', hasNavigation && 'lg:col-start-1 lg:row-start-1']}>
+        <h1>{title}</h1>
+        {summary && <p class="introduction">{summary}</p>}
+        <slot name="meta" />
+      </header>
+      {hasNavigation && (
+        <aside data-section-navigation-container class="my-8 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:my-0 lg:sticky lg:top-4">
+          <slot name="navigation" />
+        </aside>
+      )}
+      <div data-content-body class:list={['bodytext', hasNavigation && 'lg:col-start-1 lg:row-start-2']}>
+        <slot />
+      </div>
     </div>
   </article>
 </BaseLayout>
+
+<style>
+  @media (min-width: 64rem) {
+    [data-content-body] > :global(h2:first-child) {
+      margin-top: 0;
+    }
+  }
+</style>

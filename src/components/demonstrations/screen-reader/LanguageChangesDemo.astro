@@ -1,0 +1,39 @@
+<div class="space-y-10">
+  <section>
+    <h3>Language inherited by a nested link</h3>
+    <p>The paragraph declares French. The link inherits the language from its parent, so a configured screen reader should pronounce both using its French voice.</p>
+    <div class="lang-example">
+      <p lang="fr">
+        Voici un exemple en français avec un{' '}
+        <a href="#" data-demonstration-link>lien vers une ressource utile</a>.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <h3>Language repeated on a nested element</h3>
+    <p>This also works, but the link's language declaration is redundant because it already inherits French from the paragraph.</p>
+    <div class="lang-example">
+      <p lang="fr">
+        Voici un autre exemple en français avec un{' '}
+        <a href="#" lang="fr" data-demonstration-link>lien vers une ressource utile</a>.
+      </p>
+    </div>
+  </section>
+</div>
+
+<style>
+  .lang-example {
+    border: 2px solid #bbc9f7;
+    margin-block: 1.5rem 3rem;
+    padding: 1rem;
+  }
+  :global(.dark) .lang-example { border-color: #18399a; }
+  .lang-example p { margin-block-end: 0; }
+</style>
+
+<script>
+  document.querySelectorAll('[data-demonstration-link]').forEach((link) => {
+    link.addEventListener('click', (event) => event.preventDefault());
+  });
+</script>
