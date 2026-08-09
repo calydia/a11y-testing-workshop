@@ -1,0 +1,16 @@
+---
+import ContentMeta from '../content/ContentMeta.astro';
+
+interface Props {
+  difficulty: string;
+  estimatedMinutes: number;
+}
+
+const { difficulty, estimatedMinutes } = Astro.props;
+const items = [
+  { label: 'Difficulty', value: difficulty },
+  { label: 'Estimated time', value: `${estimatedMinutes} minutes` },
+];
+---
+
+<ContentMeta items={items} />

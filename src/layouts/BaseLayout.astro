@@ -1,5 +1,7 @@
 ---
-import Layout from './Layout.astro';
+import DocumentHead from '../components/site/DocumentHead.astro';
+import SiteFooter from '../components/site/SiteFooter.astro';
+import SiteHeader from '../components/site/SiteHeader.astro';
 
 interface Props {
   title: string;
@@ -7,8 +9,493 @@ interface Props {
 }
 
 const { title, metaDescription } = Astro.props;
----
 
-<Layout title={title} metaDescription={metaDescription}>
-  <slot />
-</Layout>
+import '@fontsource/satisfy';
+import '@fontsource/atkinson-hyperlegible';
+import '@fontsource/lato';
+
+---
+<html lang="en">
+  <head>
+    <DocumentHead title={title} metaDescription={metaDescription} />
+  </head>
+  <body class="font-sans hyphens-auto">
+    <SiteHeader />
+    <main id="skip-target" class={`text-lg lg:text-xl mb-8 md:mb-12 max-w-7xl md:mx-auto text-lt-gray dark:text-dk-gray`}>
+      <slot />
+    </main>
+    <slot name="after-main" />
+    <SiteFooter />
+  </body>
+</html>
+
+<style is:global>
+  @import "tailwindcss";
+  @config "../../tailwind.config.cjs";
+
+  :root {
+    --quote-icon: url('/icons/iconmonstr-quote-light.svg');
+    --external-icon: url('/icons/icons8-external-link-light.svg');
+    --exclamation-icon: url('/icons/hi-exclamation-circle-light.svg');
+    --nav-background: rgba(255,255,255,0.2);
+    --nav-border: rgba(255,255,255,0.4);
+    --menu-header-background: rgba(0,0,0,0.4);
+    --text-demo-color: #ccc;
+  }
+  :root.dark {
+    --quote-icon: url('/icons/iconmonstr-quote-dark.svg');
+    --external-icon: url('/icons/icons8-external-link-dark.svg');
+    --exclamation-icon: url('/icons/hi-exclamation-circle-dark.svg');
+    --nav-background: rgba(0,0,0,0.1);
+    --nav-border: rgba(0,0,0,0.4);
+    --menu-header-background: rgba(255,255,255,0.4);
+    --text-demo-color: #333333;
+  }
+
+  .light .main-image--wrapper::before{
+    background-color: rgba(230, 200, 252, 0.2);
+    background: linear-gradient(to right, rgba(187, 201, 247, 0.4) 0%, rgba(230,202, 252, 0.4) 50%, rgba(187, 201, 247, 0.4) 100%);
+  }
+
+  .dark .main-image--wrapper::before {
+    background-color: rgba(53, 3, 94, 0.2);
+    background: linear-gradient(to right, rgba(24, 57, 154, 0.3) 0%, rgba(53, 3, 94, 0.3) 50%, rgba(24, 57, 154, 0.3) 100%);
+  }
+
+  .gradient-border-light {
+    border-image: linear-gradient(to right, #46037e 0%, RoyalBlue 50%, #46037e 100%);
+    border-image-slice: 1;
+  }
+
+  .gradient-border-dark {
+    border-image: linear-gradient(to right, #46037e 0%, RoyalBlue 50%, #46037e 100%);
+    border-image-slice: 1;
+  }
+
+  .text-shadow-text {
+    text-shadow: rgb(0 0 0 / 46%) 4px 4px 6px;
+  }
+
+  .light {
+    @apply bg-lt-bg;
+  }
+  .dark {
+    @apply bg-dk-blue-darkest;
+  }
+  .dark .logo-dark,
+  .light .logo-light {
+    @apply hidden invisible;
+  }
+
+  .light .darkmode-light {
+    @apply hidden invisible;
+  }
+
+  .dark .darkmode-dark{
+    @apply hidden invisible;
+  }
+
+  p {
+    @apply text-lg mb-8 leading-relaxed font-light;
+
+    @variant md {
+      @apply text-xl leading-relaxed;
+    }
+  }
+
+  .introduction p {
+    @apply text-xl leading-relaxed;
+
+    @variant md {
+      @apply text-2xl leading-relaxed;
+    }
+  }
+
+  :where(h1, h2, h3, h4) {
+    @apply text-lt-gray-heading;
+
+    @variant dark {
+      @apply text-dk-gray-heading;
+    }
+  }
+
+  :where(h1) {
+    @apply first-letter:capitalize text-3xl font-bold font-heading mt-4 mb-4 relative;
+
+    @variant lg {
+      @apply mb-8 text-4xl;
+    }
+  }
+  :where(h2) {
+    @apply mb-4 text-2xl font-bold mt-12 font-heading relative;
+
+    @variant lg {
+      @apply text-3xl;
+    }
+  }
+
+  :where(h3) {
+    @apply mb-4 text-xl font-bold mt-12 font-heading relative;
+
+    @variant lg {
+      @apply text-2xl;
+    }
+  }
+
+  :where(h4) {
+    @apply mb-4 text-lg font-bold mt-12 font-heading relative;
+
+    @variant lg {
+      @apply text-xl;
+    }
+  }
+
+  :where(h1, h2, h3, h4)::before {
+    content: '';
+
+    @apply bg-lt-perfume absolute block z-[-1] bottom-0 w-10 h-2.5;
+  }
+
+  .dark :where(h1, h2, h3, h4)::before {
+    @apply bg-dk-purple-header;
+  }
+
+  :where(h1, h2, h3, h4).mt-0 {
+    @apply mt-0;
+  }
+
+  :where(h1, h2, h3, h4).mt-4 {
+    @apply mt-4;
+  }
+
+  :where(h1, h2, h3, h4).mb-8 {
+    @apply mb-8;
+  }
+
+  @media (min-width: 48rem) {
+    :where(h1, h2, h3, h4).md\:mt-0 {
+      @apply mt-0;
+    }
+  }
+
+  .custom-grid {
+    grid-template-columns: 1fr 280px;
+  }
+
+  blockquote {
+    @apply relative bg-slate-300 my-8 p-6 border-solid border-l-8 border-l-lt-purple;
+
+    @variant dark {
+      @apply bg-slate-900 border-l-dk-blue-light;
+    }
+  }
+
+  .box p:first-of-type,
+  blockquote p:first-of-type {
+    @apply mt-0;
+  }
+
+  .box p:last-of-type {
+    @apply mb-0;
+  }
+
+  blockquote cite {
+    @apply block text-base not-italic mt-4;
+
+    @variant lg {
+      @apply text-right;
+    }
+  }
+
+  blockquote::after {
+    @apply block absolute right-[-4px] top-[-2rem] text-7xl bg-no-repeat bg-center h-16 w-16;
+
+    @variant md {
+      @apply right-[-2rem];
+    }
+
+    background-image: var(--quote-icon);
+    background-size: 4rem;
+    content: '';
+  }
+
+  strong {
+    @apply font-bold;
+  }
+  code {
+    @apply text-base border-solid border py-0.5 px-1 mx-0.5 inline-block bg-lt-code-bg border-lt-code-border shadow-lg;
+
+    @variant dark {
+      @apply bg-dk-code-bg border-dk-code-border;
+    }
+  }
+
+  main {
+    @apply text-lg;
+
+    @variant lg {
+      @apply text-xl;
+    }
+  }
+
+  #main-menu-nav a,
+  main a:not(.button),
+  footer a:not(.button) {
+    @apply text-lt-blue-dark;
+
+    @variant dark {
+      @apply text-dk-blue-light;
+    }
+
+    @variant hover {
+      @apply underline underline-offset-4 text-lt-purple decoration-2;
+    }
+
+    @variant focus {
+      @apply text-lt-purple outline-2 outline-offset-2 no-underline outline-lt-purple;
+    }
+
+    @variant dark {
+      @variant hover {
+        @apply text-wheat;
+      }
+
+      @variant focus {
+        @apply text-wheat outline-wheat;
+      }
+    }
+  }
+
+  .bodytext ul,
+  .box ul {
+    @apply list-disc ml-5 leading-loose;
+  }
+
+  a[aria-current=true],
+  a[aria-current="page"],
+  #main-menu-nav a[data-current-section="true"],
+  #main-menu-nav a[aria-current="page"],
+  .active-link {
+    @apply underline decoration-2 underline-offset-4 text-lt-purple;
+
+    @variant dark {
+      @apply text-wheat;
+    }
+
+    @variant hover {
+      @apply decoration-4;
+    }
+  }
+
+  button[aria-current="true"] {
+    @apply underline decoration-2 underline-offset-4 text-lt-purple;
+
+    @variant dark {
+      @apply text-wheat;
+    }
+
+    @variant hover {
+      @apply decoration-4;
+    }
+  }
+
+  ol {
+    @apply list-decimal leading-normal;
+
+    margin-block-start: 0.25em;
+    margin-block-end: 0.25em;
+    margin-inline-start: 1.5em;
+    margin-inline-end: 0;
+    padding-inline-start: 0;
+  }
+
+  ol, ul {
+    @apply font-light;
+  }
+
+  ol li,
+  ul li {
+    @apply my-4;
+  }
+
+  .bodytext ol,
+  .bodytext ul {
+    @apply mb-8;
+  }
+
+  .bodytext ol ol,
+  .bodytext ul ul {
+    @apply mb-0;
+  }
+
+  blockquote ul {
+    @apply list-disc;
+  }
+
+  blockquote ol,
+  blockquote ul {
+    margin-block-start: 0.25em;
+    margin-block-end: 0.25em;
+    margin-inline-start: 1.5em;
+    margin-inline-end: 0;
+    padding-inline-start: 0;
+  }
+
+  blockquote p:last-of-type {
+    @apply mb-0;
+  }
+
+  .hide-menu {
+    @apply hidden invisible;
+  }
+
+  .menu-button[aria-expanded="false"] + ul {
+    @apply hidden invisible;
+  }
+
+  .menu-button[aria-expanded="true"] .menu-button--icon  {
+    @apply rotate-180;
+  }
+
+  .menu-toggle[aria-expanded="false"] + ul {
+    @variant max-lg {
+      @apply hidden invisible;
+    }
+  }
+
+  .menu-toggle[aria-expanded="true"] .menu-open {
+    @variant max-lg {
+      @apply hidden invisible;
+    }
+  }
+  .menu-toggle[aria-expanded="false"] .menu-close {
+    @variant max-lg {
+      @apply hidden invisible;
+    }
+  }
+
+  .button {
+    @apply bg-lt-blue-dark text-white border-4 border-transparent py-3 px-5;
+
+    @variant dark {
+      @apply bg-dk-blue-light text-black;
+    }
+
+    @variant hover {
+      @apply border-4 border-lt-blue-dark bg-transparent text-lt-blue-dark;
+    }
+
+    @variant focus {
+      @apply outline-2 outline-offset-4 outline-black;
+    }
+
+    @variant dark {
+      @variant hover {
+        @apply text-dk-blue-light border-dk-blue-light;
+      }
+
+      @variant focus {
+        @apply outline-white;
+      }
+    }
+  }
+
+  .button--alternative {
+    @apply text-lt-blue-dark py-2 px-3;
+
+    @variant dark {
+      @apply text-dk-blue-light;
+    }
+  }
+
+  .item--transition {
+    @apply transition-colors ease-in-out duration-300;
+
+    @variant hover {
+      @apply transition-colors ease-in-out duration-300;
+    }
+  }
+
+  .hover--border {
+    @apply border-y-4 border-transparent;
+
+    @variant hover {
+      @apply border-y-4 border-lt-purple;
+    }
+
+    @variant focus {
+      @apply outline-2 outline-offset-4 outline-black;
+    }
+
+    @variant dark {
+      @variant hover {
+        @apply border-dk-blue-light;
+      }
+
+      @variant focus {
+        @apply outline-white;
+      }
+    }
+  }
+
+  input[type="text"] {
+    @apply py-3.5 px-4 my-2 text-black border-2 m-0 border-solid border-black;
+
+    @variant dark {
+      @apply border-white text-white;
+    }
+
+    @variant focus {
+      @apply outline-2 outline-offset-4 outline-black;
+    }
+
+    @variant dark {
+      @variant focus {
+        @apply outline-white;
+      }
+    }
+  }
+
+  main a:not(.button) {
+    @apply underline;
+  }
+
+  main a:not(.button)[href^="https://"]::after {
+    @apply inline-block bg-no-repeat bg-right-bottom h-6 w-6;
+
+    background-image: var(--external-icon);
+    background-size: 1.25rem 1.25rem;
+    content: '';
+  }
+
+  .nav-bar {
+    @apply pb-4 ;
+    background-color: var(--nav-background);
+    border-top: 1px solid var(--nav-border);
+  }
+
+
+  .logo-light,
+  .logo-dark {
+    @apply h-auto w-24;
+
+    @variant md {
+      @apply w-32;
+    }
+  }
+
+  .dark .logo-dark,
+  .light .logo-light {
+    @apply hidden invisible;
+  }
+
+  footer .logo-light,
+  footer .logo-dark {
+    @apply h-auto w-24;
+
+    @variant md {
+      @apply w-28;
+    }
+  }
+
+</style>

@@ -3,6 +3,7 @@ import ContentLayout from './ContentLayout.astro';
 import ExerciseFixture from '../components/exercise/ExerciseFixture.astro';
 import ExerciseHints from '../components/exercise/ExerciseHints.astro';
 import ExerciseInstructions from '../components/exercise/ExerciseInstructions.astro';
+import ExerciseMeta from '../components/exercise/ExerciseMeta.astro';
 import ExerciseObjectives from '../components/exercise/ExerciseObjectives.astro';
 import ExerciseSolution from '../components/exercise/ExerciseSolution.astro';
 import ExerciseWorkspace from '../components/exercise/ExerciseWorkspace.astro';
@@ -26,10 +27,7 @@ const { title, description, summary, difficulty, estimatedMinutes, objectives, f
 ---
 
 <ContentLayout title={title} description={description} summary={summary}>
-  <dl slot="meta" class="mb-8 flex flex-wrap gap-x-8 gap-y-2 text-base">
-    <div><dt class="inline font-bold">Difficulty:</dt> <dd class="inline">{difficulty}</dd></div>
-    <div><dt class="inline font-bold">Estimated time:</dt> <dd class="inline">{estimatedMinutes} minutes</dd></div>
-  </dl>
+  <ExerciseMeta slot="meta" difficulty={difficulty} estimatedMinutes={estimatedMinutes} />
   <ExerciseObjectives objectives={objectives} />
   <ExerciseInstructions><slot /></ExerciseInstructions>
   <ExerciseWorkspace><ExerciseFixture fixtureKey={fixture} /></ExerciseWorkspace>

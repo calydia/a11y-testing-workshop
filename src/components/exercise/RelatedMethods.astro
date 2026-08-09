@@ -1,0 +1,12 @@
+---
+import RelatedContent from '../content/RelatedContent.astro';
+import type { ContentCardData } from '../content/ContentCard.astro';
+
+interface Props {
+  methods: ContentCardData[];
+}
+
+const { methods } = Astro.props;
+---
+
+<RelatedContent title="Related testing methods" entries={methods} />

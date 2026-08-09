@@ -1,0 +1,36 @@
+import { test, expect } from '@playwright/test';
+
+const sections = [
+  { path: '/learn/', label: 'Learning paths' },
+  { path: '/methods/', label: 'Testing methods' },
+  { path: '/exercises/', label: 'Exercises' },
+  { path: '/journeys/', label: 'Testing journeys' },
+];
+
+for (const section of sections) {
+  test(`${section.label} exposes a truthful empty collection state`, async ({ page }) => {
+    await page.goto(section.path);
+
+    await expect(page.getByText('No published content is available in this section yet.')).toBeVisible();
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', `https://testing.a11y.ing${section.path}`);
+  });
+}
+
+test('unknown nested content IDs use the normal 404 response', async ({ request }) => {
+  for (const path of ['/learn/not-an-entry/', '/methods/nested/not-an-entry/', '/exercises/not-an-entry/', '/journeys/not-an-entry/']) {
+    const response = await request.get(path);
+    expect(response.status(), path).toBe(404);
+  }
+});
+
+test('site metadata describes Accessibility Testing Lab', async ({ page }) => {
+  await page.goto('/');
+
+  await expect(page.locator('meta[property="og:site_name"]')).toHaveAttribute('content', 'Accessibility Testing Lab');
+  const structuredData = JSON.parse(await page.locator('script[type="application/ld+json"]').textContent());
+  expect(structuredData).toMatchObject({
+    '@type': 'WebSite',
+    name: 'Accessibility Testing Lab',
+    url: 'https://testing.a11y.ing/',
+  });
+});

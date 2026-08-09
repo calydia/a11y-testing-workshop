@@ -25,6 +25,10 @@
 
     return undefined;
   };
+  const isCurrentSection = (href: string) => {
+    const normalizedHref = normalizeUrl(href);
+    return normalizedCurrentUrl === normalizedHref || normalizedCurrentUrl.startsWith(`${normalizedHref}/`);
+  };
 ---
 
 <nav id="main-menu-nav" aria-labelledby="main-menu-label" class="text-black dark:text-white py-1 mt-2 nav-bar" aria-label="Main">
@@ -45,6 +49,7 @@
         class="px-4 py-3 text-base font-menu block lg:mx-2"
         href={item.href}
         aria-current={getCurrentState(item.href)}
+        data-current-section={isCurrentSection(item.href) || undefined}
       >
         {item.label}
       </a>
@@ -60,6 +65,13 @@
   subButton?.addEventListener('click', () => {
     const currentExpanded = subButton.getAttribute('aria-expanded');
     (currentExpanded == 'true') ? subButton.setAttribute('aria-expanded', 'false') : subButton.setAttribute('aria-expanded', 'true');
+  });
+
+  document.querySelector('#main-menu')?.addEventListener('keyup', (event) => {
+    if (event instanceof KeyboardEvent && event.key === 'Escape') {
+      subButton?.setAttribute('aria-expanded', 'false');
+      (subButton as HTMLButtonElement | null)?.focus();
+    }
   });
 
 </script>

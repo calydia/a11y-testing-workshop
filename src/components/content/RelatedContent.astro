@@ -1,0 +1,18 @@
+---
+import ContentListing from './ContentListing.astro';
+import type { ContentCardData } from './ContentCard.astro';
+
+interface Props {
+  title?: string;
+  entries: ContentCardData[];
+}
+
+const { title = 'Related content', entries } = Astro.props;
+---
+
+{entries.length > 0 && (
+  <section aria-labelledby="related-content-title">
+    <h2 id="related-content-title">{title}</h2>
+    <ContentListing entries={entries} />
+  </section>
+)}

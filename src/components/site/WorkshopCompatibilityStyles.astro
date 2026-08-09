@@ -1,0 +1,45 @@
+<style is:global>
+  .color-contrast {
+    color: var(--text-demo-color);
+  }
+
+  .hide {
+    @apply hidden invisible;
+  }
+
+  input {
+    color: var(--input-color);
+    border: 1px solid var(--input-border-color);
+    font-size: 1.125rem;
+    padding: var(--spacing-default);
+  }
+
+  select {
+    border: 1px solid var(--input-border-color);
+    color: var(--input-color);
+    padding: var(--spacing-default);
+  }
+
+  .bad-practice {
+    font-size: 1rem !important;
+  }
+
+  .css-content-text::before {
+    content: 'This text is added with CSS content property.';
+  }
+
+  .css-content-icon::before {
+    content: '🔍';
+    margin-right: 0.5rem;
+  }
+
+  .css-content-icon-alt::before {
+    content: '🔍' / 'This is an alt text';
+    margin-right: 0.5rem;
+  }
+
+  .css-content-icon-alt-empty::before {
+    content: '🔍' / '';
+    margin-right: 0.5rem;
+  }
+</style>

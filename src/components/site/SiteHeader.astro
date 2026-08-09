@@ -1,0 +1,12 @@
+---
+import MainNavigation from '../MainNavigation.astro';
+import SkipLink from '../SkipLink.astro';
+import ThemeToggle from '../ThemeToggle.astro';
+import BrandLink from './BrandLink.astro';
+---
+<header id="page-top" class="bg-gradient-to-r from-lt-perfume via-lt-blue-light to-lt-perfume dark:from-dk-purple-header dark:via-dk-blue-header dark:to-dk-purple-header">
+  <SkipLink skipId="skip" skipTarget="#skip-target" />
+  <div class="flex flex-wrap justify-end gap-1"><ThemeToggle /></div>
+  <BrandLink />
+  <MainNavigation currentUrl={Astro.url.pathname} />
+</header>
