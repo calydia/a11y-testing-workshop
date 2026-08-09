@@ -3,7 +3,6 @@ import { readFile } from 'node:fs/promises';
 
 const sections = [
   { path: '/learn/', label: 'Learning paths' },
-  { path: '/exercises/', label: 'Exercises' },
   { path: '/journeys/', label: 'Testing journeys' },
 ];
 

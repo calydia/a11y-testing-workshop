@@ -1,5 +1,6 @@
 ---
 import { fixtureRegistry, type DocumentFixture } from '../../exercises/fixture-registry';
+import '@fontsource/atkinson-hyperlegible';
 
 export function getStaticPaths() {
   return Object.entries(fixtureRegistry)
@@ -16,6 +17,24 @@ const FixtureComponent = fixture.component;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>{fixture.title}</title>
+    <script is:inline>
+      const fixtureThemePreference = () => localStorage.getItem('darkMode');
+      const applyFixtureTheme = () => {
+        const preference = fixtureThemePreference();
+        const useDarkTheme = preference === 'enabled'
+          || (!preference && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.classList.toggle('dark', useDarkTheme);
+        document.documentElement.classList.toggle('light', !useDarkTheme);
+      };
+
+      applyFixtureTheme();
+      window.addEventListener('storage', (event) => {
+        if (event.key === 'darkMode') applyFixtureTheme();
+      });
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+        if (!fixtureThemePreference()) applyFixtureTheme();
+      });
+    </script>
   </head>
   <body>
     <FixtureComponent />

@@ -2,10 +2,10 @@
 interface Finding { title: string; explanation: string }
 interface Props { solution?: { summary: string; findings: Finding[] } }
 const { solution } = Astro.props;
+import ExerciseDisclosure from './ExerciseDisclosure.astro';
 ---
 {solution && (
-  <details class="my-8 border-2 border-lt-code-border p-4 dark:border-dk-code-border">
-    <summary class="cursor-pointer font-bold">Solution</summary>
+  <ExerciseDisclosure summary="Solution">
     <p>{solution.summary}</p>
     {solution.findings.map((finding) => (
       <section>
@@ -13,5 +13,5 @@ const { solution } = Astro.props;
         <p>{finding.explanation}</p>
       </section>
     ))}
-  </details>
+  </ExerciseDisclosure>
 )}

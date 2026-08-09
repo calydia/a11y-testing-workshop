@@ -5,10 +5,14 @@ interface Props { fixtureKey: string }
 const { fixtureKey } = Astro.props;
 const fixture = getFixture(fixtureKey);
 const FixtureComponent = fixture.component;
+const fixtureUrl = `/exercise-fixtures/${fixtureKey}/`;
 ---
 
 {fixture.kind === 'inline' ? (
   <FixtureComponent />
 ) : (
-  <iframe class="min-h-96 w-full border-2" src={`/exercise-fixtures/${fixtureKey}/`} title={fixture.title}></iframe>
+  <div>
+    <p class="mb-4"><a href={fixtureUrl}>Open exercise in a new page</a></p>
+    <iframe class="min-h-[64rem] w-full border-2" src={fixtureUrl} title={fixture.title}></iframe>
+  </div>
 )}

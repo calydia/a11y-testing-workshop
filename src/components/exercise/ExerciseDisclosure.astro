@@ -1,0 +1,33 @@
+---
+interface Props { summary: string }
+const { summary } = Astro.props;
+---
+
+<details class="exercise-disclosure my-8 border-2 border-lt-code-border dark:border-dk-code-border">
+  <summary class="exercise-disclosure__summary">{summary}</summary>
+  <div class="p-4"><slot /></div>
+</details>
+
+<style>
+  .exercise-disclosure__summary {
+    box-sizing: border-box;
+    width: 100%;
+    cursor: pointer;
+    padding: 1rem;
+    color: #333;
+    font-weight: 700;
+  }
+  .exercise-disclosure__summary:hover {
+    background: #dfe7fc;
+    color: #54007b;
+  }
+  .exercise-disclosure__summary:focus,
+  .exercise-disclosure__summary:focus-visible {
+    outline: 2px solid #000;
+    outline-offset: -4px;
+  }
+  :global(.dark) .exercise-disclosure__summary { color: #cfcfcf; }
+  :global(.dark) .exercise-disclosure__summary:hover { background: #070038; color: #f5deb3; }
+  :global(.dark) .exercise-disclosure__summary:focus,
+  :global(.dark) .exercise-disclosure__summary:focus-visible { outline-color: #fff; }
+</style>

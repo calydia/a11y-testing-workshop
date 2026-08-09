@@ -1,0 +1,141 @@
+<main class="fixture-shell">
+  <a class="return-link" href="/exercises/keyboard-testing-a-preferences-form/">Return to the exercise</a>
+
+  <h1>Communication preferences</h1>
+  <p>Review and save these preferences using only your keyboard.</p>
+
+  <form id="preferences-form">
+    <div class="field">
+      <label for="email">Email address</label>
+      <input id="email" name="email" type="email" value="learner@example.com" tabindex="2" />
+    </div>
+
+    <fieldset>
+      <legend>Messages you want to receive</legend>
+      <label class="choice"><input type="checkbox" name="messages" value="updates" checked /> Product updates</label>
+      <label class="choice"><input type="checkbox" name="messages" value="research" /> Research invitations</label>
+    </fieldset>
+
+    <div class="field">
+      <span class="field-label">Preview</span>
+      <div id="preview-preferences" class="control">Preview preferences</div>
+    </div>
+
+    <div class="field">
+      <span class="field-label">Delivery frequency</span>
+      <div id="delivery-frequency" class="control" role="button" tabindex="0" aria-pressed="false">
+        Weekly summary: off
+      </div>
+    </div>
+
+    <div class="field">
+      <button id="show-delivery-help" class="secondary no-focus" type="button" aria-expanded="false" aria-controls="delivery-help">
+        Show delivery help
+      </button>
+      <p id="delivery-help" hidden>Weekly summaries combine your selected messages into one email.</p>
+    </div>
+
+    <button id="save-preferences" type="submit" tabindex="1">Save preferences</button>
+    <p id="fixture-status" class="status" role="status" aria-live="polite"></p>
+  </form>
+</main>
+
+<script>
+  const status = document.querySelector('#fixture-status');
+  const preview = document.querySelector('#preview-preferences');
+  const frequency = document.querySelector('#delivery-frequency');
+  const helpButton = document.querySelector('#show-delivery-help');
+  const help = document.querySelector('#delivery-help');
+  const form = document.querySelector('#preferences-form');
+
+  preview?.addEventListener('click', () => {
+    if (status) status.textContent = 'Preview opened.';
+  });
+
+  frequency?.addEventListener('click', () => {
+    const pressed = frequency.getAttribute('aria-pressed') === 'true';
+    frequency.setAttribute('aria-pressed', String(!pressed));
+    frequency.textContent = `Weekly summary: ${pressed ? 'off' : 'on'}`;
+  });
+
+  helpButton?.addEventListener('click', () => {
+    const expanded = helpButton.getAttribute('aria-expanded') === 'true';
+    helpButton.setAttribute('aria-expanded', String(!expanded));
+    if (help instanceof HTMLElement) help.hidden = expanded;
+    helpButton.textContent = expanded ? 'Show delivery help' : 'Hide delivery help';
+  });
+
+  form?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    if (status) status.textContent = 'Preferences saved.';
+  });
+</script>
+
+<style>
+  :global(*) { box-sizing: border-box; }
+  :global(body) {
+    margin: 0;
+    background: #fafafa;
+    color: #4d4d4d;
+    font-family: 'Atkinson Hyperlegible', Arial, sans-serif;
+    font-size: 1.125rem;
+    line-height: 1.5;
+  }
+  .fixture-shell { max-width: 42rem; margin: 0 auto; padding: 1.5rem; }
+  h1 { margin-block: 1.5rem 0.75rem; font-size: clamp(2rem, 8vw, 3rem); line-height: 1.1; }
+  p { margin-block: 0 1.5rem; }
+  form { display: grid; gap: 1.5rem; }
+  .field { display: grid; gap: 0.5rem; }
+  label, legend, .field-label { font-weight: 700; }
+  fieldset { display: grid; gap: 0.75rem; padding: 1rem; border: 2px solid #bbc9f7; }
+  .choice { display: flex; align-items: center; gap: 0.65rem; font-weight: 400; }
+  input[type='email'] { width: 100%; padding: 0.7rem; border: 2px solid #bbc9f7; border-radius: 0.25rem; font: inherit; }
+  input[type='checkbox'] { width: 1.25rem; height: 1.25rem; }
+  button, .control {
+    width: fit-content;
+    max-width: 100%;
+    padding: 0.7rem 1rem;
+    border: 4px solid transparent;
+    border-radius: 0.25rem;
+    background: #033573;
+    color: #fff;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  button:hover, .control:hover { border-color: #033573; background: transparent; color: #033573; }
+  button.secondary { border-width: 2px; border-color: #033573; background: transparent; color: #033573; }
+  button.secondary:hover { background: #dfe7fc; }
+  a { color: #033573; text-underline-offset: 0.2em; }
+  h1 { color: #333; }
+  a:focus, input:focus, button:focus, [role='button']:focus {
+    outline: 2px solid #000;
+    outline-offset: 4px;
+    box-shadow: 0 0 0 2px #fff;
+  }
+  .no-focus:focus, .no-focus:focus-visible { outline: none; box-shadow: none; }
+  .status { min-height: 1.75rem; margin: 0; font-weight: 700; }
+  [hidden] { display: none; }
+
+  :global(.dark body) { background: #010017; color: #ababab; }
+  :global(.dark) h1 { color: #cfcfcf; }
+  :global(.dark) fieldset, :global(.dark) input[type='email'] { border-color: #18399a; }
+  :global(.dark) input[type='email'] { background: #fff; color: #18151f; }
+  :global(.dark) button, :global(.dark) .control { background: #ade5f8; color: #000; }
+  :global(.dark) button:hover, :global(.dark) .control:hover { border-color: #ade5f8; background: transparent; color: #ade5f8; }
+  :global(.dark) button.secondary { border-color: #ade5f8; background: transparent; color: #ade5f8; }
+  :global(.dark) button.secondary:hover { background: #070038; }
+  :global(.dark) a { color: #ade5f8; }
+  :global(.dark) a:focus, :global(.dark) input:focus, :global(.dark) button:focus, :global(.dark) [role='button']:focus {
+    outline-color: #fff;
+    box-shadow: 0 0 0 2px #010017;
+  }
+  :global(.dark) .no-focus:focus, :global(.dark) .no-focus:focus-visible { outline: none; box-shadow: none; }
+
+  @media (prefers-color-scheme: dark) {
+    :global(html:not(.light):not(.dark) body) { background: #010017; color: #ababab; }
+    :global(html:not(.light):not(.dark)) h1 { color: #cfcfcf; }
+    :global(html:not(.light):not(.dark)) fieldset, :global(html:not(.light):not(.dark)) input[type='email'] { border-color: #18399a; }
+    input[type='email'] { background: #fff; color: #18151f; }
+  }
+</style>
