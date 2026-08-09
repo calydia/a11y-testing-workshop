@@ -81,6 +81,12 @@ Extend `ContentLayout` with an optional `navigation` slot.
 - Preserve source order so navigation appears in a logical reading and keyboard sequence on small screens.
 - Do not duplicate the navigation markup for different breakpoints; reposition one instance with CSS Grid.
 
+### Desktop alignment refinement
+
+Size the large-screen grid to its two visible columns and gap rather than leaving unused width inside an 80em wrapper. Center the complete article-plus-navigation unit so the outer left and right margins are equal. Keep the readable article column at 40em and retain the existing bounded navigation column; do not stretch either column merely to fill available space.
+
+The heading and body occupy separate grid cells when navigation is present, so their adjoining margins must not create an exaggerated gap. On large screens, compact the top margin of the first body heading at this boundary. Preserve normal heading spacing elsewhere and leave the approved mobile spacing and source order unchanged.
+
 The article remains the primary content container. The section navigation is adjacent to the article content rather than nested inside prose sections.
 
 ## Visual design
@@ -124,6 +130,8 @@ Add coverage for:
 - One navigation instance at mobile and desktop widths.
 - Inline placement before the body on small screens.
 - Sticky sidebar placement at large widths.
+- Equal outer margins around the visible two-column unit at large widths.
+- Compact spacing between introductory content and the first body heading at large widths without changing mobile spacing.
 - Keyboard access and visible focus for every submenu link.
 - Long-title wrapping at narrow widths and zoomed layouts.
 - Axe scans with the new navigation present.
