@@ -60,6 +60,20 @@ The full-page fixture must include:
 - Self-contained responsive light/dark-compatible styling.
 - Proper labels and native semantics for controls that are not intentionally defective.
 
+### Lab theme integration
+
+The fixture must visually belong to Accessibility Testing Lab rather than using an independent system palette.
+
+- Use Atkinson Hyperlegible for fixture content.
+- Use the Lab's exact light background, text, heading, link, border, and control colors.
+- Use the Lab's exact dark background, text, heading, link, border, and control colors.
+- Initialize the fixture document from the same `darkMode` local-storage preference as the Lab shell before visible content renders.
+- When no stored preference exists, use the operating-system color-scheme preference just as the Lab shell does.
+- Listen for stored theme changes so toggling the Lab theme updates the same-origin embedded iframe without reloading it.
+- Apply the same initialization and colors to the standalone fixture route.
+
+Do not render the full Lab header, primary navigation, breadcrumbs, or footer inside the iframe. Theme integration is shared presentation, not a duplicated site shell.
+
 ## Intentional findings
 
 Seed exactly four keyboard-focused defects.
@@ -141,6 +155,8 @@ Also verify:
 - The iframe has the registered accessible title.
 - The standalone link resolves to the same fixture route.
 - The standalone fixture has a return link.
+- The embedded and standalone fixture backgrounds, typography, and palette match the selected Lab theme.
+- Changing the Lab theme updates the embedded fixture theme.
 - The Exercise breadcrumb and Exercises submenu are correct.
 - The solution contains four findings.
 - The legacy `FormWithErrors` component and keyboard workshop page remain unchanged.
