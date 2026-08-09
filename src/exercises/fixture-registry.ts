@@ -1,5 +1,6 @@
 import type { AstroComponentFactory } from 'astro/runtime/server/index.js';
 import KeyboardPreferencesFormFixture from '../components/exercise/fixtures/KeyboardPreferencesFormFixture.astro';
+import VisualAccountDashboardFixture from '../components/exercise/fixtures/VisualAccountDashboardFixture.astro';
 
 export interface InlineFixture {
   kind: 'inline';
@@ -26,6 +27,17 @@ export const fixtureRegistry: Record<string, ExerciseFixtureDefinition> = {
       'custom-control-no-keyboard-activation',
       'missing-focus-indicator',
       'positive-tabindex-order',
+    ],
+  },
+  'visual-account-dashboard': {
+    kind: 'document',
+    component: VisualAccountDashboardFixture,
+    title: 'Account dashboard visual accessibility exercise',
+    intentionalViolations: [
+      'low-contrast-text',
+      'color-only-status',
+      'cramped-text',
+      'weak-interaction-state',
     ],
   },
 };

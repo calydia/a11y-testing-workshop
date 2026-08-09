@@ -5,6 +5,11 @@ const keyboardMethod = {
   title: 'Testing keyboard accessibility',
 };
 
+const visualMethod = {
+  path: '/methods/testing-visual-accessibility/',
+  title: 'Testing visual accessibility',
+};
+
 const screenReaderMethods = [
   {
     path: '/methods/screen-reader-page-structure-and-links/',
@@ -24,7 +29,7 @@ const screenReaderMethods = [
   },
 ];
 
-const methods = [keyboardMethod, ...screenReaderMethods];
+const methods = [keyboardMethod, visualMethod, ...screenReaderMethods];
 
 test('method detail pages provide collection-driven section navigation', async ({ page }) => {
   await page.goto(methods[1].path);
@@ -141,6 +146,23 @@ test('Testing keyboard accessibility renders a method without a demonstration', 
   const breadcrumb = page.getByRole('navigation', { name: 'Breadcrumbs' }).getByRole('listitem');
   await expect(breadcrumb).toHaveText(['Home/', 'Testing methods/', keyboardMethod.title]);
   await expect(breadcrumb.last()).toHaveAttribute('aria-current', 'page');
+});
+
+test('Testing visual accessibility renders a method without a demonstration', async ({ page }) => {
+  const response = await page.goto(visualMethod.path);
+
+  expect(response?.ok()).toBe(true);
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(visualMethod.title);
+  for (const heading of ['What this method tests', 'What you need', 'Before you start', 'How to perform the test', 'What to observe', 'Interpreting the results', 'Limitations']) {
+    await expect(page.getByRole('heading', { level: 2, name: heading })).toBeVisible();
+  }
+  await expect(page.getByRole('heading', { level: 2, name: 'Demonstration' })).toHaveCount(0);
+
+  const navigation = page.getByRole('navigation', { name: 'Testing methods' });
+  await expect(navigation.getByRole('link', { name: visualMethod.title })).toHaveAttribute('aria-current', 'page');
+
+  const breadcrumb = page.getByRole('navigation', { name: 'Breadcrumbs' }).getByRole('listitem');
+  await expect(breadcrumb).toHaveText(['Home/', 'Testing methods/', visualMethod.title]);
 });
 
 test('legacy screen-reader example routes remain available', async ({ request }) => {

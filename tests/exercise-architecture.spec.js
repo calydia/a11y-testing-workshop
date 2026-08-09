@@ -18,9 +18,15 @@ test('section state is separate from exact-page current state', async ({ page })
   await expect(link).toHaveAttribute('data-current-section', 'true');
 });
 
-test('exercise listing contains the keyboard preferences form exercise', async ({ page }) => {
+test('exercise listing contains published exercises in collection order', async ({ page }) => {
   await page.goto('/exercises/');
 
   await expect(page.getByText('No published content is available in this section yet.')).toHaveCount(0);
-  await expect(page.getByRole('link', { name: 'Keyboard testing a preferences form' })).toHaveAttribute('href', '/exercises/keyboard-testing-a-preferences-form/');
+  const links = page.locator('main article h2 > a');
+  await expect(links).toHaveText([
+    'Keyboard testing a preferences form',
+    'Finding visual problems in an account dashboard',
+  ]);
+  await expect(links.nth(0)).toHaveAttribute('href', '/exercises/keyboard-testing-a-preferences-form/');
+  await expect(links.nth(1)).toHaveAttribute('href', '/exercises/finding-visual-problems-in-an-account-dashboard/');
 });

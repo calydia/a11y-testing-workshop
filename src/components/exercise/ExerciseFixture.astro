@@ -13,6 +13,6 @@ const fixtureUrl = `/exercise-fixtures/${fixtureKey}/`;
 ) : (
   <div>
     <p class="mb-4"><a href={fixtureUrl}>Open exercise in a new page</a></p>
-    <iframe class="min-h-[64rem] w-full border-2" src={fixtureUrl} title={fixture.title}></iframe>
+    <iframe class="min-h-[80rem] w-full border-2 md:min-h-[64rem]" src={fixtureUrl} title={fixture.title}></iframe>
   </div>
 )}

@@ -1,0 +1,102 @@
+<main class="fixture-shell">
+  <a class="return-link" href="/exercises/finding-visual-problems-in-an-account-dashboard/">Return to the exercise</a>
+
+  <h1>Account overview</h1>
+  <p>Review this dashboard in both themes and in each interaction state.</p>
+
+  <section class="dashboard-card" aria-labelledby="profile-heading">
+    <h2 id="profile-heading">Profile</h2>
+    <p class="account-note" data-visual-finding="low-contrast-text">Your account details were last reviewed 11 months ago.</p>
+    <a href="#profile-heading">Review profile details</a>
+  </section>
+
+  <section class="dashboard-card" aria-labelledby="services-heading">
+    <h2 id="services-heading">Connected services</h2>
+    <p>The colored indicators show the current service status.</p>
+    <ul class="service-list" data-visual-finding="color-only-status">
+      <li data-status><span class="status-dot available" aria-hidden="true"></span>Website</li>
+      <li data-status><span class="status-dot disrupted" aria-hidden="true"></span>Mobile app</li>
+      <li data-status><span class="status-dot unavailable" aria-hidden="true"></span>Email service</li>
+    </ul>
+  </section>
+
+  <section class="dashboard-card" aria-labelledby="activity-heading">
+    <h2 id="activity-heading">Recent account activity</h2>
+    <p class="activity-copy" data-visual-finding="cramped-text">A new device signed in to your account on Friday. If this was you, no action is needed. If you do not recognize the activity, review your active sessions and update your password to protect your account.</p>
+    <button id="download-report" data-visual-finding="weak-interaction-state" type="button">Download activity report</button>
+    <p class="status-message" role="status" aria-live="polite"></p>
+  </section>
+</main>
+
+<script>
+  const downloadButton = document.querySelector('#download-report');
+  const statusMessage = document.querySelector('.status-message');
+  downloadButton?.addEventListener('click', () => {
+    if (statusMessage) statusMessage.textContent = 'Report downloaded.';
+  });
+</script>
+
+<style>
+  :global(*) { box-sizing: border-box; }
+  :global(body) {
+    margin: 0;
+    background: #fafafa;
+    color: #4d4d4d;
+    font-family: 'Atkinson Hyperlegible', Arial, sans-serif;
+    font-size: 1.125rem;
+    line-height: 1.5;
+  }
+  .fixture-shell { max-width: 46rem; margin: 0 auto; padding: 1.5rem; }
+  h1 { margin-block: 1.5rem 0.75rem; color: #333; font-size: clamp(2rem, 8vw, 3rem); line-height: 1.1; }
+  h2 { margin-block: 0 0.75rem; color: #333; }
+  p { margin-block: 0 1.25rem; }
+  .dashboard-card { margin-block: 1.5rem; padding: 1.25rem; border: 2px solid #bbc9f7; }
+  a { color: #033573; text-underline-offset: 0.2em; }
+  a:focus, button:focus { outline: 2px solid #000; outline-offset: 4px; }
+  .account-note { color: #b2b2b2; }
+  .service-list { display: grid; gap: 0.75rem; margin: 0; padding: 0; list-style: none; }
+  .service-list li { display: flex; align-items: center; gap: 0.75rem; }
+  .status-dot { width: 1rem; height: 1rem; flex: 0 0 auto; border-radius: 50%; }
+  .available { background: #14873b; }
+  .disrupted { background: #d18b00; }
+  .unavailable { background: #c63131; }
+  .activity-copy { line-height: 1.05; }
+  button {
+    padding: 0.7rem 1rem;
+    border: 2px solid #033573;
+    border-radius: 0.25rem;
+    background: #033573;
+    color: #fff;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  #download-report:hover, #download-report:focus, #download-report:focus-visible {
+    border-color: #033573;
+    background: #033573;
+    color: #fff;
+    outline: none;
+  }
+  .status-message { min-height: 1.75rem; margin-block: 1rem 0; font-weight: 700; }
+
+  :global(.dark body) { background: #010017; color: #ababab; }
+  :global(.dark) h1, :global(.dark) h2 { color: #cfcfcf; }
+  :global(.dark) .dashboard-card { border-color: #18399a; }
+  :global(.dark) a { color: #ade5f8; }
+  :global(.dark) a:focus { outline-color: #fff; }
+  :global(.dark) .account-note { color: #40404a; }
+  :global(.dark) button { border-color: #ade5f8; background: #ade5f8; color: #000; }
+  :global(.dark) #download-report:hover,
+  :global(.dark) #download-report:focus,
+  :global(.dark) #download-report:focus-visible {
+    border-color: #ade5f8;
+    background: #ade5f8;
+    color: #000;
+    outline: none;
+  }
+
+  @media (max-width: 30rem) {
+    .fixture-shell { padding: 1rem; }
+    .dashboard-card { padding: 1rem; }
+  }
+</style>
