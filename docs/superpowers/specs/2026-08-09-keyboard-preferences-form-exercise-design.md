@@ -126,6 +126,22 @@ The collapsed solution lists four findings, one per intentional defect. Each fin
 
 The solution should not become a full code tutorial.
 
+### Shared disclosure interaction
+
+Hints and Solution must use one reusable Exercise disclosure component rather than duplicating accordion styles.
+
+The component owns:
+
+- Native `<details>` and `<summary>` semantics and behavior.
+- The visible disclosure marker.
+- The accordion border and spacing.
+- A full-width padded summary row.
+- A full-row hover background and text treatment using the Lab light/dark interaction palette.
+- A clearly visible keyboard-focus outline around the complete summary row rather than only its text.
+- A separately padded content wrapper so content spacing does not reduce the summary's interactive box.
+
+ExerciseHints and ExerciseSolution supply only their label and distinct content. Do not apply these styles globally to legacy `<details>` elements.
+
 ## Reusable component changes
 
 Update `ExerciseFixture.astro` only at the document-fixture boundary:
@@ -157,6 +173,10 @@ Also verify:
 - The standalone fixture has a return link.
 - The embedded and standalone fixture backgrounds, typography, and palette match the selected Lab theme.
 - Changing the Lab theme updates the embedded fixture theme.
+- Hints and Solution use the same full-width disclosure interaction.
+- Both summary rows change visibly on hover in light and dark themes.
+- Both summary rows receive a complete, high-contrast focus outline.
+- Native disclosure markers and expanded/collapsed behavior remain available.
 - The Exercise breadcrumb and Exercises submenu are correct.
 - The solution contains four findings.
 - The legacy `FormWithErrors` component and keyboard workshop page remain unchanged.
