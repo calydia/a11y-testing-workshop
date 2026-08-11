@@ -3,6 +3,7 @@ import KeyboardPreferencesFormFixture from '../components/exercise/fixtures/Keyb
 import VisualAccountDashboardFixture from '../components/exercise/fixtures/VisualAccountDashboardFixture.astro';
 import ZoomAppointmentBookingFixture from '../components/exercise/fixtures/ZoomAppointmentBookingFixture.astro';
 import AutomatedEventRegistrationFixture from '../components/exercise/fixtures/AutomatedEventRegistrationFixture.astro';
+import ImageAlternativeTextFixture from '../components/exercise/fixtures/ImageAlternativeTextFixture.astro';
 
 export interface InlineFixture {
   kind: 'inline';
@@ -63,6 +64,17 @@ export const fixtureRegistry: Record<string, ExerciseFixtureDefinition> = {
       'low-contrast-helper',
       'pointer-only-session',
       'ambiguous-links',
+    ],
+  },
+  'image-alternative-text': {
+    kind: 'document',
+    component: ImageAlternativeTextFixture,
+    title: 'Community volunteering image alternative text exercise',
+    intentionalViolations: [
+      'vague-meaningful',
+      'noisy-decorative',
+      'linked-logo',
+      'missing-alt',
     ],
   },
 };

@@ -1,0 +1,98 @@
+---
+import { Image } from 'astro:assets';
+import manWorking from '../../../images/man-working.jpg';
+import water from '../../../images/water.jpg';
+
+const flourish = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='640' height='48' viewBox='0 0 640 48'%3E%3Cpath d='M0 26c80-24 160 24 240 0s160 24 240 0 120 2 160 10' fill='none' stroke='%23033573' stroke-width='10'/%3E%3C/svg%3E";
+const organizationLogo = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='90' viewBox='0 0 220 90'%3E%3Crect width='220' height='90' rx='12' fill='%23033573'/%3E%3Ctext x='110' y='42' text-anchor='middle' fill='white' font-size='25' font-family='sans-serif' font-weight='700'%3ECommunity Action%3C/text%3E%3Ctext x='110' y='68' text-anchor='middle' fill='white' font-size='20' font-family='sans-serif'%3ENetwork%3C/text%3E%3C/svg%3E";
+const locationMap = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='640' height='300' viewBox='0 0 640 300'%3E%3Crect width='640' height='300' fill='%23dfe7fc'/%3E%3Cpath d='M20 230L190 80l130 100L470 45l150 145' fill='none' stroke='%23033573' stroke-width='18'/%3E%3Ccircle cx='470' cy='45' r='24' fill='%23c63131'/%3E%3Ctext x='320' y='280' text-anchor='middle' fill='%23333' font-size='26' font-family='sans-serif'%3ERiverside Community Centre%3C/text%3E%3C/svg%3E";
+---
+
+<main class="fixture-shell">
+  <a href="/exercises/evaluating-image-alternative-text-in-context/">Return to the exercise</a>
+  <h1>Riverside community cleanup</h1>
+  <p>Learn about the project, meeting point, and community partners.</p>
+
+  <a class="organization-link" href="/">
+    <img src={organizationLogo} alt="Logo" width="220" height="90" data-image-finding="linked-logo" />
+  </a>
+
+  <img class="flourish" src={flourish} alt="Decorative blue wave flourish" width="640" height="48" data-image-finding="noisy-decorative" />
+
+  <section class="content-card" aria-labelledby="project-heading">
+    <h2 id="project-heading">Restoring the riverside</h2>
+    <Image src={water} alt="Water" width={500} height={357} data-image-finding="vague-meaningful" />
+    <p>Volunteers will remove litter from the riverbank and record the types of waste collected for the local conservation group.</p>
+  </section>
+
+  <section class="content-card" aria-labelledby="preparation-heading">
+    <h2 id="preparation-heading">Preparing volunteer supplies</h2>
+    <Image
+      src={manWorking}
+      alt="Volunteer coordinating donations at a computer in the community office"
+      width={800}
+      height={533}
+      data-image-comparison="useful-meaningful"
+    />
+    <p>The office team coordinates gloves, collection bags, and reusable water bottles before each cleanup.</p>
+  </section>
+
+  <img class="flourish" src={flourish} alt="" width="640" height="48" data-image-comparison="empty-decorative" />
+
+  <section class="content-card" aria-labelledby="meeting-heading">
+    <h2 id="meeting-heading">Meeting point</h2>
+    <img src={locationMap} width="640" height="300" data-image-finding="missing-alt" />
+    <p>Meet outside Riverside Community Centre at 09:00.</p>
+  </section>
+
+  <section class="content-card" aria-labelledby="fallback-heading">
+    <h2 id="fallback-heading">Preparing for the cleanup</h2>
+    <img
+      src="/exercise-fixtures/image-alternative-text/missing-volunteer-bottles.jpg"
+      alt="Volunteers preparing reusable water bottles for the cleanup"
+      width="640"
+      height="260"
+      data-image-comparison="useful-broken"
+    />
+    <p>This image is deliberately unavailable. Compare what remains visible with what your screen reader exposes.</p>
+  </section>
+
+  <footer class="credits">
+    <h2>Image credits</h2>
+    <ul>
+      <li><a href="https://www.pexels.com/photo/photo-of-bubbles-underwater-1452701/">Underwater photograph by Berend de Kort</a></li>
+      <li><a href="https://www.pexels.com/photo/man-in-white-dress-shirt-sitting-on-black-rolling-chair-while-facing-black-computer-set-and-smiling-840996/">Office photograph by Andrea Piacquadio</a></li>
+    </ul>
+  </footer>
+</main>
+
+<style>
+  :global(*) { box-sizing: border-box; }
+  :global(body) { margin: 0; background: #fafafa; color: #4d4d4d; font-family: 'Atkinson Hyperlegible', Arial, sans-serif; font-size: 1.125rem; line-height: 1.5; }
+  .fixture-shell { max-width: 46rem; margin: 0 auto; padding: 1.5rem; }
+  h1 { margin-block: 1.5rem 0.75rem; color: #333; font-size: clamp(2rem, 8vw, 3rem); line-height: 1.1; }
+  h2 { margin-block: 0 0.75rem; color: #333; }
+  p { margin-block: 0 1rem; }
+  a { color: #033573; text-underline-offset: 0.2em; }
+  .organization-link { display: inline-block; margin-block: 1rem; }
+  .organization-link img { display: block; }
+  .flourish { display: block; width: 100%; height: auto; margin-block: 1rem; }
+  .content-card { margin-block: 1.5rem; padding: 1.25rem; border: 2px solid #bbc9f7; }
+  .content-card img { display: block; width: 100%; height: auto; margin-block: 0 1rem; }
+  .content-card img[data-image-comparison='useful-broken'] { min-height: 12rem; border: 2px dashed #bbc9f7; }
+  .credits { margin-top: 2rem; padding-top: 1.25rem; border-top: 2px solid #bbc9f7; }
+  .credits ul { padding-left: 1.25rem; }
+  a:focus { outline: 2px solid #000; outline-offset: 4px; }
+
+  :global(.dark body) { background: #010017; color: #ababab; }
+  :global(.dark) h1, :global(.dark) h2 { color: #cfcfcf; }
+  :global(.dark) a { color: #ade5f8; }
+  :global(.dark) .content-card, :global(.dark) .credits { border-color: #18399a; }
+  :global(.dark) .content-card img[data-image-comparison='useful-broken'] { border-color: #18399a; }
+  :global(.dark) a:focus { outline-color: #fff; }
+
+  @media (max-width: 34rem) {
+    .fixture-shell { padding: 1rem; }
+    .content-card { padding: 1rem; }
+  }
+</style>

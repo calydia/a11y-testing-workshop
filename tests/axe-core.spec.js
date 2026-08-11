@@ -9,6 +9,7 @@ const routes = [
   '/methods/testing-visual-accessibility/',
   '/methods/testing-zoom-and-reflow/',
   '/methods/testing-with-automated-tools/',
+  '/methods/testing-image-alternative-text/',
   '/methods/screen-reader-page-structure-and-links/',
   '/methods/screen-reader-icons-and-svg/',
   '/methods/screen-reader-language-changes/',
@@ -17,6 +18,7 @@ const routes = [
   '/exercises/finding-visual-problems-in-an-account-dashboard/',
   '/exercises/testing-an-appointment-booking-at-high-zoom/',
   '/exercises/comparing-automated-and-manual-findings/',
+  '/exercises/evaluating-image-alternative-text-in-context/',
   '/journeys/',
   '/about/',
 ];
