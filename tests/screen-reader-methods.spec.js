@@ -15,6 +15,11 @@ const zoomMethod = {
   title: 'Testing zoom and reflow',
 };
 
+const automatedMethod = {
+  path: '/methods/testing-with-automated-tools/',
+  title: 'Testing with automated tools',
+};
+
 const screenReaderMethods = [
   {
     path: '/methods/screen-reader-page-structure-and-links/',
@@ -34,7 +39,7 @@ const screenReaderMethods = [
   },
 ];
 
-const methods = [keyboardMethod, visualMethod, zoomMethod, ...screenReaderMethods];
+const methods = [keyboardMethod, visualMethod, zoomMethod, automatedMethod, ...screenReaderMethods];
 
 test('method detail pages provide collection-driven section navigation', async ({ page }) => {
   await page.goto(methods[1].path);
@@ -174,6 +179,16 @@ test('Testing zoom and reflow renders a method without a demonstration', async (
   const response = await page.goto(zoomMethod.path);
   expect(response?.ok()).toBe(true);
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(zoomMethod.title);
+  for (const heading of ['What this method tests', 'What you need', 'Before you start', 'How to perform the test', 'What to observe', 'Interpreting the results', 'Limitations']) {
+    await expect(page.getByRole('heading', { level: 2, name: heading })).toBeVisible();
+  }
+  await expect(page.getByRole('heading', { level: 2, name: 'Demonstration' })).toHaveCount(0);
+});
+
+test('Testing with automated tools renders a method without a demonstration', async ({ page }) => {
+  const response = await page.goto(automatedMethod.path);
+  expect(response?.ok()).toBe(true);
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(automatedMethod.title);
   for (const heading of ['What this method tests', 'What you need', 'Before you start', 'How to perform the test', 'What to observe', 'Interpreting the results', 'Limitations']) {
     await expect(page.getByRole('heading', { level: 2, name: heading })).toBeVisible();
   }

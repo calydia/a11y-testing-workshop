@@ -3,7 +3,7 @@ title: Testing visual accessibility
 summary: Review contrast, color-dependent information, text readability, and visible interaction states systematically.
 description: Learn a repeatable visual accessibility testing procedure using browser inspection and contrast measurement.
 status: published
-order: 8
+order: 7
 topics: [visual design, contrast, color, readability, focus]
 prerequisites:
   - Basic familiarity with browser developer tools

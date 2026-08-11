@@ -13,6 +13,13 @@ const fixtureUrl = `/exercise-fixtures/${fixtureKey}/`;
 ) : (
   <div>
     <p class="mb-4"><a href={fixtureUrl}>Open exercise in a new page</a></p>
-    <iframe class="min-h-[80rem] w-full border-2 md:min-h-[64rem]" src={fixtureUrl} title={fixture.title}></iframe>
+    <iframe
+      class:list={[
+        'w-full border-2 md:min-h-[64rem]',
+        fixtureKey === 'automated-event-registration' ? 'min-h-[100rem]' : 'min-h-[80rem]',
+      ]}
+      src={fixtureUrl}
+      title={fixture.title}
+    ></iframe>
   </div>
 )}
