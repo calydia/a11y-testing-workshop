@@ -1,9 +1,9 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
+import { expectStandaloneExercise } from './helpers/standalone-exercise.js';
 
 const exercisePath = '/exercises/testing-an-appointment-booking-at-high-zoom/';
 const fixturePath = '/exercise-fixtures/zoom-appointment-booking/';
-const iframeTitle = 'Appointment booking zoom and reflow exercise';
 
 test('zoom Exercise renders its learning structure and fixture', async ({ page, request }) => {
   const response = await page.goto(exercisePath);
@@ -12,9 +12,7 @@ test('zoom Exercise renders its learning structure and fixture', async ({ page, 
   await expect(page.getByText('Difficulty: beginner')).toBeVisible();
   await expect(page.getByText('Estimated time: 20 minutes')).toBeVisible();
   await expect(page.getByRole('link', { name: 'Testing zoom and reflow' })).toHaveAttribute('href', '/methods/testing-zoom-and-reflow/');
-  await expect(page.locator(`iframe[title="${iframeTitle}"]`)).toHaveAttribute('src', fixturePath);
-  await expect(page.getByRole('link', { name: 'Open exercise in a new page' })).toHaveAttribute('href', fixturePath);
-  expect((await request.get(fixturePath)).ok()).toBe(true);
+  await expectStandaloneExercise(page, request, { exercisePath, fixturePath, fixtureTitle: 'Appointment booking zoom and reflow exercise' });
 });
 
 test('fixture exposes exactly four intentional targets', async ({ page }) => {
@@ -55,16 +53,11 @@ test('fixed action bar does not obscure content at the normal desktop condition'
   await expect(page.locator('[data-zoom-finding="fixed-action-bar"]')).toHaveCSS('position', 'static');
 });
 
-test('unaffected controls remain operable and fixture theme synchronizes', async ({ page }) => {
+test('unaffected controls remain operable and standalone fixture uses saved theme', async ({ page }) => {
   await page.goto(exercisePath);
   await page.evaluate(() => localStorage.setItem('darkMode', 'enabled'));
-  await page.reload();
-  const frame = page.frameLocator(`iframe[title="${iframeTitle}"]`);
-  await expect(frame.locator('html')).toHaveClass(/dark/);
-  await page.locator('#theme-toggle-button').click();
-  await expect(frame.locator('html')).toHaveClass(/light/);
-
   await page.goto(fixturePath);
+  await expect(page.locator('html')).toHaveClass(/dark/);
   const button = page.getByRole('button', { name: 'Confirm appointment' });
   await button.focus();
   await expect(button).toHaveCSS('outline-style', 'solid');
@@ -74,7 +67,7 @@ test('unaffected controls remain operable and fixture theme synchronizes', async
 
 test('shell and standalone fixture have no unrelated axe violations', async ({ page }) => {
   await page.goto(exercisePath);
-  expect((await new AxeBuilder({ page }).exclude('iframe').analyze()).violations).toEqual([]);
+  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
   await page.goto(fixturePath);
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
 });

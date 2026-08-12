@@ -1,9 +1,9 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
+import { expectStandaloneExercise } from './helpers/standalone-exercise.js';
 
 const exercisePath = '/exercises/comparing-automated-and-manual-findings/';
 const fixturePath = '/exercise-fixtures/automated-event-registration/';
-const iframeTitle = 'Event registration automated testing exercise';
 
 test('automated testing Exercise renders its learning structure and fixture', async ({ page, request }) => {
   const response = await page.goto(exercisePath);
@@ -12,9 +12,7 @@ test('automated testing Exercise renders its learning structure and fixture', as
   await expect(page.getByText('Difficulty: beginner')).toBeVisible();
   await expect(page.getByText('Estimated time: 20 minutes')).toBeVisible();
   await expect(page.getByRole('link', { name: 'Testing with automated tools' })).toHaveAttribute('href', '/methods/testing-with-automated-tools/');
-  await expect(page.locator(`iframe[title="${iframeTitle}"]`)).toHaveAttribute('src', fixturePath);
-  await expect(page.getByRole('link', { name: 'Open exercise in a new page' })).toHaveAttribute('href', fixturePath);
-  expect((await request.get(fixturePath)).ok()).toBe(true);
+  await expectStandaloneExercise(page, request, { exercisePath, fixturePath, fixtureTitle: 'Event registration automated testing exercise' });
 });
 
 test('fixture exposes exactly five documented targets', async ({ page }) => {
@@ -67,16 +65,11 @@ test('repeated links have indistinguishable names but different destinations', a
   await expect(links.nth(1)).toHaveAttribute('href', '#accessible-content-session');
 });
 
-test('unaffected controls remain operable and themes synchronize', async ({ page }) => {
+test('unaffected controls remain operable and standalone theme is retained', async ({ page }) => {
   await page.goto(exercisePath);
   await page.evaluate(() => localStorage.setItem('darkMode', 'enabled'));
-  await page.reload();
-  const frame = page.frameLocator(`iframe[title="${iframeTitle}"]`);
-  await expect(frame.locator('html')).toHaveClass(/dark/);
-  await page.locator('#theme-toggle-button').click();
-  await expect(frame.locator('html')).toHaveClass(/light/);
-
   await page.goto(fixturePath);
+  await expect(page.locator('html')).toHaveClass(/dark/);
   const submit = page.getByRole('button', { name: 'Register for event' });
   await submit.focus();
   await expect(submit).toHaveCSS('outline-style', 'solid');
@@ -86,9 +79,9 @@ test('unaffected controls remain operable and themes synchronize', async ({ page
 
 test('outer Exercise shell passes axe and fixture remains usable at a narrow width', async ({ page }) => {
   await page.goto(exercisePath);
-  expect((await new AxeBuilder({ page }).exclude('iframe').analyze()).violations).toEqual([]);
+  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
   await page.setViewportSize({ width: 390, height: 844 });
-  await expect(page.locator(`iframe[title="${iframeTitle}"]`)).toHaveCSS('min-height', '1600px');
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
   await page.goto(fixturePath);
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
 });

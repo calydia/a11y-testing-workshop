@@ -39,7 +39,7 @@ solution:
       method: testing-image-alternative-text
 ---
 
-Use the [Testing image alternative text](/methods/testing-image-alternative-text/) method to review the community-volunteering page below.
+Use the [Testing image alternative text](/methods/testing-image-alternative-text/) method to review the community-volunteering page. Start the exercise from the Exercise workspace.
 
 1. Review the page visually and predict why each image is present.
 2. Navigate through images and links with a screen reader and compare each announcement with the visible image, nearby content, and destination.

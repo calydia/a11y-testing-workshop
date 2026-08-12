@@ -1,9 +1,9 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
+import { expectStandaloneExercise } from './helpers/standalone-exercise.js';
 
 const exercisePath = '/exercises/testing-a-community-course-registration-form/';
 const fixturePath = '/exercise-fixtures/course-registration/';
-const iframeTitle = 'Community course registration form exercise';
 
 test('forms Exercise renders its learning structure and fixture', async ({ page, request }) => {
   const response = await page.goto(exercisePath);
@@ -12,9 +12,7 @@ test('forms Exercise renders its learning structure and fixture', async ({ page,
   await expect(page.getByText('Difficulty: beginner')).toBeVisible();
   await expect(page.getByText('Estimated time: 25 minutes')).toBeVisible();
   await expect(page.getByRole('link', { name: 'Testing forms and validation' })).toHaveAttribute('href', '/methods/testing-forms-and-validation/');
-  await expect(page.locator(`iframe[title="${iframeTitle}"]`)).toHaveAttribute('src', fixturePath);
-  await expect(page.getByRole('link', { name: 'Open exercise in a new page' })).toHaveAttribute('href', fixturePath);
-  expect((await request.get(fixturePath)).ok()).toBe(true);
+  await expectStandaloneExercise(page, request, { exercisePath, fixturePath, fixtureTitle: 'Community course registration form exercise' });
 });
 
 test('fixture exposes exactly six intentional findings', async ({ page }) => {
@@ -95,18 +93,13 @@ for (const theme of ['light', 'dark']) {
   });
 }
 
-test('outer shell passes axe, themes synchronize, and fixture fits a narrow viewport', async ({ page }) => {
+test('outer shell passes axe, standalone theme applies, and fixture fits a narrow viewport', async ({ page }) => {
   await page.goto(exercisePath);
-  expect((await new AxeBuilder({ page }).exclude('iframe').analyze()).violations).toEqual([]);
+  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
   await page.evaluate(() => localStorage.setItem('darkMode', 'enabled'));
-  await page.reload();
-  const frame = page.frameLocator(`iframe[title="${iframeTitle}"]`);
-  await expect(frame.locator('html')).toHaveClass(/dark/);
-  await page.locator('#theme-toggle-button').click();
-  await expect(frame.locator('html')).toHaveClass(/light/);
-
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto(fixturePath);
+  await expect(page.locator('html')).toHaveClass(/dark/);
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
 });
 

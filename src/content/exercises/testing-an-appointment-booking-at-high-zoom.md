@@ -39,7 +39,7 @@ solution:
       method: testing-zoom-and-reflow
 ---
 
-Use the [Testing zoom and reflow](/methods/testing-zoom-and-reflow/) method to review the appointment booking below.
+Use the [Testing zoom and reflow](/methods/testing-zoom-and-reflow/) method to review the appointment booking. Start the exercise from the Exercise workspace.
 
 1. Complete the booking-review task at the default presentation so you know what must remain available.
 2. Test the page at a width equivalent to 320 CSS pixels, commonly reached from a 1280 CSS-pixel viewport at 400% page zoom.
@@ -48,4 +48,4 @@ Use the [Testing zoom and reflow](/methods/testing-zoom-and-reflow/) method to r
 5. Find four zoom, reflow, or text-resizing problems.
 6. Record the browser, starting viewport, zoom or text-size setting, affected target, expected result, and observed result.
 
-Use the standalone exercise link if browser zoom makes the embedded workspace difficult to manage. Avoid inspecting the source until you have completed both procedures.
+Return to this page whenever you need a hint or are ready to review the solution. Avoid inspecting the source until you have completed both procedures.

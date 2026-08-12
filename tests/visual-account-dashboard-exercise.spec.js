@@ -1,9 +1,9 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
+import { expectStandaloneExercise } from './helpers/standalone-exercise.js';
 
 const exercisePath = '/exercises/finding-visual-problems-in-an-account-dashboard/';
 const fixturePath = '/exercise-fixtures/visual-account-dashboard/';
-const iframeTitle = 'Account dashboard visual accessibility exercise';
 
 const contrastRatio = (foreground, background) => {
   const channels = (value) => value.match(/[\d.]+/g).slice(0, 3).map(Number);
@@ -32,16 +32,9 @@ test('visual dashboard Exercise renders the approved learning structure', async 
   await expect(page.getByRole('link', { name: 'Testing visual accessibility' })).toHaveAttribute('href', '/methods/testing-visual-accessibility/');
 });
 
-test('dashboard fixture has a named iframe and standalone fallback', async ({ page, request }) => {
-  await page.goto(exercisePath);
-  await expect(page.getByRole('link', { name: 'Open exercise in a new page' })).toHaveAttribute('href', fixturePath);
-  await expect(page.locator(`iframe[title="${iframeTitle}"]`)).toHaveAttribute('src', fixturePath);
-
-  const response = await request.get(fixturePath);
-  expect(response.ok()).toBe(true);
-  await page.goto(fixturePath);
+test('dashboard fixture uses the standalone-first workflow', async ({ page, request }) => {
+  await expectStandaloneExercise(page, request, { exercisePath, fixturePath, fixtureTitle: 'Account dashboard visual accessibility exercise' });
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Account overview');
-  await expect(page.getByRole('link', { name: 'Return to the exercise' })).toHaveAttribute('href', exercisePath);
 });
 
 test('fixture contains exactly the documented visual review targets', async ({ page }) => {
@@ -99,32 +92,22 @@ test('weak-state control remains operable while its visual states stay unchanged
   await expect(status).toHaveText('Report downloaded.');
 });
 
-test('fixture follows and synchronizes the Lab theme', async ({ page }) => {
+test('standalone fixture follows the selected Lab theme', async ({ page }) => {
   await page.goto(exercisePath);
   await page.evaluate(() => localStorage.setItem('darkMode', 'enabled'));
-  await page.reload();
-  const frame = page.frameLocator(`iframe[title="${iframeTitle}"]`);
-  await expect(frame.locator('html')).toHaveClass(/dark/);
-  await expect(frame.locator('body')).toHaveCSS('background-color', 'rgb(1, 0, 23)');
-
-  await page.locator('#theme-toggle-button').click();
-  await expect(frame.locator('html')).toHaveClass(/light/);
-  await expect(frame.locator('body')).toHaveCSS('background-color', 'rgb(250, 250, 250)');
-
   await page.goto(fixturePath);
-  await expect(page.locator('html')).toHaveClass(/light/);
+  await expect(page.locator('html')).toHaveClass(/dark/);
   await expect(page.locator('body')).toHaveCSS('font-family', /Atkinson Hyperlegible/);
 });
 
 test('Exercise shell passes axe and fixture remains responsive', async ({ page }) => {
   await page.goto(exercisePath);
-  const results = await new AxeBuilder({ page }).exclude('iframe').analyze();
+  const results = await new AxeBuilder({ page }).analyze();
   expect(results.violations).toEqual([]);
 
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto(exercisePath);
-  const iframe = page.locator(`iframe[title="${iframeTitle}"]`);
-  await expect(iframe).toHaveCSS('min-height', '1280px');
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
 
   await page.goto(fixturePath);
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);

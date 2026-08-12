@@ -39,7 +39,7 @@ solution:
       method: testing-visual-accessibility
 ---
 
-Use the [Testing visual accessibility](/methods/testing-visual-accessibility/) method to review the account dashboard below.
+Use the [Testing visual accessibility](/methods/testing-visual-accessibility/) method to review the account dashboard. Start the exercise from the Exercise workspace.
 
 1. Inspect the complete dashboard in both light and dark themes.
 2. Measure relevant foreground and background colors with a contrast checker.
@@ -48,4 +48,4 @@ Use the [Testing visual accessibility](/methods/testing-visual-accessibility/) m
 5. Find four visual accessibility problems.
 6. For each finding, record the affected element, theme and state, what you expected, what you observed, and measured evidence where relevant.
 
-Avoid inspecting the source until you have completed the visual review. Use the standalone exercise link if you need more room for browser tools or theme testing.
+Avoid inspecting the source until you have completed the visual review. Return to this page whenever you need a hint or are ready to review the solution.

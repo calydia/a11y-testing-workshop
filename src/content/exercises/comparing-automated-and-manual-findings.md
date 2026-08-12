@@ -42,7 +42,7 @@ solution:
       method: testing-with-automated-tools
 ---
 
-Use the [Testing with automated tools](/methods/testing-with-automated-tools/) method to review the event-registration page below.
+Use the [Testing with automated tools](/methods/testing-with-automated-tools/) method to review the event-registration page. Start the exercise from the Exercise workspace.
 
 1. Record the checker, route, viewport, theme, configuration, and initial UI state.
 2. Run an automated accessibility check and preserve its results.
@@ -51,4 +51,4 @@ Use the [Testing with automated tools](/methods/testing-with-automated-tools/) m
 5. Complete session selection and registration using only a keyboard, then review the purpose of repeated links.
 6. Find five accessibility problems in total and compare which were reported automatically with which required human review.
 
-Exact tool wording and severity can differ. Use the standalone exercise link if your checker cannot inspect the embedded iframe conveniently, and avoid opening the Solution until you have compared the automated and manual results.
+Exact tool wording and severity can differ. Return to this page whenever you need a hint or are ready to review the solution, and avoid opening the Solution until you have compared the automated and manual results.

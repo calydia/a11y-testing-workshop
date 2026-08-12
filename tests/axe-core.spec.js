@@ -32,9 +32,7 @@ test.describe('Landing page accessibility', () => {
     test(`${route} has no automatically detectable accessibility issues`, async ({ page }) => {
       await page.goto(route, { waitUntil: 'networkidle' });
 
-      const builder = new AxeBuilder({ page });
-      if (route.startsWith('/exercises/') && route !== '/exercises/') builder.exclude('iframe');
-      const accessibilityScanResults = await builder.analyze();
+      const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
 
       expect(accessibilityScanResults.violations).toEqual([]);
     });

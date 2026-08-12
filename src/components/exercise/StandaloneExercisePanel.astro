@@ -1,0 +1,54 @@
+---
+interface Props {
+  title: string;
+  href: string;
+}
+
+const { title, href } = Astro.props;
+---
+
+<div class="standalone-panel" data-standalone-exercise-panel>
+  <h3>{title}</h3>
+  <p><a class="start-link button" href={href}>Start exercise</a></p>
+  <p>The exercise opens on a separate page. Return to this page whenever you need a hint, or when you are ready to continue and review the solution.</p>
+  <p class="optional-note">You can open the exercise in a new tab if you want to keep these instructions and hints available.</p>
+</div>
+
+<style>
+  .standalone-panel {
+    padding: 1.25rem;
+    border: 2px solid #bbc9f7;
+    background: #f5f7ff;
+  }
+
+  h3 {
+    margin-block: 0 1rem;
+  }
+
+  p {
+    margin-block: 0 1rem;
+  }
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+
+  .start-link {
+    display: inline-block;
+  }
+
+  .optional-note {
+    font-size: 1rem;
+  }
+
+  :global(.dark) .standalone-panel {
+    border-color: #18399a;
+    background: #070038;
+  }
+
+  @media (max-width: 34rem) {
+    .standalone-panel {
+      padding: 1rem;
+    }
+  }
+</style>

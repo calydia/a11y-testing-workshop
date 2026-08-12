@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
+import { expectStandaloneExercise } from './helpers/standalone-exercise.js';
 
 const exercisePath = '/exercises/keyboard-testing-a-preferences-form/';
 const fixturePath = '/exercise-fixtures/keyboard-preferences-form/';
@@ -14,8 +15,8 @@ test('keyboard preferences Exercise renders its learning structure', async ({ pa
   for (const heading of ['Objectives', 'Instructions', 'Exercise workspace']) {
     await expect(page.getByRole('heading', { level: 2, name: heading })).toBeVisible();
   }
-  await expect(page.getByText('Hints')).toBeVisible();
-  await expect(page.getByText('Solution')).toBeVisible();
+  await expect(page.getByText('Hints', { exact: true })).toBeVisible();
+  await expect(page.getByText('Solution', { exact: true })).toBeVisible();
 
   const breadcrumb = page.getByRole('navigation', { name: 'Breadcrumbs' }).getByRole('listitem');
   await expect(breadcrumb).toHaveText(['Home/', 'Exercises/', 'Keyboard testing a preferences form']);
@@ -25,20 +26,25 @@ test('keyboard preferences Exercise renders its learning structure', async ({ pa
   await expect(sectionNavigation.getByRole('link', { name: 'Keyboard testing a preferences form' })).toHaveAttribute('aria-current', 'page');
 });
 
-test('document fixture has a named iframe and standalone fallback', async ({ page }) => {
-  await page.goto(exercisePath);
-
-  const fallback = page.getByRole('link', { name: 'Open exercise in a new page' });
-  await expect(fallback).toHaveAttribute('href', fixturePath);
-  await expect(fallback).not.toHaveAttribute('target');
-  const iframe = page.getByTitle('Communication preferences form exercise');
-  await expect(iframe).toHaveAttribute('src', fixturePath);
-  await expect(iframe).toHaveCSS('min-height', '1024px');
-
-  await page.goto(fixturePath);
+test('document fixture uses the standalone-first workflow', async ({ page, request }) => {
+  await expectStandaloneExercise(page, request, { exercisePath, fixturePath, fixtureTitle: 'Communication preferences form exercise' });
   await expect(page).toHaveTitle('Communication preferences form exercise');
   await expect(page.getByRole('heading', { level: 1, name: 'Communication preferences' })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Return to the exercise' })).toHaveAttribute('href', exercisePath);
+});
+
+test('Start exercise has visible hover and keyboard-focus treatments', async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem('darkMode', 'disabled'));
+  await page.goto(exercisePath);
+  const start = page.getByRole('link', { name: 'Start exercise' });
+
+  const defaultBackground = await start.evaluate((element) => getComputedStyle(element).backgroundColor);
+  await start.hover();
+  await expect.poll(() => start.evaluate((element) => getComputedStyle(element).backgroundColor)).not.toBe(defaultBackground);
+
+  await start.focus();
+  await expect(start).toBeFocused();
+  await expect(start).toHaveCSS('outline-style', 'solid');
+  await expect(start).toHaveCSS('outline-width', '2px');
 });
 
 test('fixture preserves the seeded focus order and skipped click-only control', async ({ page }) => {
@@ -95,7 +101,7 @@ test('hints stay progressive and the solution contains four findings', async ({ 
 
 test('Exercise shell passes axe while fixture defects stay narrowly documented', async ({ page }) => {
   await page.goto(exercisePath);
-  const shellResults = await new AxeBuilder({ page }).exclude('iframe').analyze();
+  const shellResults = await new AxeBuilder({ page }).analyze();
   expect(shellResults.violations).toEqual([]);
 
   await page.goto(fixturePath);
@@ -113,22 +119,13 @@ test('fixture and Exercise remain usable at a narrow viewport', async ({ page })
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
 });
 
-test('embedded and standalone fixtures use and synchronize the selected Lab theme', async ({ page }) => {
+test('standalone fixture uses the selected Lab theme', async ({ page }) => {
   await page.goto(exercisePath);
   await page.evaluate(() => localStorage.setItem('darkMode', 'enabled'));
-  await page.reload();
-
-  const fixture = page.frameLocator('iframe[title="Communication preferences form exercise"]');
-  await expect(fixture.locator('html')).toHaveClass(/dark/);
-  await expect(fixture.locator('body')).toHaveCSS('background-color', 'rgb(1, 0, 23)');
-  await expect(fixture.locator('body')).toHaveCSS('color', 'rgb(171, 171, 171)');
-  await expect(fixture.locator('body')).toHaveCSS('font-family', /Atkinson Hyperlegible/);
-
-  await page.locator('#theme-toggle-button').click();
-  await expect(fixture.locator('html')).toHaveClass(/light/);
-  await expect(fixture.locator('body')).toHaveCSS('background-color', 'rgb(250, 250, 250)');
-  await expect(fixture.locator('body')).toHaveCSS('color', 'rgb(77, 77, 77)');
-
+  await page.goto(fixturePath);
+  await expect(page.locator('html')).toHaveClass(/dark/);
+  await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(1, 0, 23)');
+  await page.evaluate(() => localStorage.setItem('darkMode', 'disabled'));
   await page.goto(fixturePath);
   await expect(page.locator('html')).toHaveClass(/light/);
   await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(250, 250, 250)');

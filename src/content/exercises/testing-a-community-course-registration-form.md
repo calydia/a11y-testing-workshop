@@ -45,7 +45,7 @@ solution:
       method: testing-forms-and-validation
 ---
 
-Use the [Testing forms and validation](/methods/testing-forms-and-validation/) method to review the community-course registration form below.
+Use the [Testing forms and validation](/methods/testing-forms-and-validation/) method to review the community-course registration form. Start the exercise from the Exercise workspace.
 
 1. Review the form before entering information. Compare visible labels, instructions, and grouped questions with what browser inspection and a screen reader expose.
 2. Complete the form with a keyboard, but deliberately leave some required information missing.

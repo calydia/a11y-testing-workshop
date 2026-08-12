@@ -35,7 +35,7 @@ solution:
       explanation: Save preferences and Email address receive focus before controls that appear earlier in the page. Remove positive tabindex values and arrange the document order so the natural keyboard sequence follows the visible and logical form sequence.
 ---
 
-Use the [Testing keyboard accessibility](/methods/testing-keyboard-accessibility/) method to review the communication-preferences form below.
+Use the [Testing keyboard accessibility](/methods/testing-keyboard-accessibility/) method to review the communication-preferences form. Start the exercise from the Exercise workspace.
 
 1. Begin before the first control and use only your keyboard.
 2. Navigate forward and backward through every visible control.
@@ -44,4 +44,4 @@ Use the [Testing keyboard accessibility](/methods/testing-keyboard-accessibility
 5. Find four keyboard accessibility problems.
 6. For each finding, record the affected control, the keys you pressed, what you expected, and what happened instead.
 
-Avoid inspecting the source until you have completed the keyboard test. If moving into or out of the embedded exercise feels awkward, use the standalone exercise link above the fixture.
+Avoid inspecting the source until you have completed the keyboard test. Return to this page whenever you need a hint or are ready to review the solution.
