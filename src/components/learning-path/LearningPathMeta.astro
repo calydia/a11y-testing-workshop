@@ -1,0 +1,23 @@
+---
+import ContentMeta from '../content/ContentMeta.astro';
+
+interface Props {
+  level: string;
+  estimatedMinutes: number;
+}
+
+const { level, estimatedMinutes } = Astro.props;
+const hours = Math.floor(estimatedMinutes / 60);
+const minutes = estimatedMinutes % 60;
+const duration = hours > 0
+  ? `About ${hours} ${hours === 1 ? 'hour' : 'hours'}${minutes ? ` ${minutes} minutes` : ''}`
+  : `${minutes} minutes`;
+const items = [
+  { label: 'Level', value: level },
+  { label: 'Estimated time', value: duration },
+];
+---
+
+<div data-learning-path-meta>
+  <ContentMeta items={items} />
+</div>

@@ -1,9 +1,9 @@
 ---
-import { render } from 'astro:content';
+import { getEntry, render } from 'astro:content';
 import Breadcrumbs from '../../components/navigation/Breadcrumbs.astro';
 import SectionNavigation from '../../components/navigation/SectionNavigation.astro';
 import LearningPathLayout from '../../layouts/LearningPathLayout.astro';
-import { createSectionNavigationItems, getVisibleEntries } from '../../lib/content';
+import { contentUrl, createSectionNavigationItems, getVisibleEntries } from '../../lib/content';
 
 export async function getStaticPaths() {
   const entries = await getVisibleEntries('learningPaths');
@@ -13,9 +13,34 @@ export async function getStaticPaths() {
 
 const { entry, navigationItems } = Astro.props;
 const { Content } = await render(entry);
+const resolvedSteps = await Promise.all(entry.data.steps.map(async (step) => {
+  if (step.type === 'content') return step;
+
+  const referencedEntry = await getEntry(step.entry);
+  if (!referencedEntry) throw new Error(`Unable to resolve Learning path step: ${step.entry.id}`);
+
+  return {
+    type: step.type,
+    title: referencedEntry.data.title,
+    summary: referencedEntry.data.summary,
+    estimatedMinutes: referencedEntry.data.estimatedMinutes,
+    href: contentUrl(
+      step.type === 'method' ? 'methods' : step.type === 'exercise' ? 'exercises' : 'journeys',
+      referencedEntry.id,
+    ),
+  };
+}));
 ---
 
-<LearningPathLayout title={entry.data.title} description={entry.data.description} summary={entry.data.summary}>
+<LearningPathLayout
+  title={entry.data.title}
+  description={entry.data.description}
+  summary={entry.data.summary}
+  level={entry.data.level}
+  estimatedMinutes={entry.data.estimatedMinutes}
+  outcomes={entry.data.outcomes}
+  steps={resolvedSteps}
+>
   <Breadcrumbs
     slot="breadcrumb"
     items={[{ label: 'Home', href: '/' }, { label: 'Learning paths', href: '/learn/' }, { label: entry.data.title }]}

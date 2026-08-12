@@ -1,0 +1,94 @@
+import { test, expect } from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright';
+
+const pathUrl = '/learn/your-first-accessibility-review/';
+
+const expectedSteps = [
+  ['Testing method', 'Testing with automated tools', '/methods/testing-with-automated-tools/'],
+  ['Exercise', 'Comparing automated and manual findings', '/exercises/comparing-automated-and-manual-findings/'],
+  ['Testing method', 'Testing keyboard accessibility', '/methods/testing-keyboard-accessibility/'],
+  ['Exercise', 'Keyboard testing a preferences form', '/exercises/keyboard-testing-a-preferences-form/'],
+  ['Testing method', 'Testing visual accessibility', '/methods/testing-visual-accessibility/'],
+  ['Exercise', 'Finding visual problems in an account dashboard', '/exercises/finding-visual-problems-in-an-account-dashboard/'],
+  ['Testing method', 'Testing zoom and reflow', '/methods/testing-zoom-and-reflow/'],
+  ['Exercise', 'Testing an appointment booking at high zoom', '/exercises/testing-an-appointment-booking-at-high-zoom/'],
+  ['Path checkpoint', 'Prepare for screen-reader checks', '#prepare-for-screen-reader-checks'],
+  ['Testing method', 'Testing forms and validation', '/methods/testing-forms-and-validation/'],
+  ['Exercise', 'Testing a community-course registration form', '/exercises/testing-a-community-course-registration-form/'],
+];
+
+test('Learning paths listing publishes the first path', async ({ page }) => {
+  await page.goto('/learn/');
+  await expect(page.getByText('No published content is available in this section yet.')).toHaveCount(0);
+  await expect(page.locator('main article h2 > a')).toHaveText(['Your first accessibility review']);
+  await expect(page.getByRole('link', { name: 'Your first accessibility review' })).toHaveAttribute('href', pathUrl);
+});
+
+test('first Learning path renders metadata, outcomes, and navigation', async ({ page }) => {
+  const response = await page.goto(pathUrl);
+  expect(response?.ok()).toBe(true);
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Your first accessibility review');
+  const metadata = page.locator('[data-learning-path-meta]');
+  await expect(metadata).toContainText('Level: beginner');
+  await expect(metadata).toContainText('Estimated time: About 4 hours 10 minutes');
+  await expect(metadata.locator('dl')).toHaveCSS('font-size', '16px');
+  await expect(page.locator('[data-content-heading] [data-learning-path-meta]')).toHaveCount(1);
+  const summary = page.locator('[data-content-heading] .introduction');
+  expect(await summary.evaluate((element, metadataElement) => Boolean(element.compareDocumentPosition(metadataElement) & Node.DOCUMENT_POSITION_FOLLOWING), await metadata.elementHandle())).toBe(true);
+  await expect(page.getByRole('heading', { level: 2, name: 'What you will learn' })).toBeVisible();
+  await expect(page.locator('[data-learning-outcomes] li')).toHaveCount(5);
+
+  const breadcrumb = page.getByRole('navigation', { name: 'Breadcrumbs' }).getByRole('listitem');
+  await expect(breadcrumb).toHaveText(['Home/', 'Learning paths/', 'Your first accessibility review']);
+  await expect(page.getByRole('navigation', { name: 'Learning paths' }).getByRole('link', { name: 'Your first accessibility review' })).toHaveAttribute('aria-current', 'page');
+});
+
+test('path renders the exact interleaved eleven-step sequence', async ({ page }) => {
+  await page.goto(pathUrl);
+  const steps = page.locator('[data-learning-path-steps] > li');
+  await expect(steps).toHaveCount(expectedSteps.length);
+
+  for (const [index, [type, title, href]] of expectedSteps.entries()) {
+    const step = steps.nth(index);
+    await expect(step.locator('[data-step-type]')).toHaveText(type);
+    await expect(step.locator('[data-step-type]')).toHaveCSS('text-transform', 'none');
+    await expect(step.locator('[data-step-type]')).toHaveCSS('letter-spacing', 'normal');
+    await expect(step.getByRole('link', { name: title, exact: true })).toHaveAttribute('href', href);
+  }
+});
+
+test('referenced steps include summaries and item durations', async ({ page }) => {
+  await page.goto(pathUrl);
+  const referencedSteps = page.locator('[data-learning-path-steps] > li:not([data-content-step])');
+  await expect(referencedSteps).toHaveCount(10);
+  for (const step of await referencedSteps.all()) {
+    await expect(step.locator('[data-step-summary]')).not.toBeEmpty();
+    await expect(step.locator('[data-step-time]')).toContainText(/\d+ minutes/);
+  }
+});
+
+test('checkpoint links to its matching instructional section', async ({ page }) => {
+  await page.goto(pathUrl);
+  const checkpoint = page.locator('[data-content-step]');
+  await expect(checkpoint).toHaveCount(1);
+  await checkpoint.getByRole('link', { name: 'Prepare for screen-reader checks' }).click();
+  await expect(page).toHaveURL(`${pathUrl}#prepare-for-screen-reader-checks`);
+  await expect(page.getByRole('heading', { level: 2, name: 'Prepare for screen-reader checks' })).toBeVisible();
+});
+
+test('path has no progress tracking and passes axe', async ({ page }) => {
+  await page.goto(pathUrl);
+  await expect(page.getByRole('checkbox')).toHaveCount(0);
+  await expect(page.getByRole('progressbar')).toHaveCount(0);
+  await expect(page.locator('[data-progress], [data-complete]')).toHaveCount(0);
+  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+});
+
+test('path links have focus indicators and fit a narrow viewport', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto(pathUrl);
+  const firstStepLink = page.locator('[data-learning-path-steps] a').first();
+  await firstStepLink.focus();
+  await expect(firstStepLink).toHaveCSS('outline-style', 'solid');
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
+});

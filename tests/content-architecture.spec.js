@@ -1,10 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { readFile } from 'node:fs/promises';
 
-const sections = [
-  { path: '/learn/', label: 'Learning paths' },
-  { path: '/journeys/', label: 'Testing journeys' },
-];
+const sections = [{ path: '/journeys/', label: 'Testing journeys' }];
 
 for (const section of sections) {
   test(`${section.label} exposes a truthful empty collection state`, async ({ page }) => {

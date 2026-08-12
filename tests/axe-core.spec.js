@@ -4,6 +4,7 @@ import AxeBuilder from '@axe-core/playwright';
 const routes = [
   '/',
   '/learn/',
+  '/learn/your-first-accessibility-review/',
   '/methods/',
   '/methods/testing-keyboard-accessibility/',
   '/methods/testing-visual-accessibility/',

@@ -1,0 +1,89 @@
+---
+export interface ResolvedReferenceStep {
+  type: 'method' | 'exercise' | 'journey';
+  title: string;
+  summary: string;
+  estimatedMinutes?: number;
+  href: string;
+}
+
+export interface ResolvedContentStep {
+  type: 'content';
+  title: string;
+  anchor: string;
+}
+
+interface Props {
+  steps: Array<ResolvedReferenceStep | ResolvedContentStep>;
+}
+
+const { steps } = Astro.props;
+---
+
+<section aria-labelledby="path-steps-heading">
+  <h2 id="path-steps-heading">Follow the path</h2>
+  <ol class="path-steps" data-learning-path-steps>
+    {steps.map((step) => step.type === 'content' ? (
+      <li class="path-step" data-content-step>
+        <p class="step-type" data-step-type>Path checkpoint</p>
+        <h3><a href={`#${step.anchor}`}>{step.title}</a></h3>
+        <p data-step-summary>Prepare the screen-reader skills you need for the next testing method and Exercise.</p>
+      </li>
+    ) : (
+      <li class="path-step">
+        <p class="step-type" data-step-type>{step.type === 'method' ? 'Testing method' : step.type === 'exercise' ? 'Exercise' : 'Testing journey'}</p>
+        <h3><a href={step.href}>{step.title}</a></h3>
+        <p data-step-summary>{step.summary}</p>
+        {step.estimatedMinutes && <p class="step-time" data-step-time>{step.estimatedMinutes} minutes</p>}
+      </li>
+    ))}
+  </ol>
+</section>
+
+<style>
+  .path-steps {
+    padding-left: 2.25rem;
+  }
+
+  .path-step {
+    margin-block: 1.25rem;
+    padding: 1.25rem;
+    border: 2px solid #bbc9f7;
+  }
+
+  .path-step::marker {
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+
+  .path-step h3 {
+    margin-block: 0.2rem 0.5rem;
+  }
+
+  .path-step p {
+    margin-block: 0.4rem;
+  }
+
+  .step-type {
+    font-size: 0.95rem;
+    font-weight: 700;
+  }
+
+  .step-time {
+    font-weight: 700;
+  }
+
+  :global(.dark) .path-step {
+    border-color: #18399a;
+  }
+
+  @media (max-width: 34rem) {
+    .path-steps {
+      padding-left: 1.75rem;
+    }
+
+    .path-step {
+      padding: 1rem;
+    }
+  }
+</style>
