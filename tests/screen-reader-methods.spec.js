@@ -25,6 +25,11 @@ const imageAlternativeMethod = {
   title: 'Testing image alternative text',
 };
 
+const formsValidationMethod = {
+  path: '/methods/testing-forms-and-validation/',
+  title: 'Testing forms and validation',
+};
+
 const screenReaderMethods = [
   {
     path: '/methods/screen-reader-page-structure-and-links/',
@@ -51,6 +56,7 @@ const methods = [
   automatedMethod,
   screenReaderMethods[0],
   imageAlternativeMethod,
+  formsValidationMethod,
   ...screenReaderMethods.slice(1),
 ];
 
@@ -217,6 +223,18 @@ test('Testing image alternative text renders a method without a demonstration', 
   }
   await expect(page.getByRole('heading', { level: 2, name: 'Demonstration' })).toHaveCount(0);
   await expect(page.locator('[data-content-body]').getByRole('link', { name: 'Testing icons and SVGs with a screen reader' })).toHaveAttribute('href', '/methods/screen-reader-icons-and-svg/');
+});
+
+test('Testing forms and validation renders a method without a demonstration', async ({ page }) => {
+  const response = await page.goto(formsValidationMethod.path);
+  expect(response?.ok()).toBe(true);
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(formsValidationMethod.title);
+  for (const heading of ['What this method tests', 'What you need', 'Before you start', 'How to perform the test', 'What to observe', 'Interpreting the results', 'Limitations']) {
+    await expect(page.getByRole('heading', { level: 2, name: heading })).toBeVisible();
+  }
+  await expect(page.getByRole('heading', { level: 2, name: 'Demonstration' })).toHaveCount(0);
+  await expect(page.locator('[data-content-body]').getByRole('link', { name: 'Testing keyboard accessibility' })).toHaveAttribute('href', '/methods/testing-keyboard-accessibility/');
+  await expect(page.locator('[data-content-body]').getByRole('link', { name: 'Testing with automated tools' })).toHaveAttribute('href', '/methods/testing-with-automated-tools/');
 });
 
 test('legacy screen-reader example routes remain available', async ({ request }) => {

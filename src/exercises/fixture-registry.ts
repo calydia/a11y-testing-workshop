@@ -4,6 +4,7 @@ import VisualAccountDashboardFixture from '../components/exercise/fixtures/Visua
 import ZoomAppointmentBookingFixture from '../components/exercise/fixtures/ZoomAppointmentBookingFixture.astro';
 import AutomatedEventRegistrationFixture from '../components/exercise/fixtures/AutomatedEventRegistrationFixture.astro';
 import ImageAlternativeTextFixture from '../components/exercise/fixtures/ImageAlternativeTextFixture.astro';
+import CourseRegistrationFixture from '../components/exercise/fixtures/CourseRegistrationFixture.astro';
 
 export interface InlineFixture {
   kind: 'inline';
@@ -75,6 +76,19 @@ export const fixtureRegistry: Record<string, ExerciseFixtureDefinition> = {
       'noisy-decorative',
       'linked-logo',
       'missing-alt',
+    ],
+  },
+  'course-registration': {
+    kind: 'document',
+    component: CourseRegistrationFixture,
+    title: 'Community course registration form exercise',
+    intentionalViolations: [
+      'disconnected-label',
+      'disconnected-format-instruction',
+      'unnamed-format-group',
+      'invalid-focus-unchanged',
+      'unassociated-inline-errors',
+      'unannounced-success',
     ],
   },
 };

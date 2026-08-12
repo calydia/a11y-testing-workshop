@@ -10,6 +10,7 @@ const routes = [
   '/methods/testing-zoom-and-reflow/',
   '/methods/testing-with-automated-tools/',
   '/methods/testing-image-alternative-text/',
+  '/methods/testing-forms-and-validation/',
   '/methods/screen-reader-page-structure-and-links/',
   '/methods/screen-reader-icons-and-svg/',
   '/methods/screen-reader-language-changes/',
@@ -19,6 +20,7 @@ const routes = [
   '/exercises/testing-an-appointment-booking-at-high-zoom/',
   '/exercises/comparing-automated-and-manual-findings/',
   '/exercises/evaluating-image-alternative-text-in-context/',
+  '/exercises/testing-a-community-course-registration-form/',
   '/journeys/',
   '/about/',
 ];

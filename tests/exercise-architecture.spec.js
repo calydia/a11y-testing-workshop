@@ -29,10 +29,12 @@ test('exercise listing contains published exercises in collection order', async 
     'Testing an appointment booking at high zoom',
     'Comparing automated and manual findings',
     'Evaluating image alternative text in context',
+    'Testing a community-course registration form',
   ]);
   await expect(links.nth(0)).toHaveAttribute('href', '/exercises/keyboard-testing-a-preferences-form/');
   await expect(links.nth(1)).toHaveAttribute('href', '/exercises/finding-visual-problems-in-an-account-dashboard/');
   await expect(links.nth(2)).toHaveAttribute('href', '/exercises/testing-an-appointment-booking-at-high-zoom/');
   await expect(links.nth(3)).toHaveAttribute('href', '/exercises/comparing-automated-and-manual-findings/');
   await expect(links.nth(4)).toHaveAttribute('href', '/exercises/evaluating-image-alternative-text-in-context/');
+  await expect(links.nth(5)).toHaveAttribute('href', '/exercises/testing-a-community-course-registration-form/');
 });
