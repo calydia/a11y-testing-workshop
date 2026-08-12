@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
 const pathUrl = '/learn/your-first-accessibility-review/';
+const screenReaderPathUrl = '/learn/practical-screen-reader-testing/';
 
 const expectedSteps = [
   ['Testing method', 'Testing with automated tools', '/methods/testing-with-automated-tools/'],
@@ -17,11 +18,25 @@ const expectedSteps = [
   ['Exercise', 'Testing a community-course registration form', '/exercises/testing-a-community-course-registration-form/'],
 ];
 
+const expectedScreenReaderSteps = [
+  ['Path checkpoint', 'Prepare your screen reader', '#prepare-your-screen-reader'],
+  ['Testing method', 'Testing page structure and links with a screen reader', '/methods/screen-reader-page-structure-and-links/'],
+  ['Testing method', 'Testing image alternative text', '/methods/testing-image-alternative-text/'],
+  ['Exercise', 'Evaluating image alternative text in context', '/exercises/evaluating-image-alternative-text-in-context/'],
+  ['Testing method', 'Testing icons and SVGs with a screen reader', '/methods/screen-reader-icons-and-svg/'],
+  ['Testing method', 'Testing language changes with a screen reader', '/methods/screen-reader-language-changes/'],
+  ['Testing method', 'Testing modal dialogs', '/methods/testing-modal-dialogs/'],
+];
+
 test('Learning paths listing publishes the first path', async ({ page }) => {
   await page.goto('/learn/');
   await expect(page.getByText('No published content is available in this section yet.')).toHaveCount(0);
-  await expect(page.locator('main article h2 > a')).toHaveText(['Your first accessibility review']);
+  await expect(page.locator('main article h2 > a')).toHaveText([
+    'Your first accessibility review',
+    'Practical screen-reader testing',
+  ]);
   await expect(page.getByRole('link', { name: 'Your first accessibility review' })).toHaveAttribute('href', pathUrl);
+  await expect(page.getByRole('link', { name: 'Practical screen-reader testing' })).toHaveAttribute('href', screenReaderPathUrl);
 });
 
 test('first Learning path renders metadata, outcomes, and navigation', async ({ page }) => {
@@ -87,6 +102,68 @@ test('path has no progress tracking and passes axe', async ({ page }) => {
 test('path links have focus indicators and fit a narrow viewport', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto(pathUrl);
+  const firstStepLink = page.locator('[data-learning-path-steps] a').first();
+  await firstStepLink.focus();
+  await expect(firstStepLink).toHaveCSS('outline-style', 'solid');
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
+});
+
+test('Practical screen-reader testing renders independent metadata, outcomes, and navigation', async ({ page }) => {
+  const response = await page.goto(screenReaderPathUrl);
+  expect(response?.ok()).toBe(true);
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Practical screen-reader testing');
+  await expect(page.locator('[data-learning-path-meta]')).toContainText('Level: beginner');
+  await expect(page.locator('[data-learning-path-meta]')).toContainText('Estimated time: About 2 hours 15 minutes');
+  await expect(page.locator('[data-learning-outcomes] li')).toHaveCount(6);
+
+  const breadcrumb = page.getByRole('navigation', { name: 'Breadcrumbs' }).getByRole('listitem');
+  await expect(breadcrumb).toHaveText(['Home/', 'Learning paths/', 'Practical screen-reader testing']);
+  const navigation = page.getByRole('navigation', { name: 'Learning paths' });
+  await expect(navigation.getByRole('link')).toHaveText([
+    'All learning paths',
+    'Your first accessibility review',
+    'Practical screen-reader testing',
+  ]);
+  await expect(navigation.getByRole('link', { name: 'Practical screen-reader testing' })).toHaveAttribute('aria-current', 'page');
+});
+
+test('screen-reader path renders the exact seven-step progression', async ({ page }) => {
+  await page.goto(screenReaderPathUrl);
+  const steps = page.locator('[data-learning-path-steps] > li');
+  await expect(steps).toHaveCount(expectedScreenReaderSteps.length);
+
+  for (const [index, [type, title, href]] of expectedScreenReaderSteps.entries()) {
+    const step = steps.nth(index);
+    await expect(step.locator('[data-step-type]')).toHaveText(type);
+    await expect(step.locator('[data-step-type]')).toHaveCSS('text-transform', 'none');
+    await expect(step.getByRole('link', { name: title, exact: true })).toHaveAttribute('href', href);
+    await expect(step.locator('[data-step-summary]')).not.toBeEmpty();
+    if (type !== 'Path checkpoint') await expect(step.locator('[data-step-time]')).toContainText(/\d+ minutes/);
+  }
+});
+
+test('screen-reader setup checkpoint links to its matching guidance', async ({ page }) => {
+  await page.goto(screenReaderPathUrl);
+  await page.getByRole('link', { name: 'Prepare your screen reader', exact: true }).click();
+  await expect(page).toHaveURL(`${screenReaderPathUrl}#prepare-your-screen-reader`);
+  await expect(page.getByRole('heading', { level: 2, name: 'Prepare your screen reader' })).toBeVisible();
+});
+
+test('each Learning path explains its own practice model', async ({ page }) => {
+  await page.goto(pathUrl);
+  await expect(page.getByText('The Exercises use different small interfaces.', { exact: false })).toBeVisible();
+
+  await page.goto(screenReaderPathUrl);
+  await expect(page.getByText('The demonstrations provide guided practice', { exact: false })).toBeVisible();
+  await expect(page.getByText('Additional Exercises may be added later', { exact: false })).toBeVisible();
+  await expect(page.getByRole('checkbox')).toHaveCount(0);
+  await expect(page.getByRole('progressbar')).toHaveCount(0);
+  await expect(page.locator('[data-progress], [data-complete], [data-grade]')).toHaveCount(0);
+});
+
+test('screen-reader path has visible focus and no narrow-viewport overflow', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto(screenReaderPathUrl);
   const firstStepLink = page.locator('[data-learning-path-steps] a').first();
   await firstStepLink.focus();
   await expect(firstStepLink).toHaveCSS('outline-style', 'solid');

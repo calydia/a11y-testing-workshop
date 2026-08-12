@@ -41,6 +41,10 @@ steps:
     entry: testing-a-community-course-registration-form
 ---
 
+Work through this path across several sessions. Revisit each Testing method while you complete its Exercise.
+
+The Exercises use different small interfaces. Together they build transferable testing skills; they are not one continuous product review. A Testing journey combines several techniques in one realistic scenario.
+
 ## Prepare for screen-reader checks
 
 The forms method and Exercise include a limited screen-reader verification step. Before continuing, choose one screen reader that works with your operating system and browser.
