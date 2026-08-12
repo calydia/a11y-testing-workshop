@@ -1,9 +1,31 @@
 ---
 import ContentLayout from './ContentLayout.astro';
-const { title, description, summary } = Astro.props;
+import JourneyMeta from '../components/journey/JourneyMeta.astro';
+import JourneyOverview, { type JourneyExerciseView, type JourneyMethodView } from '../components/journey/JourneyOverview.astro';
+import JourneyStages, { type JourneyStageView } from '../components/journey/JourneyStages.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  summary: string;
+  difficulty: string;
+  estimatedMinutes: number;
+  scenario: string;
+  role?: string;
+  objectives: string[];
+  methods: JourneyMethodView[];
+  exercises: JourneyExerciseView[];
+  stages: JourneyStageView[];
+  deliverables: string[];
+}
+
+const { title, description, summary, difficulty, estimatedMinutes, scenario, role, objectives, methods, exercises, stages, deliverables } = Astro.props;
 ---
 <ContentLayout title={title} description={description} summary={summary}>
   <slot name="breadcrumb" slot="breadcrumb" />
   <slot name="navigation" slot="navigation" />
+  <JourneyMeta slot="meta" difficulty={difficulty} estimatedMinutes={estimatedMinutes} />
+  <JourneyOverview scenario={scenario} role={role} objectives={objectives} methods={methods} exercises={exercises} />
   <slot />
+  <JourneyStages stages={stages} deliverables={deliverables} />
 </ContentLayout>

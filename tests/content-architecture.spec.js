@@ -1,17 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { readFile } from 'node:fs/promises';
 
-const sections = [{ path: '/journeys/', label: 'Testing journeys' }];
-
-for (const section of sections) {
-  test(`${section.label} exposes a truthful empty collection state`, async ({ page }) => {
-    await page.goto(section.path);
-
-    await expect(page.getByText('No published content is available in this section yet.')).toBeVisible();
-    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', `https://testing.a11y.ing${section.path}`);
-  });
-}
-
 test('unknown nested content IDs use the normal 404 response', async ({ request }) => {
   for (const path of ['/learn/not-an-entry/', '/methods/nested/not-an-entry/', '/exercises/not-an-entry/', '/journeys/not-an-entry/']) {
     const response = await request.get(path);

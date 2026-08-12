@@ -1,0 +1,85 @@
+---
+import type { JourneyMethodView } from './JourneyOverview.astro';
+
+export interface JourneyStageView {
+  title: string;
+  task: string;
+  methods: JourneyMethodView[];
+}
+
+interface Props {
+  stages: JourneyStageView[];
+  deliverables: string[];
+}
+
+const { stages, deliverables } = Astro.props;
+---
+
+<section aria-labelledby="journey-stages-heading">
+  <h2 id="journey-stages-heading">Review stages</h2>
+  <ol class="stages" data-journey-stages>
+    {stages.map((stage) => (
+      <li>
+        <h3>{stage.title}</h3>
+        <p data-stage-task>{stage.task}</p>
+        {stage.methods.length > 0 && (
+          <div data-stage-methods>
+            <p class="methods-label">Use:</p>
+            <ul>
+              {stage.methods.map((method) => <li><a href={method.href}>{method.title}</a></li>)}
+            </ul>
+          </div>
+        )}
+      </li>
+    ))}
+  </ol>
+</section>
+
+<section aria-labelledby="journey-deliverables-heading" data-journey-deliverables>
+  <h2 id="journey-deliverables-heading">Deliverables</h2>
+  <ul>{deliverables.map((deliverable) => <li>{deliverable}</li>)}</ul>
+</section>
+
+<style>
+  .stages {
+    padding-left: 2.25rem;
+  }
+
+  .stages > li {
+    margin-block: 1.25rem;
+    padding: 1.25rem;
+    border: 2px solid #bbc9f7;
+  }
+
+  .stages > li::marker {
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+
+  .stages h3,
+  .stages p {
+    margin-block: 0 0.5rem;
+  }
+
+  .methods-label {
+    font-weight: 700;
+  }
+
+  [data-stage-methods] ul {
+    margin-block: 0;
+  }
+
+  :global(.dark) .stages > li {
+    border-color: #18399a;
+  }
+
+  @media (max-width: 34rem) {
+    .stages {
+      padding-left: 1.75rem;
+    }
+
+    .stages > li {
+      padding: 1rem;
+    }
+  }
+</style>

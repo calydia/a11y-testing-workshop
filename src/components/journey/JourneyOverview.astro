@@ -1,0 +1,88 @@
+---
+export interface JourneyMethodView {
+  id: string;
+  title: string;
+  summary: string;
+  href: string;
+}
+
+export interface JourneyExerciseView {
+  title: string;
+  summary: string;
+  href: string;
+  estimatedMinutes: number;
+}
+
+interface Props {
+  scenario: string;
+  role?: string;
+  objectives: string[];
+  methods: JourneyMethodView[];
+  exercises: JourneyExerciseView[];
+}
+
+const { scenario, role, objectives, methods, exercises } = Astro.props;
+---
+
+<section aria-labelledby="journey-scenario-heading" data-journey-scenario>
+  <h2 id="journey-scenario-heading">Scenario</h2>
+  <p>{scenario}</p>
+  {role && <p data-journey-role><strong>Your role:</strong> {role}</p>}
+</section>
+
+<section aria-labelledby="journey-objectives-heading" data-journey-objectives>
+  <h2 id="journey-objectives-heading">What you will practise</h2>
+  <ul>{objectives.map((objective) => <li>{objective}</li>)}</ul>
+</section>
+
+<section aria-labelledby="journey-methods-heading">
+  <h2 id="journey-methods-heading">Methods used</h2>
+  <ul class="reference-list" data-journey-methods>
+    {methods.map((method) => (
+      <li>
+        <h3><a href={method.href}>{method.title}</a></h3>
+        <p data-method-summary>{method.summary}</p>
+      </li>
+    ))}
+  </ul>
+</section>
+
+{exercises.length > 0 && (
+  <section aria-labelledby="journey-preparation-heading" data-journey-preparation>
+    <h2 id="journey-preparation-heading">Optional preparation</h2>
+    <p>Complete your independent review before consulting the Exercise solution.</p>
+    <ul class="reference-list">
+      {exercises.map((exercise) => (
+        <li>
+          <h3><a href={exercise.href}>{exercise.title}</a></h3>
+          <p>{exercise.summary}</p>
+          <p><strong>Estimated time:</strong> {exercise.estimatedMinutes} minutes</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+)}
+
+<style>
+  .reference-list {
+    display: grid;
+    gap: 1rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  .reference-list li {
+    margin: 0;
+    padding: 1rem;
+    border: 2px solid #bbc9f7;
+  }
+
+  .reference-list h3,
+  .reference-list p {
+    margin-block: 0 0.5rem;
+  }
+
+  :global(.dark) .reference-list li {
+    border-color: #18399a;
+  }
+</style>
