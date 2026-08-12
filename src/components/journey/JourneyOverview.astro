@@ -13,15 +13,24 @@ export interface JourneyExerciseView {
   estimatedMinutes: number;
 }
 
+export interface JourneyLearningPathView {
+  title: string;
+  summary: string;
+  href: string;
+  level: string;
+  estimatedMinutes: number;
+}
+
 interface Props {
   scenario: string;
   role?: string;
   objectives: string[];
   methods: JourneyMethodView[];
+  learningPaths: JourneyLearningPathView[];
   exercises: JourneyExerciseView[];
 }
 
-const { scenario, role, objectives, methods, exercises } = Astro.props;
+const { scenario, role, objectives, methods, learningPaths, exercises } = Astro.props;
 ---
 
 <section aria-labelledby="journey-scenario-heading" data-journey-scenario>
@@ -47,13 +56,23 @@ const { scenario, role, objectives, methods, exercises } = Astro.props;
   </ul>
 </section>
 
-{exercises.length > 0 && (
+{(learningPaths.length > 0 || exercises.length > 0) && (
   <section aria-labelledby="journey-preparation-heading" data-journey-preparation>
     <h2 id="journey-preparation-heading">Optional preparation</h2>
-    <p>Complete your independent review before consulting the Exercise solution.</p>
+    {exercises.length > 0 && <p>Complete your independent review before consulting the Exercise solution.</p>}
     <ul class="reference-list">
+      {learningPaths.map((learningPath) => (
+        <li data-preparation-type="learning-path">
+          <p class="content-type">Learning path</p>
+          <h3><a href={learningPath.href}>{learningPath.title}</a></h3>
+          <p>{learningPath.summary}</p>
+          <p><strong>Level:</strong> {learningPath.level}</p>
+          <p><strong>Estimated time:</strong> {learningPath.estimatedMinutes} minutes</p>
+        </li>
+      ))}
       {exercises.map((exercise) => (
-        <li>
+        <li data-preparation-type="exercise">
+          <p class="content-type">Exercise</p>
           <h3><a href={exercise.href}>{exercise.title}</a></h3>
           <p>{exercise.summary}</p>
           <p><strong>Estimated time:</strong> {exercise.estimatedMinutes} minutes</p>
@@ -80,6 +99,11 @@ const { scenario, role, objectives, methods, exercises } = Astro.props;
   .reference-list h3,
   .reference-list p {
     margin-block: 0 0.5rem;
+  }
+
+  .content-type {
+    font-size: 0.95rem;
+    font-weight: 700;
   }
 
   :global(.dark) .reference-list li {

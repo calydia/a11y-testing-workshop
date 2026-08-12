@@ -29,6 +29,17 @@ const exercises = await Promise.all(entry.data.exercises.map(async (reference) =
     href: contentUrl('exercises', exercise.id),
   };
 }));
+const learningPaths = await Promise.all(entry.data.learningPaths.map(async (reference) => {
+  const learningPath = await getEntry(reference);
+  if (!learningPath) throw new Error(`Unable to resolve Testing journey Learning path: ${reference.id}`);
+  return {
+    title: learningPath.data.title,
+    summary: learningPath.data.summary,
+    level: learningPath.data.level,
+    estimatedMinutes: learningPath.data.estimatedMinutes,
+    href: contentUrl('learn', learningPath.id),
+  };
+}));
 const stages = entry.data.stages.map((stage) => ({
   title: stage.title,
   task: stage.task,
@@ -50,6 +61,7 @@ const stages = entry.data.stages.map((stage) => ({
   role={entry.data.role}
   objectives={entry.data.objectives}
   methods={methods}
+  learningPaths={learningPaths}
   exercises={exercises}
   stages={stages}
   deliverables={entry.data.deliverables}

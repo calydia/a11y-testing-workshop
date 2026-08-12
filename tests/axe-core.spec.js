@@ -25,6 +25,7 @@ const routes = [
   '/exercises/testing-a-community-course-registration-form/',
   '/journeys/',
   '/journeys/reviewing-a-course-registration-before-launch/',
+  '/journeys/reviewing-a-community-conference-programme/',
   '/about/',
 ];
 

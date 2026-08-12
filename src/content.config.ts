@@ -92,6 +92,7 @@ const testingJourneys = defineCollection({
     role: z.string().optional(),
     objectives: z.array(z.string()).min(1),
     methods: z.array(reference('testingMethods')).min(2),
+    learningPaths: z.array(reference('learningPaths')).default([]),
     exercises: z.array(reference('exercises')).default([]),
     stages: z.array(z.object({
       title: z.string(),

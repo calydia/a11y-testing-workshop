@@ -1,0 +1,32 @@
+---
+import CommunityConferenceProgramme from '../../components/journey/workspaces/CommunityConferenceProgramme.astro';
+import '@fontsource/atkinson-hyperlegible';
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Community conference programme workspace</title>
+    <script is:inline>
+      const workspaceThemePreference = () => localStorage.getItem('darkMode');
+      const applyWorkspaceTheme = () => {
+        const preference = workspaceThemePreference();
+        const useDarkTheme = preference === 'enabled'
+          || (!preference && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.classList.toggle('dark', useDarkTheme);
+        document.documentElement.classList.toggle('light', !useDarkTheme);
+      };
+      applyWorkspaceTheme();
+      window.addEventListener('storage', (event) => {
+        if (event.key === 'darkMode') applyWorkspaceTheme();
+      });
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+        if (!workspaceThemePreference()) applyWorkspaceTheme();
+      });
+    </script>
+  </head>
+  <body>
+    <CommunityConferenceProgramme />
+  </body>
+</html>

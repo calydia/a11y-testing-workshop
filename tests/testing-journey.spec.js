@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
 const journeyPath = '/journeys/reviewing-a-course-registration-before-launch/';
+const conferenceJourneyPath = '/journeys/reviewing-a-community-conference-programme/';
 
 const methods = [
   ['Testing with automated tools', '/methods/testing-with-automated-tools/'],
@@ -20,11 +21,32 @@ const stages = [
   'Consolidate and recommend',
 ];
 
+const conferenceMethods = [
+  ['Testing page structure and links with a screen reader', '/methods/screen-reader-page-structure-and-links/'],
+  ['Testing image alternative text', '/methods/testing-image-alternative-text/'],
+  ['Testing icons and SVGs with a screen reader', '/methods/screen-reader-icons-and-svg/'],
+  ['Testing language changes with a screen reader', '/methods/screen-reader-language-changes/'],
+  ['Testing modal dialogs', '/methods/testing-modal-dialogs/'],
+];
+
+const conferenceStages = [
+  'Define the review conditions',
+  'Find your way through the programme',
+  'Choose a session using its complete content',
+  'Review multilingual session information',
+  'Inspect session details and return to the programme',
+  'Consolidate and recommend',
+];
+
 test('Testing journeys listing publishes the first journey', async ({ page }) => {
   await page.goto('/journeys/');
   await expect(page.getByText('No published content is available in this section yet.')).toHaveCount(0);
-  await expect(page.locator('main article h2 > a')).toHaveText(['Reviewing a course registration before launch']);
+  await expect(page.locator('main article h2 > a')).toHaveText([
+    'Reviewing a course registration before launch',
+    'Reviewing a community conference programme',
+  ]);
   await expect(page.getByRole('link', { name: 'Reviewing a course registration before launch' })).toHaveAttribute('href', journeyPath);
+  await expect(page.getByRole('link', { name: 'Reviewing a community conference programme' })).toHaveAttribute('href', conferenceJourneyPath);
 });
 
 test('journey renders metadata, scenario, role, objectives, and navigation', async ({ page }) => {
@@ -101,5 +123,79 @@ test('journey passes axe, exposes focus, and fits a narrow viewport', async ({ p
 
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto(journeyPath);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
+});
+
+test('conference journey renders intermediate metadata, scenario, and navigation', async ({ page }) => {
+  const response = await page.goto(conferenceJourneyPath);
+  expect(response?.ok()).toBe(true);
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Reviewing a community conference programme');
+  const meta = page.locator('[data-journey-meta]');
+  await expect(meta).toContainText('Difficulty: intermediate');
+  await expect(meta).toContainText('Estimated time: 75 minutes');
+  await expect(page.locator('[data-journey-scenario]')).toContainText('preparing to publish its programme');
+  await expect(page.locator('[data-journey-role]')).toContainText('Accessibility tester reviewing a conference programme before publication');
+  await expect(page.locator('[data-journey-objectives] li')).toHaveCount(6);
+  await expect(page.getByRole('navigation', { name: 'Breadcrumbs' }).getByRole('listitem')).toHaveText([
+    'Home/', 'Testing journeys/', 'Reviewing a community conference programme',
+  ]);
+  const navigation = page.getByRole('navigation', { name: 'Testing journeys' });
+  await expect(navigation.getByRole('link')).toHaveText([
+    'All testing journeys',
+    'Reviewing a course registration before launch',
+    'Reviewing a community conference programme',
+  ]);
+  await expect(navigation.getByRole('link', { name: 'Reviewing a community conference programme' })).toHaveAttribute('aria-current', 'page');
+});
+
+test('conference journey lists five screen-reader methods and its recommended path', async ({ page }) => {
+  await page.goto(conferenceJourneyPath);
+  const methodItems = page.locator('[data-journey-methods] > li');
+  await expect(methodItems).toHaveCount(5);
+  for (const [index, [title, href]] of conferenceMethods.entries()) {
+    await expect(methodItems.nth(index).getByRole('link', { name: title })).toHaveAttribute('href', href);
+  }
+  const preparation = page.locator('[data-journey-preparation]');
+  await expect(preparation.locator('[data-preparation-type="learning-path"]')).toHaveCount(1);
+  await expect(preparation.locator('[data-preparation-type="exercise"]')).toHaveCount(0);
+  await expect(preparation.getByRole('link', { name: 'Practical screen-reader testing' })).toHaveAttribute('href', '/learn/practical-screen-reader-testing/');
+  await expect(preparation).toContainText('Level: beginner');
+  await expect(preparation).toContainText('Estimated time: 135 minutes');
+  await expect(preparation).not.toContainText('Exercise solution');
+});
+
+test('conference journey renders six task-led stages and five deliverables', async ({ page }) => {
+  await page.goto(conferenceJourneyPath);
+  const stageItems = page.locator('[data-journey-stages] > li');
+  await expect(stageItems).toHaveCount(6);
+  await expect(stageItems.getByRole('heading', { level: 3 })).toHaveText(conferenceStages);
+  await expect(stageItems.nth(0).locator('[data-stage-methods]')).toHaveCount(0);
+  await expect(stageItems.nth(1).getByRole('link')).toHaveText([conferenceMethods[0][0]]);
+  await expect(stageItems.nth(2).getByRole('link')).toHaveText([conferenceMethods[1][0], conferenceMethods[2][0], conferenceMethods[0][0]]);
+  await expect(stageItems.nth(3).getByRole('link')).toHaveText([conferenceMethods[3][0]]);
+  await expect(stageItems.nth(4).getByRole('link')).toHaveText([conferenceMethods[4][0], conferenceMethods[0][0], conferenceMethods[2][0]]);
+  await expect(stageItems.nth(5).getByRole('link')).toHaveText(conferenceMethods.map(([title]) => title));
+  await expect(page.locator('[data-journey-deliverables] li')).toHaveCount(5);
+});
+
+test('conference journey links to the workspace without exposing answers or progress UI', async ({ page }) => {
+  await page.goto(conferenceJourneyPath);
+  const workspace = page.getByRole('link', { name: 'Open the community conference programme workspace' });
+  await expect(workspace).toHaveAttribute('href', '/journey-workspaces/community-conference-programme/');
+  await expect(workspace).not.toHaveAttribute('target');
+  await expect(page.getByRole('checkbox')).toHaveCount(0);
+  await expect(page.getByRole('progressbar')).toHaveCount(0);
+  await expect(page.locator('[data-progress], [data-complete], [data-grade], form')).toHaveCount(0);
+  await expect(page.getByText(/eight findings|required finding count|model answer|solution/i)).toHaveCount(0);
+});
+
+test('conference journey passes axe, exposes focus, and fits a narrow viewport', async ({ page }) => {
+  await page.goto(conferenceJourneyPath);
+  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+  const workspace = page.getByRole('link', { name: 'Open the community conference programme workspace' });
+  await workspace.focus();
+  await expect(workspace).toHaveCSS('outline-style', 'solid');
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto(conferenceJourneyPath);
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
 });
