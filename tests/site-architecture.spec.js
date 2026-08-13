@@ -28,6 +28,23 @@ test.describe('Site routes', () => {
   }
 });
 
+for (const route of routes.filter(({ path }) => ['/learn/', '/methods/', '/exercises/', '/journeys/'].includes(path))) {
+  test(`${route.path} uses compact section card typography`, async ({ page }) => {
+    await page.goto(route.path);
+    const firstCard = page.locator('main article').first();
+
+    await expect(firstCard.getByRole('heading', { level: 2 })).toHaveCSS('font-size', '20px');
+    await expect(firstCard.locator('p').last()).toHaveCSS('font-size', '18px');
+
+    const firstCardLink = firstCard.getByRole('link').first();
+    await firstCardLink.focus();
+    await expect(firstCardLink).toHaveCSS('outline-style', 'solid');
+
+    await page.setViewportSize({ width: 390, height: 844 });
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
+  });
+}
+
 test('primary navigation matches the new information architecture', async ({ page }) => {
   await page.goto('/');
   const navigation = page.getByRole('navigation', { name: 'Main' });

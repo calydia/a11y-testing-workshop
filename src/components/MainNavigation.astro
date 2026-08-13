@@ -46,7 +46,7 @@
   {navItems.map((item) => (
     <li>
       <a
-        class="px-4 py-3 text-base font-menu block lg:mx-2"
+        class="px-4 py-3 text-base font-menu block lg:mx-2 lg:py-1 lg:text-lg"
         href={item.href}
         aria-current={getCurrentState(item.href)}
         data-current-section={isCurrentSection(item.href) || undefined}
@@ -75,3 +75,11 @@
   });
 
 </script>
+
+<style>
+  @media (min-width: 64rem) {
+    #main-menu > li {
+      margin-block: 0.5rem;
+    }
+  }
+</style>

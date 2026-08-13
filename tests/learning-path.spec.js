@@ -77,8 +77,11 @@ test('referenced steps include summaries and item durations', async ({ page }) =
   const referencedSteps = page.locator('[data-learning-path-steps] > li:not([data-content-step])');
   await expect(referencedSteps).toHaveCount(10);
   for (const step of await referencedSteps.all()) {
+    await expect(step.getByRole('heading', { level: 3 })).toHaveCSS('font-size', '20px');
     await expect(step.locator('[data-step-summary]')).not.toBeEmpty();
+    await expect(step.locator('[data-step-summary]')).toHaveCSS('font-size', '18px');
     await expect(step.locator('[data-step-time]')).toContainText(/\d+ minutes/);
+    await expect(step.locator('[data-step-time]')).toHaveCSS('font-size', '18px');
   }
 });
 

@@ -25,6 +25,9 @@ test.describe('shared shell keyboard interactions', () => {
     await expect(toggle).toHaveAttribute('aria-expanded', 'true');
 
     const firstLink = navigation.getByRole('link').first();
+    await expect(firstLink).toHaveCSS('font-size', '16px');
+    await expect(firstLink).toHaveCSS('padding-top', '12px');
+    await expect(firstLink).toHaveCSS('padding-bottom', '12px');
     await firstLink.focus();
     await page.keyboard.press('Escape');
 
@@ -61,5 +64,15 @@ test.describe('shared shell keyboard interactions', () => {
     const navigation = page.getByRole('navigation', { name: 'Main' });
     await expect(navigation.getByRole('button', { name: 'Menu' })).toBeHidden();
     await expect(navigation.getByRole('link')).toHaveCount(4);
+    const firstLink = navigation.getByRole('link').first();
+    await expect(firstLink).toHaveCSS('font-size', '18px');
+    await expect(firstLink).toHaveCSS('padding-top', '4px');
+    await expect(firstLink).toHaveCSS('padding-bottom', '4px');
+    const firstItem = navigation.locator('#main-menu > li').first();
+    await expect(firstItem).toHaveCSS('margin-top', '8px');
+    await expect(firstItem).toHaveCSS('margin-bottom', '8px');
+    const navigationBox = await navigation.boundingBox();
+    expect(navigationBox?.height).toBeGreaterThanOrEqual(88);
+    expect(navigationBox?.height).toBeLessThanOrEqual(90);
   });
 });
