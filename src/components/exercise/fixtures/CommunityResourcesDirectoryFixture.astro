@@ -1,0 +1,87 @@
+<main class="fixture-shell">
+  <a href="/exercises/reviewing-structure-and-links-in-a-community-resources-directory/">Return to the exercise</a>
+  <h1>Community resource directory</h1>
+  <p>Find local advice, practical support, and opportunities to build everyday skills.</p>
+
+  <section aria-labelledby="getting-started-heading">
+    <h2 id="getting-started-heading">Find support in your area</h2>
+    <p>Start with the <a href="#community-services">community services directory</a> or read <a href="#choosing-support">how to choose the right support</a>.</p>
+    <p>If you need help deciding where to begin, <a href="#contact-team">Click here</a>.</p>
+  </section>
+
+  <section id="community-services" aria-labelledby="community-services-heading">
+    <h2 id="community-services-heading">Community services</h2>
+    <div class="resource-grid">
+      <article class="resource-card" id="food-support">
+        <h4 data-resource-title="food">Food support</h4>
+        <p>Find community meals, low-cost groceries, and emergency food support.</p>
+        <a href="#food-support-information" data-card-link="food">Read more</a>
+      </article>
+
+      <article class="resource-card" id="housing-advice">
+        <p class="resource-title" data-resource-title="housing">Housing advice</p>
+        <p>Get help understanding tenancy questions, housing applications, and local services.</p>
+        <a href="#housing-advice-information" data-card-link="housing">Read more</a>
+      </article>
+
+      <article class="resource-card" id="digital-skills">
+        <h3 data-resource-title="digital">Digital skills support</h3>
+        <p>Join friendly sessions covering devices, online forms, and staying safe online.</p>
+        <a href="#digital-skills-information" data-card-link="digital">Explore digital skills sessions</a>
+      </article>
+    </div>
+  </section>
+
+  <section aria-labelledby="quick-directory-heading">
+    <h2 id="quick-directory-heading">Quick service directory</h2>
+    <ul class="service-links">
+      <li><a href="#food-support-information" data-service-link="food">Service details</a></li>
+      <li><a href="#housing-advice-information" data-service-link="housing">Service details</a></li>
+      <li><a href="#digital-skills-information">Digital skills service details</a></li>
+    </ul>
+  </section>
+
+  <section id="choosing-support" aria-labelledby="choosing-support-heading">
+    <h2 id="choosing-support-heading">Choosing the right support</h2>
+    <p>Check who provides each service, whether you need an appointment, and what information to bring.</p>
+    <p><a href="#contact-team">Contact the community support team</a> if you are still unsure which service fits your situation.</p>
+  </section>
+
+  <section class="detail-notes" aria-label="Service information">
+    <p id="food-support-information"><strong>Food support information:</strong> Drop-in meals are available on weekdays.</p>
+    <p id="housing-advice-information"><strong>Housing advice information:</strong> Appointments are available by phone and at the community centre.</p>
+    <p id="digital-skills-information"><strong>Digital skills information:</strong> Weekly sessions are free and devices are provided.</p>
+    <p id="contact-team"><strong>Community support team:</strong> Call the information desk during weekday opening hours.</p>
+  </section>
+</main>
+
+<style>
+  :global(*) { box-sizing: border-box; }
+  :global(body) { margin: 0; background: #fafafa; color: #4d4d4d; font-family: 'Atkinson Hyperlegible', Arial, sans-serif; font-size: 1.125rem; line-height: 1.5; }
+  .fixture-shell { max-width: 52rem; margin: 0 auto; padding: 1.5rem; }
+  h1 { margin-block: 1.5rem 0.75rem; color: #333; font-size: clamp(2rem, 8vw, 3rem); line-height: 1.1; }
+  h2 { margin-block: 2.25rem 0.75rem; color: #333; font-size: 1.75rem; }
+  h3, h4, .resource-title { margin-block: 0 0.75rem; color: #333; font-size: 1.35rem; font-weight: 700; line-height: 1.25; }
+  p { margin-block: 0 1rem; }
+  a { color: #033573; text-underline-offset: 0.2em; }
+  a:hover { text-decoration-thickness: 0.15em; }
+  a:focus { outline: 2px solid #000; outline-offset: 4px; }
+  .resource-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+  .resource-card { padding: 1.25rem; border: 2px solid #bbc9f7; }
+  .service-links { padding-left: 1.25rem; }
+  .detail-notes { margin-top: 2rem; padding: 1.25rem; border-left: 4px solid #18399a; background: #f5f7ff; }
+  .detail-notes p:last-child { margin-bottom: 0; }
+
+  :global(.dark body) { background: #010017; color: #ababab; }
+  :global(.dark) h1, :global(.dark) h2, :global(.dark) h3, :global(.dark) h4, :global(.dark) .resource-title { color: #cfcfcf; }
+  :global(.dark) a { color: #ade5f8; }
+  :global(.dark) a:focus { outline-color: #fff; }
+  :global(.dark) .resource-card { border-color: #18399a; }
+  :global(.dark) .detail-notes { border-color: #ade5f8; background: #070038; }
+
+  @media (max-width: 44rem) {
+    .fixture-shell { padding: 1rem; }
+    .resource-grid { grid-template-columns: 1fr; }
+    .resource-card { padding: 1rem; }
+  }
+</style>

@@ -5,6 +5,7 @@ import ZoomAppointmentBookingFixture from '../components/exercise/fixtures/ZoomA
 import AutomatedEventRegistrationFixture from '../components/exercise/fixtures/AutomatedEventRegistrationFixture.astro';
 import ImageAlternativeTextFixture from '../components/exercise/fixtures/ImageAlternativeTextFixture.astro';
 import CourseRegistrationFixture from '../components/exercise/fixtures/CourseRegistrationFixture.astro';
+import CommunityResourcesDirectoryFixture from '../components/exercise/fixtures/CommunityResourcesDirectoryFixture.astro';
 
 export interface InlineFixture {
   kind: 'inline';
@@ -89,6 +90,18 @@ export const fixtureRegistry: Record<string, ExerciseFixtureDefinition> = {
       'invalid-focus-unchanged',
       'unassociated-inline-errors',
       'unannounced-success',
+    ],
+  },
+  'community-resources-directory': {
+    kind: 'document',
+    component: CommunityResourcesDirectoryFixture,
+    title: 'Community resources directory structure and links exercise',
+    intentionalViolations: [
+      'skipped-heading-level',
+      'visual-title-without-heading-semantics',
+      'repeated-read-more-links',
+      'generic-click-here-link',
+      'duplicate-service-details-links',
     ],
   },
 };

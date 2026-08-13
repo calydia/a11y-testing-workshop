@@ -157,6 +157,14 @@ for (const method of screenReaderMethods) {
   });
 }
 
+test('page structure and links method points to its focused Exercise', async ({ page }) => {
+  await page.goto(screenReaderMethods[0].path);
+  await expect(page.getByRole('link', { name: 'Reviewing structure and links in a community resources directory' })).toHaveAttribute(
+    'href',
+    '/exercises/reviewing-structure-and-links-in-a-community-resources-directory/',
+  );
+});
+
 test('Testing keyboard accessibility renders a method without a demonstration', async ({ page }) => {
   const response = await page.goto(keyboardMethod.path);
 

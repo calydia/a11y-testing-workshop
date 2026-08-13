@@ -28,6 +28,7 @@ test('exercise listing contains published exercises in collection order', async 
     'Finding visual problems in an account dashboard',
     'Testing an appointment booking at high zoom',
     'Comparing automated and manual findings',
+    'Reviewing structure and links in a community resources directory',
     'Evaluating image alternative text in context',
     'Testing a community-course registration form',
   ]);
@@ -35,6 +36,7 @@ test('exercise listing contains published exercises in collection order', async 
   await expect(links.nth(1)).toHaveAttribute('href', '/exercises/finding-visual-problems-in-an-account-dashboard/');
   await expect(links.nth(2)).toHaveAttribute('href', '/exercises/testing-an-appointment-booking-at-high-zoom/');
   await expect(links.nth(3)).toHaveAttribute('href', '/exercises/comparing-automated-and-manual-findings/');
-  await expect(links.nth(4)).toHaveAttribute('href', '/exercises/evaluating-image-alternative-text-in-context/');
-  await expect(links.nth(5)).toHaveAttribute('href', '/exercises/testing-a-community-course-registration-form/');
+  await expect(links.nth(4)).toHaveAttribute('href', '/exercises/reviewing-structure-and-links-in-a-community-resources-directory/');
+  await expect(links.nth(5)).toHaveAttribute('href', '/exercises/evaluating-image-alternative-text-in-context/');
+  await expect(links.nth(6)).toHaveAttribute('href', '/exercises/testing-a-community-course-registration-form/');
 });

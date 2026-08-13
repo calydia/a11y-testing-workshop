@@ -1,6 +1,6 @@
 ---
 title: Practical screen-reader testing
-summary: Learn focused screen-reader techniques through guided demonstrations and an independent image alternative-text Exercise.
+summary: Learn focused screen-reader techniques through guided demonstrations and independent Exercises for structure, links, and image alternatives.
 description: Build practical beginner skills for testing page structure, links, images, graphics, language changes, and modal dialogs with a screen reader.
 status: published
 order: 20
@@ -9,7 +9,7 @@ prerequisites:
   - Basic familiarity with using a web browser
   - Basic keyboard use
 level: beginner
-estimatedMinutes: 135
+estimatedMinutes: 155
 outcomes:
   - Prepare one compatible screen-reader and browser combination for focused testing.
   - Navigate and assess headings and links using sequential and element-based navigation.
@@ -23,6 +23,8 @@ steps:
     anchor: prepare-your-screen-reader
   - type: method
     entry: screen-reader-page-structure-and-links
+  - type: exercise
+    entry: reviewing-structure-and-links-in-a-community-resources-directory
   - type: method
     entry: testing-image-alternative-text
   - type: exercise
@@ -37,7 +39,7 @@ steps:
 
 You can complete this path independently or use it as a next step after [Your first accessibility review](/learn/your-first-accessibility-review/). Split it across sessions if that helps you practise each technique with your chosen tools.
 
-The demonstrations provide guided practice within the Testing methods. Image alternative text also has an independent Exercise where you investigate a deliberately created page. Revisit the methods while you practise, and record what your own screen-reader and browser combination does.
+The demonstrations provide guided practice within the Testing methods. Page structure and links and image alternative text also have independent Exercises where you investigate deliberately created pages. Revisit the methods while you practise, and record what your own screen-reader and browser combination does.
 
 ## Prepare your screen reader
 
@@ -59,4 +61,4 @@ Use [Your first accessibility review](/learn/your-first-accessibility-review/) w
 
 When you are ready to apply several techniques within one realistic scenario, continue to [Reviewing a course registration before launch](/journeys/reviewing-a-course-registration-before-launch/). That journey includes broader review work and does not assess every screen-reader topic in this path.
 
-Additional Exercises may be added later for some of these methods. For now, use each method's demonstration to repeat the procedure and compare the behavior you observe with the explanation provided.
+Additional Exercises may be added later for some of the remaining methods. For now, use each method's demonstration to repeat the procedure and compare the behavior you observe with the explanation provided.

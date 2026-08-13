@@ -21,6 +21,7 @@ const routes = [
   '/exercises/finding-visual-problems-in-an-account-dashboard/',
   '/exercises/testing-an-appointment-booking-at-high-zoom/',
   '/exercises/comparing-automated-and-manual-findings/',
+  '/exercises/reviewing-structure-and-links-in-a-community-resources-directory/',
   '/exercises/evaluating-image-alternative-text-in-context/',
   '/exercises/testing-a-community-course-registration-form/',
   '/journeys/',

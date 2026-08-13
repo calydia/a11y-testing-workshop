@@ -14,6 +14,7 @@ outcomes:
   - Navigate and assess a page by headings.
   - Review links sequentially and through a screen-reader links list.
   - Identify generic or repeated link text that obscures purpose.
+relatedExercises: [reviewing-structure-and-links-in-a-community-resources-directory]
 demonstration: screen-reader/page-structure-and-links
 interpretation:
   - A heading outline should communicate the page hierarchy without requiring the surrounding visual layout.
@@ -44,3 +45,7 @@ Use a desktop screen reader and a compatible browser. Know how to move by headin
 ## What to observe
 
 Pay attention to both structure and wording. A technically valid heading level can still be unhelpful, and a link that satisfies a minimum requirement in context may still be confusing when heard in a links list.
+
+## Practise this method
+
+Use [Reviewing structure and links in a community resources directory](/exercises/reviewing-structure-and-links-in-a-community-resources-directory/) to apply this procedure to a deliberately created page.
