@@ -182,6 +182,14 @@ test('page structure and links method points to its focused Exercise', async ({ 
   );
 });
 
+test('icons and SVGs method points to its focused Exercise', async ({ page }) => {
+  await page.goto(screenReaderMethods[1].path);
+  await expect(page.getByRole('link', { name: 'Reviewing icons and SVGs in a community events dashboard' })).toHaveAttribute(
+    'href',
+    '/exercises/reviewing-icons-and-svgs-in-a-community-events-dashboard/',
+  );
+});
+
 test('Testing keyboard accessibility renders a method without a demonstration', async ({ page }) => {
   const response = await page.goto(keyboardMethod.path);
 

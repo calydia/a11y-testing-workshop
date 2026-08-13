@@ -14,6 +14,7 @@ outcomes:
   - Distinguish meaningful icons from decorative icons during testing.
   - Check the accessible names of inline SVG graphics.
   - Recognize duplicate, noisy, missing, and support-dependent announcements.
+relatedExercises: [reviewing-icons-and-svgs-in-a-community-events-dashboard]
 demonstration: screen-reader/icons-and-svg
 interpretation:
   - A meaningful graphic needs an accessible name that communicates the same purpose as its visual presentation.
@@ -44,3 +45,7 @@ Use a screen reader with a compatible browser. If possible, repeat uncertain res
 ## What to observe
 
 Listen for missing meaning, irrelevant filenames, repeated words, generic names such as “icon,” and decorative symbols that interrupt otherwise clear content.
+
+## Practise this method
+
+Use [Reviewing icons and SVGs in a community events dashboard](/exercises/reviewing-icons-and-svgs-in-a-community-events-dashboard/) to apply this procedure to a deliberately created page.

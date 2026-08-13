@@ -9,7 +9,7 @@ prerequisites:
   - Basic familiarity with using a web browser
   - Basic keyboard use
 level: beginner
-estimatedMinutes: 155
+estimatedMinutes: 175
 outcomes:
   - Prepare one compatible screen-reader and browser combination for focused testing.
   - Navigate and assess headings and links using sequential and element-based navigation.
@@ -31,6 +31,8 @@ steps:
     entry: evaluating-image-alternative-text-in-context
   - type: method
     entry: screen-reader-icons-and-svg
+  - type: exercise
+    entry: reviewing-icons-and-svgs-in-a-community-events-dashboard
   - type: method
     entry: screen-reader-language-changes
   - type: method
@@ -39,7 +41,7 @@ steps:
 
 You can complete this path independently or use it as a next step after [Your first accessibility review](/learn/your-first-accessibility-review/). Split it across sessions if that helps you practise each technique with your chosen tools.
 
-The demonstrations provide guided practice within the Testing methods. Page structure and links and image alternative text also have independent Exercises where you investigate deliberately created pages. Revisit the methods while you practise, and record what your own screen-reader and browser combination does.
+The demonstrations provide guided practice within the Testing methods. Page structure and links, image alternative text, and icons and SVGs also have independent Exercises where you investigate deliberately created pages. Revisit the methods while you practise, and record what your own screen-reader and browser combination does.
 
 ## Prepare your screen reader
 

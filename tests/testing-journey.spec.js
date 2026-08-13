@@ -160,7 +160,7 @@ test('conference journey lists five screen-reader methods and its recommended pa
   await expect(preparation.locator('[data-preparation-type="exercise"]')).toHaveCount(0);
   await expect(preparation.getByRole('link', { name: 'Practical screen-reader testing' })).toHaveAttribute('href', '/learn/practical-screen-reader-testing/');
   await expect(preparation).toContainText('Level: beginner');
-  await expect(preparation).toContainText('Estimated time: 155 minutes');
+  await expect(preparation).toContainText('Estimated time: 175 minutes');
   await expect(preparation).not.toContainText('Exercise solution');
 });
 

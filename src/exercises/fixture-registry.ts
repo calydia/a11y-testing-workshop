@@ -6,6 +6,7 @@ import AutomatedEventRegistrationFixture from '../components/exercise/fixtures/A
 import ImageAlternativeTextFixture from '../components/exercise/fixtures/ImageAlternativeTextFixture.astro';
 import CourseRegistrationFixture from '../components/exercise/fixtures/CourseRegistrationFixture.astro';
 import CommunityResourcesDirectoryFixture from '../components/exercise/fixtures/CommunityResourcesDirectoryFixture.astro';
+import CommunityEventsDashboardFixture from '../components/exercise/fixtures/CommunityEventsDashboardFixture.astro';
 
 export interface InlineFixture {
   kind: 'inline';
@@ -102,6 +103,18 @@ export const fixtureRegistry: Record<string, ExerciseFixtureDefinition> = {
       'repeated-read-more-links',
       'generic-click-here-link',
       'duplicate-service-details-links',
+    ],
+  },
+  'community-events-dashboard': {
+    kind: 'document',
+    component: CommunityEventsDashboardFixture,
+    title: 'Community events dashboard icons and SVGs exercise',
+    intentionalViolations: [
+      'unnamed-availability-graphic',
+      'generic-online-graphic-name',
+      'noisy-save-icon',
+      'unnamed-remove-button',
+      'duplicated-download-name',
     ],
   },
 };
