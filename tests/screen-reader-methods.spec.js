@@ -110,6 +110,23 @@ test('desktop section layout has balanced outer margins and compact first-headin
   const firstBodyHeading = page.locator('[data-content-body] > h2').first();
   await expect(firstBodyHeading).toHaveCSS('margin-top', '48px');
 
+  for (const width of [1024, 1100, 1168, 1200]) {
+    await page.setViewportSize({ width, height: 900 });
+    const intermediateArticle = page.locator('[data-content-heading]');
+    const intermediateNavigation = page.locator('[data-section-navigation-container]');
+    const [intermediateArticleBox, intermediateNavigationBox] = await Promise.all([
+      intermediateArticle.boundingBox(),
+      intermediateNavigation.boundingBox(),
+    ]);
+    const leftMargin = intermediateArticleBox.x;
+    const rightMargin = width - (intermediateNavigationBox.x + intermediateNavigationBox.width);
+
+    expect(leftMargin).toBeGreaterThanOrEqual(16);
+    expect(rightMargin).toBeGreaterThanOrEqual(16);
+    expect(Math.abs(leftMargin - rightMargin)).toBeLessThanOrEqual(2);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
+  }
+
   await page.setViewportSize({ width: 1280, height: 900 });
   const article = page.locator('[data-content-heading]');
   const navigation = page.locator('[data-section-navigation-container]');

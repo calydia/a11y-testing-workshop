@@ -13,7 +13,7 @@ const hasNavigation = Astro.slots.has('navigation');
 
 <BaseLayout title={title} metaDescription={description}>
   <slot name="breadcrumb" slot="breadcrumb" />
-  <article class="my-8 mx-4 max-w-[80em] lg:mx-auto">
+  <article class="my-8 mx-auto max-w-[80em] px-4">
     <div class:list={[
       'mx-auto',
       hasNavigation ? 'lg:grid lg:max-w-[calc(40em+23rem)] lg:grid-cols-[minmax(0,40em)_minmax(14rem,20rem)] lg:items-start lg:gap-x-12' : 'max-w-[40em]',
