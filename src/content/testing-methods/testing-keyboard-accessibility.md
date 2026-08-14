@@ -15,6 +15,7 @@ outcomes:
   - Perform a systematic keyboard review without relying on a pointer.
   - Identify failures in reachability, operation, focus order, focus visibility, and focus movement.
   - Record keyboard findings with reproducible key sequences and expected results.
+relatedExercises: [keyboard-testing-a-preferences-form]
 interpretation:
   - An interactive element that cannot receive keyboard focus cannot be operated by a keyboard user.
   - Reachability alone is not enough; the element must respond to the expected keys and expose a visible focus indicator.

@@ -63,8 +63,8 @@ Commands, mode names, speech output, and supported behavior differ across screen
 
 ## Where to go next
 
-Use [Your first accessibility review](/learn/your-first-accessibility-review/) when you want to combine limited screen-reader checks with automated, keyboard, visual, zoom, and forms testing.
+Apply the methods together in [Reviewing a community conference programme](/journeys/reviewing-a-community-conference-programme/). The journey uses one realistic programme to combine structure, graphical content, language changes, and modal-dialog testing.
 
-When you are ready to apply several techniques within one realistic scenario, continue to [Reviewing a course registration before launch](/journeys/reviewing-a-course-registration-before-launch/). That journey includes broader review work and does not assess every screen-reader topic in this path.
+Use [Your first accessibility review](/learn/your-first-accessibility-review/) when you want a broader foundation in automated, keyboard, visual, zoom, and forms testing. You can complete it before or after this focused path.
 
 Each Testing method is followed by an Exercise so you can apply its procedure independently before moving to a broader journey.

@@ -20,6 +20,7 @@ outcomes:
   - Correct a form and verify that successful submission is communicated.
   - Record form findings with the tested state, user impact, evidence, and expected result.
 relatedMethods: [testing-keyboard-accessibility, testing-with-automated-tools]
+relatedExercises: [testing-a-community-course-registration-form]
 interpretation:
   - Visible proximity does not create a programmatic relationship between a control and its label, instruction, or error.
   - Related choices need individual labels and an appropriate programmatic group name.

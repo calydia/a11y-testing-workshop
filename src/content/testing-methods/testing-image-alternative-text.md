@@ -18,6 +18,7 @@ outcomes:
   - Distinguish an intentionally empty alternative from a missing attribute.
   - Evaluate linked-image names, broken-image fallback, and localized alternatives.
   - Record image findings with purpose, context, current output, and expected result.
+relatedExercises: [evaluating-image-alternative-text-in-context]
 interpretation:
   - A useful alternative communicates the image's relevant purpose in its current context rather than listing every visible detail.
   - Decorative images should normally add no separate announcement when they contribute no information or function.

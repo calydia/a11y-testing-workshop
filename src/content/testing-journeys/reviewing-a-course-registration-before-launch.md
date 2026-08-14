@@ -23,6 +23,8 @@ methods:
   - testing-visual-accessibility
   - testing-zoom-and-reflow
   - testing-forms-and-validation
+learningPaths:
+  - your-first-accessibility-review
 exercises:
   - testing-a-community-course-registration-form
 stages:

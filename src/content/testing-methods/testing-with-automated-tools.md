@@ -17,6 +17,7 @@ outcomes:
   - Document confirmed findings with evidence and remediation direction.
   - Explain why a clean automated report is not proof of accessibility conformance.
   - Follow automated checks with appropriate manual testing methods.
+relatedExercises: [comparing-automated-and-manual-findings]
 interpretation:
   - A reported result may be a confirmed issue, need human review, be false or not applicable in context, or indicate that the checker did not execute correctly.
   - Issue counts and severity labels are triage aids, not accessibility scores or conformance decisions.

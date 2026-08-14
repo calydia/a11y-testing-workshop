@@ -68,6 +68,19 @@ test('brand links home and About this Lab is in the footer', async ({ page }) =>
   await expect(page.getByRole('contentinfo').getByRole('link', { name: 'About this Lab' })).toHaveAttribute('href', '/about/');
 });
 
+test('Home gives beginners a direct starting point while preserving all four content areas', async ({ page }) => {
+  await page.goto('/');
+  const start = page.getByRole('heading', { level: 2, name: 'New to accessibility testing?' });
+  await expect(start).toBeVisible();
+  const startLink = page.getByRole('link', { name: 'Start your first accessibility review' });
+  await expect(startLink).toHaveAttribute('href', '/learn/your-first-accessibility-review/');
+  await startLink.focus();
+  await expect(startLink).toHaveCSS('outline-style', 'solid');
+  for (const item of navigationItems) {
+    await expect(page.locator('main').getByRole('link', { name: item.name })).toHaveAttribute('href', item.href);
+  }
+});
+
 for (const item of navigationItems) {
   test(`${item.name} identifies its exact section page`, async ({ page }) => {
     await page.goto(item.href);

@@ -16,6 +16,7 @@ outcomes:
   - Measure relevant text and non-text contrast pairs instead of relying on visual judgment alone.
   - Identify information conveyed only by color and text that is difficult to read because of its spacing.
   - Record visual findings with the affected state, measured evidence, and expected result.
+relatedExercises: [finding-visual-problems-in-an-account-dashboard]
 interpretation:
   - Contrast results need measurements from the actual foreground and background colors used in the affected state.
   - Information should remain understandable when color differences cannot be perceived.

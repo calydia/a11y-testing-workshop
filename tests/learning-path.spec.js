@@ -41,6 +41,26 @@ test('Learning paths listing publishes the first path', async ({ page }) => {
   ]);
   await expect(page.getByRole('link', { name: 'Your first accessibility review' })).toHaveAttribute('href', pathUrl);
   await expect(page.getByRole('link', { name: 'Practical screen-reader testing' })).toHaveAttribute('href', screenReaderPathUrl);
+  await expect(page.getByText('recommended broad starting point', { exact: false })).toBeVisible();
+  await expect(page.getByText('independently or after the first path', { exact: false })).toBeVisible();
+});
+
+test('each Learning path links to its matching journey and optional companion path', async ({ page }) => {
+  await page.goto(pathUrl);
+  await expect(page.getByRole('link', { name: 'Reviewing a course registration before launch' })).toHaveAttribute(
+    'href',
+    '/journeys/reviewing-a-course-registration-before-launch/',
+  );
+  await expect(page.locator('[data-content-body]').getByRole('link', { name: 'Practical screen-reader testing' })).toHaveAttribute('href', screenReaderPathUrl);
+  await expect(page.locator('main a[href="/methods/screen-reader-icons-and-svg/"]')).toHaveCount(0);
+
+  await page.goto(screenReaderPathUrl);
+  await expect(page.getByRole('link', { name: 'Reviewing a community conference programme' })).toHaveAttribute(
+    'href',
+    '/journeys/reviewing-a-community-conference-programme/',
+  );
+  const whereNext = page.locator('[data-content-body] h2', { hasText: 'Where to go next' }).locator('~ p');
+  await expect(whereNext.getByRole('link', { name: 'Your first accessibility review' })).toHaveAttribute('href', pathUrl);
 });
 
 test('first Learning path renders metadata, outcomes, and navigation', async ({ page }) => {

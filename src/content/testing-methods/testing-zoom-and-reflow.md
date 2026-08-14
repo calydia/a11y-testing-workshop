@@ -17,6 +17,7 @@ outcomes:
   - Identify clipping, overlap, obscured content, and unexpected two-dimensional page scrolling.
   - Distinguish essential two-dimensional regions from avoidable page-level reflow failures.
   - Record zoom and reflow findings with reproducible browser and viewport details.
+relatedExercises: [testing-an-appointment-booking-at-high-zoom]
 interpretation:
   - Text enlarged to 200% should remain available and controls should remain usable at every intermediate step.
   - Vertically scrolling content should not require horizontal page scrolling at a width equivalent to 320 CSS pixels unless a specific region genuinely needs a two-dimensional layout for meaning or use.

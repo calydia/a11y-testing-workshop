@@ -60,6 +60,19 @@ const methods = [
   ...screenReaderMethods.slice(1),
 ];
 
+const methodExercises = new Map([
+  [keyboardMethod.path, ['Keyboard testing a preferences form', '/exercises/keyboard-testing-a-preferences-form/', '15 minutes']],
+  [visualMethod.path, ['Finding visual problems in an account dashboard', '/exercises/finding-visual-problems-in-an-account-dashboard/', '15 minutes']],
+  [zoomMethod.path, ['Testing an appointment booking at high zoom', '/exercises/testing-an-appointment-booking-at-high-zoom/', '20 minutes']],
+  [automatedMethod.path, ['Comparing automated and manual findings', '/exercises/comparing-automated-and-manual-findings/', '20 minutes']],
+  [screenReaderMethods[0].path, ['Reviewing structure and links in a community resources directory', '/exercises/reviewing-structure-and-links-in-a-community-resources-directory/', '20 minutes']],
+  [imageAlternativeMethod.path, ['Evaluating image alternative text in context', '/exercises/evaluating-image-alternative-text-in-context/', '20 minutes']],
+  [formsValidationMethod.path, ['Testing a community-course registration form', '/exercises/testing-a-community-course-registration-form/', '25 minutes']],
+  [screenReaderMethods[1].path, ['Reviewing icons and SVGs in a community events dashboard', '/exercises/reviewing-icons-and-svgs-in-a-community-events-dashboard/', '20 minutes']],
+  [screenReaderMethods[2].path, ['Testing language changes on a community library noticeboard', '/exercises/testing-language-changes-on-a-community-library-noticeboard/', '20 minutes']],
+  [screenReaderMethods[3].path, ['Testing modal dialogs in account settings', '/exercises/testing-modal-dialogs-in-account-settings/', '25 minutes']],
+]);
+
 test('method detail pages provide collection-driven section navigation', async ({ page }) => {
   await page.goto(methods[1].path);
 
@@ -160,6 +173,22 @@ test('testing methods listing contains all methods in collection order', async (
     await expect(methodLinks.nth(index)).toHaveAttribute('href', method.path);
   }
 });
+
+for (const method of methods) {
+  test(`${method.title} renders its shared related Exercise`, async ({ page }) => {
+    const [exerciseTitle, exerciseHref, estimatedTime] = methodExercises.get(method.path);
+    await page.goto(method.path);
+    const practice = page.locator('[data-related-exercises]');
+    await expect(practice).toHaveCount(1);
+    await expect(practice.getByRole('heading', { level: 2, name: 'Practise this method' })).toHaveCount(1);
+    await expect(practice.getByRole('listitem')).toHaveCount(1);
+    await expect(practice.getByRole('link', { name: exerciseTitle })).toHaveAttribute('href', exerciseHref);
+    await expect(practice.locator('[data-related-exercise-summary]')).not.toBeEmpty();
+    await expect(practice.locator('[data-related-exercise-time]')).toContainText(estimatedTime);
+    await practice.getByRole('link', { name: exerciseTitle }).focus();
+    await expect(practice.getByRole('link', { name: exerciseTitle })).toHaveCSS('outline-style', 'solid');
+  });
+}
 
 for (const method of screenReaderMethods) {
   test(`${method.title} renders as a testing method`, async ({ page }) => {

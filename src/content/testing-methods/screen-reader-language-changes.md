@@ -45,7 +45,3 @@ Use a screen reader with a voice installed for every language in the test conten
 ## What to observe
 
 Listen for pronunciation that follows the wrong language, switches too early or too late, or changes unexpectedly inside nested content.
-
-## Practise this method
-
-Use [Testing language changes on a community library noticeboard](/exercises/testing-language-changes-on-a-community-library-noticeboard/) to apply this procedure to a deliberately created multilingual page.

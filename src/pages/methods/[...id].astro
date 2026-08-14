@@ -1,9 +1,9 @@
 ---
-import { render } from 'astro:content';
+import { getEntry, render } from 'astro:content';
 import Breadcrumbs from '../../components/navigation/Breadcrumbs.astro';
 import SectionNavigation from '../../components/navigation/SectionNavigation.astro';
 import MethodLayout from '../../layouts/MethodLayout.astro';
-import { createSectionNavigationItems, getVisibleEntries } from '../../lib/content';
+import { contentUrl, createSectionNavigationItems, getVisibleEntries } from '../../lib/content';
 
 export async function getStaticPaths() {
   const entries = await getVisibleEntries('testingMethods');
@@ -13,6 +13,16 @@ export async function getStaticPaths() {
 
 const { entry, navigationItems } = Astro.props;
 const { Content } = await render(entry);
+const relatedExercises = await Promise.all(entry.data.relatedExercises.map(async (reference) => {
+  const exercise = await getEntry(reference);
+  if (!exercise) throw new Error(`Unable to resolve Testing method Exercise: ${reference.id}`);
+  return {
+    title: exercise.data.title,
+    summary: exercise.data.summary,
+    estimatedMinutes: exercise.data.estimatedMinutes,
+    href: contentUrl('exercises', exercise.id),
+  };
+}));
 ---
 
 <MethodLayout
@@ -22,6 +32,7 @@ const { Content } = await render(entry);
   demonstration={entry.data.demonstration}
   interpretation={entry.data.interpretation}
   limitations={entry.data.limitations}
+  relatedExercises={relatedExercises}
 >
   <Breadcrumbs
     slot="breadcrumb"

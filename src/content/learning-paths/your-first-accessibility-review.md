@@ -59,13 +59,8 @@ You do not need to learn every screen-reader command before continuing. The goal
 
 ## Where to go next
 
-Continue with [Testing image alternative text](/methods/testing-image-alternative-text/) and [Evaluating image alternative text in context](/exercises/evaluating-image-alternative-text-in-context/) when you want to extend your image-testing skills.
+Apply the foundational methods together in [Reviewing a course registration before launch](/journeys/reviewing-a-course-registration-before-launch/). The journey guides you through one realistic review and an evidence-based launch recommendation.
 
-For more focused screen-reader practice, explore:
+Continue with [Practical screen-reader testing](/learn/practical-screen-reader-testing/) when you want focused practice with page structure, links, images, graphics, language changes, and modal dialogs.
 
-- [Testing page structure and links with a screen reader](/methods/screen-reader-page-structure-and-links/)
-- [Testing icons and SVGs with a screen reader](/methods/screen-reader-icons-and-svg/)
-- [Testing language changes with a screen reader](/methods/screen-reader-language-changes/)
-- [Testing modal dialogs](/methods/testing-modal-dialogs/)
-
-These are useful next skills, not requirements for completing this beginner path.
+Both are optional next steps, not requirements for completing this beginner path.

@@ -47,7 +47,3 @@ Use a keyboard first, then repeat the procedure with a screen reader. Test with 
 ## What to observe
 
 Watch for focus remaining behind the overlay, escaping into the page, disappearing after close, or returning to an unrelated location. Listen for dialogs announced without a name or with excessive duplicated descriptions.
-
-## Practise this method
-
-Use [Testing modal dialogs in account settings](/exercises/testing-modal-dialogs-in-account-settings/) to compare an incomplete custom modal with a correctly implemented native dialog.

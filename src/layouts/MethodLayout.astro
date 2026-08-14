@@ -3,6 +3,7 @@ import ContentLayout from './ContentLayout.astro';
 import InterpretationList from '../components/content/InterpretationList.astro';
 import LimitationsList from '../components/content/LimitationsList.astro';
 import MethodDemonstration from '../components/demonstrations/MethodDemonstration.astro';
+import RelatedExercises, { type RelatedExerciseView } from '../components/method/RelatedExercises.astro';
 import type { DemonstrationKey } from '../demonstrations/registry';
 
 interface Props {
@@ -12,8 +13,9 @@ interface Props {
   demonstration?: DemonstrationKey;
   interpretation: string[];
   limitations: string[];
+  relatedExercises: RelatedExerciseView[];
 }
-const { title, description, summary, demonstration, interpretation, limitations } = Astro.props;
+const { title, description, summary, demonstration, interpretation, limitations, relatedExercises } = Astro.props;
 ---
 <ContentLayout title={title} description={description} summary={summary}>
   <slot name="breadcrumb" slot="breadcrumb" />
@@ -22,4 +24,5 @@ const { title, description, summary, demonstration, interpretation, limitations 
   {demonstration && <MethodDemonstration demonstrationKey={demonstration} />}
   <InterpretationList items={interpretation} />
   <LimitationsList items={limitations} />
+  <RelatedExercises exercises={relatedExercises} />
 </ContentLayout>
