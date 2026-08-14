@@ -24,6 +24,7 @@ const routes = [
   '/exercises/reviewing-structure-and-links-in-a-community-resources-directory/',
   '/exercises/evaluating-image-alternative-text-in-context/',
   '/exercises/reviewing-icons-and-svgs-in-a-community-events-dashboard/',
+  '/exercises/testing-language-changes-on-a-community-library-noticeboard/',
   '/exercises/testing-a-community-course-registration-form/',
   '/journeys/',
   '/journeys/reviewing-a-course-registration-before-launch/',

@@ -9,7 +9,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "test": "playwright install && playwright test",
-    "test:server": "astro dev --port 4323"
+    "test:server": "npm run build && astro preview --host 127.0.0.1 --port 4321"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.9",

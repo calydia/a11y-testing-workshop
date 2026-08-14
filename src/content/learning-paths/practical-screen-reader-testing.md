@@ -9,7 +9,7 @@ prerequisites:
   - Basic familiarity with using a web browser
   - Basic keyboard use
 level: beginner
-estimatedMinutes: 175
+estimatedMinutes: 195
 outcomes:
   - Prepare one compatible screen-reader and browser combination for focused testing.
   - Navigate and assess headings and links using sequential and element-based navigation.
@@ -35,6 +35,8 @@ steps:
     entry: reviewing-icons-and-svgs-in-a-community-events-dashboard
   - type: method
     entry: screen-reader-language-changes
+  - type: exercise
+    entry: testing-language-changes-on-a-community-library-noticeboard
   - type: method
     entry: testing-modal-dialogs
 ---

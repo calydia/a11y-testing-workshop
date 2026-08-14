@@ -14,6 +14,7 @@ outcomes:
   - Check whether a screen reader changes pronunciation for marked-up language changes.
   - Verify that nested content inherits its parent's language.
   - Separate markup failures from missing voice or platform support.
+relatedExercises: [testing-language-changes-on-a-community-library-noticeboard]
 demonstration: screen-reader/language-changes
 interpretation:
   - Correctly marked content should use the pronunciation rules for its declared language when the necessary voice is available.
@@ -44,3 +45,7 @@ Use a screen reader with a voice installed for every language in the test conten
 ## What to observe
 
 Listen for pronunciation that follows the wrong language, switches too early or too late, or changes unexpectedly inside nested content.
+
+## Practise this method
+
+Use [Testing language changes on a community library noticeboard](/exercises/testing-language-changes-on-a-community-library-noticeboard/) to apply this procedure to a deliberately created multilingual page.

@@ -27,6 +27,7 @@ const expectedScreenReaderSteps = [
   ['Testing method', 'Testing icons and SVGs with a screen reader', '/methods/screen-reader-icons-and-svg/'],
   ['Exercise', 'Reviewing icons and SVGs in a community events dashboard', '/exercises/reviewing-icons-and-svgs-in-a-community-events-dashboard/'],
   ['Testing method', 'Testing language changes with a screen reader', '/methods/screen-reader-language-changes/'],
+  ['Exercise', 'Testing language changes on a community library noticeboard', '/exercises/testing-language-changes-on-a-community-library-noticeboard/'],
   ['Testing method', 'Testing modal dialogs', '/methods/testing-modal-dialogs/'],
 ];
 
@@ -118,7 +119,7 @@ test('Practical screen-reader testing renders independent metadata, outcomes, an
   expect(response?.ok()).toBe(true);
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Practical screen-reader testing');
   await expect(page.locator('[data-learning-path-meta]')).toContainText('Level: beginner');
-  await expect(page.locator('[data-learning-path-meta]')).toContainText('Estimated time: About 2 hours 55 minutes');
+  await expect(page.locator('[data-learning-path-meta]')).toContainText('Estimated time: About 3 hours 15 minutes');
   await expect(page.locator('[data-learning-outcomes] li')).toHaveCount(6);
 
   const breadcrumb = page.getByRole('navigation', { name: 'Breadcrumbs' }).getByRole('listitem');
@@ -132,7 +133,7 @@ test('Practical screen-reader testing renders independent metadata, outcomes, an
   await expect(navigation.getByRole('link', { name: 'Practical screen-reader testing' })).toHaveAttribute('aria-current', 'page');
 });
 
-test('screen-reader path renders the exact nine-step progression', async ({ page }) => {
+test('screen-reader path renders the exact ten-step progression', async ({ page }) => {
   await page.goto(screenReaderPathUrl);
   const steps = page.locator('[data-learning-path-steps] > li');
   await expect(steps).toHaveCount(expectedScreenReaderSteps.length);

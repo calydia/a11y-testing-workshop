@@ -1,0 +1,97 @@
+<main class="fixture-shell">
+  <a href="/exercises/testing-language-changes-on-a-community-library-noticeboard/">Return to the exercise</a>
+  <h1>Community library noticeboard</h1>
+  <p>Read upcoming library notices in English, Finnish, and Swedish.</p>
+
+  <section aria-labelledby="upcoming-heading">
+    <h2 id="upcoming-heading">Upcoming at the library</h2>
+    <div class="notice-grid">
+      <article class="notice-card">
+        <p class="notice-label">Finnish notice</p>
+        <h3>Family reading morning</h3>
+        <p data-language-case="finnish-unmarked">Tervetuloa koko perheen lukuaamuun lauantaina kello kymmenen.</p>
+        <p><a href="#family-reading-details">View family reading details</a></p>
+      </article>
+
+      <article class="notice-card" lang="fi" data-language-case="swedish-as-finnish">
+        <p class="notice-label">Swedish notice</p>
+        <h3>Digital help</h3>
+        <p>Välkommen till bibliotekets digitala handledning på tisdag eftermiddag.</p>
+        <p><a href="#digital-help-details">Mer information om digital handledning</a></p>
+      </article>
+
+      <article class="notice-card">
+        <p class="notice-label">Swedish notice</p>
+        <h3>Book discussion</h3>
+        <p lang="sv" data-language-case="swedish-link-override">
+          Bokdiskussionen börjar klockan arton. <a lang="en" href="#book-discussion-details">Anmäl dig till bokdiskussionen</a>.
+        </p>
+      </article>
+
+      <article class="notice-card" lang="fi" data-language-case="wide-finnish-scope">
+        <p class="notice-label">Finnish notice</p>
+        <h3>Writing workshop</h3>
+        <p>Kirjoittamisen työpaja järjestetään kirjaston ryhmätilassa.</p>
+        <p data-language-content="english-inside-finnish">Places are available for twelve participants.</p>
+      </article>
+
+      <article class="notice-card">
+        <p class="notice-label">Swedish notice</p>
+        <h3>Local history evening</h3>
+        <p lang="swedish" data-language-case="invalid-swedish-value">Biblioteket ordnar en kväll om områdets lokala historia.</p>
+      </article>
+    </div>
+  </section>
+
+  <section aria-labelledby="comparison-heading">
+    <h2 id="comparison-heading">More library activities</h2>
+    <div class="comparison-list">
+      <p lang="fi" data-language-comparison="finnish">Kirjastossa järjestetään suomenkielinen satutuokio keskiviikkona.</p>
+      <p lang="sv" data-language-comparison="swedish">
+        Bibliotekets svenska sagostund ordnas på torsdag. <a href="#story-time-details" data-language-comparison="inherited-link">Läs mer om sagostunden</a>.
+      </p>
+      <p lang="fi" data-language-comparison="nested-english">
+        Ilmoittaudu työpajaan <span lang="en">Creative Coding for Everyone</span> kirjaston neuvonnassa.
+      </p>
+    </div>
+  </section>
+
+  <section class="details" aria-labelledby="details-heading">
+    <h2 id="details-heading">Event information</h2>
+    <p id="family-reading-details"><strong>Family reading morning:</strong> Meet in the children's section.</p>
+    <p id="digital-help-details"><strong>Digital help:</strong> Bring your own device or borrow one at the desk.</p>
+    <p id="book-discussion-details"><strong>Book discussion:</strong> Registration closes one day before the event.</p>
+    <p id="story-time-details"><strong>Story time:</strong> The session lasts approximately thirty minutes.</p>
+  </section>
+</main>
+
+<style>
+  :global(*) { box-sizing: border-box; }
+  :global(body) { margin: 0; background: #fafafa; color: #4d4d4d; font-family: 'Atkinson Hyperlegible', Arial, sans-serif; font-size: 1.125rem; line-height: 1.5; }
+  .fixture-shell { max-width: 58rem; margin: 0 auto; padding: 1.5rem; }
+  h1 { margin-block: 1.5rem 0.75rem; color: #333; font-size: clamp(2rem, 8vw, 3rem); line-height: 1.1; }
+  h2 { margin-block: 2.25rem 0.75rem; color: #333; font-size: 1.75rem; }
+  h3 { margin-block: 0 0.75rem; color: #333; font-size: 1.35rem; }
+  p { margin-block: 0 1rem; }
+  a { color: #033573; text-underline-offset: 0.2em; }
+  a:hover { text-decoration-thickness: 0.15em; }
+  a:focus { outline: 2px solid #000; outline-offset: 4px; }
+  .notice-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+  .notice-card { padding: 1.25rem; border: 2px solid #bbc9f7; }
+  .notice-label { margin-bottom: .4rem; font-size: 1rem; font-weight: 700; }
+  .comparison-list, .details { margin-top: 1rem; padding: 1.25rem; border-left: 4px solid #18399a; background: #f5f7ff; }
+  .comparison-list p:last-child, .details p:last-child { margin-bottom: 0; }
+
+  :global(.dark body) { background: #010017; color: #ababab; }
+  :global(.dark) h1, :global(.dark) h2, :global(.dark) h3 { color: #cfcfcf; }
+  :global(.dark) a { color: #ade5f8; }
+  :global(.dark) a:focus { outline-color: #fff; }
+  :global(.dark) .notice-card { border-color: #18399a; }
+  :global(.dark) .comparison-list, :global(.dark) .details { border-color: #ade5f8; background: #070038; }
+
+  @media (max-width: 44rem) {
+    .fixture-shell { padding: 1rem; }
+    .notice-grid { grid-template-columns: 1fr; }
+    .notice-card, .comparison-list, .details { padding: 1rem; }
+  }
+</style>

@@ -7,6 +7,7 @@ import ImageAlternativeTextFixture from '../components/exercise/fixtures/ImageAl
 import CourseRegistrationFixture from '../components/exercise/fixtures/CourseRegistrationFixture.astro';
 import CommunityResourcesDirectoryFixture from '../components/exercise/fixtures/CommunityResourcesDirectoryFixture.astro';
 import CommunityEventsDashboardFixture from '../components/exercise/fixtures/CommunityEventsDashboardFixture.astro';
+import CommunityLibraryNoticeboardFixture from '../components/exercise/fixtures/CommunityLibraryNoticeboardFixture.astro';
 
 export interface InlineFixture {
   kind: 'inline';
@@ -115,6 +116,18 @@ export const fixtureRegistry: Record<string, ExerciseFixtureDefinition> = {
       'noisy-save-icon',
       'unnamed-remove-button',
       'duplicated-download-name',
+    ],
+  },
+  'community-library-noticeboard': {
+    kind: 'document',
+    component: CommunityLibraryNoticeboardFixture,
+    title: 'Community library language changes exercise',
+    intentionalViolations: [
+      'missing-finnish-language',
+      'swedish-marked-finnish',
+      'swedish-link-marked-english',
+      'finnish-scope-includes-english',
+      'invalid-swedish-language-value',
     ],
   },
 };

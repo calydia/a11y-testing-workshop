@@ -190,6 +190,14 @@ test('icons and SVGs method points to its focused Exercise', async ({ page }) =>
   );
 });
 
+test('language changes method points to its focused Exercise', async ({ page }) => {
+  await page.goto(screenReaderMethods[2].path);
+  await expect(page.getByRole('link', { name: 'Testing language changes on a community library noticeboard' })).toHaveAttribute(
+    'href',
+    '/exercises/testing-language-changes-on-a-community-library-noticeboard/',
+  );
+});
+
 test('Testing keyboard accessibility renders a method without a demonstration', async ({ page }) => {
   const response = await page.goto(keyboardMethod.path);
 
