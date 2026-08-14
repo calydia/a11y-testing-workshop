@@ -29,6 +29,7 @@ const expectedScreenReaderSteps = [
   ['Testing method', 'Testing language changes with a screen reader', '/methods/screen-reader-language-changes/'],
   ['Exercise', 'Testing language changes on a community library noticeboard', '/exercises/testing-language-changes-on-a-community-library-noticeboard/'],
   ['Testing method', 'Testing modal dialogs', '/methods/testing-modal-dialogs/'],
+  ['Exercise', 'Testing modal dialogs in account settings', '/exercises/testing-modal-dialogs-in-account-settings/'],
 ];
 
 test('Learning paths listing publishes the first path', async ({ page }) => {
@@ -119,7 +120,7 @@ test('Practical screen-reader testing renders independent metadata, outcomes, an
   expect(response?.ok()).toBe(true);
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Practical screen-reader testing');
   await expect(page.locator('[data-learning-path-meta]')).toContainText('Level: beginner');
-  await expect(page.locator('[data-learning-path-meta]')).toContainText('Estimated time: About 3 hours 15 minutes');
+  await expect(page.locator('[data-learning-path-meta]')).toContainText('Estimated time: About 3 hours 40 minutes');
   await expect(page.locator('[data-learning-outcomes] li')).toHaveCount(6);
 
   const breadcrumb = page.getByRole('navigation', { name: 'Breadcrumbs' }).getByRole('listitem');
@@ -133,7 +134,7 @@ test('Practical screen-reader testing renders independent metadata, outcomes, an
   await expect(navigation.getByRole('link', { name: 'Practical screen-reader testing' })).toHaveAttribute('aria-current', 'page');
 });
 
-test('screen-reader path renders the exact ten-step progression', async ({ page }) => {
+test('screen-reader path renders its exact interleaved progression', async ({ page }) => {
   await page.goto(screenReaderPathUrl);
   const steps = page.locator('[data-learning-path-steps] > li');
   await expect(steps).toHaveCount(expectedScreenReaderSteps.length);
@@ -161,7 +162,7 @@ test('each Learning path explains its own practice model', async ({ page }) => {
 
   await page.goto(screenReaderPathUrl);
   await expect(page.getByText('The demonstrations provide guided practice', { exact: false })).toBeVisible();
-  await expect(page.getByText('Additional Exercises may be added later', { exact: false })).toBeVisible();
+  await expect(page.getByText('Each Testing method is followed by an Exercise so you can apply its procedure independently before moving to a broader journey.', { exact: true })).toBeVisible();
   await expect(page.getByRole('checkbox')).toHaveCount(0);
   await expect(page.getByRole('progressbar')).toHaveCount(0);
   await expect(page.locator('[data-progress], [data-complete], [data-grade]')).toHaveCount(0);

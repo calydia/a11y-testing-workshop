@@ -9,7 +9,7 @@ prerequisites:
   - Basic familiarity with using a web browser
   - Basic keyboard use
 level: beginner
-estimatedMinutes: 195
+estimatedMinutes: 220
 outcomes:
   - Prepare one compatible screen-reader and browser combination for focused testing.
   - Navigate and assess headings and links using sequential and element-based navigation.
@@ -39,11 +39,13 @@ steps:
     entry: testing-language-changes-on-a-community-library-noticeboard
   - type: method
     entry: testing-modal-dialogs
+  - type: exercise
+    entry: testing-modal-dialogs-in-account-settings
 ---
 
 You can complete this path independently or use it as a next step after [Your first accessibility review](/learn/your-first-accessibility-review/). Split it across sessions if that helps you practise each technique with your chosen tools.
 
-The demonstrations provide guided practice within the Testing methods. Page structure and links, image alternative text, and icons and SVGs also have independent Exercises where you investigate deliberately created pages. Revisit the methods while you practise, and record what your own screen-reader and browser combination does.
+The demonstrations provide guided practice within the Testing methods. Each Testing method is followed by an Exercise where you investigate a deliberately created page. Revisit the methods while you practise, and record what your own screen-reader and browser combination does.
 
 ## Prepare your screen reader
 
@@ -65,4 +67,4 @@ Use [Your first accessibility review](/learn/your-first-accessibility-review/) w
 
 When you are ready to apply several techniques within one realistic scenario, continue to [Reviewing a course registration before launch](/journeys/reviewing-a-course-registration-before-launch/). That journey includes broader review work and does not assess every screen-reader topic in this path.
 
-Additional Exercises may be added later for some of the remaining methods. For now, use each method's demonstration to repeat the procedure and compare the behavior you observe with the explanation provided.
+Each Testing method is followed by an Exercise so you can apply its procedure independently before moving to a broader journey.

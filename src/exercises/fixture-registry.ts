@@ -8,6 +8,7 @@ import CourseRegistrationFixture from '../components/exercise/fixtures/CourseReg
 import CommunityResourcesDirectoryFixture from '../components/exercise/fixtures/CommunityResourcesDirectoryFixture.astro';
 import CommunityEventsDashboardFixture from '../components/exercise/fixtures/CommunityEventsDashboardFixture.astro';
 import CommunityLibraryNoticeboardFixture from '../components/exercise/fixtures/CommunityLibraryNoticeboardFixture.astro';
+import AccountSettingsDialogsFixture from '../components/exercise/fixtures/AccountSettingsDialogsFixture.astro';
 
 export interface InlineFixture {
   kind: 'inline';
@@ -128,6 +129,19 @@ export const fixtureRegistry: Record<string, ExerciseFixtureDefinition> = {
       'swedish-link-marked-english',
       'finnish-scope-includes-english',
       'invalid-swedish-language-value',
+    ],
+  },
+  'account-settings-dialogs': {
+    kind: 'document',
+    component: AccountSettingsDialogsFixture,
+    title: 'Account settings modal dialogs exercise',
+    intentionalViolations: [
+      'unnamed-custom-dialog',
+      'initial-focus-unchanged',
+      'focus-not-contained',
+      'background-remains-interactive',
+      'escape-not-supported',
+      'focus-not-restored',
     ],
   },
 };

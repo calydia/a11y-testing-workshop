@@ -348,6 +348,14 @@ test('native dialog closes with Escape and restores focus', async ({ page }) => 
   await expect(opener).toBeFocused();
 });
 
+test('modal dialog method links to its independent Exercise', async ({ page }) => {
+  await page.goto('/methods/testing-modal-dialogs/');
+  await expect(page.getByRole('link', { name: 'Testing modal dialogs in account settings' })).toHaveAttribute(
+    'href',
+    '/exercises/testing-modal-dialogs-in-account-settings/',
+  );
+});
+
 test('modal demonstration buttons retain visible hover and keyboard focus states', async ({ page }) => {
   await page.goto('/methods/testing-modal-dialogs/');
   const button = page.getByRole('button', { name: 'Open ARIA modal' });

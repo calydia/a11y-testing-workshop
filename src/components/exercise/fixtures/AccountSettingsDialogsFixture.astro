@@ -1,0 +1,133 @@
+<main class="fixture-shell">
+  <a href="/exercises/testing-modal-dialogs-in-account-settings/">Return to the exercise</a>
+
+  <header>
+    <h1>Account settings</h1>
+    <p>Review your contact details and appointment reminder preferences.</p>
+  </header>
+
+  <section class="settings-card" aria-labelledby="account-heading">
+    <h2 id="account-heading">Account details</h2>
+    <dl>
+      <div><dt>Name</dt><dd>Alex Morgan</dd></div>
+      <div><dt>Email</dt><dd>alex.morgan@example.com</dd></div>
+    </dl>
+    <div class="actions">
+      <button id="open-contact-preferences" type="button">Edit contact preferences</button>
+      <button id="save-account" class="secondary" type="button">Save account details</button>
+    </div>
+    <p id="account-status" class="status" role="status" aria-live="polite"></p>
+  </section>
+
+  <section class="settings-card" aria-labelledby="appointments-heading">
+    <h2 id="appointments-heading">Appointments</h2>
+    <p>Your next appointment is scheduled for 24 September at 10:30.</p>
+    <button id="open-appointment-reminder" type="button">Review appointment reminder</button>
+  </section>
+
+  <div class="custom-layer" hidden data-custom-layer>
+    <div class="modal-surface" role="dialog" aria-modal="true" data-dialog-example="contact-preferences">
+      <h2>Contact preferences</h2>
+      <p>Choose how the service may contact you about non-urgent account information.</p>
+      <fieldset>
+        <legend>Contact channels</legend>
+        <label><input type="checkbox" checked /> Email</label>
+        <label><input type="checkbox" /> Text message</label>
+      </fieldset>
+      <div class="actions">
+        <button type="button">Save contact preferences</button>
+        <button type="button" class="secondary" data-close-contact>Close contact preferences</button>
+      </div>
+    </div>
+  </div>
+
+  <dialog aria-labelledby="appointment-reminder-heading" data-dialog-example="appointment-reminder">
+    <div class="modal-surface native-surface">
+      <h2 id="appointment-reminder-heading">Appointment reminder</h2>
+      <p>Check how you would like to receive a reminder for your next appointment.</p>
+      <form method="dialog">
+        <label class="reminder-choice"><input type="checkbox" checked autofocus /> Send an email reminder 24 hours before</label>
+        <label class="reminder-choice"><input type="checkbox" /> Send a text reminder two hours before</label>
+        <div class="actions">
+          <button type="submit" value="save">Save reminder</button>
+          <button type="submit" value="cancel" class="secondary">Keep current reminder</button>
+        </div>
+      </form>
+    </div>
+  </dialog>
+</main>
+
+<script>
+  const customLayer = document.querySelector('[data-custom-layer]');
+  const customOpener = document.querySelector('#open-contact-preferences');
+  const customClose = document.querySelector('[data-close-contact]');
+  const accountStatus = document.querySelector('#account-status');
+  const accountSave = document.querySelector('#save-account');
+  const nativeDialog = document.querySelector('dialog[data-dialog-example="appointment-reminder"]');
+  const nativeOpener = document.querySelector('#open-appointment-reminder');
+
+  customOpener?.addEventListener('click', () => {
+    if (customLayer instanceof HTMLElement) customLayer.hidden = false;
+  });
+  customClose?.addEventListener('click', () => {
+    if (customLayer instanceof HTMLElement) customLayer.hidden = true;
+  });
+  accountSave?.addEventListener('click', () => {
+    if (accountStatus) accountStatus.textContent = 'Account details saved.';
+  });
+  nativeOpener?.addEventListener('click', () => {
+    if (nativeDialog instanceof HTMLDialogElement) nativeDialog.showModal();
+  });
+</script>
+
+<style>
+  :global(*) { box-sizing: border-box; }
+  :global(body) { margin: 0; background: #fafafa; color: #4d4d4d; font-family: 'Atkinson Hyperlegible', Arial, sans-serif; font-size: 1.125rem; line-height: 1.5; }
+  .fixture-shell { max-width: 48rem; margin: 0 auto; padding: 1.5rem; }
+  h1 { margin-block: 1.5rem 0.75rem; color: #333; font-size: clamp(2rem, 8vw, 3rem); line-height: 1.1; }
+  h2 { margin-block: 0 0.75rem; color: #333; font-size: 1.65rem; line-height: 1.2; }
+  p { margin-block: 0 1rem; }
+  a { color: #033573; text-underline-offset: 0.2em; }
+  a:hover { text-decoration-thickness: 0.15em; }
+  .settings-card { margin-block: 1.5rem; padding: 1.25rem; border: 2px solid #bbc9f7; }
+  dl { margin-block: 0 1.25rem; }
+  dl div { display: grid; grid-template-columns: 6rem 1fr; gap: 1rem; }
+  dt { font-weight: 700; }
+  dd { margin: 0; overflow-wrap: anywhere; }
+  .actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.25rem; }
+  button { min-height: 2.75rem; padding: 0.55rem 0.85rem; border: 3px solid #033573; border-radius: 0.2rem; background: #033573; color: #fff; font: inherit; font-weight: 700; cursor: pointer; }
+  button:hover { background: transparent; color: #033573; }
+  button.secondary { background: transparent; color: #033573; }
+  button.secondary:hover { background: #dfe7fc; }
+  a:focus, button:focus, input:focus { outline: 2px solid #000; outline-offset: 4px; box-shadow: 0 0 0 2px #fff; }
+  .status { min-height: 1.75rem; margin: 1rem 0 0; font-weight: 700; }
+  fieldset { display: grid; gap: 0.65rem; margin: 1rem 0; padding: 1rem; border: 2px solid #bbc9f7; }
+  legend { padding-inline: 0.25rem; font-weight: 700; }
+  label { display: flex; align-items: flex-start; gap: 0.6rem; }
+  input[type='checkbox'] { flex: 0 0 auto; width: 1.25rem; height: 1.25rem; margin-top: 0.2rem; }
+  [hidden] { display: none; }
+  .custom-layer { position: fixed; z-index: 10; inset: 0; display: grid; place-items: center; padding: 1rem; background: rgb(1 0 23 / 72%); pointer-events: none; }
+  .custom-layer[hidden] { display: none; }
+  .modal-surface { width: min(34rem, 100%); max-height: calc(100vh - 2rem); overflow: auto; padding: 1.5rem; border: 3px solid #18399a; border-radius: 0.25rem; background: #fff; color: #333; box-shadow: 0 1rem 3rem rgb(0 0 0 / 35%); pointer-events: auto; }
+  dialog { width: min(34rem, calc(100% - 2rem)); max-width: none; max-height: calc(100vh - 2rem); margin: auto; padding: 0; border: 0; background: transparent; color: inherit; overflow: visible; }
+  dialog::backdrop { background: rgb(1 0 23 / 72%); }
+  .native-surface { width: 100%; max-height: calc(100vh - 2rem); }
+  .reminder-choice + .reminder-choice { margin-top: 0.65rem; }
+  :global(.dark body) { background: #010017; color: #ababab; }
+  :global(.dark) h1, :global(.dark) h2 { color: #cfcfcf; }
+  :global(.dark) a { color: #ade5f8; }
+  :global(.dark) .settings-card, :global(.dark) fieldset { border-color: #18399a; }
+  :global(.dark) button { border-color: #ade5f8; background: #ade5f8; color: #010017; }
+  :global(.dark) button:hover { background: transparent; color: #ade5f8; }
+  :global(.dark) button.secondary { background: transparent; color: #ade5f8; }
+  :global(.dark) button.secondary:hover { background: #070038; }
+  :global(.dark) a:focus, :global(.dark) button:focus, :global(.dark) input:focus { outline-color: #fff; box-shadow: 0 0 0 2px #010017; }
+  :global(.dark) .modal-surface { border-color: #ade5f8; background: #010017; color: #cfcfcf; }
+  @media (max-width: 32rem) {
+    .fixture-shell { padding: 1rem; }
+    .settings-card, .modal-surface { padding: 1rem; }
+    dl div { grid-template-columns: 1fr; gap: 0; margin-bottom: 0.75rem; }
+    .actions { align-items: stretch; flex-direction: column; }
+    button { width: 100%; }
+  }
+</style>
