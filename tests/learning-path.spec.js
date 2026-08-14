@@ -188,6 +188,22 @@ test('each Learning path explains its own practice model', async ({ page }) => {
   await expect(page.locator('[data-progress], [data-complete], [data-grade]')).toHaveCount(0);
 });
 
+test('each Learning path ends with contextual scope guidance', async ({ page }) => {
+  for (const url of [pathUrl, screenReaderPathUrl]) {
+    await page.goto(url);
+    const content = page.locator('[data-content-body]');
+    const heading = content.getByRole('heading', { level: 2, name: 'Keep the scope in mind' });
+    await expect(heading).toBeVisible();
+    await expect(heading.locator('~ p').getByRole('link', { name: /full scope and limitations of the Lab/i })).toHaveAttribute(
+      'href',
+      '/about/',
+    );
+
+    const authoredHeadings = content.getByRole('heading', { level: 2 });
+    await expect(authoredHeadings.last()).toHaveText('Keep the scope in mind');
+  }
+});
+
 test('screen-reader path has visible focus and no narrow-viewport overflow', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto(screenReaderPathUrl);

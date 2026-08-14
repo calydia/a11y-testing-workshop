@@ -68,6 +68,26 @@ test('brand links home and About this Lab is in the footer', async ({ page }) =>
   await expect(page.getByRole('contentinfo').getByRole('link', { name: 'About this Lab' })).toHaveAttribute('href', '/about/');
 });
 
+test('About sets the scope and limitations of the Lab', async ({ page }) => {
+  await page.goto('/about/');
+  const scope = page.locator('main').getByRole('heading', {
+    level: 2,
+    name: 'What this Lab can and cannot establish',
+  });
+
+  await expect(scope).toBeVisible();
+  const guidance = scope.locator('..');
+  for (const statement of [
+    'selected practical accessibility-testing techniques',
+    'not a WCAG conformance assessment',
+    'involving disabled people',
+    'scope and exclusions',
+    'deliberate accessibility problems',
+  ]) {
+    await expect(guidance).toContainText(statement);
+  }
+});
+
 test('Home gives beginners a direct starting point while preserving all four content areas', async ({ page }) => {
   await page.goto('/');
   const start = page.getByRole('heading', { level: 2, name: 'New to accessibility testing?' });

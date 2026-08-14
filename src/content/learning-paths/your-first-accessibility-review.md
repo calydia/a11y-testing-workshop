@@ -64,3 +64,9 @@ Apply the foundational methods together in [Reviewing a course registration befo
 Continue with [Practical screen-reader testing](/learn/practical-screen-reader-testing/) when you want focused practice with page structure, links, images, graphics, language changes, and modal dialogs.
 
 Both are optional next steps, not requirements for completing this beginner path.
+
+## Keep the scope in mind
+
+This path is a broad introduction to a first accessibility review, not a complete audit or conformance assessment. When you review a real product, record the areas you did not test and arrange additional specialist testing and testing with disabled people according to the product and its risks.
+
+[Read about the full scope and limitations of the Lab](/about/), including what its technical checks can and cannot establish.

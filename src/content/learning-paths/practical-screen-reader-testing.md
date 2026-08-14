@@ -68,3 +68,9 @@ Apply the methods together in [Reviewing a community conference programme](/jour
 Use [Your first accessibility review](/learn/your-first-accessibility-review/) when you want a broader foundation in automated, keyboard, visual, zoom, and forms testing. You can complete it before or after this focused path.
 
 Each Testing method is followed by an Exercise so you can apply its procedure independently before moving to a broader journey.
+
+## Keep the scope in mind
+
+These five focused techniques do not represent every screen-reader experience or every combination of assistive technology, browser, and platform. For a real service, test with relevant environments and involve disabled people whose experiences and ways of using technology may differ from your own.
+
+[Read about the full scope and limitations of the Lab](/about/), including what its technical checks can and cannot establish.
