@@ -211,6 +211,15 @@ test('page structure and links method points to its focused Exercise', async ({ 
   );
 });
 
+test('page structure and links method explicitly teaches title and landmark checks', async ({ page }) => {
+  await page.goto(screenReaderMethods[0].path);
+  const content = page.locator('[data-content-body]');
+  await expect(content).toContainText('document title usefully identifies the page');
+  await expect(content).toContainText('find the main content using landmark navigation');
+  await expect(content).toContainText('useful, restrained set of landmarks');
+  await expect(content).toContainText('passing evidence');
+});
+
 test('icons and SVGs method points to its focused Exercise', async ({ page }) => {
   await page.goto(screenReaderMethods[1].path);
   await expect(page.getByRole('link', { name: 'Reviewing icons and SVGs in a community events dashboard' })).toHaveAttribute(

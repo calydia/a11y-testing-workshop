@@ -43,6 +43,17 @@ test('Learning paths listing publishes the first path', async ({ page }) => {
   await expect(page.getByRole('link', { name: 'Practical screen-reader testing' })).toHaveAttribute('href', screenReaderPathUrl);
   await expect(page.getByText('recommended broad starting point', { exact: false })).toBeVisible();
   await expect(page.getByText('independently or after the first path', { exact: false })).toBeVisible();
+  await expect(page.getByText('icons and SVGs, language changes, and modal dialogs', { exact: false })).toBeVisible();
+});
+
+test('each Learning path explains what its total estimate includes', async ({ page }) => {
+  for (const url of [pathUrl, screenReaderPathUrl]) {
+    await page.goto(url);
+    const note = page.locator('[data-learning-path-time-note]');
+    await expect(note).toContainText('setup, note-taking, reviewing results, and repetition');
+    await expect(note).toContainText('Individual step times cover the focused method or Exercise work');
+    await expect(note).toHaveCSS('font-size', '16px');
+  }
 });
 
 test('each Learning path links to its matching journey and optional companion path', async ({ page }) => {

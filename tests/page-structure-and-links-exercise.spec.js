@@ -24,11 +24,27 @@ test('structure and links Exercise renders its learning structure and fixture', 
 
 test('fixture exposes the approved heading patterns and valid comparison', async ({ page }) => {
   await page.goto(fixturePath);
+  await expect(page).toHaveTitle('Community resources directory structure and links exercise');
+  await expect(page.getByRole('main')).toHaveCount(1);
   await expect(page.getByRole('heading', { level: 1, name: 'Community resource directory' })).toHaveCount(1);
   await expect(page.locator('[data-resource-title="food"]')).toHaveJSProperty('tagName', 'H4');
   await expect(page.locator('[data-resource-title="housing"]')).toHaveJSProperty('tagName', 'P');
   await expect(page.locator('[data-resource-title="digital"]')).toHaveJSProperty('tagName', 'H3');
   await expect(page.getByRole('heading', { name: 'Housing advice' })).toHaveCount(0);
+});
+
+test('Exercise teaches title and landmark checks as passing evidence', async ({ page }) => {
+  await page.goto(exercisePath);
+  const content = page.locator('[data-content-body]');
+  await expect(content).toContainText('document title');
+  await expect(content).toContainText(/navigate by landmarks/i);
+  await expect(content).toContainText('main content');
+  await expect(content).toContainText('passing checks');
+
+  const solution = page.locator('details').filter({ hasText: 'Solution' });
+  await expect(solution).toContainText('useful document title');
+  await expect(solution).toContainText('main region');
+  await expect(solution.locator('section')).toHaveCount(5);
 });
 
 test('fixture exposes the three approved link-purpose patterns and descriptive comparisons', async ({ page }) => {

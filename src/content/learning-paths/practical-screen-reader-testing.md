@@ -1,6 +1,6 @@
 ---
 title: Practical screen-reader testing
-summary: Learn focused screen-reader techniques through guided demonstrations and independent Exercises for structure, links, and image alternatives.
+summary: Learn focused screen-reader techniques through guided demonstrations and independent Exercises for structure and links, image alternatives, icons and SVGs, language changes, and modal dialogs.
 description: Build practical beginner skills for testing page structure, links, images, graphics, language changes, and modal dialogs with a screen reader.
 status: published
 order: 20
