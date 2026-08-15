@@ -18,7 +18,7 @@ Create:
 
 Use beginner level for both entries. Estimate 20 minutes for the method and 20 minutes for the Exercise.
 
-Place the method at order `7.5`, after `Testing visual accessibility` and before `Testing zoom and reflow`. Place the Exercise at order `25`, after the visual-dashboard Exercise and before the high-zoom Exercise.
+Place the method at order `8`, after `Testing visual accessibility` and before `Testing zoom and reflow`. Shift the adjacent method orders into the existing integer gaps so their learner-facing sequence remains unchanged: zoom `9`, automated `10`, structure and links `11`, data tables `12`, and controls `13`. Place the Exercise at order `25`, after the visual-dashboard Exercise and before the high-zoom Exercise.
 
 Connect the entries bidirectionally:
 
@@ -84,7 +84,7 @@ The method does not claim broad low-vision or cognitive-accessibility coverage a
 
 The standalone workspace presents a community support directory with service navigation, an introductory panel, an important notice, service cards, opening information, and contact actions. Its normal state appears complete and usable. An assisted control applies the full text-spacing condition to the same document.
 
-The page contains exactly five intentional findings that become observable after the override is active. It must not label defective targets, expose the answers in comments or diagnostic attributes, or make every component fail.
+The page contains exactly six intentional findings that become observable after the override is active. It must not label defective targets, expose the answers in comments or diagnostic attributes, or make every component fail.
 
 ### Intentional findings
 
@@ -102,6 +102,9 @@ The page contains exactly five intentional findings that become observable after
 
 5. **A contact button clips its complete visible label.**
    Fixed dimensions and hidden overflow prevent the control from growing with its text.
+
+6. **An urgent-support paragraph resists the override.**
+   Higher-specificity authored `!important` declarations keep its line height, paragraph spacing, letter spacing, and word spacing unchanged while the override works elsewhere. The finding requires computed-style confirmation rather than visual inspection alone.
 
 ### Passing comparisons
 
@@ -130,7 +133,7 @@ The Exercise objectives and task steps ask learners to:
 - Review representative content before applying the condition.
 - Apply the complete condition and confirm that it is active.
 - Inspect all text-bearing content and controls at the same viewport.
-- Identify exactly five losses of content or functionality.
+- Identify exactly six losses of content or functionality, including an override that does not take effect.
 - Record passing comparisons that expand or wrap correctly.
 - Reset and reapply the condition to confirm causation.
 - Record actual behavior, expected behavior, likely user impact, and remediation direction.
@@ -139,9 +142,9 @@ Hints remain progressive:
 
 1. Direct attention to containers that should grow when their text occupies more space.
 2. Ask the learner to inspect wrapping, truncation, overlap, line clamping, and complete control labels.
-3. Point to the introduction, one service card, one navigation item, the important notice, and one contact action without stating the fixes.
+3. Point to the introduction, one service card, one navigation item, the important notice, one contact action, and text that does not visibly change without stating the fixes.
 
-The solution stays closed by default and contains exactly five finding sections. Each section explains the layout cause, user impact, and a flexible remediation direction. It also identifies representative passing behavior.
+The solution stays closed by default and contains exactly six finding sections. Each section explains the layout cause, user impact, and a flexible remediation direction. It also identifies representative passing behavior. The resistant-override solution must recommend removing or restructuring declarations that block user overrides, not hard-coding the test values as the page defaults.
 
 ## Reusable component structure
 
@@ -188,10 +191,11 @@ The course-registration page may pass this check. Recording that passing behavio
 Add focused automated coverage for:
 
 - Method and Exercise routes, metadata, collection order, and bidirectional links.
-- Exactly five findings, three progressive hints, and five solution sections.
+- Exactly six findings, three progressive hints, and six solution sections.
 - Complete initial content before activation.
 - All four override values applied together with sufficient priority.
 - Each approved target becoming clipped, overlapped, truncated, or incomplete only after activation.
+- The urgent-support paragraph retaining all four authored spacing values while representative nearby content receives the override.
 - Passing comparison regions expanding or wrapping without losing content.
 - Reset restoring the initial layout and repeated toggling remaining deterministic.
 - Assisted control name, `aria-pressed` state, keyboard activation, visible focus, and complete label in both states.
