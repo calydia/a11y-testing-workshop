@@ -6,9 +6,10 @@ import SiteHeader from '../components/site/SiteHeader.astro';
 interface Props {
   title: string;
   metaDescription: string;
+  noindex?: boolean;
 }
 
-const { title, metaDescription } = Astro.props;
+const { title, metaDescription, noindex = false } = Astro.props;
 
 import '@fontsource/satisfy';
 import '@fontsource/atkinson-hyperlegible';
@@ -17,7 +18,7 @@ import '@fontsource/lato';
 ---
 <html lang="en">
   <head>
-    <DocumentHead title={title} metaDescription={metaDescription} />
+    <DocumentHead title={title} metaDescription={metaDescription} noindex={noindex} />
   </head>
   <body class="font-sans hyphens-auto">
     <SiteHeader />

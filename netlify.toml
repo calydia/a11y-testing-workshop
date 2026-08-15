@@ -1,0 +1,78 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[[redirects]]
+  from = "/testing-automated-tools/"
+  to = "/methods/testing-with-automated-tools/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/testing-keyboard-accessibility/"
+  to = "/methods/testing-keyboard-accessibility/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/testing-visuals/"
+  to = "/methods/testing-visual-accessibility/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/testing-zooming/"
+  to = "/methods/testing-zoom-and-reflow/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/testing-screen-readers/"
+  to = "/learn/practical-screen-reader-testing/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/examples/"
+  to = "/methods/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/examples/screen-reader/"
+  to = "/learn/practical-screen-reader-testing/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/examples/screen-reader/links/"
+  to = "/methods/screen-reader-page-structure-and-links/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/examples/screen-reader/icons/"
+  to = "/methods/screen-reader-icons-and-svg/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/examples/screen-reader/lang/"
+  to = "/methods/screen-reader-language-changes/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/examples/screen-reader/modals/"
+  to = "/methods/testing-modal-dialogs/"
+  status = 301
+  force = true
+
+[[headers]]
+  for = "/*"
+
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    X-Frame-Options = "DENY"

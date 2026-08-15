@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/navigation/Breadcrumbs.astro';
+---
+
+<BaseLayout
+  title="Accessibility statement"
+  metaDescription="The accessibility statement for Accessibility Testing Lab, including its accessibility aim, assessment method, known exceptions, and feedback channel."
+>
+  <Breadcrumbs slot="breadcrumb" items={[{ label: 'Home', href: '/' }, { label: 'Accessibility statement' }]} />
+  <div class="my-8 mx-4 max-w-[80em] lg:mx-auto">
+    <div class="mx-auto max-w-[40em]">
+      <h1>Accessibility statement</h1>
+      <p>Accessibility Testing Lab aims to meet the Web Content Accessibility Guidelines (WCAG) 2.2 at Level AA.</p>
+      <p>This statement is based on a self-assessment. It was prepared on 15 August 2026.</p>
+
+      <h2>Monitoring accessibility</h2>
+      <p>I review the accessibility of this site regularly and aim to correct accessibility problems when I find them or receive feedback about them.</p>
+
+      <h2>Deliberately inaccessible practice material</h2>
+      <p>Some Exercise and Testing journey workspaces contain deliberate accessibility problems. These problems are part of the learning experience, and the workspaces are isolated practice material rather than examples to copy into a production service.</p>
+      <p>The instructions, hints, and solutions surrounding the practice material should remain accessible. If those parts of the experience prevent you from completing an activity, please send feedback.</p>
+
+      <h2>Send accessibility feedback</h2>
+      <p>You can <a href="https://docs.google.com/forms/d/e/1FAIpQLSf0zWrTLbzRQGZ7nyFPHHqe6ht2y-QEa5xygZn-bNZlV7LgxA/viewform?usp=sf_link">send feedback anonymously through a feedback form on Google Forms</a>.</p>
+    </div>
+  </div>
+</BaseLayout>

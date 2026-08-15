@@ -1,6 +1,6 @@
 ---
-interface Props { title: string; metaDescription: string }
-const { title, metaDescription } = Astro.props;
+interface Props { title: string; metaDescription: string; noindex?: boolean }
+const { title, metaDescription, noindex = false } = Astro.props;
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
 const structuredData = {
   '@context': 'https://schema.org',
@@ -13,6 +13,7 @@ const structuredData = {
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="description" content={metaDescription} />
+{noindex && <meta name="robots" content="noindex" />}
 <meta property="og:title" content={title} />
 <meta property="og:description" content={metaDescription} />
 <meta property="og:type" content="website" />
@@ -22,6 +23,10 @@ const structuredData = {
 <link rel="canonical" href={canonicalUrl} />
 <link rel="shortcut icon" href="/favicons/favicon.ico" type="image/x-icon" />
 <link rel="icon" href="/favicons/favicon.ico" type="image/x-icon" />
+<link rel="icon" href="/favicons/favicon.svg" type="image/svg+xml" />
+<link rel="icon" href="/favicons/favicon-96x96.png" type="image/png" sizes="96x96" />
+<link rel="apple-touch-icon" href="/favicons/apple-touch-icon.png" />
 <link rel="manifest" href="/manifest.json" />
 <link rel="sitemap" href="/sitemap-index.xml" />
+<meta name="theme-color" content="#BBC9F7" />
 <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />

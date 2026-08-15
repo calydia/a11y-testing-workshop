@@ -7,6 +7,7 @@ const routes = [
   { path: '/exercises/', heading: 'Exercises' },
   { path: '/journeys/', heading: 'Testing journeys' },
   { path: '/about/', heading: 'About this Lab' },
+  { path: '/accessibility/', heading: 'Accessibility statement' },
 ];
 
 const navigationItems = [
@@ -71,11 +72,55 @@ test('primary navigation matches the new information architecture', async ({ pag
   await expect(navigation.getByRole('link', { name: 'About this Lab' })).toHaveCount(0);
 });
 
-test('brand links home and About this Lab is in the footer', async ({ page }) => {
+test('brand links home and informational pages are in the footer', async ({ page }) => {
   await page.goto('/methods/');
 
   await expect(page.getByRole('banner').getByRole('link', { name: /Accessibility Testing Lab/ })).toHaveAttribute('href', '/');
   await expect(page.getByRole('contentinfo').getByRole('link', { name: 'About this Lab' })).toHaveAttribute('href', '/about/');
+  await expect(page.getByRole('contentinfo').getByRole('link', { name: 'Accessibility statement' })).toHaveAttribute('href', '/accessibility/');
+});
+
+test('the accessibility statement documents the aim, assessment, exception, and feedback route', async ({ page }) => {
+  await page.goto('/accessibility/');
+  const main = page.locator('main');
+
+  for (const statement of [
+    'WCAG) 2.2 at Level AA',
+    'self-assessment',
+    '15 August 2026',
+    'review the accessibility of this site regularly',
+    'deliberate accessibility problems',
+    'isolated practice material',
+  ]) {
+    await expect(main).toContainText(statement);
+  }
+
+  await expect(main.getByRole('link', { name: /send feedback anonymously/ })).toHaveAttribute(
+    'href',
+    'https://docs.google.com/forms/d/e/1FAIpQLSf0zWrTLbzRQGZ7nyFPHHqe6ht2y-QEa5xygZn-bNZlV7LgxA/viewform?usp=sf_link',
+  );
+});
+
+test('the 404 page is unindexed and provides routes back into the Lab', async ({ page }) => {
+  await page.goto('/404.html');
+
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex');
+  await expect(page.getByRole('navigation', { name: 'Breadcrumb' })).toHaveCount(0);
+  await expect(page.getByRole('link', { name: /home page/ })).toHaveAttribute('href', '/');
+  for (const item of navigationItems) {
+    await expect(page.locator('main').getByRole('link', { name: item.name })).toHaveAttribute('href', item.href);
+  }
+});
+
+test('ordinary pages remain indexable and expose complete site metadata', async ({ page }) => {
+  await page.goto('/');
+
+  await expect(page.locator('meta[name="robots"]')).toHaveCount(0);
+  await expect(page.locator('link[rel="icon"][type="image/svg+xml"]')).toHaveAttribute('href', '/favicons/favicon.svg');
+  await expect(page.locator('link[rel="icon"][type="image/png"]')).toHaveAttribute('href', '/favicons/favicon-96x96.png');
+  await expect(page.locator('link[rel="apple-touch-icon"]')).toHaveAttribute('href', '/favicons/apple-touch-icon.png');
+  await expect(page.locator('link[rel="manifest"]')).toHaveAttribute('href', '/manifest.json');
+  await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute('content', '#BBC9F7');
 });
 
 test('About sets the scope and limitations of the Lab', async ({ page }) => {

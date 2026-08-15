@@ -6,6 +6,7 @@ const landingPages = [
   { path: '/exercises/', label: 'Exercises' },
   { path: '/journeys/', label: 'Testing journeys' },
   { path: '/about/', label: 'About this Lab' },
+  { path: '/accessibility/', label: 'Accessibility statement' },
 ];
 
 test('Home does not have Lab breadcrumbs', async ({ page }) => {

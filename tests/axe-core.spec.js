@@ -31,6 +31,8 @@ const routes = [
   '/journeys/reviewing-a-course-registration-before-launch/',
   '/journeys/reviewing-a-community-conference-programme/',
   '/about/',
+  '/accessibility/',
+  '/404.html',
 ];
 
 test.describe('Landing page accessibility', () => {
