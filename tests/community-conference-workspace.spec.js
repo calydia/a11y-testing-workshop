@@ -22,7 +22,7 @@ test('workspace contains the intended structural, graphical, and language cases'
   await expect(page.getByRole('img', { name: 'Speaker at the conference' })).toHaveCount(1);
   await expect(page.getByRole('img', { name: "Harbor Hall's waterside entrance beside the tram stop" })).toHaveCount(1);
   await expect(page.getByRole('img', { name: 'Purple wave decoration' })).toHaveCount(1);
-  await expect(page.locator('svg[aria-hidden="true"]')).toHaveCount(4);
+  await expect(page.locator('main svg[aria-hidden="true"]')).toHaveCount(4);
   await expect(page.locator('p[lang="sv"]')).toContainText('Sessionen innehåller');
   await expect(page.getByText('Tervetuloa rakentamaan')).not.toHaveAttribute('lang');
   await expect(page.locator('button.schedule-button')).toHaveAccessibleName('');

@@ -1,0 +1,152 @@
+<main class="fixture-shell" id="journey-planner">
+  <a class="return-link" href="/exercises/testing-forced-colors-in-a-journey-planner/">Return to the exercise</a>
+
+  <header>
+    <p class="eyebrow">Riverside public transport</p>
+    <h1>Plan your journey</h1>
+    <p>Compare travel options and choose a route that works for you.</p>
+  </header>
+
+  <section class="simulation-panel" aria-labelledby="simulation-heading">
+    <h2 id="simulation-heading">Forced-colors learning simulation</h2>
+    <p>This learning aid provides a stable comparison if you cannot activate a real forced-colors environment. It does not reproduce every browser, operating-system, contrast theme, or user configuration.</p>
+    <button class="simulation-toggle" type="button" aria-pressed="false">Apply forced-colors simulation</button>
+  </section>
+
+  <section aria-labelledby="mode-heading">
+    <h2 id="mode-heading">Choose how to travel</h2>
+    <div class="mode-options">
+      <button class="mode-option mode-option-primary" type="button">Public transport</button>
+      <button class="mode-option mode-option-comparison" type="button" aria-pressed="true">Fewest changes</button>
+    </div>
+  </section>
+
+  <form class="journey-form">
+    <div class="field-pair">
+      <label for="origin">From</label>
+      <input class="custom-field" id="origin" name="origin" value="Riverside Library" />
+    </div>
+    <div class="field-pair">
+      <label for="destination">To</label>
+      <input id="destination" name="destination" value="Central Station" />
+    </div>
+    <button type="submit">Find routes</button>
+  </form>
+
+  <section aria-labelledby="routes-heading">
+    <h2 id="routes-heading">Suggested routes</h2>
+
+    <article class="route-card">
+      <h3>Route 14 · 24 minutes</h3>
+      <p class="interchange-summary"><span class="interchange-background" aria-hidden="true"></span>Change at Market Square</p>
+      <p class="interchange-comparison"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h10l-3-3m3 13H7l3 3" /></svg><span>One interchange at Market Square</span></p>
+      <div class="route-diagram" aria-label="Route diagram from Riverside Library to Central Station">
+        <span>Library</span>
+        <span class="route-line route-line-14" aria-hidden="true"></span>
+        <span>Market Square</span>
+        <span class="route-line route-line-22" aria-hidden="true"></span>
+        <span>Station</span>
+      </div>
+      <p class="route-comparison">Route 14 continues to Market Square; change there to Route 22 for Central Station.</p>
+      <div class="route-actions">
+        <button class="route-details-action" type="button">View Route 14 details</button>
+        <button class="focus-comparison" type="button">Save Route 14</button>
+      </div>
+    </article>
+  </section>
+</main>
+
+<script>
+  const root = document.querySelector('#journey-planner');
+  const toggle = document.querySelector<HTMLButtonElement>('.simulation-toggle');
+  const form = document.querySelector<HTMLFormElement>('.journey-form');
+
+  form?.addEventListener('submit', (event) => event.preventDefault());
+  toggle?.addEventListener('click', () => {
+    const active = root?.classList.toggle('simulate-forced-colors') ?? false;
+    toggle.setAttribute('aria-pressed', String(active));
+    toggle.textContent = active ? 'Reset forced-colors simulation' : 'Apply forced-colors simulation';
+  });
+</script>
+
+<style>
+  :global(*) { box-sizing: border-box; }
+  :global(body) { margin: 0; background: #fafafa; color: #4d4d4d; font-family: 'Atkinson Hyperlegible', Arial, sans-serif; font-size: 1.125rem; line-height: 1.5; }
+  .fixture-shell { max-width: 58rem; margin: 0 auto; padding: 1.5rem; }
+  header { margin-block: 2rem; }
+  .eyebrow { margin: 0; font-weight: 700; }
+  h1 { margin-block: .25rem .75rem; color: #333; font-size: clamp(2rem, 8vw, 3.5rem); line-height: 1.1; }
+  h2 { margin-block: 0 .75rem; color: #333; font-size: 1.75rem; }
+  h3 { margin-block: 0 .75rem; color: #333; font-size: 1.35rem; }
+  p { margin-block: 0 1rem; }
+  a { color: #033573; text-underline-offset: .2em; }
+  button, input { font: inherit; }
+  button { min-height: 2.75rem; padding: .6rem 1rem; border: 3px solid #033573; border-radius: .2rem; background: #033573; color: #fff; font-weight: 700; cursor: pointer; }
+  button:hover { background: transparent; color: #033573; }
+  a:focus, button:focus, input:focus { outline: 3px solid #000; outline-offset: 3px; }
+  .simulation-panel, .journey-form, .route-card { margin-block: 1.5rem; padding: 1.25rem; border: 2px solid #bbc9f7; }
+  .simulation-panel { background: #eef1fb; }
+  .mode-options, .route-actions { display: flex; flex-wrap: wrap; gap: 1rem; }
+  .mode-option { background: transparent; color: #033573; }
+  .mode-option-primary { border-color: #7147b8; background: #7147b8; color: #fff; }
+  .mode-option-comparison[aria-pressed='true'] { border-style: double; border-width: 6px; }
+  .journey-form { display: grid; grid-template-columns: 1fr 1fr auto; align-items: end; gap: 1rem; }
+  .field-pair { display: grid; gap: .35rem; }
+  label { font-weight: 700; }
+  input { width: 100%; min-height: 3rem; padding: .55rem .7rem; border: 2px solid #4d4d4d; background: #fff; color: #222; }
+  .custom-field { border: 0; background: #eef1fb; box-shadow: inset 0 0 0 2px #6f81b8; }
+  .interchange-summary, .interchange-comparison { display: flex; align-items: center; gap: .55rem; }
+  .interchange-background { width: 1.5rem; height: 1.5rem; flex: 0 0 auto; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%237147b8' d='M7 7h10l-3-3 1.4-1.4L20.8 8l-5.4 5.4L14 12l3-3H7V7Zm10 10H7l3 3-1.4 1.4L3.2 16l5.4-5.4L10 12l-3 3h10v2Z'/%3E%3C/svg%3E") center / contain no-repeat; }
+  .interchange-comparison svg { width: 1.5rem; height: 1.5rem; flex: 0 0 auto; fill: none; stroke: currentColor; stroke-width: 2; }
+  .route-diagram { display: grid; grid-template-columns: auto 1fr auto 1fr auto; align-items: center; gap: .5rem; margin-block: 1.25rem; font-weight: 700; }
+  .route-line { height: .45rem; border-radius: 1rem; }
+  .route-line-14 { background: #7147b8; }
+  .route-line-22 { background: #16785c; }
+  .route-comparison { padding-inline-start: 1rem; border-inline-start: .4rem dashed #7147b8; }
+  .route-details-action:focus, .route-details-action:focus-visible { outline: 0; box-shadow: 0 0 0 5px #f2ad00; }
+  .focus-comparison:focus, .focus-comparison:focus-visible { outline: 3px solid #000; outline-offset: 3px; }
+
+  :global(.dark body) { background: #010017; color: #ababab; }
+  :global(.dark) h1, :global(.dark) h2, :global(.dark) h3 { color: #cfcfcf; }
+  :global(.dark) a { color: #ade5f8; }
+  :global(.dark) button { border-color: #ade5f8; background: #ade5f8; color: #010017; }
+  :global(.dark) button:hover { background: transparent; color: #ade5f8; }
+  :global(.dark) a:focus, :global(.dark) button:focus, :global(.dark) input:focus { outline-color: #fff; }
+  :global(.dark) .simulation-panel, :global(.dark) .journey-form, :global(.dark) .route-card { border-color: #18399a; }
+  :global(.dark) .simulation-panel { background: #100842; }
+  :global(.dark) input { border-color: #ababab; background: #010017; color: #cfcfcf; }
+  :global(.dark) .custom-field { border: 0; background: #100842; box-shadow: inset 0 0 0 2px #586db1; }
+  :global(.dark) .mode-option-primary { border-color: #c59cff; background: #c59cff; color: #010017; }
+  :global(.dark) .route-comparison { border-color: #c59cff; }
+
+  .simulate-forced-colors { background: #fff; color: #000; }
+  .simulate-forced-colors :is(h1, h2, h3, a) { color: #000; }
+  .simulate-forced-colors :is(.simulation-panel, .journey-form, .route-card) { border-color: #000; background: #fff; }
+  .simulate-forced-colors button { border-color: #000; background: #000; color: #fff; }
+  .simulate-forced-colors .mode-option-primary { border-color: #fff; background: #fff; color: #000; }
+  .simulate-forced-colors .mode-option-comparison { border-color: #000; background: #fff; color: #000; }
+  .simulate-forced-colors .interchange-background { background-image: none; }
+  .simulate-forced-colors .custom-field { border: 0; background: #fff; box-shadow: none; color: #000; }
+  .simulate-forced-colors .route-details-action:focus, .simulate-forced-colors .route-details-action:focus-visible { outline: 0; box-shadow: none; }
+  .simulate-forced-colors .focus-comparison:focus, .simulate-forced-colors .focus-comparison:focus-visible { outline-color: #000; }
+  .simulate-forced-colors :is(.route-line-14, .route-line-22) { background: #000; }
+  .simulate-forced-colors .route-comparison { border-color: #000; }
+
+  @media (forced-colors: active) {
+    .mode-option-primary { border-color: Canvas; background: Canvas; color: CanvasText; }
+    .mode-option-comparison { border-color: Highlight; background: Canvas; color: CanvasText; }
+    .interchange-background { background-image: none; }
+    .custom-field { border: 0; background: Canvas; box-shadow: none; color: CanvasText; }
+    .route-details-action:focus, .route-details-action:focus-visible { outline: 0; box-shadow: none; }
+    .focus-comparison:focus, .focus-comparison:focus-visible { outline: 3px solid CanvasText; }
+    .route-line-14, .route-line-22 { background: CanvasText; }
+    .route-comparison { border-color: CanvasText; }
+  }
+
+  @media (max-width: 42rem) {
+    .fixture-shell { padding: 1rem; }
+    .journey-form { grid-template-columns: 1fr; }
+    .route-diagram { grid-template-columns: 1fr; align-items: start; }
+    .route-line { width: .45rem; height: 2rem; margin-inline-start: 1rem; }
+  }
+</style>

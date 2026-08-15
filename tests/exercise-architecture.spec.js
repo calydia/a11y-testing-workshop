@@ -27,6 +27,7 @@ test('exercise listing contains published exercises in collection order', async 
     'Keyboard testing a preferences form',
     'Finding visual problems in an account dashboard',
     'Testing text spacing on a community-services page',
+    'Testing forced colors in a journey planner',
     'Testing an appointment booking at high zoom',
     'Comparing automated and manual findings',
     'Reviewing structure and links in a community resources directory',
@@ -41,14 +42,15 @@ test('exercise listing contains published exercises in collection order', async 
   await expect(links.nth(0)).toHaveAttribute('href', '/exercises/keyboard-testing-a-preferences-form/');
   await expect(links.nth(1)).toHaveAttribute('href', '/exercises/finding-visual-problems-in-an-account-dashboard/');
   await expect(links.nth(2)).toHaveAttribute('href', '/exercises/testing-text-spacing-on-a-community-services-page/');
-  await expect(links.nth(3)).toHaveAttribute('href', '/exercises/testing-an-appointment-booking-at-high-zoom/');
-  await expect(links.nth(4)).toHaveAttribute('href', '/exercises/comparing-automated-and-manual-findings/');
-  await expect(links.nth(5)).toHaveAttribute('href', '/exercises/reviewing-structure-and-links-in-a-community-resources-directory/');
-  await expect(links.nth(6)).toHaveAttribute('href', '/exercises/testing-a-community-course-timetable-with-a-screen-reader/');
-  await expect(links.nth(7)).toHaveAttribute('href', '/exercises/testing-controls-in-a-community-events-finder/');
-  await expect(links.nth(8)).toHaveAttribute('href', '/exercises/evaluating-image-alternative-text-in-context/');
-  await expect(links.nth(9)).toHaveAttribute('href', '/exercises/reviewing-icons-and-svgs-in-a-community-events-dashboard/');
-  await expect(links.nth(10)).toHaveAttribute('href', '/exercises/testing-language-changes-on-a-community-library-noticeboard/');
-  await expect(links.nth(11)).toHaveAttribute('href', '/exercises/testing-modal-dialogs-in-account-settings/');
-  await expect(links.nth(12)).toHaveAttribute('href', '/exercises/testing-a-community-course-registration-form/');
+  await expect(links.nth(3)).toHaveAttribute('href', '/exercises/testing-forced-colors-in-a-journey-planner/');
+  await expect(links.nth(4)).toHaveAttribute('href', '/exercises/testing-an-appointment-booking-at-high-zoom/');
+  await expect(links.nth(5)).toHaveAttribute('href', '/exercises/comparing-automated-and-manual-findings/');
+  await expect(links.nth(6)).toHaveAttribute('href', '/exercises/reviewing-structure-and-links-in-a-community-resources-directory/');
+  await expect(links.nth(7)).toHaveAttribute('href', '/exercises/testing-a-community-course-timetable-with-a-screen-reader/');
+  await expect(links.nth(8)).toHaveAttribute('href', '/exercises/testing-controls-in-a-community-events-finder/');
+  await expect(links.nth(9)).toHaveAttribute('href', '/exercises/evaluating-image-alternative-text-in-context/');
+  await expect(links.nth(10)).toHaveAttribute('href', '/exercises/reviewing-icons-and-svgs-in-a-community-events-dashboard/');
+  await expect(links.nth(11)).toHaveAttribute('href', '/exercises/testing-language-changes-on-a-community-library-noticeboard/');
+  await expect(links.nth(12)).toHaveAttribute('href', '/exercises/testing-modal-dialogs-in-account-settings/');
+  await expect(links.nth(13)).toHaveAttribute('href', '/exercises/testing-a-community-course-registration-form/');
 });

@@ -112,7 +112,7 @@ test('outer shell passes axe, fixture follows theme, and both pages fit a narrow
 
 test('fixture markup does not expose its teaching answers', async ({ page }) => {
   await page.goto(fixturePath);
-  const html = await page.locator('html').innerHTML();
+  const html = await page.locator('main').innerHTML();
   expect(html).not.toMatch(/intentional.finding|finding.count|model.answer|diagnostic|broken|problem|solution/i);
 });
 

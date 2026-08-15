@@ -12,6 +12,7 @@ import AccountSettingsDialogsFixture from '../components/exercise/fixtures/Accou
 import CommunityEventsFinderFixture from '../components/exercise/fixtures/CommunityEventsFinderFixture.astro';
 import CommunityCourseTimetableFixture from '../components/exercise/fixtures/CommunityCourseTimetableFixture.astro';
 import CommunityServicesTextSpacingFixture from '../components/exercise/fixtures/CommunityServicesTextSpacingFixture.astro';
+import PublicTransportJourneyPlannerFixture from '../components/exercise/fixtures/PublicTransportJourneyPlannerFixture.astro';
 
 export interface InlineFixture {
   kind: 'inline';
@@ -182,6 +183,18 @@ export const fixtureRegistry: Record<string, ExerciseFixtureDefinition> = {
       'clamped-important-notice',
       'clipped-contact-label',
       'resistant-urgent-support-spacing',
+    ],
+  },
+  'public-transport-journey-planner': {
+    kind: 'document',
+    component: PublicTransportJourneyPlannerFixture,
+    title: 'Public transport journey planner forced-colors exercise',
+    intentionalViolations: [
+      'lost-travel-mode-selection',
+      'missing-interchange-icon',
+      'missing-journey-field-boundaries',
+      'missing-route-action-focus',
+      'collapsed-route-colors',
     ],
   },
 };

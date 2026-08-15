@@ -3,7 +3,7 @@ title: Testing with automated tools
 summary: Run a reproducible accessibility scan, verify every result in context, and identify what still requires manual testing.
 description: Learn a tool-neutral procedure for scoping, running, interpreting, documenting, and rerunning automated accessibility checks.
 status: published
-order: 10
+order: 11
 topics: [automated testing, tooling, triage, reporting, WCAG]
 prerequisites:
   - Basic familiarity with browser developer tools

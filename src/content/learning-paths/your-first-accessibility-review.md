@@ -1,17 +1,17 @@
 ---
 title: Your first accessibility review
-summary: Build a practical beginner review through paired methods and Exercises for automated, keyboard, visual, text-spacing, zoom, and forms testing.
-description: Follow an interleaved beginner path through automated, keyboard, visual, text-spacing override, zoom, screen-reader preparation, and forms testing.
+summary: Build a practical beginner review through paired methods and Exercises for automated, keyboard, visual, text-spacing, forced-colors, zoom, and forms testing.
+description: Follow an interleaved beginner path through automated, keyboard, visual, text-spacing, forced-colors, zoom, screen-reader preparation, and forms testing.
 status: published
 order: 10
-topics: [beginner, accessibility review, automated testing, keyboard, visual, text spacing, user overrides, zoom, forms]
+topics: [beginner, accessibility review, automated testing, keyboard, visual, text spacing, forced colors, user overrides, zoom, forms]
 prerequisites:
   - Basic familiarity with using a web browser
 level: beginner
-estimatedMinutes: 290
+estimatedMinutes: 330
 outcomes:
   - Define and run a scoped automated accessibility check without treating it as complete coverage.
-  - Perform baseline keyboard, visual, and zoom and reflow reviews.
+  - Perform baseline keyboard, visual, forced-colors, and zoom and reflow reviews.
   - Apply the complete text-spacing condition and check whether content and functionality remain available.
   - Prepare a screen reader for limited form-oriented verification.
   - Test form labels, instructions, groups, validation errors, focus handling, and success communication.
@@ -33,6 +33,10 @@ steps:
     entry: testing-text-spacing-and-user-overrides
   - type: exercise
     entry: testing-text-spacing-on-a-community-services-page
+  - type: method
+    entry: testing-forced-colors-and-high-contrast
+  - type: exercise
+    entry: testing-forced-colors-in-a-journey-planner
   - type: method
     entry: testing-zoom-and-reflow
   - type: exercise
