@@ -1,17 +1,18 @@
 ---
 title: Your first accessibility review
-summary: Build a practical beginner review by learning one foundational testing technique and then applying it in a focused Exercise.
-description: Follow an interleaved beginner path through automated, keyboard, visual, zoom, screen-reader preparation, and forms testing.
+summary: Build a practical beginner review through paired methods and Exercises for automated, keyboard, visual, text-spacing, zoom, and forms testing.
+description: Follow an interleaved beginner path through automated, keyboard, visual, text-spacing override, zoom, screen-reader preparation, and forms testing.
 status: published
 order: 10
-topics: [beginner, accessibility review, automated testing, keyboard, visual, zoom, forms]
+topics: [beginner, accessibility review, automated testing, keyboard, visual, text spacing, user overrides, zoom, forms]
 prerequisites:
   - Basic familiarity with using a web browser
 level: beginner
-estimatedMinutes: 250
+estimatedMinutes: 290
 outcomes:
   - Define and run a scoped automated accessibility check without treating it as complete coverage.
   - Perform baseline keyboard, visual, and zoom and reflow reviews.
+  - Apply the complete text-spacing condition and check whether content and functionality remain available.
   - Prepare a screen reader for limited form-oriented verification.
   - Test form labels, instructions, groups, validation errors, focus handling, and success communication.
   - Record reproducible findings and distinguish automated evidence from required human judgment.
@@ -28,6 +29,10 @@ steps:
     entry: testing-visual-accessibility
   - type: exercise
     entry: finding-visual-problems-in-an-account-dashboard
+  - type: method
+    entry: testing-text-spacing-and-user-overrides
+  - type: exercise
+    entry: testing-text-spacing-on-a-community-services-page
   - type: method
     entry: testing-zoom-and-reflow
   - type: exercise
@@ -61,7 +66,7 @@ You do not need to learn every screen-reader command before continuing. The goal
 
 Apply the foundational methods together in [Reviewing a course registration before launch](/journeys/reviewing-a-course-registration-before-launch/). The journey guides you through one realistic review and an evidence-based launch recommendation.
 
-Continue with [Practical screen-reader testing](/learn/practical-screen-reader-testing/) when you want focused practice with page structure, links, images, graphics, language changes, and modal dialogs.
+Continue with [Practical screen-reader testing](/learn/practical-screen-reader-testing/) when you want focused practice with page structure, links, data tables, controls, images, graphics, language changes, and modal dialogs.
 
 Both are optional next steps, not requirements for completing this beginner path.
 

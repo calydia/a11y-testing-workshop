@@ -19,7 +19,7 @@ Publish a beginner Testing method and standalone Exercise for applying the compl
 
 1. Add failing assertions for the method route, beginner metadata, 20-minute estimate, all four WCAG values, procedure, interpretation, limitations, and Exercise relationship.
 2. Add failing assertions for the Exercise route, beginner metadata, exactly five findings, three hints, method relationship, standalone workflow, passing comparisons, and closed solution.
-3. Pin method order `7.5` between visual accessibility and zoom/reflow, and Exercise order `25` between the visual-dashboard and high-zoom Exercises.
+3. Pin method order `8` between visual accessibility and zoom/reflow, shift the adjacent methods to unused integer orders without changing their sequence, and pin Exercise order `25` between the visual-dashboard and high-zoom Exercises.
 4. Pin the pair after visual accessibility in `Your first accessibility review`, including its 290-minute estimate and updated learning outcomes.
 5. Pin the method in the course-registration journey's ordered method list, responsive-conditions stage, consolidation, evidence guidance, and 105-minute estimate while preserving six stages and five deliverables.
 6. Add both learner-facing routes to automated accessibility coverage.
@@ -72,7 +72,7 @@ Publish a beginner Testing method and standalone Exercise for applying the compl
 
 ### Work
 
-1. Add published beginner metadata at order `7.5`, a 20-minute estimate, browser/developer-tools/user-style tooling, and the related Exercise.
+1. Add published beginner metadata at order `8`, a 20-minute estimate, browser/developer-tools/user-style tooling, and the related Exercise.
 2. Write outcomes for applying the complete condition, confirming computed values, inspecting loss, resetting to establish causation, and recording passing behavior.
 3. State the four WCAG values accurately and explain that the page need not use them by default.
 4. Write a repeatable environment-first procedure covering representative content and controls in initial, overridden, and reset states.

@@ -10,6 +10,11 @@ const visualMethod = {
   title: 'Testing visual accessibility',
 };
 
+const textSpacingMethod = {
+  path: '/methods/testing-text-spacing-and-user-overrides/',
+  title: 'Testing text spacing and user overrides',
+};
+
 const zoomMethod = {
   path: '/methods/testing-zoom-and-reflow/',
   title: 'Testing zoom and reflow',
@@ -62,6 +67,7 @@ const screenReaderMethods = [
 const methods = [
   keyboardMethod,
   visualMethod,
+  textSpacingMethod,
   zoomMethod,
   automatedMethod,
   screenReaderMethods[0],
@@ -75,6 +81,7 @@ const methods = [
 const methodExercises = new Map([
   [keyboardMethod.path, ['Keyboard testing a preferences form', '/exercises/keyboard-testing-a-preferences-form/', '15 minutes']],
   [visualMethod.path, ['Finding visual problems in an account dashboard', '/exercises/finding-visual-problems-in-an-account-dashboard/', '15 minutes']],
+  [textSpacingMethod.path, ['Testing text spacing on a community-services page', '/exercises/testing-text-spacing-on-a-community-services-page/', '20 minutes']],
   [zoomMethod.path, ['Testing an appointment booking at high zoom', '/exercises/testing-an-appointment-booking-at-high-zoom/', '20 minutes']],
   [automatedMethod.path, ['Comparing automated and manual findings', '/exercises/comparing-automated-and-manual-findings/', '20 minutes']],
   [screenReaderMethods[0].path, ['Reviewing structure and links in a community resources directory', '/exercises/reviewing-structure-and-links-in-a-community-resources-directory/', '20 minutes']],

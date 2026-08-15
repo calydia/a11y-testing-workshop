@@ -8,6 +8,7 @@ const methods = [
   ['Testing with automated tools', '/methods/testing-with-automated-tools/'],
   ['Testing keyboard accessibility', '/methods/testing-keyboard-accessibility/'],
   ['Testing visual accessibility', '/methods/testing-visual-accessibility/'],
+  ['Testing text spacing and user overrides', '/methods/testing-text-spacing-and-user-overrides/'],
   ['Testing zoom and reflow', '/methods/testing-zoom-and-reflow/'],
   ['Testing forms and validation', '/methods/testing-forms-and-validation/'],
 ];
@@ -57,7 +58,7 @@ test('journey renders metadata, scenario, role, objectives, and navigation', asy
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Reviewing a course registration before launch');
   const meta = page.locator('[data-journey-meta]');
   await expect(meta).toContainText('Difficulty: beginner');
-  await expect(meta).toContainText('Estimated time: 90 minutes');
+  await expect(meta).toContainText('Estimated time: 105 minutes');
   await expect(meta.locator('dl')).toHaveCSS('font-size', '16px');
   await expect(page.locator('[data-journey-scenario]')).toContainText('pre-release accessibility review');
   await expect(page.locator('[data-journey-role]')).toContainText('Accessibility tester supporting a pre-release review');
@@ -69,10 +70,10 @@ test('journey renders metadata, scenario, role, objectives, and navigation', asy
   await expect(page.getByRole('navigation', { name: 'Testing journeys' }).getByRole('link', { name: 'Reviewing a course registration before launch' })).toHaveAttribute('aria-current', 'page');
 });
 
-test('journey lists five methods in authored order', async ({ page }) => {
+test('journey lists six methods in authored order', async ({ page }) => {
   await page.goto(journeyPath);
   const methodItems = page.locator('[data-journey-methods] > li');
-  await expect(methodItems).toHaveCount(5);
+  await expect(methodItems).toHaveCount(6);
   for (const [index, [title, href]] of methods.entries()) {
     const link = methodItems.nth(index).getByRole('link', { name: title });
     await expect(link).toHaveAttribute('href', href);
@@ -89,7 +90,7 @@ test('journey renders six ordered stages with relevant method links', async ({ p
   await expect(stageItems.nth(0).locator('[data-stage-methods]')).toHaveCount(0);
   await expect(stageItems.nth(1).getByRole('link')).toHaveText(['Testing with automated tools']);
   await expect(stageItems.nth(2).getByRole('link')).toHaveText(['Testing keyboard accessibility', 'Testing visual accessibility']);
-  await expect(stageItems.nth(3).getByRole('link')).toHaveText(['Testing zoom and reflow']);
+  await expect(stageItems.nth(3).getByRole('link')).toHaveText(['Testing text spacing and user overrides', 'Testing zoom and reflow']);
   await expect(stageItems.nth(4).getByRole('link')).toHaveText(['Testing forms and validation', 'Testing keyboard accessibility']);
   await expect(stageItems.nth(5).getByRole('link')).toHaveText(methods.map(([title]) => title));
 });
@@ -101,7 +102,7 @@ test('optional preparation and workspace reuse existing routes without solution 
   await expect(preparation.locator('[data-preparation-type="learning-path"]')).toHaveCount(1);
   await expect(preparation.getByRole('link', { name: 'Your first accessibility review' })).toHaveAttribute('href', '/learn/your-first-accessibility-review/');
   await expect(preparation).toContainText('Level: beginner');
-  await expect(preparation).toContainText('Estimated time: 250 minutes');
+  await expect(preparation).toContainText('Estimated time: 290 minutes');
   await expect(preparation).toContainText('25 minutes');
   await expect(preparation).toContainText(/before consulting the Exercise solution/i);
   await expect(page.getByRole('link', { name: 'Open the Testing journey workspace for course registration' })).toHaveAttribute('href', '/exercise-fixtures/course-registration/');

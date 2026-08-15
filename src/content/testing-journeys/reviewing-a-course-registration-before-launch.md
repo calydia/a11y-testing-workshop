@@ -4,11 +4,11 @@ summary: Combine automated and manual testing techniques to assess one registrat
 description: Conduct a staged pre-release accessibility review of a community-course registration form and produce a concise professional report.
 status: published
 order: 10
-topics: [accessibility review, reporting, prioritization, forms, keyboard, visual, zoom, automated testing]
+topics: [accessibility review, reporting, prioritization, forms, keyboard, visual, text spacing, user overrides, zoom, automated testing]
 prerequisites:
   - Familiarity with the foundational methods in Your first accessibility review
 difficulty: beginner
-estimatedMinutes: 90
+estimatedMinutes: 105
 scenario: A community organization is preparing to launch online registration for a new course. You have been asked to perform a focused pre-release accessibility review of the registration experience and advise whether it is ready to launch.
 role: Accessibility tester supporting a pre-release review
 objectives:
@@ -21,6 +21,7 @@ methods:
   - testing-with-automated-tools
   - testing-keyboard-accessibility
   - testing-visual-accessibility
+  - testing-text-spacing-and-user-overrides
   - testing-zoom-and-reflow
   - testing-forms-and-validation
 learningPaths:
@@ -38,14 +39,14 @@ stages:
     task: Review keyboard operation, focus order, visible focus, visual instructions, required indicators, control boundaries, error presentation, and interactive states. Record passing behavior as well as findings.
     methods: [testing-keyboard-accessibility, testing-visual-accessibility]
   - title: Test responsive conditions
-    task: Review browser zoom, text resizing, and reflow at the Testing method's defined conditions. Confirm whether content and controls remain available without assuming the interface must contain a defect.
-    methods: [testing-zoom-and-reflow]
+    task: Apply and verify the complete text-spacing condition, then review browser zoom, text resizing, and reflow at the Testing methods' defined conditions. Confirm whether content and controls remain available without assuming the interface must contain a defect.
+    methods: [testing-text-spacing-and-user-overrides, testing-zoom-and-reflow]
   - title: Test the complete form journey
     task: Inspect labels, instructions, and groups; submit invalid data; locate and understand errors; correct values; submit successfully; and use a screen reader to verify relationships and announcements.
     methods: [testing-forms-and-validation, testing-keyboard-accessibility]
   - title: Consolidate and recommend
     task: Merge duplicate evidence, distinguish findings from passing checks, prioritize user impact, identify launch blockers and follow-up work, and make a concise launch recommendation.
-    methods: [testing-with-automated-tools, testing-keyboard-accessibility, testing-visual-accessibility, testing-zoom-and-reflow, testing-forms-and-validation]
+    methods: [testing-with-automated-tools, testing-keyboard-accessibility, testing-visual-accessibility, testing-text-spacing-and-user-overrides, testing-zoom-and-reflow, testing-forms-and-validation]
 deliverables:
   - Scope and test-environment note.
   - Test record organized by Testing method.
@@ -62,7 +63,7 @@ You can complete this Testing journey in one focused session or split it across 
 
 ## Build useful evidence
 
-For each observation, record the interface state, Testing method, steps, actual result, expected result, and user impact. Keep observed evidence separate from assumptions. If several Testing methods expose the same underlying problem, report one finding with all relevant evidence instead of inflating the issue count.
+For each observation, record the interface state, Testing method, steps, actual result, expected result, and user impact. For text spacing, include the override mechanism, viewport, and confirmation that all four values were applied. Keep observed evidence separate from assumptions. If several Testing methods expose the same underlying problem, report one finding with all relevant evidence instead of inflating the issue count.
 
 Record meaningful passing checks as well. They help reviewers understand the tested scope and help developers avoid regressions while correcting other behavior.
 

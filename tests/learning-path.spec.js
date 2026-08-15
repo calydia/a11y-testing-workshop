@@ -11,6 +11,8 @@ const expectedSteps = [
   ['Exercise', 'Keyboard testing a preferences form', '/exercises/keyboard-testing-a-preferences-form/'],
   ['Testing method', 'Testing visual accessibility', '/methods/testing-visual-accessibility/'],
   ['Exercise', 'Finding visual problems in an account dashboard', '/exercises/finding-visual-problems-in-an-account-dashboard/'],
+  ['Testing method', 'Testing text spacing and user overrides', '/methods/testing-text-spacing-and-user-overrides/'],
+  ['Exercise', 'Testing text spacing on a community-services page', '/exercises/testing-text-spacing-on-a-community-services-page/'],
   ['Testing method', 'Testing zoom and reflow', '/methods/testing-zoom-and-reflow/'],
   ['Exercise', 'Testing an appointment booking at high zoom', '/exercises/testing-an-appointment-booking-at-high-zoom/'],
   ['Path checkpoint', 'Prepare for screen-reader checks', '#prepare-for-screen-reader-checks'],
@@ -84,20 +86,20 @@ test('first Learning path renders metadata, outcomes, and navigation', async ({ 
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Your first accessibility review');
   const metadata = page.locator('[data-learning-path-meta]');
   await expect(metadata).toContainText('Level: beginner');
-  await expect(metadata).toContainText('Estimated time: About 4 hours 10 minutes');
+  await expect(metadata).toContainText('Estimated time: About 4 hours 50 minutes');
   await expect(metadata.locator('dl')).toHaveCSS('font-size', '16px');
   await expect(page.locator('[data-content-heading] [data-learning-path-meta]')).toHaveCount(1);
   const summary = page.locator('[data-content-heading] .introduction');
   expect(await summary.evaluate((element, metadataElement) => Boolean(element.compareDocumentPosition(metadataElement) & Node.DOCUMENT_POSITION_FOLLOWING), await metadata.elementHandle())).toBe(true);
   await expect(page.getByRole('heading', { level: 2, name: 'What you will learn' })).toBeVisible();
-  await expect(page.locator('[data-learning-outcomes] li')).toHaveCount(5);
+  await expect(page.locator('[data-learning-outcomes] li')).toHaveCount(6);
 
   const breadcrumb = page.getByRole('navigation', { name: 'Breadcrumbs' }).getByRole('listitem');
   await expect(breadcrumb).toHaveText(['Home/', 'Learning paths/', 'Your first accessibility review']);
   await expect(page.getByRole('navigation', { name: 'Learning paths' }).getByRole('link', { name: 'Your first accessibility review' })).toHaveAttribute('aria-current', 'page');
 });
 
-test('path renders the exact interleaved eleven-step sequence', async ({ page }) => {
+test('path renders the exact interleaved thirteen-step sequence', async ({ page }) => {
   await page.goto(pathUrl);
   const steps = page.locator('[data-learning-path-steps] > li');
   await expect(steps).toHaveCount(expectedSteps.length);
@@ -114,7 +116,7 @@ test('path renders the exact interleaved eleven-step sequence', async ({ page })
 test('referenced steps include summaries and item durations', async ({ page }) => {
   await page.goto(pathUrl);
   const referencedSteps = page.locator('[data-learning-path-steps] > li:not([data-content-step])');
-  await expect(referencedSteps).toHaveCount(10);
+  await expect(referencedSteps).toHaveCount(12);
   for (const step of await referencedSteps.all()) {
     await expect(step.getByRole('heading', { level: 3 })).toHaveCSS('font-size', '20px');
     await expect(step.locator('[data-step-summary]')).not.toBeEmpty();

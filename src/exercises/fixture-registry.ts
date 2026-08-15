@@ -11,6 +11,7 @@ import CommunityLibraryNoticeboardFixture from '../components/exercise/fixtures/
 import AccountSettingsDialogsFixture from '../components/exercise/fixtures/AccountSettingsDialogsFixture.astro';
 import CommunityEventsFinderFixture from '../components/exercise/fixtures/CommunityEventsFinderFixture.astro';
 import CommunityCourseTimetableFixture from '../components/exercise/fixtures/CommunityCourseTimetableFixture.astro';
+import CommunityServicesTextSpacingFixture from '../components/exercise/fixtures/CommunityServicesTextSpacingFixture.astro';
 
 export interface InlineFixture {
   kind: 'inline';
@@ -168,6 +169,19 @@ export const fixtureRegistry: Record<string, ExerciseFixtureDefinition> = {
       'time-cells-not-headers',
       'incorrect-time-header-scope',
       'ambiguous-empty-cells',
+    ],
+  },
+  'community-services-text-spacing': {
+    kind: 'document',
+    component: CommunityServicesTextSpacingFixture,
+    title: 'Community services text-spacing exercise',
+    intentionalViolations: [
+      'fixed-height-introduction',
+      'overlapping-service-card',
+      'truncated-navigation-label',
+      'clamped-important-notice',
+      'clipped-contact-label',
+      'resistant-urgent-support-spacing',
     ],
   },
 };
