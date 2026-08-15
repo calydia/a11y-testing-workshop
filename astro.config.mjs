@@ -1,6 +1,5 @@
 import { defineConfig } from 'astro/config';
 import sitemap from "@astrojs/sitemap";
-import icon from "astro-icon";
 import tailwindcss from "@tailwindcss/vite";
 import { legacyRedirects } from './src/config/legacy-redirects.js';
 
@@ -11,5 +10,5 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()]
   },
-  integrations: [sitemap(), icon()],
+  integrations: [sitemap()],
 });

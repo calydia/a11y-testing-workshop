@@ -20,6 +20,7 @@ test.describe('shared shell keyboard interactions', () => {
 
     const navigation = page.getByRole('navigation', { name: 'Main' });
     const toggle = navigation.getByRole('button', { name: 'Menu' });
+    await expect(toggle.locator('svg[aria-hidden="true"]')).toHaveCount(2);
     await toggle.focus();
     await page.keyboard.press('Space');
     await expect(toggle).toHaveAttribute('aria-expanded', 'true');
@@ -38,6 +39,7 @@ test.describe('shared shell keyboard interactions', () => {
   test('theme toggle exposes and changes its pressed state', async ({ page }) => {
     await page.goto('/');
     const toggle = page.getByRole('button', { name: /Switch to (dark|light) version/ });
+    await expect(toggle.locator('svg[aria-hidden="true"]')).toHaveCount(2);
     const initialState = await toggle.getAttribute('aria-pressed');
 
     await toggle.focus();
@@ -49,6 +51,7 @@ test.describe('shared shell keyboard interactions', () => {
   test('back-to-top returns focus to the page header', async ({ page }) => {
     await page.goto('/');
     const button = page.getByRole('button', { name: 'Back to top' });
+    await expect(button.locator('svg[aria-hidden="true"]')).toHaveCount(1);
 
     await button.focus();
     await page.keyboard.press('Enter');
@@ -74,5 +77,41 @@ test.describe('shared shell keyboard interactions', () => {
     const navigationBox = await navigation.boundingBox();
     expect(navigationBox?.height).toBeGreaterThanOrEqual(88);
     expect(navigationBox?.height).toBeLessThanOrEqual(90);
+  });
+
+  test('brand link keeps decorative inline logos and an accessible Home name', async ({ page }) => {
+    await page.goto('/');
+    const brandLink = page.getByRole('banner').getByRole('link', { name: 'Accessibility Testing Lab home' });
+
+    await expect(brandLink.locator('svg[aria-hidden="true"]')).toHaveCount(2);
+    await expect(brandLink).toHaveAttribute('href', '/');
+  });
+
+  test('shell SVGs retain their intentional responsive sizes', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 812 });
+    await page.goto('/');
+
+    const headerLogo = page.getByRole('banner').getByRole('link', { name: 'Accessibility Testing Lab home' }).locator('svg:visible');
+    const footerLogo = page.getByRole('contentinfo').locator('.logo-dark:visible, .logo-light:visible');
+    const menuIcon = page.getByRole('navigation', { name: 'Main' }).getByRole('button', { name: 'Menu' }).locator('svg:visible');
+    const themeIcon = page.getByRole('button', { name: /Switch to (dark|light) version/ }).locator('svg:visible');
+    const backToTopIcon = page.getByRole('button', { name: 'Back to top' }).locator('svg:visible');
+
+    await expect(headerLogo).toHaveCSS('width', '96px');
+    await expect(footerLogo).toHaveCSS('width', '96px');
+    await expect(headerLogo).toHaveAttribute('viewBox', '0 0 348 173');
+    await expect(footerLogo).toHaveAttribute('viewBox', '0 0 348 173');
+    await expect(menuIcon).toHaveCSS('width', '32px');
+    await expect(menuIcon).toHaveCSS('height', '32px');
+    await expect(themeIcon).toHaveCSS('width', '32px');
+    await expect(themeIcon).toHaveCSS('height', '32px');
+    await expect(backToTopIcon).toHaveCSS('width', '48px');
+    await expect(backToTopIcon).toHaveCSS('height', '48px');
+
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await expect(headerLogo).toHaveCSS('width', '128px');
+    await expect(footerLogo).toHaveCSS('width', '112px');
+    await expect(themeIcon).toHaveCSS('width', '32px');
+    await expect(backToTopIcon).toHaveCSS('width', '48px');
   });
 });

@@ -1,5 +1,6 @@
 ---
-  import { Icon } from 'astro-icon/components';
+  import MenuIcon from '../icons/bars-3-solid.svg';
+  import CloseIcon from '../icons/x-mark-solid.svg';
 
   const { currentUrl = '/' } = Astro.props;
 
@@ -36,8 +37,8 @@
   hover:border-y-4 hover:border-lt-purple dark:hover:border-dk-blue-light
   focus:outline focus:outline-2 focus:outline-offset-4 	focus:outline-black dark:focus:outline-white"
     aria-expanded="false" aria-controls="main-menu" aria-haspopup="true">
-    <Icon name="bars-3-solid" class="menu-open h-8 w-8" aria-hidden="true" />
-    <Icon name="x-mark-solid" class="menu-close h-8 w-8" aria-hidden="true" />
+    <MenuIcon class="menu-open h-8 w-8" aria-hidden="true" />
+    <CloseIcon class="menu-close h-8 w-8" aria-hidden="true" />
     <span>Menu</span>
   </button>
   <ul id="main-menu" class="text-left mx-auto lg:visible lg:flex lg:flex-wrap lg:justify-center mt-4 p-0 mb-0

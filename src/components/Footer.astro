@@ -1,11 +1,13 @@
 ---
-import { Icon } from 'astro-icon/components';
+import ArrowUpIcon from '../icons/arrow-up-circle-solid.svg';
+import DarkLogo from '../icons/a11ying-dark.svg';
+import LightLogo from '../icons/a11ying-light.svg';
 ---
 
 <footer class="p-4-px lg:px-8-px lg:py-4-px border-t-8 border-solid border-blue-tory bg-lt-blue-light dark:bg-dk-purple">
   <div class="text-center">
     <button id="back-to-top" class="text-center button--alternative hover--border item--transition">
-      <Icon name="arrow-up-circle-solid" class="h-12 w-12 mx-auto" />
+      <ArrowUpIcon class="h-12 w-12 mx-auto" aria-hidden="true" />
       Back to top
     </button>
   </div>
@@ -18,8 +20,8 @@ import { Icon } from 'astro-icon/components';
     <div class="flex items-center">
       <div class="flex flex-col">
         <div class="md:-ml-4">
-          <Icon name="a11ying-dark" class="logo-dark" height="173" width="348" aria-hidden="true" />
-          <Icon name="a11ying-light" class="logo-light" height="173" width="348" aria-hidden="true" />
+          <DarkLogo class="logo-dark" height="173" width="348" aria-hidden="true" />
+          <LightLogo class="logo-light" height="173" width="348" aria-hidden="true" />
         </div>
         <nav aria-label="A11ying sites">
           <ul class="m-0 p-0 pt-2">
