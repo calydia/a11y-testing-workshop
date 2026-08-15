@@ -9,6 +9,7 @@ import CommunityResourcesDirectoryFixture from '../components/exercise/fixtures/
 import CommunityEventsDashboardFixture from '../components/exercise/fixtures/CommunityEventsDashboardFixture.astro';
 import CommunityLibraryNoticeboardFixture from '../components/exercise/fixtures/CommunityLibraryNoticeboardFixture.astro';
 import AccountSettingsDialogsFixture from '../components/exercise/fixtures/AccountSettingsDialogsFixture.astro';
+import CommunityEventsFinderFixture from '../components/exercise/fixtures/CommunityEventsFinderFixture.astro';
 
 export interface InlineFixture {
   kind: 'inline';
@@ -142,6 +143,18 @@ export const fixtureRegistry: Record<string, ExerciseFixtureDefinition> = {
       'background-remains-interactive',
       'escape-not-supported',
       'focus-not-restored',
+    ],
+  },
+  'community-events-finder': {
+    kind: 'document',
+    component: CommunityEventsFinderFixture,
+    title: 'Community events finder controls exercise',
+    intentionalViolations: [
+      'stale-disclosure-state',
+      'navigation-exposed-as-button',
+      'stale-switch-state',
+      'visible-label-name-conflict',
+      'unannounced-filter-results',
     ],
   },
 };

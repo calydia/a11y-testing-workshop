@@ -23,6 +23,7 @@ const stages = [
 
 const conferenceMethods = [
   ['Testing page structure and links with a screen reader', '/methods/screen-reader-page-structure-and-links/'],
+  ['Testing controls with a screen reader', '/methods/testing-controls-with-a-screen-reader/'],
   ['Testing image alternative text', '/methods/testing-image-alternative-text/'],
   ['Testing icons and SVGs with a screen reader', '/methods/screen-reader-icons-and-svg/'],
   ['Testing language changes with a screen reader', '/methods/screen-reader-language-changes/'],
@@ -136,10 +137,10 @@ test('conference journey renders intermediate metadata, scenario, and navigation
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Reviewing a community conference programme');
   const meta = page.locator('[data-journey-meta]');
   await expect(meta).toContainText('Difficulty: intermediate');
-  await expect(meta).toContainText('Estimated time: 75 minutes');
+  await expect(meta).toContainText('Estimated time: 90 minutes');
   await expect(page.locator('[data-journey-scenario]')).toContainText('preparing to publish its programme');
   await expect(page.locator('[data-journey-role]')).toContainText('Accessibility tester reviewing a conference programme before publication');
-  await expect(page.locator('[data-journey-objectives] li')).toHaveCount(6);
+  await expect(page.locator('[data-journey-objectives] li')).toHaveCount(7);
   await expect(page.getByRole('navigation', { name: 'Breadcrumbs' }).getByRole('listitem')).toHaveText([
     'Home/', 'Testing journeys/', 'Reviewing a community conference programme',
   ]);
@@ -152,10 +153,10 @@ test('conference journey renders intermediate metadata, scenario, and navigation
   await expect(navigation.getByRole('link', { name: 'Reviewing a community conference programme' })).toHaveAttribute('aria-current', 'page');
 });
 
-test('conference journey lists five screen-reader methods and its recommended path', async ({ page }) => {
+test('conference journey lists six screen-reader methods and its recommended path', async ({ page }) => {
   await page.goto(conferenceJourneyPath);
   const methodItems = page.locator('[data-journey-methods] > li');
-  await expect(methodItems).toHaveCount(5);
+  await expect(methodItems).toHaveCount(6);
   for (const [index, [title, href]] of conferenceMethods.entries()) {
     await expect(methodItems.nth(index).getByRole('link', { name: title })).toHaveAttribute('href', href);
   }
@@ -164,7 +165,7 @@ test('conference journey lists five screen-reader methods and its recommended pa
   await expect(preparation.locator('[data-preparation-type="exercise"]')).toHaveCount(0);
   await expect(preparation.getByRole('link', { name: 'Practical screen-reader testing' })).toHaveAttribute('href', '/learn/practical-screen-reader-testing/');
   await expect(preparation).toContainText('Level: beginner');
-  await expect(preparation).toContainText('Estimated time: 220 minutes');
+  await expect(preparation).toContainText('Estimated time: 270 minutes');
   await expect(preparation).not.toContainText('Exercise solution');
 });
 
@@ -175,9 +176,9 @@ test('conference journey renders six task-led stages and five deliverables', asy
   await expect(stageItems.getByRole('heading', { level: 3 })).toHaveText(conferenceStages);
   await expect(stageItems.nth(0).locator('[data-stage-methods]')).toHaveCount(0);
   await expect(stageItems.nth(1).getByRole('link')).toHaveText([conferenceMethods[0][0]]);
-  await expect(stageItems.nth(2).getByRole('link')).toHaveText([conferenceMethods[1][0], conferenceMethods[2][0], conferenceMethods[0][0]]);
-  await expect(stageItems.nth(3).getByRole('link')).toHaveText([conferenceMethods[3][0]]);
-  await expect(stageItems.nth(4).getByRole('link')).toHaveText([conferenceMethods[4][0], conferenceMethods[0][0], conferenceMethods[2][0]]);
+  await expect(stageItems.nth(2).getByRole('link')).toHaveText([conferenceMethods[1][0], conferenceMethods[2][0], conferenceMethods[3][0], conferenceMethods[0][0]]);
+  await expect(stageItems.nth(3).getByRole('link')).toHaveText([conferenceMethods[4][0]]);
+  await expect(stageItems.nth(4).getByRole('link')).toHaveText([conferenceMethods[1][0], conferenceMethods[5][0], conferenceMethods[0][0], conferenceMethods[3][0]]);
   await expect(stageItems.nth(5).getByRole('link')).toHaveText(conferenceMethods.map(([title]) => title));
   await expect(page.locator('[data-journey-deliverables] li')).toHaveCount(5);
 });
