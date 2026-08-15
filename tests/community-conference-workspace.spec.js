@@ -29,6 +29,16 @@ test('workspace contains the intended structural, graphical, and language cases'
   await expect(page.getByRole('link', { name: 'Harbor Hall venue and arrival information' })).toBeVisible();
 });
 
+test('workspace adds a named schedule table without replacing session cards', async ({ page }) => {
+  await page.goto(workspacePath);
+  const table = page.getByRole('table', { name: 'Conference schedule at a glance' });
+  await expect(table).toHaveCount(1);
+  await expect(table.getByRole('columnheader')).toHaveText(['Time', 'Friday', 'Saturday', 'Room']);
+  await expect(table.getByRole('rowheader')).toHaveText(['09:30', '10:00', '11:15']);
+  await expect(table.getByRole('cell', { name: 'No session' })).toHaveCount(3);
+  await expect(page.locator('.session-card')).toHaveCount(3);
+});
+
 test('workspace automated findings stay within the approved boundary', async ({ page }) => {
   await page.goto(workspacePath);
   const initial = await new AxeBuilder({ page }).analyze();

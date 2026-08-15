@@ -10,6 +10,7 @@ import CommunityEventsDashboardFixture from '../components/exercise/fixtures/Com
 import CommunityLibraryNoticeboardFixture from '../components/exercise/fixtures/CommunityLibraryNoticeboardFixture.astro';
 import AccountSettingsDialogsFixture from '../components/exercise/fixtures/AccountSettingsDialogsFixture.astro';
 import CommunityEventsFinderFixture from '../components/exercise/fixtures/CommunityEventsFinderFixture.astro';
+import CommunityCourseTimetableFixture from '../components/exercise/fixtures/CommunityCourseTimetableFixture.astro';
 
 export interface InlineFixture {
   kind: 'inline';
@@ -155,6 +156,18 @@ export const fixtureRegistry: Record<string, ExerciseFixtureDefinition> = {
       'stale-switch-state',
       'visible-label-name-conflict',
       'unannounced-filter-results',
+    ],
+  },
+  'community-course-timetable': {
+    kind: 'document',
+    component: CommunityCourseTimetableFixture,
+    title: 'Community course timetable screen-reader exercise',
+    intentionalViolations: [
+      'missing-table-name',
+      'weekday-cells-not-headers',
+      'time-cells-not-headers',
+      'incorrect-time-header-scope',
+      'ambiguous-empty-cells',
     ],
   },
 };

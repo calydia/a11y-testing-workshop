@@ -30,6 +30,11 @@ const controlsMethod = {
   title: 'Testing controls with a screen reader',
 };
 
+const dataTablesMethod = {
+  path: '/methods/testing-data-tables-with-a-screen-reader/',
+  title: 'Testing data tables with a screen reader',
+};
+
 const formsValidationMethod = {
   path: '/methods/testing-forms-and-validation/',
   title: 'Testing forms and validation',
@@ -60,6 +65,7 @@ const methods = [
   zoomMethod,
   automatedMethod,
   screenReaderMethods[0],
+  dataTablesMethod,
   controlsMethod,
   imageAlternativeMethod,
   formsValidationMethod,
@@ -72,6 +78,7 @@ const methodExercises = new Map([
   [zoomMethod.path, ['Testing an appointment booking at high zoom', '/exercises/testing-an-appointment-booking-at-high-zoom/', '20 minutes']],
   [automatedMethod.path, ['Comparing automated and manual findings', '/exercises/comparing-automated-and-manual-findings/', '20 minutes']],
   [screenReaderMethods[0].path, ['Reviewing structure and links in a community resources directory', '/exercises/reviewing-structure-and-links-in-a-community-resources-directory/', '20 minutes']],
+  [dataTablesMethod.path, ['Testing a community-course timetable with a screen reader', '/exercises/testing-a-community-course-timetable-with-a-screen-reader/', '25 minutes']],
   [controlsMethod.path, ['Testing controls in a community events finder', '/exercises/testing-controls-in-a-community-events-finder/', '25 minutes']],
   [imageAlternativeMethod.path, ['Evaluating image alternative text in context', '/exercises/evaluating-image-alternative-text-in-context/', '20 minutes']],
   [formsValidationMethod.path, ['Testing a community-course registration form', '/exercises/testing-a-community-course-registration-form/', '25 minutes']],

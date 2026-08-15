@@ -1,0 +1,101 @@
+<main class="fixture-shell">
+  <a href="/exercises/testing-a-community-course-timetable-with-a-screen-reader/">Return to the exercise</a>
+
+  <header>
+    <p class="eyebrow">Riverside Community Centre</p>
+    <h1>Autumn course timetable</h1>
+    <p>Compare course times, choose a suitable session, and check the venue information before booking.</p>
+  </header>
+
+  <section aria-labelledby="timetable-heading">
+    <h2 id="timetable-heading">Weekly timetable</h2>
+    <p>Courses run from 7 September to 30 November. All times use Eastern European Time.</p>
+    <div class="table-scroll" tabindex="0" role="region" aria-label="Scrollable weekly timetable">
+      <table class="course-table">
+        <thead>
+          <tr>
+            <th scope="row">Time</th>
+            <td>Monday</td>
+            <td>Wednesday</td>
+            <td>Saturday</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>09:00–10:30</td>
+            <td>Gentle yoga</td>
+            <td></td>
+            <td>Family pottery</td>
+          </tr>
+          <tr>
+            <td>13:00–14:30</td>
+            <td></td>
+            <td>Everyday Finnish</td>
+            <td>Community gardening</td>
+          </tr>
+          <tr>
+            <td>18:00–19:30</td>
+            <td>Beginner photography</td>
+            <td>Repair and reuse</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section aria-labelledby="venue-heading">
+    <h2 id="venue-heading">Venue information</h2>
+    <div class="table-scroll" tabindex="0" role="region" aria-label="Scrollable venue information">
+      <table class="venue-table">
+        <caption>Course rooms and arrival information</caption>
+        <thead>
+          <tr>
+            <th scope="col">Room</th>
+            <th scope="col">Floor</th>
+            <th scope="col">Step-free route</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Studio</th>
+            <td>Ground floor</td>
+            <td>Main entrance</td>
+          </tr>
+          <tr>
+            <th scope="row">Workshop room</th>
+            <td>First floor</td>
+            <td>Courtyard lift</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<style>
+  :global(*) { box-sizing: border-box; }
+  :global(body) { margin: 0; background: #fafafa; color: #4d4d4d; font-family: 'Atkinson Hyperlegible', Arial, sans-serif; font-size: 1.125rem; line-height: 1.5; }
+  .fixture-shell { max-width: 62rem; margin: 0 auto; padding: 1.5rem; }
+  header { margin-block: 2rem 2.5rem; }
+  .eyebrow { margin: 0; font-weight: 700; }
+  h1 { margin-block: .25rem .75rem; color: #333; font-size: clamp(2rem, 8vw, 3.5rem); line-height: 1.1; }
+  h2 { margin-block: 2.5rem .75rem; color: #333; font-size: 1.75rem; }
+  p { margin-block: 0 1rem; }
+  a { color: #033573; text-underline-offset: .2em; }
+  a:hover { text-decoration-thickness: .15em; }
+  a:focus, .table-scroll:focus { outline: 2px solid #000; outline-offset: 4px; box-shadow: 0 0 0 2px #fff; }
+  .table-scroll { max-width: 100%; overflow-x: auto; margin-block: 1rem 2rem; }
+  table { width: 100%; min-width: 42rem; border-collapse: collapse; }
+  caption { padding-block: 0 1rem; color: #333; font-size: 1.25rem; font-weight: 700; text-align: left; }
+  th, td { padding: .8rem; border: 2px solid #6f81b8; text-align: left; vertical-align: top; }
+  th { background: #e7ebfa; color: #333; }
+  .course-table thead td { background: #e7ebfa; color: #333; font-weight: 700; }
+  :global(.dark body) { background: #010017; color: #ababab; }
+  :global(.dark) h1, :global(.dark) h2, :global(.dark) caption { color: #cfcfcf; }
+  :global(.dark) a { color: #ade5f8; }
+  :global(.dark) a:focus, :global(.dark) .table-scroll:focus { outline-color: #fff; box-shadow: 0 0 0 2px #010017; }
+  :global(.dark) th, :global(.dark) td { border-color: #4764bd; }
+  :global(.dark) th, :global(.dark) .course-table thead td { background: #100842; color: #cfcfcf; }
+  @media (max-width: 48rem) { .fixture-shell { padding: 1rem; } th, td { padding: .65rem; } }
+</style>

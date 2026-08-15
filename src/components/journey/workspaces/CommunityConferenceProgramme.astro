@@ -34,6 +34,40 @@ import speakerPhoto from '../../../images/man-working.jpg';
     <h2 id="programme-heading" tabindex="-1">Programme</h2>
     <p>Choose sessions to build a personal schedule. Times use Eastern European Summer Time.</p>
 
+    <div class="schedule-table-wrap" tabindex="0" role="region" aria-label="Scrollable conference schedule">
+      <table class="schedule-table">
+        <caption>Conference schedule at a glance</caption>
+        <thead>
+          <tr>
+            <th scope="col">Time</th>
+            <th scope="col">Friday</th>
+            <th scope="col">Saturday</th>
+            <th scope="col">Room</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">09:30</th>
+            <td>Designing public spaces with communities</td>
+            <td>No session</td>
+            <td>Main hall</td>
+          </tr>
+          <tr>
+            <th scope="row">10:00</th>
+            <td>No session</td>
+            <td>Accessible culture in everyday places</td>
+            <td>Community room</td>
+          </tr>
+          <tr>
+            <th scope="row">11:15</th>
+            <td>Making neighbourhood data understandable</td>
+            <td>No session</td>
+            <td>Workshop room 2</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
     <section class="programme-day" aria-labelledby="friday-heading">
       <h3 id="friday-heading">Friday</h3>
 
@@ -188,6 +222,11 @@ import speakerPhoto from '../../../images/man-working.jpg';
   .venue-link { display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 700; }
   .venue-link svg { width: 1.5rem; fill: currentColor; }
   .programme-day { margin-block: 2rem; }
+  .schedule-table-wrap { max-width: 100%; overflow-x: auto; margin-block: 1.5rem 2rem; }
+  .schedule-table { width: 100%; min-width: 48rem; border-collapse: collapse; }
+  .schedule-table caption { padding-block: 0 0.75rem; color: #333; font-size: 1.3rem; font-weight: 700; text-align: left; }
+  .schedule-table th, .schedule-table td { padding: 0.75rem; border: 2px solid #bbc9f7; text-align: left; vertical-align: top; }
+  .schedule-table th { background: #eef1fb; }
   .session-card { margin-block: 1rem; padding: 1.25rem; border: 2px solid #bbc9f7; }
   .speaker { display: flex; gap: 1rem; align-items: center; }
   .speaker img { width: 7rem; height: 7rem; object-fit: cover; border-radius: 50%; }
@@ -210,6 +249,9 @@ import speakerPhoto from '../../../images/man-working.jpg';
 
   :global(.dark body) { background: #010017; color: #ababab; }
   :global(.dark) h1, :global(.dark) h2, :global(.dark) h3, :global(.dark) h4, :global(.dark) h5 { color: #cfcfcf; }
+  :global(.dark) .schedule-table caption { color: #cfcfcf; }
+  :global(.dark) .schedule-table th, :global(.dark) .schedule-table td { border-color: #18399a; }
+  :global(.dark) .schedule-table th { background: #100842; }
   :global(.dark) a { color: #ade5f8; }
   :global(.dark) .conference-header, :global(.dark) .community-note { background: #070038; border-color: #46037e; }
   :global(.dark) .header-mark { stroke: #ade5f8; }

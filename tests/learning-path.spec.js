@@ -22,6 +22,8 @@ const expectedScreenReaderSteps = [
   ['Path checkpoint', 'Prepare your screen reader', '#prepare-your-screen-reader'],
   ['Testing method', 'Testing page structure and links with a screen reader', '/methods/screen-reader-page-structure-and-links/'],
   ['Exercise', 'Reviewing structure and links in a community resources directory', '/exercises/reviewing-structure-and-links-in-a-community-resources-directory/'],
+  ['Testing method', 'Testing data tables with a screen reader', '/methods/testing-data-tables-with-a-screen-reader/'],
+  ['Exercise', 'Testing a community-course timetable with a screen reader', '/exercises/testing-a-community-course-timetable-with-a-screen-reader/'],
   ['Testing method', 'Testing controls with a screen reader', '/methods/testing-controls-with-a-screen-reader/'],
   ['Exercise', 'Testing controls in a community events finder', '/exercises/testing-controls-in-a-community-events-finder/'],
   ['Testing method', 'Testing image alternative text', '/methods/testing-image-alternative-text/'],
@@ -45,7 +47,7 @@ test('Learning paths listing publishes the first path', async ({ page }) => {
   await expect(page.getByRole('link', { name: 'Practical screen-reader testing' })).toHaveAttribute('href', screenReaderPathUrl);
   await expect(page.getByText('recommended broad starting point', { exact: false })).toBeVisible();
   await expect(page.getByText('independently or after the first path', { exact: false })).toBeVisible();
-  await expect(page.getByText('controls, images, graphics, language changes, and modal dialogs', { exact: false })).toBeVisible();
+  await expect(page.getByText('data tables, controls, images, graphics, language changes, and modal dialogs', { exact: false })).toBeVisible();
 });
 
 test('each Learning path explains what its total estimate includes', async ({ page }) => {
@@ -153,8 +155,8 @@ test('Practical screen-reader testing renders independent metadata, outcomes, an
   expect(response?.ok()).toBe(true);
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Practical screen-reader testing');
   await expect(page.locator('[data-learning-path-meta]')).toContainText('Level: beginner');
-  await expect(page.locator('[data-learning-path-meta]')).toContainText('Estimated time: About 4 hours 30 minutes');
-  await expect(page.locator('[data-learning-outcomes] li')).toHaveCount(7);
+  await expect(page.locator('[data-learning-path-meta]')).toContainText('Estimated time: About 5 hours 20 minutes');
+  await expect(page.locator('[data-learning-outcomes] li')).toHaveCount(8);
 
   const breadcrumb = page.getByRole('navigation', { name: 'Breadcrumbs' }).getByRole('listitem');
   await expect(breadcrumb).toHaveText(['Home/', 'Learning paths/', 'Practical screen-reader testing']);

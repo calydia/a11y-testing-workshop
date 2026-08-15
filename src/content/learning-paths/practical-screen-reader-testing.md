@@ -1,18 +1,19 @@
 ---
 title: Practical screen-reader testing
-summary: Learn focused screen-reader techniques through guided methods and independent Exercises for structure, controls, images, graphics, language changes, and modal dialogs.
-description: Build practical beginner skills for testing page structure, common controls, images, graphics, language changes, and modal dialogs with a screen reader.
+summary: Learn focused screen-reader techniques through guided methods and independent Exercises for structure, data tables, controls, images, graphics, language changes, and modal dialogs.
+description: Build practical beginner skills for testing page structure, data tables, common controls, images, graphics, language changes, and modal dialogs with a screen reader.
 status: published
 order: 20
-topics: [beginner, screen readers, headings, links, controls, roles, states, images, SVG, language, modal dialogs]
+topics: [beginner, screen readers, headings, links, data tables, captions, headers, controls, roles, states, images, SVG, language, modal dialogs]
 prerequisites:
   - Basic familiarity with using a web browser
   - Basic keyboard use
 level: beginner
-estimatedMinutes: 270
+estimatedMinutes: 320
 outcomes:
   - Prepare one compatible screen-reader and browser combination for focused testing.
   - Navigate and assess headings and links using sequential and element-based navigation.
+  - Navigate data tables and assess their names, dimensions, and row-and-column relationships.
   - Test common control names, roles, states, values, keyboard operation, and result announcements.
   - Evaluate image alternatives, icons, and SVGs according to their purpose and context.
   - Investigate language changes while accounting for installed voices and platform support.
@@ -26,6 +27,10 @@ steps:
     entry: screen-reader-page-structure-and-links
   - type: exercise
     entry: reviewing-structure-and-links-in-a-community-resources-directory
+  - type: method
+    entry: testing-data-tables-with-a-screen-reader
+  - type: exercise
+    entry: testing-a-community-course-timetable-with-a-screen-reader
   - type: method
     entry: testing-controls-with-a-screen-reader
   - type: exercise
@@ -68,7 +73,7 @@ Commands, mode names, speech output, and supported behavior differ across screen
 
 ## Where to go next
 
-Apply the methods together in [Reviewing a community conference programme](/journeys/reviewing-a-community-conference-programme/). The journey uses one realistic programme to combine structure, common controls, graphical content, language changes, and modal-dialog testing.
+Apply the methods together in [Reviewing a community conference programme](/journeys/reviewing-a-community-conference-programme/). The journey uses one realistic programme to combine structure, schedule-table navigation, common controls, graphical content, language changes, and modal-dialog testing.
 
 Use [Your first accessibility review](/learn/your-first-accessibility-review/) when you want a broader foundation in automated, keyboard, visual, zoom, and forms testing. You can complete it before or after this focused path.
 
@@ -76,6 +81,6 @@ Each Testing method is followed by an Exercise so you can apply its procedure in
 
 ## Keep the scope in mind
 
-These six focused techniques do not represent every screen-reader experience or every combination of assistive technology, browser, and platform. For a real service, test with relevant environments and involve disabled people whose experiences and ways of using technology may differ from your own.
+These seven focused techniques do not represent every screen-reader experience or every combination of assistive technology, browser, and platform. For a real service, test with relevant environments and involve disabled people whose experiences and ways of using technology may differ from your own.
 
 [Read about the full scope and limitations of the Lab](/about/), including what its technical checks can and cannot establish.
