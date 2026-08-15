@@ -14,6 +14,7 @@ import CommunityCourseTimetableFixture from '../components/exercise/fixtures/Com
 import CommunityServicesTextSpacingFixture from '../components/exercise/fixtures/CommunityServicesTextSpacingFixture.astro';
 import PublicTransportJourneyPlannerFixture from '../components/exercise/fixtures/PublicTransportJourneyPlannerFixture.astro';
 import ParcelTrackingMotionFixture from '../components/exercise/fixtures/ParcelTrackingMotionFixture.astro';
+import CommunityFestivalTouchFixture from '../components/exercise/fixtures/CommunityFestivalTouchFixture.astro';
 
 export interface InlineFixture {
   kind: 'inline';
@@ -208,6 +209,18 @@ export const fixtureRegistry: Record<string, ExerciseFixtureDefinition> = {
       'unreduced-details-transition',
       'unreduced-scroll-motion',
       'unreduced-confirmation-motion',
+    ],
+  },
+  'community-festival-touch': {
+    kind: 'document',
+    component: CommunityFestivalTouchFixture,
+    title: 'Community festival mobile touch exercise',
+    intentionalViolations: [
+      'undersized-map-control-cluster',
+      'restricted-mobile-landscape',
+      'pinch-only-map-zoom',
+      'swipe-only-schedule',
+      'down-event-session-removal',
     ],
   },
 };

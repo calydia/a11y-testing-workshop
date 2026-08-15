@@ -1,0 +1,259 @@
+<main class="fixture-shell" id="festival-touch">
+  <a class="return-link" href="/exercises/testing-touch-interaction-on-a-community-festival-map/">Return to the exercise</a>
+
+  <header>
+    <p class="eyebrow">Riverside Community Festival</p>
+    <h1>Festival map and schedule</h1>
+    <p>Explore stages, facilities, sessions, and saved plans for Saturday.</p>
+  </header>
+
+  <section class="simulation-panel" aria-labelledby="simulation-heading">
+    <h2 id="simulation-heading">Narrow-landscape learning simulation</h2>
+    <p>This layout aid is useful when you cannot rotate the current device. It does not reproduce physical touch, reach, browser behavior, or every mobile viewport.</p>
+    <button class="simulation-toggle" type="button" aria-pressed="false">Apply narrow-landscape simulation</button>
+  </section>
+
+  <div class="orientation-blocker" role="region" aria-labelledby="orientation-heading">
+    <h2 id="orientation-heading">Please rotate your device</h2>
+    <p>The festival map and schedule are available in portrait orientation.</p>
+    <button class="simulation-reset" type="button">Return to portrait simulation</button>
+  </div>
+
+  <div class="festival-content">
+    <section class="festival-panel" aria-labelledby="map-heading">
+      <h2 id="map-heading">Festival map</h2>
+      <div class="map-toolbar" aria-label="Map display options">
+        <button type="button" aria-label="Show information points">i</button>
+        <button type="button" aria-label="Show food locations">F</button>
+        <button type="button" aria-label="Show toilets">T</button>
+      </div>
+
+      <div class="festival-map" role="img" aria-label="Map showing Riverside Park stages and facilities">
+        <span class="map-label main-stage">Main stage</span>
+        <span class="map-label workshop-tent">Workshop tent</span>
+        <span class="map-label food-court">Food court</span>
+      </div>
+      <p class="map-scale" role="status" aria-live="polite">Map zoom: 100%</p>
+      <button class="center-map" type="button">Center map on Main stage</button>
+
+      <div class="comparison-toolbar" aria-label="Map view shortcuts">
+        <button type="button">Stages</button>
+        <button type="button">Facilities</button>
+        <button type="button">Quiet areas</button>
+      </div>
+      <p class="map-action-status" role="status" aria-live="polite"></p>
+    </section>
+
+    <section class="festival-panel" aria-labelledby="schedule-heading">
+      <h2 id="schedule-heading">Featured schedule</h2>
+      <p>Swipe horizontally across the card to browse featured sessions.</p>
+      <div class="featured-schedule" tabindex="0" aria-label="Featured festival sessions">
+        <article>
+          <h3 class="featured-title">Opening concert</h3>
+          <p class="featured-time">10:00 at Main stage</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="festival-panel" aria-labelledby="comparison-schedule-heading">
+      <h2 id="comparison-schedule-heading">Workshop schedule</h2>
+      <article class="comparison-session" aria-live="polite">
+        <h3 class="comparison-title">Community gardening</h3>
+        <p class="comparison-time">11:00 at Workshop tent</p>
+      </article>
+      <div class="schedule-controls">
+        <button class="previous-session" type="button">Previous workshop</button>
+        <button class="next-session" type="button">Next workshop</button>
+      </div>
+    </section>
+
+    <section class="festival-panel" aria-labelledby="saved-heading">
+      <h2 id="saved-heading">Saved sessions</h2>
+      <ul class="saved-list">
+        <li class="saved-session-primary">
+          <span>Music workshop · 13:00</span>
+          <button class="remove-primary" type="button">Remove music workshop</button>
+        </li>
+        <li class="saved-session-comparison">
+          <span>Community lunch · 14:30</span>
+          <button class="remove-comparison" type="button">Remove community lunch</button>
+        </li>
+      </ul>
+      <p class="removal-status" role="status" aria-live="polite"></p>
+    </section>
+  </div>
+</main>
+
+<script>
+  const root = document.querySelector<HTMLElement>('#festival-touch');
+  const simulationToggle = document.querySelector<HTMLButtonElement>('.simulation-toggle');
+  const simulationReset = document.querySelector<HTMLButtonElement>('.simulation-reset');
+  const map = document.querySelector<HTMLElement>('.festival-map');
+  const mapScale = document.querySelector<HTMLElement>('.map-scale');
+  const centerMap = document.querySelector<HTMLButtonElement>('.center-map');
+  const mapActionStatus = document.querySelector<HTMLElement>('.map-action-status');
+
+  const setSimulation = (active: boolean) => {
+    root?.classList.toggle('simulate-landscape', active);
+    simulationToggle?.setAttribute('aria-pressed', String(active));
+    if (simulationToggle) simulationToggle.textContent = active ? 'Reset narrow-landscape simulation' : 'Apply narrow-landscape simulation';
+  };
+  simulationToggle?.addEventListener('click', () => setSimulation(!root?.classList.contains('simulate-landscape')));
+  simulationReset?.addEventListener('click', () => {
+    setSimulation(false);
+    simulationToggle?.focus();
+  });
+
+  const activePointers = new Map<number, { x: number; y: number }>();
+  let initialPinchDistance: number | undefined;
+  let currentScale = 100;
+  const pointerDistance = () => {
+    const points = [...activePointers.values()];
+    if (points.length < 2) return undefined;
+    return Math.hypot(points[0].x - points[1].x, points[0].y - points[1].y);
+  };
+  map?.addEventListener('pointerdown', (event) => {
+    activePointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
+    if (activePointers.size === 2) initialPinchDistance = pointerDistance();
+  });
+  map?.addEventListener('pointermove', (event) => {
+    if (!activePointers.has(event.pointerId)) return;
+    activePointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
+    const distance = pointerDistance();
+    if (!distance || !initialPinchDistance || Math.abs(distance - initialPinchDistance) < 20) return;
+    currentScale = distance > initialPinchDistance ? 125 : 80;
+    root?.style.setProperty('--map-scale', String(currentScale / 100));
+    if (mapScale) mapScale.textContent = `Map zoom: ${currentScale}%`;
+  });
+  const clearPointer = (event: PointerEvent) => {
+    activePointers.delete(event.pointerId);
+    if (activePointers.size < 2) initialPinchDistance = undefined;
+  };
+  map?.addEventListener('pointerup', clearPointer);
+  map?.addEventListener('pointercancel', clearPointer);
+
+  centerMap?.addEventListener('click', () => {
+    if (mapActionStatus) mapActionStatus.textContent = 'Map centered on Main stage.';
+  });
+
+  const featured = [
+    ['Opening concert', '10:00 at Main stage'],
+    ['Accessible crafts', '12:00 at Workshop tent'],
+    ['Community choir', '15:00 at Main stage'],
+  ];
+  const featuredSchedule = document.querySelector<HTMLElement>('.featured-schedule');
+  const featuredTitle = document.querySelector<HTMLElement>('.featured-title');
+  const featuredTime = document.querySelector<HTMLElement>('.featured-time');
+  let featuredIndex = 0;
+  let swipeStart: number | undefined;
+  featuredSchedule?.addEventListener('pointerdown', (event) => { swipeStart = event.clientX; });
+  featuredSchedule?.addEventListener('pointerup', (event) => {
+    if (swipeStart === undefined || Math.abs(event.clientX - swipeStart) < 50) { swipeStart = undefined; return; }
+    featuredIndex = event.clientX < swipeStart ? (featuredIndex + 1) % featured.length : (featuredIndex + featured.length - 1) % featured.length;
+    if (featuredTitle) featuredTitle.textContent = featured[featuredIndex][0];
+    if (featuredTime) featuredTime.textContent = featured[featuredIndex][1];
+    swipeStart = undefined;
+  });
+  featuredSchedule?.addEventListener('pointercancel', () => { swipeStart = undefined; });
+
+  const workshops = [
+    ['Community gardening', '11:00 at Workshop tent'],
+    ['Repair café', '13:30 at Workshop tent'],
+    ['Local history stories', '16:00 at Workshop tent'],
+  ];
+  const comparisonTitle = document.querySelector<HTMLElement>('.comparison-title');
+  const comparisonTime = document.querySelector<HTMLElement>('.comparison-time');
+  let workshopIndex = 0;
+  const showWorkshop = (direction: number) => {
+    workshopIndex = (workshopIndex + direction + workshops.length) % workshops.length;
+    if (comparisonTitle) comparisonTitle.textContent = workshops[workshopIndex][0];
+    if (comparisonTime) comparisonTime.textContent = workshops[workshopIndex][1];
+  };
+  document.querySelector('.previous-session')?.addEventListener('click', () => showWorkshop(-1));
+  document.querySelector('.next-session')?.addEventListener('click', () => showWorkshop(1));
+
+  const primaryRemoval = document.querySelector<HTMLButtonElement>('.remove-primary');
+  primaryRemoval?.addEventListener('pointerdown', () => {
+    document.querySelector('.saved-session-primary')?.remove();
+  });
+  primaryRemoval?.addEventListener('click', (event) => {
+    if (event.detail === 0) document.querySelector('.saved-session-primary')?.remove();
+  });
+
+  const comparisonRemoval = document.querySelector<HTMLButtonElement>('.remove-comparison');
+  const removalStatus = document.querySelector<HTMLElement>('.removal-status');
+  let comparisonPending = false;
+  comparisonRemoval?.addEventListener('pointerdown', () => { comparisonPending = true; });
+  comparisonRemoval?.addEventListener('pointercancel', () => { comparisonPending = false; });
+  comparisonRemoval?.addEventListener('pointerup', () => {
+    if (!comparisonPending) return;
+    comparisonPending = false;
+    document.querySelector('.saved-session-comparison')?.remove();
+    if (removalStatus) removalStatus.textContent = 'Community lunch removed from saved sessions.';
+  });
+  comparisonRemoval?.addEventListener('click', (event) => {
+    if (event.detail !== 0) return;
+    document.querySelector('.saved-session-comparison')?.remove();
+    if (removalStatus) removalStatus.textContent = 'Community lunch removed from saved sessions.';
+  });
+</script>
+
+<style>
+  :global(*) { box-sizing: border-box; }
+  :global(body) { margin: 0; background: #fafafa; color: #4d4d4d; font-family: 'Atkinson Hyperlegible', Arial, sans-serif; font-size: 1.125rem; line-height: 1.5; }
+  .fixture-shell { --map-scale: 1; max-width: 58rem; margin: 0 auto; padding: 1.5rem; }
+  header { margin-block: 2rem; }
+  .eyebrow { margin: 0; font-weight: 700; }
+  h1 { margin-block: .25rem .75rem; color: #333; font-size: clamp(2rem, 8vw, 3.5rem); line-height: 1.1; }
+  h2 { margin-block: 0 .75rem; color: #333; font-size: 1.75rem; }
+  h3 { margin-block: 0 .4rem; color: #333; }
+  p { margin-block: 0 1rem; }
+  a { color: #033573; text-underline-offset: .2em; }
+  button { min-height: 2.75rem; padding: .6rem 1rem; border: 3px solid #033573; border-radius: .2rem; background: #033573; color: #fff; font: inherit; font-weight: 700; cursor: pointer; }
+  button:hover { background: transparent; color: #033573; }
+  a:focus, button:focus, [tabindex='0']:focus { outline: 3px solid #000; outline-offset: 3px; }
+  .simulation-panel, .festival-panel { margin-block: 1.5rem; padding: 1.25rem; border: 2px solid #bbc9f7; }
+  .simulation-panel { background: #eef1fb; }
+  .orientation-blocker { display: none; }
+  .map-toolbar { display: flex; gap: 2px; margin-block: 1rem; }
+  .map-toolbar button { width: 20px; min-width: 20px; height: 20px; min-height: 20px; padding: 0; border-width: 1px; font-size: .75rem; line-height: 1; }
+  .festival-map { position: relative; min-height: 17rem; overflow: hidden; border: 2px solid #6f81b8; background: linear-gradient(135deg, #dce4ff, #eee6ff); touch-action: none; transform: scale(var(--map-scale)); transform-origin: center; }
+  .map-label { position: absolute; padding: .25rem .45rem; border: 2px solid #4d4d4d; background: #fff; color: #222; font-weight: 700; }
+  .main-stage { inset: 15% auto auto 12%; }
+  .workshop-tent { inset: 55% 12% auto auto; }
+  .food-court { inset: auto auto 12% 38%; }
+  .comparison-toolbar { display: flex; flex-wrap: wrap; gap: 12px; margin-block: 1.25rem .5rem; }
+  .comparison-toolbar button { min-width: 44px; min-height: 44px; }
+  .map-scale, .map-action-status, .removal-status { min-height: 1.75rem; margin-block: .75rem; font-weight: 700; }
+  .featured-schedule, .comparison-session { min-height: 8rem; padding: 1rem; border-inline-start: .5rem solid #7147b8; background: #f4f1ff; touch-action: pan-y; }
+  .schedule-controls { display: flex; flex-wrap: wrap; gap: 1rem; margin-block-start: 1rem; }
+  .saved-list { display: grid; gap: 1rem; margin: 0; padding: 0; list-style: none; }
+  .saved-list li { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem; border: 2px solid #bbc9f7; }
+  .simulate-landscape .festival-content { visibility: hidden; }
+  .simulate-landscape .orientation-blocker { position: fixed; z-index: 10; inset: 0; display: grid; align-content: center; justify-items: center; padding: 2rem; background: #fafafa; color: #333; text-align: center; }
+  .simulation-reset { display: none; }
+  .simulate-landscape .simulation-reset { display: block; }
+
+  :global(.dark body) { background: #010017; color: #ababab; }
+  :global(.dark) h1, :global(.dark) h2, :global(.dark) h3 { color: #cfcfcf; }
+  :global(.dark) a { color: #ade5f8; }
+  :global(.dark) button { border-color: #ade5f8; background: #ade5f8; color: #010017; }
+  :global(.dark) button:hover { background: transparent; color: #ade5f8; }
+  :global(.dark) a:focus, :global(.dark) button:focus, :global(.dark) [tabindex='0']:focus { outline-color: #fff; }
+  :global(.dark) .simulation-panel, :global(.dark) .festival-panel, :global(.dark) .saved-list li { border-color: #18399a; }
+  :global(.dark) .simulation-panel { background: #100842; }
+  :global(.dark) .festival-map { border-color: #586db1; background: linear-gradient(135deg, #101945, #25164c); }
+  :global(.dark) .featured-schedule, :global(.dark) .comparison-session { background: #100842; }
+  :global(.dark) .simulate-landscape .orientation-blocker { background: #010017; color: #cfcfcf; }
+
+  @media (orientation: landscape) and (max-height: 500px) {
+    .festival-content { visibility: hidden; }
+    .orientation-blocker { position: fixed; z-index: 10; inset: 0; display: grid; align-content: center; justify-items: center; padding: 2rem; background: #fafafa; color: #333; text-align: center; }
+    :global(.dark) .orientation-blocker { background: #010017; color: #cfcfcf; }
+  }
+
+  @media (max-width: 42rem) {
+    .fixture-shell { padding: 1rem; }
+    .saved-list li { align-items: flex-start; flex-direction: column; }
+  }
+</style>
