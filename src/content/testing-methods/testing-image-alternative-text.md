@@ -3,7 +3,7 @@ title: Testing image alternative text
 summary: Decide what each image contributes in context and test whether its alternative communicates the same relevant purpose.
 description: Learn a context-first visual, screen-reader, and markup-inspection procedure for meaningful, decorative, functional, and complex images.
 status: published
-order: 15
+order: 16
 topics: [images, alternative text, screen readers, accessible names, content]
 prerequisites:
   - Basic use of one screen reader

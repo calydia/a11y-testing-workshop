@@ -3,7 +3,7 @@ title: Testing controls with a screen reader
 summary: Check whether common controls expose useful names, roles, states, values, keyboard behavior, and changes after interaction.
 description: Learn a repeatable beginner procedure for testing common controls with a screen reader.
 status: published
-order: 14
+order: 15
 topics: [screen readers, controls, accessible names, roles, states, keyboard]
 prerequisites: [Basic keyboard use, Basic use of one screen reader]
 skillLevel: beginner

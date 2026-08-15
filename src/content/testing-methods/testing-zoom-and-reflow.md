@@ -3,7 +3,7 @@ title: Testing zoom and reflow
 summary: Check whether content and functionality remain available when text is enlarged and the page reflows into a narrow CSS viewport.
 description: Learn repeatable procedures for testing 200% text resizing and the 320 CSS-pixel reflow condition.
 status: published
-order: 10
+order: 11
 topics: [zoom, reflow, text resizing, responsive design, low vision]
 prerequisites:
   - Basic familiarity with browser zoom controls and developer tools

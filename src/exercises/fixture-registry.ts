@@ -13,6 +13,7 @@ import CommunityEventsFinderFixture from '../components/exercise/fixtures/Commun
 import CommunityCourseTimetableFixture from '../components/exercise/fixtures/CommunityCourseTimetableFixture.astro';
 import CommunityServicesTextSpacingFixture from '../components/exercise/fixtures/CommunityServicesTextSpacingFixture.astro';
 import PublicTransportJourneyPlannerFixture from '../components/exercise/fixtures/PublicTransportJourneyPlannerFixture.astro';
+import ParcelTrackingMotionFixture from '../components/exercise/fixtures/ParcelTrackingMotionFixture.astro';
 
 export interface InlineFixture {
   kind: 'inline';
@@ -195,6 +196,18 @@ export const fixtureRegistry: Record<string, ExerciseFixtureDefinition> = {
       'missing-journey-field-boundaries',
       'missing-route-action-focus',
       'collapsed-route-colors',
+    ],
+  },
+  'parcel-tracking-motion': {
+    kind: 'document',
+    component: ParcelTrackingMotionFixture,
+    title: 'Parcel tracking motion preferences exercise',
+    intentionalViolations: [
+      'uncontrolled-route-motion',
+      'uncontrolled-updates-motion',
+      'unreduced-details-transition',
+      'unreduced-scroll-motion',
+      'unreduced-confirmation-motion',
     ],
   },
 };

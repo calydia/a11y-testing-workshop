@@ -1,0 +1,197 @@
+<main class="fixture-shell" id="parcel-tracker">
+  <a class="return-link" href="/exercises/testing-motion-preferences-on-a-parcel-tracking-dashboard/">Return to the exercise</a>
+
+  <header>
+    <p class="eyebrow">Riverside deliveries</p>
+    <h1>Track your parcel</h1>
+    <p>Parcel RP-2048 is travelling from the sorting centre to Riverside Library.</p>
+  </header>
+
+  <section class="simulation-panel" aria-labelledby="simulation-heading">
+    <h2 id="simulation-heading">Reduced-motion learning simulation</h2>
+    <p>This learning aid provides a stable comparison if you cannot change a real system motion preference. It does not reproduce every operating system, browser, or user configuration.</p>
+    <button class="simulation-toggle" type="button" aria-pressed="false">Apply reduced-motion simulation</button>
+  </section>
+
+  <div class="parcel-scene" aria-hidden="true">
+    <span>Riverside delivery route</span>
+  </div>
+
+  <section class="tracking-card" aria-labelledby="progress-heading">
+    <h2 id="progress-heading">Delivery progress</h2>
+    <p class="status-chip">Out for delivery</p>
+    <div class="route-track" aria-hidden="true"><span class="route-marker">●</span></div>
+    <p>Your parcel is expected today between 14:00 and 16:00.</p>
+  </section>
+
+  <section class="tracking-card" aria-labelledby="updates-heading">
+    <h2 id="updates-heading">Live updates</h2>
+    <div class="updates-window">
+      <p class="updates-track">Courier departed the sorting centre · Next stop Riverside district · Delivery remains on schedule</p>
+    </div>
+  </section>
+
+  <section class="tracking-card" aria-labelledby="details-heading">
+    <h2 id="details-heading">Tracking details</h2>
+    <button class="details-toggle" type="button" aria-expanded="false" aria-controls="tracking-details">Show tracking details</button>
+    <div id="tracking-details" class="details-panel" hidden>
+      <h3>Recent checkpoints</h3>
+      <ul>
+        <li>09:40 — Departed Riverside sorting centre</li>
+        <li>11:15 — Arrived in the library district</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="tracking-card" aria-labelledby="confirmation-heading">
+    <h2 id="confirmation-heading">Delivery confirmation</h2>
+    <p>Use this practice action to confirm that the parcel reached you.</p>
+    <button class="confirm-delivery" type="button">Confirm delivery</button>
+    <div class="celebration" aria-hidden="true"><span>★</span><span>★</span><span>★</span></div>
+    <p class="confirmation-status" role="status" aria-live="polite"></p>
+  </section>
+
+  <section class="tracking-card comparisons" aria-labelledby="comparisons-heading">
+    <h2 id="comparisons-heading">Delivery vehicle and account update</h2>
+    <div class="vehicle-road" aria-hidden="true"><span class="controlled-vehicle">▰</span></div>
+    <button class="vehicle-toggle" type="button" aria-pressed="false">Pause delivery vehicle animation</button>
+    <p class="account-update">Your delivery preferences are ready to update.</p>
+    <button class="update-preferences" type="button">Update delivery preferences</button>
+    <span class="pending-indicator" role="status" hidden>Updating preferences…</span>
+    <p class="preference-status" role="status" aria-live="polite"></p>
+  </section>
+
+  <aside class="safety-note" aria-labelledby="safety-heading">
+    <h2 id="safety-heading">Flashing safety</h2>
+    <p>This Exercise does not display hazardous flashing. Do not repeatedly watch or recreate suspected flashing; return to the Testing method for safe assessment guidance.</p>
+  </aside>
+</main>
+
+<script>
+  const root = document.querySelector<HTMLElement>('#parcel-tracker');
+  const simulationToggle = document.querySelector<HTMLButtonElement>('.simulation-toggle');
+  const vehicleToggle = document.querySelector<HTMLButtonElement>('.vehicle-toggle');
+  const detailsToggle = document.querySelector<HTMLButtonElement>('.details-toggle');
+  const detailsPanel = document.querySelector<HTMLElement>('#tracking-details');
+  const confirmationButton = document.querySelector<HTMLButtonElement>('.confirm-delivery');
+  const celebration = document.querySelector<HTMLElement>('.celebration');
+  const confirmationStatus = document.querySelector<HTMLElement>('.confirmation-status');
+  const preferenceButton = document.querySelector<HTMLButtonElement>('.update-preferences');
+  const pendingIndicator = document.querySelector<HTMLElement>('.pending-indicator');
+  const preferenceStatus = document.querySelector<HTMLElement>('.preference-status');
+
+  simulationToggle?.addEventListener('click', () => {
+    const active = root?.classList.toggle('simulate-reduced-motion') ?? false;
+    simulationToggle.setAttribute('aria-pressed', String(active));
+    simulationToggle.textContent = active ? 'Reset reduced-motion simulation' : 'Apply reduced-motion simulation';
+  });
+
+  vehicleToggle?.addEventListener('click', () => {
+    const paused = root?.classList.toggle('vehicle-paused') ?? false;
+    vehicleToggle.setAttribute('aria-pressed', String(paused));
+    vehicleToggle.textContent = paused ? 'Resume delivery vehicle animation' : 'Pause delivery vehicle animation';
+  });
+
+  detailsToggle?.addEventListener('click', () => {
+    if (!detailsPanel) return;
+    const open = detailsToggle.getAttribute('aria-expanded') !== 'true';
+    detailsToggle.setAttribute('aria-expanded', String(open));
+    detailsToggle.textContent = open ? 'Hide tracking details' : 'Show tracking details';
+    detailsPanel.hidden = !open;
+    detailsPanel.classList.toggle('is-open', open);
+  });
+
+  confirmationButton?.addEventListener('click', () => {
+    if (!celebration || !confirmationStatus) return;
+    celebration.classList.remove('is-active');
+    void celebration.offsetWidth;
+    celebration.classList.add('is-active');
+    confirmationStatus.textContent = 'Delivery confirmed. Thank you.';
+  });
+
+  let pendingTimer: number | undefined;
+  preferenceButton?.addEventListener('click', () => {
+    if (!pendingIndicator || !preferenceStatus) return;
+    window.clearTimeout(pendingTimer);
+    pendingIndicator.hidden = false;
+    preferenceStatus.textContent = '';
+    pendingTimer = window.setTimeout(() => {
+      pendingIndicator.hidden = true;
+      preferenceStatus.textContent = 'Delivery preferences updated.';
+    }, 300);
+  });
+
+  const updateParallax = () => root?.style.setProperty('--parallax-offset', `${Math.round(window.scrollY * 0.18)}px`);
+  window.addEventListener('scroll', updateParallax, { passive: true });
+  updateParallax();
+</script>
+
+<style>
+  :global(*) { box-sizing: border-box; }
+  :global(body) { margin: 0; background: #fafafa; color: #4d4d4d; font-family: 'Atkinson Hyperlegible', Arial, sans-serif; font-size: 1.125rem; line-height: 1.5; }
+  .fixture-shell { --parallax-offset: 0px; max-width: 58rem; margin: 0 auto; padding: 1.5rem; overflow: clip; }
+  header { margin-block: 2rem; }
+  .eyebrow { margin: 0; font-weight: 700; }
+  h1 { margin-block: .25rem .75rem; color: #333; font-size: clamp(2rem, 8vw, 3.5rem); line-height: 1.1; }
+  h2 { margin-block: 0 .75rem; color: #333; font-size: 1.75rem; }
+  h3 { color: #333; }
+  p { margin-block: 0 1rem; }
+  a { color: #033573; text-underline-offset: .2em; }
+  button { min-height: 2.75rem; padding: .6rem 1rem; border: 3px solid #033573; border-radius: .2rem; background: #033573; color: #fff; font: inherit; font-weight: 700; cursor: pointer; }
+  button:hover { background: transparent; color: #033573; }
+  a:focus, button:focus { outline: 3px solid #000; outline-offset: 3px; }
+  .simulation-panel, .tracking-card, .safety-note { margin-block: 1.5rem; padding: 1.25rem; border: 2px solid #bbc9f7; }
+  .simulation-panel { background: #eef1fb; }
+  .parcel-scene { display: grid; min-height: 7rem; place-items: center; margin-block: 1.5rem; border-radius: .3rem; background: linear-gradient(135deg, #dce4ff, #eee6ff); color: #31345d; font-weight: 700; transform: translateY(var(--parallax-offset)); }
+  .status-chip { width: fit-content; padding: .35rem .65rem; border-radius: 2rem; background: #dce4ff; color: #252a55; font-weight: 700; transition: transform .6s ease; }
+  .status-chip:hover { transform: scale(1.08); }
+  .route-track, .vehicle-road { position: relative; height: 2.25rem; margin-block: 1rem; border-block-end: .35rem solid #6f81b8; }
+  .route-marker { position: absolute; inset: auto auto .1rem 0; color: #7147b8; animation: routeTravel 8s linear infinite alternate; }
+  .updates-window { overflow: hidden; border-inline: 2px solid #6f81b8; }
+  .updates-track { width: max-content; margin: 0; padding-inline: 1rem; white-space: nowrap; animation: updatesTravel 12s linear infinite alternate; }
+  .details-panel { margin-block-start: 1rem; padding: 1rem; border-inline-start: .4rem solid #7147b8; transform: translateX(0); transition: transform .7s ease; }
+  .details-panel.is-open { animation: detailsArrival .7s ease both; }
+  .celebration { display: flex; min-height: 3rem; align-items: center; gap: 1rem; color: #7147b8; font-size: 2rem; transform-origin: left center; }
+  .celebration:not(.is-active) { visibility: hidden; }
+  .celebration.is-active { animation: celebrationBurst 1.2s ease-out both; }
+  .controlled-vehicle { position: absolute; inset: auto auto .1rem 0; color: #16785c; animation: vehicleTravel 10s linear infinite alternate; }
+  .vehicle-paused .controlled-vehicle { animation-play-state: paused; }
+  .comparisons { display: grid; gap: .75rem; }
+  .comparisons button { width: fit-content; }
+  .pending-indicator { width: fit-content; padding-inline-start: 1.5rem; background: radial-gradient(circle at .5rem 50%, currentColor .2rem, transparent .25rem); animation: pendingMove 1.4s ease-in-out infinite alternate; }
+  .confirmation-status, .preference-status { min-height: 1.75rem; margin: 0; font-weight: 700; }
+  .safety-note { border-color: #c58500; background: #fff5d9; }
+
+  @keyframes routeTravel { to { transform: translateX(min(46rem, 75vw)); } }
+  @keyframes updatesTravel { to { transform: translateX(-16rem); } }
+  @keyframes detailsArrival { from { transform: translateX(70%); } to { transform: translateX(0); } }
+  @keyframes celebrationBurst { from { transform: translateX(-2rem) scale(.7); } to { transform: translateX(0) scale(1); } }
+  @keyframes vehicleTravel { to { transform: translateX(min(42rem, 70vw)); } }
+  @keyframes pendingMove { to { transform: translateX(.6rem); } }
+
+  :global(.dark body) { background: #010017; color: #ababab; }
+  :global(.dark) h1, :global(.dark) h2, :global(.dark) h3 { color: #cfcfcf; }
+  :global(.dark) a { color: #ade5f8; }
+  :global(.dark) button { border-color: #ade5f8; background: #ade5f8; color: #010017; }
+  :global(.dark) button:hover { background: transparent; color: #ade5f8; }
+  :global(.dark) a:focus, :global(.dark) button:focus { outline-color: #fff; }
+  :global(.dark) .simulation-panel, :global(.dark) .tracking-card { border-color: #18399a; }
+  :global(.dark) .simulation-panel { background: #100842; }
+  :global(.dark) .parcel-scene { background: linear-gradient(135deg, #101945, #25164c); color: #cfcfcf; }
+  :global(.dark) .status-chip { background: #252d59; color: #d9e2ff; }
+  :global(.dark) .safety-note { border-color: #d9a82f; background: #332400; }
+
+  .simulate-reduced-motion .controlled-vehicle, .simulate-reduced-motion .pending-indicator { animation: none; }
+  .simulate-reduced-motion .status-chip { transition-duration: 0s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .controlled-vehicle, .pending-indicator { animation: none; }
+    .status-chip { transition-duration: 0s; }
+  }
+
+  @media (max-width: 42rem) {
+    .fixture-shell { padding: 1rem; }
+    .updates-track { width: 42rem; white-space: normal; }
+    @keyframes updatesTravel { to { transform: translateX(-12rem); } }
+  }
+</style>

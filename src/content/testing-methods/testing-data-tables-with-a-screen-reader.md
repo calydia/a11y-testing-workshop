@@ -3,7 +3,7 @@ title: Testing data tables with a screen reader
 summary: Check whether a data table exposes a useful name, dimensions, navigation, and row-and-column relationships.
 description: Learn a repeatable beginner procedure for testing ordinary data tables with a screen reader.
 status: published
-order: 13
+order: 14
 topics: [screen readers, data tables, captions, headers, reading order]
 prerequisites: [Basic keyboard use, Basic use of one screen reader]
 skillLevel: beginner

@@ -102,7 +102,7 @@ test('optional preparation and workspace reuse existing routes without solution 
   await expect(preparation.locator('[data-preparation-type="learning-path"]')).toHaveCount(1);
   await expect(preparation.getByRole('link', { name: 'Your first accessibility review' })).toHaveAttribute('href', '/learn/your-first-accessibility-review/');
   await expect(preparation).toContainText('Level: beginner');
-  await expect(preparation).toContainText('Estimated time: 330 minutes');
+  await expect(preparation).toContainText('Estimated time: 370 minutes');
   await expect(preparation).toContainText('25 minutes');
   await expect(preparation).toContainText(/before consulting the Exercise solution/i);
   await expect(page.getByRole('link', { name: 'Open the Testing journey workspace for course registration' })).toHaveAttribute('href', '/exercise-fixtures/course-registration/');
