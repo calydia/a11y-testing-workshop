@@ -32,6 +32,16 @@ for (const route of routes.filter(({ path }) => ['/learn/', '/methods/', '/exerc
   test(`${route.path} uses compact section card typography`, async ({ page }) => {
     await page.goto(route.path);
     const firstCard = page.locator('main article').first();
+    const listing = page.locator('[data-content-listing]');
+    const firstItem = listing.getByRole('listitem').first();
+
+    const spacing = await listing.evaluate((element) => {
+      const styles = getComputedStyle(element);
+      return { rowGap: styles.rowGap, columnGap: styles.columnGap };
+    });
+    expect(spacing.rowGap).toBe(spacing.columnGap);
+    await expect(firstItem).toHaveCSS('margin-top', '0px');
+    await expect(firstItem).toHaveCSS('margin-bottom', '0px');
 
     await expect(firstCard.getByRole('heading', { level: 2 })).toHaveCSS('font-size', '20px');
     await expect(firstCard.locator('p').last()).toHaveCSS('font-size', '18px');

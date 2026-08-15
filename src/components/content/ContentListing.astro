@@ -15,7 +15,7 @@ const {
 ---
 
 {entries.length > 0 ? (
-  <ul class="grid list-none gap-6 p-0 md:grid-cols-2" role="list">
+  <ul class="content-listing grid list-none gap-6 p-0 md:grid-cols-2" role="list" data-content-listing>
     {entries.map((entry) => <li class="m-0"><ContentCard {...entry} variant={variant} /></li>)}
   </ul>
 ) : (
@@ -23,3 +23,9 @@ const {
     {emptyMessage}
   </p>
 )}
+
+<style>
+  .content-listing > li {
+    margin-block: 0;
+  }
+</style>
