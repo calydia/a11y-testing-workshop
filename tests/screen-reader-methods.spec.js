@@ -30,6 +30,11 @@ const mobileTouchMethod = {
   title: 'Testing mobile touch and orientation',
 };
 
+const mediaMethod = {
+  path: '/methods/testing-media-accessibility/',
+  title: 'Testing media accessibility',
+};
+
 const zoomMethod = {
   path: '/methods/testing-zoom-and-reflow/',
   title: 'Testing zoom and reflow',
@@ -86,6 +91,7 @@ const methods = [
   forcedColorsMethod,
   motionMethod,
   mobileTouchMethod,
+  mediaMethod,
   zoomMethod,
   automatedMethod,
   screenReaderMethods[0],
@@ -103,6 +109,7 @@ const methodExercises = new Map([
   [forcedColorsMethod.path, ['Testing forced colors in a journey planner', '/exercises/testing-forced-colors-in-a-journey-planner/', '20 minutes']],
   [motionMethod.path, ['Testing motion preferences on a parcel-tracking dashboard', '/exercises/testing-motion-preferences-on-a-parcel-tracking-dashboard/', '20 minutes']],
   [mobileTouchMethod.path, ['Testing touch interaction on a community-festival map', '/exercises/testing-touch-interaction-on-a-community-festival-map/', '25 minutes']],
+  [mediaMethod.path, ['Testing a community announcement video', '/exercises/testing-a-community-announcement-video/', '30 minutes']],
   [zoomMethod.path, ['Testing an appointment booking at high zoom', '/exercises/testing-an-appointment-booking-at-high-zoom/', '20 minutes']],
   [automatedMethod.path, ['Comparing automated and manual findings', '/exercises/comparing-automated-and-manual-findings/', '20 minutes']],
   [screenReaderMethods[0].path, ['Reviewing structure and links in a community resources directory', '/exercises/reviewing-structure-and-links-in-a-community-resources-directory/', '20 minutes']],

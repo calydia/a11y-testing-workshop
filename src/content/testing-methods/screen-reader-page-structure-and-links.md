@@ -3,7 +3,7 @@ title: Testing page structure and links with a screen reader
 summary: Check whether a page title, landmarks, and headings communicate useful structure and links make sense outside their surrounding text.
 description: Learn how to test document titles, landmarks, headings, and link purpose using screen-reader navigation and element lists.
 status: published
-order: 14
+order: 15
 topics: [screen readers, headings, links, semantics]
 prerequisites: [Basic keyboard navigation, Basic use of one screen reader]
 skillLevel: beginner

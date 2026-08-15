@@ -15,6 +15,7 @@ import CommunityServicesTextSpacingFixture from '../components/exercise/fixtures
 import PublicTransportJourneyPlannerFixture from '../components/exercise/fixtures/PublicTransportJourneyPlannerFixture.astro';
 import ParcelTrackingMotionFixture from '../components/exercise/fixtures/ParcelTrackingMotionFixture.astro';
 import CommunityFestivalTouchFixture from '../components/exercise/fixtures/CommunityFestivalTouchFixture.astro';
+import CommunityAnnouncementMediaFixture from '../components/exercise/fixtures/CommunityAnnouncementMediaFixture.astro';
 
 export interface InlineFixture {
   kind: 'inline';
@@ -221,6 +222,18 @@ export const fixtureRegistry: Record<string, ExerciseFixtureDefinition> = {
       'pinch-only-map-zoom',
       'swipe-only-schedule',
       'down-event-session-removal',
+    ],
+  },
+  'community-announcement-media': {
+    kind: 'document',
+    component: CommunityAnnouncementMediaFixture,
+    title: 'Community announcement media exercise',
+    intentionalViolations: [
+      'omitted-caption-phrase',
+      'missing-caption-sound-identification',
+      'mistimed-caption-cue',
+      'incomplete-transcript',
+      'undescribed-visual-information',
     ],
   },
 };

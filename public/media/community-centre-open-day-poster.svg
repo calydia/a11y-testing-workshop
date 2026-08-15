@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title description">
+  <title id="title">Riverside Community Centre open day</title>
+  <desc id="description">Announcement card showing the quiet hour and step-free entrance location.</desc>
+  <rect width="960" height="540" fill="#f4f1ff"/>
+  <rect width="960" height="92" fill="#15074d"/>
+  <text x="54" y="58" fill="#fff" font-family="Arial, sans-serif" font-size="34" font-weight="700">Riverside Community Centre</text>
+  <text x="54" y="180" fill="#24175c" font-family="Arial, sans-serif" font-size="54" font-weight="700">Open day · Saturday</text>
+  <text x="54" y="242" fill="#38325c" font-family="Arial, sans-serif" font-size="32">Meet neighbours and try free workshops</text>
+  <rect x="54" y="300" width="852" height="164" fill="#fff" stroke="#7147b8" stroke-width="5"/>
+  <text x="88" y="361" fill="#24175c" font-family="Arial, sans-serif" font-size="31" font-weight="700">Quiet hour: 9:00–10:00</text>
+  <text x="88" y="419" fill="#24175c" font-family="Arial, sans-serif" font-size="28">Step-free entrance beside the garden gate</text>
+</svg>

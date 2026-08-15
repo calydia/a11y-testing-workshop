@@ -1,0 +1,87 @@
+<main class="fixture-shell" id="community-announcement-media">
+  <a class="return-link" href="/exercises/testing-a-community-announcement-video/">Return to the exercise</a>
+
+  <header>
+    <p class="eyebrow">Riverside Community Centre</p>
+    <h1>Open-day announcement</h1>
+    <p>Watch the announcement, compare its alternatives, and check the player behavior available in your browser.</p>
+  </header>
+
+  <section class="media-panel" aria-labelledby="video-heading">
+    <h2 id="video-heading">Community-centre open day</h2>
+    <video controls preload="metadata" poster="/media/community-centre-open-day-poster.svg" aria-label="Community-centre open-day announcement">
+      <source src="/media/community-centre-open-day.webm" type="video/webm" />
+      <track
+        default
+        kind="captions"
+        label="English"
+        srclang="en"
+        src="/media/community-centre-open-day.en.vtt"
+      />
+      Your browser does not support the video element.
+    </video>
+  </section>
+
+  <section class="transcript" aria-labelledby="transcript-heading">
+    <h2 id="transcript-heading">Transcript</h2>
+    <p><strong>Narrator:</strong> Welcome to Riverside Community Centre's open day this Saturday.</p>
+    <p>Meet local groups, try short workshops, and enjoy lunch in the garden.</p>
+    <p>Workshops are free, and you do not need to book.</p>
+    <p><strong>[Bell rings]</strong></p>
+    <p><strong>Alex:</strong> This is Alex from the community team. Visit the welcome desk if you need help during the day.</p>
+    <p>Take your time and enjoy everything the open day has to offer. We look forward to seeing you.</p>
+  </section>
+
+  <aside class="testing-note" aria-labelledby="testing-note-heading">
+    <h2 id="testing-note-heading">About testing this player</h2>
+    <p>Native controls, keyboard commands, caption menus, caption presentation, and assistive-technology output vary by browser and operating system. Record the environment you use and describe what you can verify directly.</p>
+  </aside>
+</main>
+
+<script>
+  const video = document.querySelector<HTMLVideoElement>('#community-announcement-media video');
+  const normalizeDuration = () => {
+    if (!video || Number.isFinite(video.duration)) return;
+    const resetPosition = () => {
+      if (!Number.isFinite(video.duration)) return;
+      video.currentTime = 0;
+      video.removeEventListener('durationchange', resetPosition);
+      video.removeEventListener('timeupdate', resetPosition);
+    };
+    video.addEventListener('durationchange', resetPosition);
+    video.addEventListener('timeupdate', resetPosition);
+    video.currentTime = Number.MAX_SAFE_INTEGER;
+  };
+  if (video?.readyState && video.readyState >= 1) normalizeDuration();
+  else video?.addEventListener('loadedmetadata', normalizeDuration, { once: true });
+</script>
+
+<style>
+  :global(*) { box-sizing: border-box; }
+  :global(body) { margin: 0; background: #fafafa; color: #4d4d4d; font-family: 'Atkinson Hyperlegible', Arial, sans-serif; font-size: 1.125rem; line-height: 1.5; }
+  .fixture-shell { max-width: 58rem; margin: 0 auto; padding: 1.5rem; }
+  header { margin-block: 2rem; }
+  .eyebrow { margin: 0; font-weight: 700; }
+  h1 { margin-block: .25rem .75rem; color: #333; font-size: clamp(2rem, 8vw, 3.5rem); line-height: 1.1; }
+  h2 { margin-block: 0 .75rem; color: #333; font-size: 1.75rem; }
+  p { margin-block: 0 1rem; }
+  a { color: #033573; text-underline-offset: .2em; }
+  a:focus, video:focus { outline: 3px solid #000; outline-offset: 3px; }
+  .media-panel, .transcript, .testing-note { margin-block: 1.5rem; padding: 1.25rem; border: 2px solid #bbc9f7; }
+  .media-panel { background: #eef1fb; }
+  video { display: block; width: 100%; max-width: 100%; background: #15074d; }
+  .transcript p { max-width: 68ch; }
+  .testing-note { border-inline-start-width: .6rem; }
+
+  :global(.dark body) { background: #010017; color: #ababab; }
+  :global(.dark) h1, :global(.dark) h2 { color: #cfcfcf; }
+  :global(.dark) a { color: #ade5f8; }
+  :global(.dark) a:focus, :global(.dark) video:focus { outline-color: #fff; }
+  :global(.dark) .media-panel, :global(.dark) .transcript, :global(.dark) .testing-note { border-color: #18399a; }
+  :global(.dark) .media-panel { background: #100842; }
+
+  @media (max-width: 42rem) {
+    .fixture-shell { padding: 1rem; }
+    .media-panel, .transcript, .testing-note { padding: 1rem; }
+  }
+</style>

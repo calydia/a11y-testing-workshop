@@ -7,10 +7,13 @@ interface Props {
 }
 
 const { level, estimatedMinutes } = Astro.props;
-const hours = Math.floor(estimatedMinutes / 60);
+const wholeHours = Math.floor(estimatedMinutes / 60);
 const minutes = estimatedMinutes % 60;
+const roundsToNextHour = wholeHours > 0 && minutes >= 55;
+const hours = roundsToNextHour ? wholeHours + 1 : wholeHours;
+const displayedMinutes = roundsToNextHour ? 0 : minutes;
 const duration = hours > 0
-  ? `About ${hours} ${hours === 1 ? 'hour' : 'hours'}${minutes ? ` ${minutes} minutes` : ''}`
+  ? `About ${hours} ${hours === 1 ? 'hour' : 'hours'}${displayedMinutes ? ` ${displayedMinutes} minutes` : ''}`
   : `${minutes} minutes`;
 const items = [
   { label: 'Level', value: level },

@@ -1,17 +1,17 @@
 ---
 title: Your first accessibility review
-summary: Build a practical beginner review through paired methods and Exercises for automated, keyboard, visual, user-preference, motion, mobile-touch, zoom, and forms testing.
-description: Follow an interleaved beginner path through automated, keyboard, visual, user preferences, motion, mobile touch, zoom, screen-reader preparation, and forms testing.
+summary: Build a practical beginner review through paired methods and Exercises for automated, keyboard, visual, user-preference, motion, mobile-touch, media, zoom, and forms testing.
+description: Follow an interleaved beginner path through automated, keyboard, visual, user preferences, motion, mobile touch, prerecorded media, zoom, screen-reader preparation, and forms testing.
 status: published
 order: 10
-topics: [beginner, accessibility review, automated testing, keyboard, visual, text spacing, forced colors, motion, reduced motion, mobile, touch, orientation, user overrides, zoom, forms]
+topics: [beginner, accessibility review, automated testing, keyboard, visual, text spacing, forced colors, motion, reduced motion, mobile, touch, orientation, media, captions, transcripts, audio description, user overrides, zoom, forms]
 prerequisites:
   - Basic familiarity with using a web browser
 level: beginner
-estimatedMinutes: 420
+estimatedMinutes: 475
 outcomes:
   - Define and run a scoped automated accessibility check without treating it as complete coverage.
-  - Perform baseline keyboard, visual, forced-colors, motion, mobile-touch, and zoom and reflow reviews.
+  - Perform baseline keyboard, visual, forced-colors, motion, mobile-touch, prerecorded-media, and zoom and reflow reviews.
   - Apply the complete text-spacing condition and check whether content and functionality remain available.
   - Prepare a screen reader for limited form-oriented verification.
   - Test form labels, instructions, groups, validation errors, focus handling, and success communication.
@@ -45,6 +45,10 @@ steps:
     entry: testing-mobile-touch-and-orientation
   - type: exercise
     entry: testing-touch-interaction-on-a-community-festival-map
+  - type: method
+    entry: testing-media-accessibility
+  - type: exercise
+    entry: testing-a-community-announcement-video
   - type: method
     entry: testing-zoom-and-reflow
   - type: exercise
