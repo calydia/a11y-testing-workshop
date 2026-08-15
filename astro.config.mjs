@@ -2,14 +2,14 @@ import { defineConfig } from 'astro/config';
 import sitemap from "@astrojs/sitemap";
 import icon from "astro-icon";
 import tailwindcss from "@tailwindcss/vite";
-
-import react from "@astrojs/react";
+import { legacyRedirects } from './src/config/legacy-redirects.js';
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://testing.a11y.ing/',
+  redirects: legacyRedirects,
   vite: {
     plugins: [tailwindcss()]
   },
-  integrations: [sitemap(), react(), icon()],
+  integrations: [sitemap(), icon()],
 });

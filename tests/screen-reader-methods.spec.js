@@ -316,23 +316,6 @@ test('Testing forms and validation renders a method without a demonstration', as
   await expect(page.locator('[data-content-body]').getByRole('link', { name: 'Testing with automated tools' })).toHaveAttribute('href', '/methods/testing-with-automated-tools/');
 });
 
-test('legacy screen-reader example routes remain available', async ({ request }) => {
-  for (const path of [
-    '/examples/screen-reader/links/',
-    '/examples/screen-reader/icons/',
-    '/examples/screen-reader/lang/',
-    '/examples/screen-reader/modals/',
-  ]) {
-    const response = await request.get(path);
-    expect(response.ok(), path).toBe(true);
-  }
-});
-
-test('legacy keyboard workshop route remains available', async ({ request }) => {
-  const response = await request.get('/testing-keyboard-accessibility/');
-  expect(response.ok()).toBe(true);
-});
-
 test('primary navigation does not introduce an Examples section', async ({ page }) => {
   await page.goto('/methods/');
   await expect(page.getByRole('navigation', { name: 'Main' }).getByRole('link', { name: 'Examples' })).toHaveCount(0);

@@ -8,11 +8,9 @@ const landingPages = [
   { path: '/about/', label: 'About this Lab' },
 ];
 
-test('Home and retained legacy routes do not have Lab breadcrumbs', async ({ page }) => {
-  for (const path of ['/', '/examples/screen-reader/links/']) {
-    await page.goto(path);
-    await expect(page.getByRole('navigation', { name: 'Breadcrumbs' })).toHaveCount(0);
-  }
+test('Home does not have Lab breadcrumbs', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.getByRole('navigation', { name: 'Breadcrumbs' })).toHaveCount(0);
 });
 
 for (const landing of landingPages) {
