@@ -24,7 +24,7 @@ hints:
   - Look for one unnamed graphic, one generic graphic name, an unnamed icon-only control, and two controls made noisy by exposed decorative SVGs.
 expectedFindings: 5
 solution:
-  summary: The dashboard contains five findings. The named event-summary graphic, hidden calendar icon, contextually named add button, and silent arrow beside View event details are valid comparisons.
+  summary: The dashboard contains five findings. The named event-summary graphic, hidden calendar icon, contextually named add button, and silent arrow beside View event details are passing checks.
   findings:
     - title: The availability graphic has no accessible name
       explanation: The Riverside repair café graphic visually communicates that only a few places remain, but its exposed graphic role has no name and no nearby text supplies the information. Give it a concise meaningful name, or provide equivalent visible text and hide the SVG.
@@ -49,7 +49,7 @@ Use the [Testing icons and SVGs with a screen reader](/methods/screen-reader-ico
 2. Navigate through graphics and controls with your screen reader.
 3. Compare each announcement or silence with the graphic's visible purpose and nearby text.
 4. Inspect markup where you need to confirm why an SVG is exposed or hidden.
-5. Identify exactly five accessibility findings and four valid comparison patterns.
+5. Identify exactly five accessibility findings and four passing checks.
 6. For each finding, record the affected graphic or control, current output, expected result, user impact, and remediation direction.
 
 Screen readers and browsers may phrase graphic roles and repeated names differently. Assess whether the same purpose is available without missing meaning or unnecessary noise rather than expecting one exact announcement.

@@ -25,7 +25,7 @@ hints:
   - Inspect the contact-preferences dialog's accessible name and compare what happens to focus after each visible close button is used.
 expectedFindings: 6
 solution:
-  summary: The contact-preferences modal contains six related findings. The appointment-reminder dialog is a valid comparison that preserves the platform's native modal behavior.
+  summary: The contact-preferences modal contains six related findings. The appointment-reminder dialog is a passing check that preserves the platform's native modal behavior.
   findings:
     - title: The contact-preferences dialog has no accessible name
       explanation: The dialog has a visible heading but does not reference it with aria-labelledby or provide another accessible name. Associate the visible heading with the dialog.
@@ -54,7 +54,7 @@ Use the [Testing modal dialogs](/methods/testing-modal-dialogs/) method to compa
 3. Move through all controls with Tab and Shift+Tab, then try to reach and operate the page behind it.
 4. Test both Escape and the visible close button. Record where focus moves after closing.
 5. Repeat the same procedure with the appointment-reminder modal.
-6. Identify exactly six findings in the contact-preferences modal and record the appointment-reminder dialog as a valid comparison.
+6. Identify exactly six findings in the contact-preferences modal and record the appointment-reminder dialog as a passing check.
 7. For every finding, record the expected behavior, observed behavior, user impact, and remediation direction.
 
 Exact announcements can differ across screen readers, browsers, and operating systems. Evaluate the exposed name and observable interaction behavior rather than expecting one prescribed speech string.

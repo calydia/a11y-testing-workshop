@@ -23,7 +23,7 @@ hints:
   - Inspect the linked logo and broken image as destination and fallback cases rather than ordinary photographs.
 expectedFindings: 4
 solution:
-  summary: The page contains four findings. The contextual volunteer image, explicitly empty decorative flourish, and broken image with useful alternative text are valid comparison cases rather than defects.
+  summary: The page contains four findings. The contextual volunteer image, explicitly empty decorative flourish, and broken image with useful alternative text are three passing checks rather than defects.
   findings:
     - title: The riverside photograph has a vague alternative
       explanation: Water is technically related to the photograph but does not communicate why the image appears in the cleanup story. Describe the relevant riverside condition or activity concisely, based on what the image contributes beyond the nearby text.
@@ -45,7 +45,7 @@ Use the [Testing image alternative text](/methods/testing-image-alternative-text
 2. Navigate through images and links with a screen reader and compare each announcement with the visible image, nearby content, and destination.
 3. Inspect markup where you need to distinguish a missing attribute from an intentionally empty alternative.
 4. Observe the deliberately broken image visually and with your screen reader.
-5. Identify exactly four accessibility findings and three valid comparison cases.
+5. Identify exactly four accessibility findings and three passing checks.
 6. For each finding, record the image, purpose, context, current output or silence, expected result, and remediation direction.
 
 The broken image is intentional but is not one of the four findings. Browser fallback appearance and exact screen-reader phrasing can differ, so assess whether the useful alternative remains available rather than expecting one exact presentation.

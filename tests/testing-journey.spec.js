@@ -102,9 +102,9 @@ test('optional preparation and workspace reuse existing routes without solution 
   await expect(preparation).toContainText('Estimated time: 250 minutes');
   await expect(preparation).toContainText('25 minutes');
   await expect(preparation).toContainText(/before consulting the Exercise solution/i);
-  await expect(page.getByRole('link', { name: 'Open the course registration workspace' })).toHaveAttribute('href', '/exercise-fixtures/course-registration/');
+  await expect(page.getByRole('link', { name: 'Open the Testing journey workspace for course registration' })).toHaveAttribute('href', '/exercise-fixtures/course-registration/');
   await expect(page.getByText('The full-name label is not associated with its input')).toHaveCount(0);
-  const workspace = page.getByRole('link', { name: 'Open the course registration workspace' });
+  const workspace = page.getByRole('link', { name: 'Open the Testing journey workspace for course registration' });
   const stages = page.locator('[data-journey-stages]');
   expect(await workspace.evaluate((element, stagesElement) => Boolean(element.compareDocumentPosition(stagesElement) & Node.DOCUMENT_POSITION_FOLLOWING), await stages.elementHandle())).toBe(true);
 });
@@ -121,7 +121,7 @@ test('journey renders five static deliverables without progress or grading contr
 test('journey passes axe, exposes focus, and fits a narrow viewport', async ({ page }) => {
   await page.goto(journeyPath);
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
-  const workspace = page.getByRole('link', { name: 'Open the course registration workspace' });
+  const workspace = page.getByRole('link', { name: 'Open the Testing journey workspace for course registration' });
   await workspace.focus();
   await expect(workspace).toHaveCSS('outline-style', 'solid');
 
@@ -145,7 +145,7 @@ test('conference journey renders intermediate metadata, scenario, and navigation
   ]);
   const navigation = page.getByRole('navigation', { name: 'Testing journeys' });
   await expect(navigation.getByRole('link')).toHaveText([
-    'All testing journeys',
+    'All Testing journeys',
     'Reviewing a course registration before launch',
     'Reviewing a community conference programme',
   ]);
@@ -184,7 +184,7 @@ test('conference journey renders six task-led stages and five deliverables', asy
 
 test('conference journey links to the workspace without exposing answers or progress UI', async ({ page }) => {
   await page.goto(conferenceJourneyPath);
-  const workspace = page.getByRole('link', { name: 'Open the community conference programme workspace' });
+  const workspace = page.getByRole('link', { name: 'Open the Testing journey workspace for the community conference programme' });
   await expect(workspace).toHaveAttribute('href', '/journey-workspaces/community-conference-programme/');
   await expect(workspace).not.toHaveAttribute('target');
   await expect(page.getByRole('checkbox')).toHaveCount(0);
@@ -196,7 +196,7 @@ test('conference journey links to the workspace without exposing answers or prog
 test('conference journey passes axe, exposes focus, and fits a narrow viewport', async ({ page }) => {
   await page.goto(conferenceJourneyPath);
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
-  const workspace = page.getByRole('link', { name: 'Open the community conference programme workspace' });
+  const workspace = page.getByRole('link', { name: 'Open the Testing journey workspace for the community conference programme' });
   await workspace.focus();
   await expect(workspace).toHaveCSS('outline-style', 'solid');
   await page.setViewportSize({ width: 390, height: 844 });

@@ -24,7 +24,7 @@ hints:
   - Look for one missing declaration, one wrong valid language, one invalid value, one unnecessary nested override, and one declaration whose scope is too broad.
 expectedFindings: 5
 solution:
-  summary: The noticeboard contains five markup findings. The correctly marked Finnish and Swedish activities, inherited Swedish link, and intentional nested English event name are valid comparisons. Voice switching still depends on the test environment.
+  summary: The noticeboard contains five markup findings. The correctly marked Finnish and Swedish activities, inherited Swedish link, and intentional nested English event name are passing checks. Voice switching still depends on the test environment.
   findings:
     - title: The Finnish family-reading notice inherits English
       explanation: The Finnish sentence has no language declaration, so it inherits English from the document. Declare lang="fi" on the smallest suitable container for the Finnish passage.
@@ -49,7 +49,7 @@ Use the [Testing language changes with a screen reader](/methods/screen-reader-l
 2. Review the visible English, Finnish, and Swedish passages and predict each language boundary.
 3. Read through every notice and its nested links with your screen reader.
 4. Inspect the declared and inherited language values in the markup.
-5. Identify exactly five markup findings and four valid comparison patterns.
+5. Identify exactly five markup findings and four passing checks.
 6. Record actual pronunciation or voice behavior separately from the markup evidence.
 7. For each finding, record the affected passage, declared or inherited value, expected language, user impact, and remediation direction.
 

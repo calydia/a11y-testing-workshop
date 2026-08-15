@@ -25,7 +25,7 @@ hints:
   - Review the links list for repeated names, generic phrases, and names that do not distinguish different destinations.
 expectedFindings: 5
 solution:
-  summary: The directory contains five pattern-level findings. Its useful document title, main region, introductory heading sequence, descriptive introductory links, Digital skills support card, and closing section provide valid comparisons and passing checks.
+  summary: The directory contains five pattern-level findings. Its useful document title, main region, introductory heading sequence, descriptive introductory links, Digital skills support card, and closing section provide passing checks.
   findings:
     - title: The Food support heading skips a level
       explanation: The Community services section uses an h2, but Food support is an h4. This creates an unexplained gap in heading navigation. Use the h3 level that represents a resource card beneath this section.

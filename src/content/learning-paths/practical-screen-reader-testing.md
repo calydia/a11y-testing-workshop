@@ -67,7 +67,7 @@ Apply the methods together in [Reviewing a community conference programme](/jour
 
 Use [Your first accessibility review](/learn/your-first-accessibility-review/) when you want a broader foundation in automated, keyboard, visual, zoom, and forms testing. You can complete it before or after this focused path.
 
-Each Testing method is followed by an Exercise so you can apply its procedure independently before moving to a broader journey.
+Each Testing method is followed by an Exercise so you can apply its procedure independently before moving to a broader Testing journey.
 
 ## Keep the scope in mind
 

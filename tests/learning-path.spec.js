@@ -51,7 +51,7 @@ test('each Learning path explains what its total estimate includes', async ({ pa
     await page.goto(url);
     const note = page.locator('[data-learning-path-time-note]');
     await expect(note).toContainText('setup, note-taking, reviewing results, and repetition');
-    await expect(note).toContainText('Individual step times cover the focused method or Exercise work');
+    await expect(note).toContainText('Individual step times cover the work in that Testing method or Exercise');
     await expect(note).toHaveCSS('font-size', '16px');
   }
 });
@@ -158,7 +158,7 @@ test('Practical screen-reader testing renders independent metadata, outcomes, an
   await expect(breadcrumb).toHaveText(['Home/', 'Learning paths/', 'Practical screen-reader testing']);
   const navigation = page.getByRole('navigation', { name: 'Learning paths' });
   await expect(navigation.getByRole('link')).toHaveText([
-    'All learning paths',
+    'All Learning paths',
     'Your first accessibility review',
     'Practical screen-reader testing',
   ]);
@@ -193,7 +193,7 @@ test('each Learning path explains its own practice model', async ({ page }) => {
 
   await page.goto(screenReaderPathUrl);
   await expect(page.getByText('The demonstrations provide guided practice', { exact: false })).toBeVisible();
-  await expect(page.getByText('Each Testing method is followed by an Exercise so you can apply its procedure independently before moving to a broader journey.', { exact: true })).toBeVisible();
+  await expect(page.getByText('Each Testing method is followed by an Exercise so you can apply its procedure independently before moving to a broader Testing journey.', { exact: true })).toBeVisible();
   await expect(page.getByRole('checkbox')).toHaveCount(0);
   await expect(page.getByRole('progressbar')).toHaveCount(0);
   await expect(page.locator('[data-progress], [data-complete], [data-grade]')).toHaveCount(0);

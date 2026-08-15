@@ -38,7 +38,7 @@ stages:
     task: Review keyboard operation, focus order, visible focus, visual instructions, required indicators, control boundaries, error presentation, and interactive states. Record passing behavior as well as findings.
     methods: [testing-keyboard-accessibility, testing-visual-accessibility]
   - title: Test responsive conditions
-    task: Review browser zoom, text resizing, and reflow at the method's defined conditions. Confirm whether content and controls remain available without assuming the interface must contain a defect.
+    task: Review browser zoom, text resizing, and reflow at the Testing method's defined conditions. Confirm whether content and controls remain available without assuming the interface must contain a defect.
     methods: [testing-zoom-and-reflow]
   - title: Test the complete form journey
     task: Inspect labels, instructions, and groups; submit invalid data; locate and understand errors; correct values; submit successfully; and use a screen reader to verify relationships and announcements.
@@ -48,21 +48,21 @@ stages:
     methods: [testing-with-automated-tools, testing-keyboard-accessibility, testing-visual-accessibility, testing-zoom-and-reflow, testing-forms-and-validation]
 deliverables:
   - Scope and test-environment note.
-  - Method-by-method test record.
+  - Test record organized by Testing method.
   - Findings table with evidence, user impact, and remediation direction.
   - Passing checks worth preserving during remediation.
   - Short launch recommendation identifying blockers and follow-up work.
 ---
 
-You can complete this journey in one focused session or split it across two sessions. Preserve your notes between stages so the final recommendation reflects the same documented review scope.
+You can complete this Testing journey in one focused session or split it across two sessions. Preserve your notes between stages so the final recommendation reflects the same documented review scope.
 
-## Testing workspace
+## Testing journey workspace
 
-[Open the course registration workspace](/exercise-fixtures/course-registration/) in a separate page and use that same interface throughout the journey. It contains intentionally designed accessibility problems, but the journey does not tell you how many findings to expect. A useful review also records relevant behavior that passes.
+[Open the Testing journey workspace for course registration](/exercise-fixtures/course-registration/) in a separate page and use that same interface throughout the Testing journey. It contains intentionally designed accessibility problems, but the Testing journey does not tell you how many findings to expect. A useful review also records passing checks.
 
 ## Build useful evidence
 
-For each observation, record the interface state, method, steps, actual result, expected result, and user impact. Keep observed evidence separate from assumptions. If several methods expose the same underlying problem, report one finding with all relevant evidence instead of inflating the issue count.
+For each observation, record the interface state, Testing method, steps, actual result, expected result, and user impact. Keep observed evidence separate from assumptions. If several Testing methods expose the same underlying problem, report one finding with all relevant evidence instead of inflating the issue count.
 
 Record meaningful passing checks as well. They help reviewers understand the tested scope and help developers avoid regressions while correcting other behavior.
 

@@ -53,11 +53,11 @@ deliverables:
   - Concise publication recommendation identifying blockers and follow-up testing.
 ---
 
-Complete the journey in one focused session or split it into shorter reviews. Preserve the same documented environment and initial state when comparing results.
+Complete the Testing journey in one focused session or split it into shorter reviews. Preserve the same documented environment and initial state when comparing results.
 
-## Testing workspace
+## Testing journey workspace
 
-[Open the community conference programme workspace](/journey-workspaces/community-conference-programme/) and use that same page throughout the journey. Return here whenever you need the stage guidance or method links. You may open the workspace in a new tab if you want to keep both pages available.
+[Open the Testing journey workspace for the community conference programme](/journey-workspaces/community-conference-programme/) and use that same page throughout the Testing journey. Return here whenever you need the stage guidance or Testing method links. You may open the workspace in a new tab if you want to keep both pages available.
 
 ## Build useful evidence
 

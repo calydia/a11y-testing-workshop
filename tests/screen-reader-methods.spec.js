@@ -82,7 +82,7 @@ test('method detail pages provide collection-driven section navigation', async (
 
   const links = navigation.getByRole('link');
   await expect(links).toHaveCount(methods.length + 1);
-  await expect(links).toHaveText(['All testing methods', ...methods.map((method) => method.title)]);
+  await expect(links).toHaveText(['All Testing methods', ...methods.map((method) => method.title)]);
   await expect(links.first()).toHaveAttribute('href', '/methods/');
 
   for (const [index, method] of methods.entries()) {
@@ -90,7 +90,7 @@ test('method detail pages provide collection-driven section navigation', async (
   }
 
   await expect(navigation.getByRole('link', { name: methods[1].title })).toHaveAttribute('aria-current', 'page');
-  await expect(navigation.getByRole('link', { name: 'All testing methods' })).not.toHaveAttribute('aria-current');
+  await expect(navigation.getByRole('link', { name: 'All Testing methods' })).not.toHaveAttribute('aria-current');
   await expect(navigation.getByRole('link', { name: methods[0].title })).not.toHaveAttribute('aria-current');
 });
 

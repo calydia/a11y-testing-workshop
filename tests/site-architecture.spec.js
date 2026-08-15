@@ -88,6 +88,14 @@ test('About sets the scope and limitations of the Lab', async ({ page }) => {
   }
 });
 
+test('public overview copy uses the Lab content-type labels', async ({ page }) => {
+  await page.goto('/about/');
+  await expect(page.locator('main')).toContainText('Learning paths for progressive learning, Testing methods for reusable references, Exercises for focused practice, and Testing journeys for realistic scenarios');
+
+  await page.goto('/journeys/');
+  await expect(page.locator('main')).toContainText('Learning paths teach skills; Testing journeys apply them.');
+});
+
 test('Home gives beginners a direct starting point while preserving all four content areas', async ({ page }) => {
   await page.goto('/');
   const start = page.getByRole('heading', { level: 2, name: 'New to accessibility testing?' });

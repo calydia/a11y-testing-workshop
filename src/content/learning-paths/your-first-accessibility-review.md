@@ -47,7 +47,7 @@ The Exercises use different small interfaces. Together they build transferable t
 
 ## Prepare for screen-reader checks
 
-The forms method and Exercise include a limited screen-reader verification step. Before continuing, choose one screen reader that works with your operating system and browser.
+The Testing method for forms and validation and its Exercise include a limited screen-reader verification step. Before continuing, choose one screen reader that works with your operating system and browser.
 
 1. Learn how to start, pause or silence, and stop the screen reader.
 2. Practise moving through native form controls.
@@ -55,7 +55,7 @@ The forms method and Exercise include a limited screen-reader verification step.
 4. Record what is actually announced and how the control behaves. Exact wording and timing can differ between screen readers and browsers.
 5. Keep your visual and keyboard observations separate from your screen-reader observations.
 
-You do not need to learn every screen-reader command before continuing. The goal is to gather enough direct evidence to inspect the form relationships and validation messages in the final method and Exercise.
+You do not need to learn every screen-reader command before continuing. The goal is to gather enough direct evidence to inspect the form relationships and validation messages in the final Testing method and Exercise.
 
 ## Where to go next
 
