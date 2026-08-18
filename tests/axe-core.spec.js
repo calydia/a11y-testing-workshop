@@ -44,6 +44,7 @@ const routes = [
   '/journeys/',
   '/journeys/reviewing-a-course-registration-before-launch/',
   '/journeys/reviewing-a-community-conference-programme/',
+  '/journeys/reviewing-a-community-centre-open-day-before-launch/',
   '/about/',
   '/accessibility/',
   '/404.html',
