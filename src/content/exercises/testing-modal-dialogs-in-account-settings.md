@@ -4,6 +4,7 @@ summary: Compare an incomplete custom modal with a native dialog while testing n
 description: Practise testing custom and native modal dialogs with a keyboard and screen reader in a focused account-settings page.
 status: published
 order: 58
+category: interaction-and-tasks
 topics: [screen readers, modal dialogs, keyboard, focus, ARIA]
 prerequisites:
   - Understand the Testing modal dialogs method

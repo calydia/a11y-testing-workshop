@@ -4,6 +4,7 @@ summary: Test modal names, initial focus, keyboard containment, background inert
 description: Learn a repeatable keyboard and screen-reader procedure for testing modal dialogs.
 status: published
 order: 40
+category: interaction-and-tasks
 topics: [modals, dialogs, keyboard, screen readers, focus]
 prerequisites: [Keyboard navigation, Basic use of one screen reader]
 skillLevel: beginner

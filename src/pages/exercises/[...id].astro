@@ -37,6 +37,7 @@ const { Content } = await render(entry);
     landingLabel="All Exercises"
     items={navigationItems}
     currentPath={Astro.url.pathname}
+    currentCategory={entry.data.category}
   />
   <Content />
 </ExerciseLayout>

@@ -4,6 +4,7 @@ summary: Check whether every interactive element can be reached, identified, and
 description: Learn a repeatable procedure for testing keyboard operability, focus order, focus visibility, bypass mechanisms, and keyboard traps.
 status: published
 order: 5
+category: foundations
 topics: [keyboard, focus, operability, navigation]
 prerequisites:
   - Basic familiarity with links, buttons, and form controls

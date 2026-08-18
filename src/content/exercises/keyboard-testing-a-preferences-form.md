@@ -4,6 +4,7 @@ summary: Investigate a communication-preferences form and find four problems tha
 description: Practise systematic keyboard accessibility testing with a deliberately flawed communication-preferences form.
 status: published
 order: 10
+category: foundations
 topics: [keyboard, focus, forms, operability]
 prerequisites:
   - Understand the Testing keyboard accessibility method

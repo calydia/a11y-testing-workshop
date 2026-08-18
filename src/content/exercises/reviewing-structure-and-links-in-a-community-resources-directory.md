@@ -4,6 +4,7 @@ summary: Use heading navigation and link lists to assess the structure and link 
 description: Practise comparing visible organization with semantic headings and evaluating whether links remain understandable outside their surrounding context.
 status: published
 order: 45
+category: content-and-structure
 topics: [screen readers, headings, links, semantics]
 prerequisites:
   - Understand the Testing page structure and links with a screen reader method

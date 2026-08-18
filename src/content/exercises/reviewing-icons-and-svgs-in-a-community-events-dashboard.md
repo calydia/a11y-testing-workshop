@@ -4,6 +4,7 @@ summary: Assess meaningful, decorative, and functional SVGs while managing saved
 description: Practise comparing visible graphic purpose with screen-reader output and identifying missing, generic, noisy, and duplicated accessible names.
 status: published
 order: 55
+category: content-and-structure
 topics: [screen readers, icons, SVG, accessible names]
 prerequisites:
   - Understand the Testing icons and SVGs with a screen reader method

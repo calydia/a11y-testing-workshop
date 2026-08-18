@@ -4,6 +4,7 @@ summary: Investigate target geometry, orientation, gesture alternatives, and can
 description: Practise real-device-first mobile touch testing with a responsive festival workspace and limited assisted orientation state.
 status: published
 order: 29
+category: display-and-adaptation
 topics: [mobile, touch, target size, orientation, pinch, swipe, pointer cancellation]
 prerequisites:
   - Understand the Testing mobile touch and orientation method

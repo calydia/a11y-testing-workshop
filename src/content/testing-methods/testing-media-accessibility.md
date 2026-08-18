@@ -4,6 +4,7 @@ summary: Check prerecorded captions, transcripts, visual description, autoplay, 
 description: Learn a beginner procedure for comparing prerecorded audio and video with captions, transcripts, descriptions, and player behavior.
 status: published
 order: 12
+category: content-and-structure
 topics: [media, video, captions, transcripts, audio description, autoplay, player controls]
 prerequisites:
   - Basic familiarity with playing video and selecting captions in a web browser

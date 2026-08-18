@@ -4,6 +4,7 @@ summary: Apply the complete text-spacing condition and check whether content and
 description: Learn a repeatable beginner procedure for testing whether a page supports user-defined text spacing.
 status: published
 order: 8
+category: display-and-adaptation
 topics: [visual design, text spacing, user overrides, readability, responsive layout]
 prerequisites:
   - Basic familiarity with browser developer tools

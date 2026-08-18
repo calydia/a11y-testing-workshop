@@ -4,6 +4,7 @@ summary: Apply a text-spacing override and investigate lost content and function
 description: Practise checking whether a realistic community-services page adapts to user-defined text spacing.
 status: published
 order: 25
+category: display-and-adaptation
 topics: [visual design, text spacing, user overrides, readability, responsive layout]
 prerequisites:
   - Understand the Testing text spacing and user overrides method

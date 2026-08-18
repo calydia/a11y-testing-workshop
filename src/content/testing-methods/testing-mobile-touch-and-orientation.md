@@ -4,6 +4,7 @@ summary: Check target size and spacing, orientation support, gesture alternative
 description: Learn a real-device-first beginner procedure for testing essential mobile touch interactions with emulation as supporting evidence.
 status: published
 order: 11
+category: display-and-adaptation
 topics: [mobile, touch, target size, orientation, gestures, pointer cancellation]
 prerequisites:
   - Basic familiarity with browser developer tools and responsive layouts

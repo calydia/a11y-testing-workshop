@@ -4,6 +4,7 @@ summary: Check whether people have enough time, receive useful warnings, can ext
 description: Learn a repeatable beginner procedure for testing time limits, warnings, session extension, expiry, work preservation, and return to an interrupted task.
 status: published
 order: 21
+category: interaction-and-tasks
 topics: [time limits, interruptions, session timeout, warnings, focus, screen readers, keyboard, data preservation]
 prerequisites:
   - Basic keyboard navigation

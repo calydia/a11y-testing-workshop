@@ -4,6 +4,7 @@ summary: Scan an event-registration page, verify the reported results, and use a
 description: Practise running, interpreting, and supplementing an automated accessibility check with a deliberately mixed event-registration fixture.
 status: published
 order: 40
+category: foundations
 topics: [automated testing, manual testing, triage, reporting]
 prerequisites:
   - Understand the Testing with automated tools method

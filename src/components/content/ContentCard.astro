@@ -10,14 +10,19 @@ export type ContentCardVariant = 'default' | 'sectionLanding';
 
 interface Props extends ContentCardData {
   variant?: ContentCardVariant;
+  headingLevel?: 2 | 3;
 }
 
-const { href, title, summary, eyebrow, variant = 'default' } = Astro.props as Props;
+const { href, title, summary, eyebrow, variant = 'default', headingLevel = 2 } = Astro.props as Props;
 ---
 
 <article class="h-full border-2 border-lt-code-border bg-lt-blue-middle p-6 dark:border-dk-code-border dark:bg-dk-code-bg">
   {eyebrow && <p class="mb-2 text-base font-bold">{eyebrow}</p>}
-  <h2 class:list={["mt-0", variant === 'sectionLanding' ? 'section-landing-card-heading' : 'text-2xl']}><a href={href}>{title}</a></h2>
+  {headingLevel === 3 ? (
+    <h3 class:list={["mt-0", variant === 'sectionLanding' ? 'section-landing-card-heading' : 'text-2xl']}><a href={href}>{title}</a></h3>
+  ) : (
+    <h2 class:list={["mt-0", variant === 'sectionLanding' ? 'section-landing-card-heading' : 'text-2xl']}><a href={href}>{title}</a></h2>
+  )}
   <p class:list={["mb-0", variant === 'sectionLanding' && 'section-landing-card-summary']}>{summary}</p>
 </article>
 

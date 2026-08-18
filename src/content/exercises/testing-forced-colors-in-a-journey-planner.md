@@ -4,6 +4,7 @@ summary: Compare a public-transport journey planner before and after forced colo
 description: Practise testing controls, icons, fields, focus, and route distinctions with forced colors or a clearly limited simulation.
 status: published
 order: 27
+category: display-and-adaptation
 topics: [visual design, forced colors, high contrast, controls, focus, essential graphics]
 prerequisites:
   - Understand the Testing forced colors and high contrast method

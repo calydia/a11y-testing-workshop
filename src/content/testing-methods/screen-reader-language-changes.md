@@ -4,6 +4,7 @@ summary: Check whether content in another language triggers appropriate pronunci
 description: Learn how to test changes in the human language of page content with a screen reader.
 status: published
 order: 30
+category: content-and-structure
 topics: [screen readers, language, pronunciation, semantics]
 prerequisites: [Basic use of one screen reader, Relevant screen-reader voices installed]
 skillLevel: beginner

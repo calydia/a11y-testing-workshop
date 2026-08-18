@@ -2,13 +2,16 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/navigation/Breadcrumbs.astro';
 import SectionLanding from '../../components/SectionLanding.astro';
-import { contentUrl, getVisibleEntries } from '../../lib/content';
-const entries = (await getVisibleEntries('exercises')).map((entry) => ({
-  href: contentUrl('exercises', entry.id), title: entry.data.title, summary: entry.data.summary,
+import { contentUrl, getVisibleEntries, groupEntriesByCategory } from '../../lib/content';
+const groups = groupEntriesByCategory(await getVisibleEntries('exercises')).map(({ category, entries }) => ({
+  category,
+  entries: entries.map((entry) => ({
+    href: contentUrl('exercises', entry.id), title: entry.data.title, summary: entry.data.summary,
+  })),
 }));
 ---
 
 <BaseLayout title="Exercises" metaDescription="Deliberately created examples for practising focused accessibility testing techniques.">
   <Breadcrumbs slot="breadcrumb" items={[{ label: 'Home', href: '/' }, { label: 'Exercises' }]} />
-  <SectionLanding title="Exercises" introduction="Investigate deliberately created examples and practise focused accessibility testing techniques." entries={entries} />
+  <SectionLanding title="Exercises" introduction="Investigate deliberately created examples and practise focused accessibility testing techniques." groups={groups} />
 </BaseLayout>

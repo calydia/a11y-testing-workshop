@@ -4,6 +4,7 @@ summary: Investigate captions, transcript content, visual-only information, and 
 description: Practise a bounded prerecorded-media review by comparing one announcement's audio, video, captions, transcript, and player behavior.
 status: published
 order: 30
+category: content-and-structure
 topics: [media, video, captions, transcript, audio description, native controls]
 prerequisites:
   - Understand the Testing media accessibility method

@@ -4,6 +4,7 @@ summary: Inspect a realistic account dashboard and find four problems involving 
 description: Practise systematic visual accessibility testing with a deliberately flawed account dashboard.
 status: published
 order: 20
+category: foundations
 topics: [visual design, contrast, color, readability, focus]
 prerequisites:
   - Understand the Testing visual accessibility method

@@ -4,6 +4,7 @@ summary: Investigate names, roles, states, keyboard behavior, and result announc
 description: Practise testing common controls with a screen reader in a community events finder.
 status: published
 order: 47
+category: interaction-and-tasks
 topics: [screen readers, controls, accessible names, roles, states, keyboard]
 prerequisites:
   - Understand the Testing controls with a screen reader method

@@ -1,5 +1,6 @@
 ---
 import type { SectionNavigationItem } from '../../lib/content';
+import { contentCategories, type ContentCategoryId } from '../../lib/content-categories';
 
 interface Props {
   title: string;
@@ -7,12 +8,22 @@ interface Props {
   landingLabel: string;
   items: SectionNavigationItem[];
   currentPath: string;
+  currentCategory?: ContentCategoryId;
 }
 
-const { title, landingHref, landingLabel, items, currentPath } = Astro.props;
+const { title, landingHref, landingLabel, items, currentPath, currentCategory } = Astro.props;
 const normalizePath = (path: string) => path === '/' ? '/' : path.replace(/\/+$/, '');
 const normalizedCurrentPath = normalizePath(currentPath);
 const isCurrent = (href: string) => normalizePath(href) === normalizedCurrentPath;
+const activeCategory = currentCategory
+  ? contentCategories.find(({ id }) => id === currentCategory)
+  : undefined;
+const currentCategoryItems = activeCategory
+  ? items.filter((item) => item.category === activeCategory.id)
+  : items;
+const otherCategories = activeCategory
+  ? contentCategories.filter(({ id }) => id !== activeCategory.id)
+  : [];
 ---
 
 <nav data-section-navigation aria-labelledby="section-navigation-title" class="border-y-2 border-lt-perfume py-4 dark:border-dk-purple-header">
@@ -25,12 +36,30 @@ const isCurrent = (href: string) => normalizePath(href) === normalizedCurrentPat
         {landingLabel}
       </a>
     </li>
-    {items.map((item) => (
+    {!activeCategory && items.map((item) => (
       <li class="my-2">
-        <a class="block py-1 [overflow-wrap:anywhere]" href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>
-          {item.label}
-        </a>
+        <a class="block py-1 [overflow-wrap:anywhere]" href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>{item.label}</a>
       </li>
     ))}
   </ul>
+  {activeCategory && (
+    <>
+      <h3 class="mb-2 mt-6 text-base">{activeCategory.label}</h3>
+      <ul class="m-0 list-none space-y-1 p-0 text-base leading-snug">
+        {currentCategoryItems.map((item) => (
+          <li class="my-2">
+            <a class="block py-1 [overflow-wrap:anywhere]" href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>{item.label}</a>
+          </li>
+        ))}
+      </ul>
+      <h3 class="mb-2 mt-6 text-base">Other areas</h3>
+      <ul class="m-0 list-none space-y-1 p-0 text-base leading-snug">
+        {otherCategories.map((category) => (
+          <li class="my-2">
+            <a class="block py-1" href={`${landingHref}#${category.id}`}>{category.label}</a>
+          </li>
+        ))}
+      </ul>
+    </>
+  )}
 </nav>

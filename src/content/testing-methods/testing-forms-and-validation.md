@@ -4,6 +4,7 @@ summary: Check whether people can understand, complete, correct, and successfull
 description: Learn a repeatable procedure for testing form labels, instructions, groups, validation errors, focus handling, and success messages.
 status: published
 order: 19
+category: interaction-and-tasks
 topics: [forms, validation, errors, accessible names, screen readers, keyboard]
 prerequisites:
   - Basic keyboard navigation

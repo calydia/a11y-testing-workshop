@@ -4,6 +4,7 @@ summary: Review Finnish, Swedish, and English notices while separating language-
 description: Practise testing declared and inherited language changes with a screen reader and inspecting missing, incorrect, invalid, and overly broad language markup.
 status: published
 order: 57
+category: content-and-structure
 topics: [screen readers, language, Finnish, Swedish, pronunciation]
 prerequisites:
   - Understand the Testing language changes with a screen reader method

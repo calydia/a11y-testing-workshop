@@ -4,6 +4,7 @@ summary: Test an appointment-booking page at a narrow zoom-equivalent width and 
 description: Practise zoom, reflow, and text-resizing testing with a deliberately constrained appointment-booking page.
 status: published
 order: 31
+category: display-and-adaptation
 topics: [zoom, reflow, text resizing, responsive design]
 prerequisites:
   - Understand the Testing zoom and reflow method

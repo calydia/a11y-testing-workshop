@@ -4,6 +4,7 @@ summary: Check whether content and functionality remain available when text is e
 description: Learn repeatable procedures for testing 200% text resizing and the 320 CSS-pixel reflow condition.
 status: published
 order: 13
+category: display-and-adaptation
 topics: [zoom, reflow, text resizing, responsive design, low vision]
 prerequisites:
   - Basic familiarity with browser zoom controls and developer tools

@@ -33,7 +33,7 @@ for (const route of routes.filter(({ path }) => ['/learn/', '/methods/', '/exerc
   test(`${route.path} uses compact section card typography`, async ({ page }) => {
     await page.goto(route.path);
     const firstCard = page.locator('main article').first();
-    const listing = page.locator('[data-content-listing]');
+    const listing = page.locator('[data-content-listing]').first();
     const firstItem = listing.getByRole('listitem').first();
 
     const spacing = await listing.evaluate((element) => {
@@ -44,7 +44,8 @@ for (const route of routes.filter(({ path }) => ['/learn/', '/methods/', '/exerc
     await expect(firstItem).toHaveCSS('margin-top', '0px');
     await expect(firstItem).toHaveCSS('margin-bottom', '0px');
 
-    await expect(firstCard.getByRole('heading', { level: 2 })).toHaveCSS('font-size', '20px');
+    const groupedListing = ['/methods/', '/exercises/'].includes(route.path);
+    await expect(firstCard.getByRole('heading', { level: groupedListing ? 3 : 2 })).toHaveCSS('font-size', '20px');
     await expect(firstCard.locator('p').last()).toHaveCSS('font-size', '18px');
 
     const firstCardLink = firstCard.getByRole('link').first();

@@ -1,9 +1,11 @@
 import { defineCollection, reference } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
+import { contentCategoryIds } from './lib/content-categories';
 
 const status = z.enum(['draft', 'published']).default('draft');
 const level = z.enum(['beginner', 'intermediate', 'advanced']);
+const contentCategory = z.enum(contentCategoryIds);
 const demonstrationKey = z.enum([
   'screen-reader/page-structure-and-links',
   'screen-reader/icons-and-svg',
@@ -46,6 +48,7 @@ const testingMethods = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/testing-methods' }),
   schema: z.object({
     ...common,
+    category: contentCategory,
     skillLevel: level,
     estimatedMinutes: z.number().int().positive().optional(),
     tools: z.array(z.string()).default([]),
@@ -63,6 +66,7 @@ const exercises = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/exercises' }),
   schema: z.object({
     ...common,
+    category: contentCategory,
     difficulty: level,
     estimatedMinutes: z.number().int().positive(),
     exerciseType: z.enum(['find-issues', 'perform-test', 'compare', 'fix-implementation']),

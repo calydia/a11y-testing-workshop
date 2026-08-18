@@ -4,6 +4,7 @@ summary: Investigate table names, navigation, headers, and empty cells in a cour
 description: Practise testing ordinary data-table relationships with a screen reader on a community-course booking page.
 status: published
 order: 46
+category: content-and-structure
 topics: [screen readers, data tables, captions, headers, reading order]
 prerequisites:
   - Understand the Testing data tables with a screen reader method

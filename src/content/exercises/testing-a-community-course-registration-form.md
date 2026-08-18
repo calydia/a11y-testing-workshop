@@ -4,6 +4,7 @@ summary: Complete, invalidate, correct, and submit a realistic registration form
 description: Practise testing labels, instructions, grouped choices, validation errors, focus handling, and successful form submission.
 status: published
 order: 60
+category: interaction-and-tasks
 topics: [forms, validation, errors, screen readers, keyboard]
 prerequisites:
   - Understand the Testing forms and validation method

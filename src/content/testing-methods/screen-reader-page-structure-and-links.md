@@ -4,6 +4,7 @@ summary: Check whether a page title, landmarks, and headings communicate useful 
 description: Learn how to test document titles, landmarks, headings, and link purpose using screen-reader navigation and element lists.
 status: published
 order: 15
+category: content-and-structure
 topics: [screen readers, headings, links, semantics]
 prerequisites: [Basic keyboard navigation, Basic use of one screen reader]
 skillLevel: beginner

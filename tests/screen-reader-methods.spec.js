@@ -109,6 +109,29 @@ const methods = [
   ...screenReaderMethods.slice(2),
 ];
 
+const methodGroups = [
+  {
+    label: 'Foundations',
+    id: 'foundations',
+    entries: [keyboardMethod, visualMethod, automatedMethod],
+  },
+  {
+    label: 'Display and adaptation',
+    id: 'display-and-adaptation',
+    entries: [textSpacingMethod, forcedColorsMethod, motionMethod, mobileTouchMethod, zoomMethod],
+  },
+  {
+    label: 'Content and structure',
+    id: 'content-and-structure',
+    entries: [mediaMethod, screenReaderMethods[0], dataTablesMethod, imageAlternativeMethod, screenReaderMethods[1], screenReaderMethods[2]],
+  },
+  {
+    label: 'Interaction and tasks',
+    id: 'interaction-and-tasks',
+    entries: [controlsMethod, formsValidationMethod, timeLimitsMethod, screenReaderMethods[3]],
+  },
+];
+
 const methodExercises = new Map([
   [keyboardMethod.path, ['Keyboard testing a preferences form', '/exercises/keyboard-testing-a-preferences-form/', '15 minutes']],
   [visualMethod.path, ['Finding visual problems in an account dashboard', '/exercises/finding-visual-problems-in-an-account-dashboard/', '15 minutes']],
@@ -130,7 +153,7 @@ const methodExercises = new Map([
   [screenReaderMethods[3].path, ['Testing modal dialogs in account settings', '/exercises/testing-modal-dialogs-in-account-settings/', '25 minutes']],
 ]);
 
-test('method detail pages provide collection-driven section navigation', async ({ page }) => {
+test('method detail pages prioritize the current category in section navigation', async ({ page }) => {
   await page.goto(methods[1].path);
 
   const navigation = page.getByRole('navigation', { name: 'Testing methods' });
@@ -138,12 +161,19 @@ test('method detail pages provide collection-driven section navigation', async (
   await expect(navigation.getByRole('heading', { name: 'Testing methods' })).toBeVisible();
 
   const links = navigation.getByRole('link');
-  await expect(links).toHaveCount(methods.length + 1);
-  await expect(links).toHaveText(['All Testing methods', ...methods.map((method) => method.title)]);
+  await expect(links).toHaveCount(7);
+  await expect(links).toHaveText([
+    'All Testing methods',
+    ...methodGroups[0].entries.map((method) => method.title),
+    ...methodGroups.slice(1).map(({ label }) => label),
+  ]);
   await expect(links.first()).toHaveAttribute('href', '/methods/');
 
-  for (const [index, method] of methods.entries()) {
-    await expect(links.nth(index + 1)).toHaveAttribute('href', method.path);
+  await expect(navigation.getByRole('heading', { level: 3, name: 'Foundations' })).toBeVisible();
+  await expect(navigation.getByRole('heading', { level: 3, name: 'Other areas' })).toBeVisible();
+  for (const group of methodGroups.slice(1)) {
+    await expect(navigation.getByRole('link', { name: group.label })).toHaveAttribute('href', `/methods/#${group.id}`);
+    await expect(navigation.getByRole('link', { name: group.label })).not.toHaveAttribute('aria-current');
   }
 
   await expect(navigation.getByRole('link', { name: methods[1].title })).toHaveAttribute('aria-current', 'page');
@@ -220,13 +250,21 @@ test('every section navigation link has a visible keyboard focus indicator', asy
   }
 });
 
-test('testing methods listing contains all methods in collection order', async ({ page }) => {
+test('testing methods listing groups all methods by browsing area', async ({ page }) => {
   await page.goto('/methods/');
 
-  const methodLinks = page.locator('main article h2 > a');
-  await expect(methodLinks).toHaveText(methods.map((method) => method.title));
+  const browseNavigation = page.getByRole('navigation', { name: 'Browse by area' });
+  await expect(browseNavigation.getByRole('link')).toHaveText(methodGroups.map(({ label }) => label));
+  for (const group of methodGroups) {
+    await expect(browseNavigation.getByRole('link', { name: group.label })).toHaveAttribute('href', `#${group.id}`);
+    const section = page.locator(`[data-content-category="${group.id}"]`);
+    await expect(section.getByRole('heading', { level: 2, name: group.label })).toBeVisible();
+    await expect(section.locator('article h3 > a')).toHaveText(group.entries.map(({ title }) => title));
+  }
 
-  for (const [index, method] of methods.entries()) {
+  const orderedMethods = methodGroups.flatMap(({ entries }) => entries);
+  const methodLinks = page.locator('main article h3 > a');
+  for (const [index, method] of orderedMethods.entries()) {
     await expect(methodLinks.nth(index)).toHaveAttribute('href', method.path);
   }
 });

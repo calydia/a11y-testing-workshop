@@ -5,18 +5,20 @@ interface Props {
   entries: ContentCardData[];
   emptyMessage?: string;
   variant?: ContentCardVariant;
+  headingLevel?: 2 | 3;
 }
 
 const {
   entries,
   emptyMessage = 'No published content is available in this section yet.',
   variant = 'default',
+  headingLevel = 2,
 } = Astro.props;
 ---
 
 {entries.length > 0 ? (
   <ul class="content-listing grid list-none gap-6 p-0 md:grid-cols-2" role="list" data-content-listing>
-    {entries.map((entry) => <li class="m-0"><ContentCard {...entry} variant={variant} /></li>)}
+    {entries.map((entry) => <li class="m-0"><ContentCard {...entry} variant={variant} headingLevel={headingLevel} /></li>)}
   </ul>
 ) : (
   <p class="box border-l-4 border-lt-purple bg-lt-blue-middle p-6 dark:border-dk-blue-light dark:bg-dk-code-bg">

@@ -1,0 +1,35 @@
+---
+import type { ContentCategory } from '../../lib/content-categories';
+import ContentListing from './ContentListing.astro';
+import type { ContentCardData } from './ContentCard.astro';
+
+export interface GroupedContentCards {
+  category: ContentCategory;
+  entries: ContentCardData[];
+}
+
+interface Props {
+  groups: GroupedContentCards[];
+}
+
+const { groups } = Astro.props;
+---
+
+{groups.length > 0 && (
+  <nav aria-label="Browse by area" class="my-8 border-y-2 border-lt-perfume py-4 dark:border-dk-purple-header">
+    <h2 class="mt-0 text-lg">Browse by area</h2>
+    <ul class="m-0 list-none p-0">
+      {groups.map(({ category }) => (
+        <li class="my-2"><a href={`#${category.id}`}>{category.label}</a></li>
+      ))}
+    </ul>
+  </nav>
+)}
+
+{groups.map(({ category, entries }) => (
+  <section id={category.id} class="scroll-mt-4" data-content-category={category.id}>
+    <h2>{category.label}</h2>
+    <p>{category.description}</p>
+    <ContentListing entries={entries} variant="sectionLanding" headingLevel={3} />
+  </section>
+))}

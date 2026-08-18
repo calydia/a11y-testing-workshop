@@ -4,6 +4,7 @@ summary: Decide what each image contributes in context and test whether its alte
 description: Learn a context-first visual, screen-reader, and markup-inspection procedure for meaningful, decorative, functional, and complex images.
 status: published
 order: 18
+category: content-and-structure
 topics: [images, alternative text, screen readers, accessible names, content]
 prerequisites:
   - Basic use of one screen reader

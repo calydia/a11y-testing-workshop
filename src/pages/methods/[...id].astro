@@ -45,6 +45,7 @@ const relatedExercises = await Promise.all(entry.data.relatedExercises.map(async
     landingLabel="All Testing methods"
     items={navigationItems}
     currentPath={Astro.url.pathname}
+    currentCategory={entry.data.category}
   />
   <Content />
 </MethodLayout>

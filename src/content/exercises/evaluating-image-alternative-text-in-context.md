@@ -4,6 +4,7 @@ summary: Compare meaningful, decorative, linked, missing, and broken-image alter
 description: Practise deciding image purpose and evaluating alternative text through visual review, screen-reader testing, and markup inspection.
 status: published
 order: 50
+category: content-and-structure
 topics: [images, alternative text, screen readers, content]
 prerequisites:
   - Understand the Testing image alternative text method

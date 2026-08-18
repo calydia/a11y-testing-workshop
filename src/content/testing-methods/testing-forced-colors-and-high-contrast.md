@@ -4,6 +4,7 @@ summary: Check whether information, controls, states, and focus remain perceivab
 description: Learn a repeatable beginner procedure for testing pages with forced colors and compatible operating-system contrast themes.
 status: published
 order: 9
+category: display-and-adaptation
 topics: [visual design, forced colors, high contrast, user preferences, focus, controls]
 prerequisites:
   - Basic familiarity with browser settings and developer tools

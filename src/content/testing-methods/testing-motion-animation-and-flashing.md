@@ -4,6 +4,7 @@ summary: Check whether moving and animated content can be controlled and whether
 description: Learn a repeatable beginner procedure for testing automatic movement, interaction-triggered animation, reduced motion, and possible flashing risk.
 status: published
 order: 10
+category: display-and-adaptation
 topics: [motion, animation, reduced motion, user preferences, flashing, pause controls]
 prerequisites:
   - Basic familiarity with browser settings and developer tools

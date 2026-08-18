@@ -4,6 +4,7 @@ summary: Determine whether meaningful graphics have useful names and decorative 
 description: Learn how to test meaningful, decorative, and CSS-generated icons and SVGs with a screen reader.
 status: published
 order: 20
+category: content-and-structure
 topics: [screen readers, icons, SVG, accessible names]
 prerequisites: [Basic use of one screen reader]
 skillLevel: beginner

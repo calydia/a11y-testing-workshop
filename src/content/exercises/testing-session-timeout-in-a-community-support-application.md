@@ -4,6 +4,7 @@ summary: Complete and interrupt a fictional multi-step application while testing
 description: Practise testing a session warning, countdown announcements, keyboard operation, focus restoration, work preservation, and return after simulated reauthentication.
 status: published
 order: 65
+category: interaction-and-tasks
 topics: [time limits, session timeout, interruptions, countdown, keyboard, screen readers, focus, data preservation]
 prerequisites:
   - Understand the Testing time limits and interruptions method

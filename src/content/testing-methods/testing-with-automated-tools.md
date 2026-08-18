@@ -4,6 +4,7 @@ summary: Run a reproducible accessibility scan, verify every result in context, 
 description: Learn a tool-neutral procedure for scoping, running, interpreting, documenting, and rerunning automated accessibility checks.
 status: published
 order: 14
+category: foundations
 topics: [automated testing, tooling, triage, reporting, WCAG]
 prerequisites:
   - Basic familiarity with browser developer tools

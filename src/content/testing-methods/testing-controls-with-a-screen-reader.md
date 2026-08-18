@@ -4,6 +4,7 @@ summary: Check whether common controls expose useful names, roles, states, value
 description: Learn a repeatable beginner procedure for testing common controls with a screen reader.
 status: published
 order: 17
+category: interaction-and-tasks
 topics: [screen readers, controls, accessible names, roles, states, keyboard]
 prerequisites: [Basic keyboard use, Basic use of one screen reader]
 skillLevel: beginner

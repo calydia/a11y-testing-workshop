@@ -4,6 +4,7 @@ summary: Check whether a data table exposes a useful name, dimensions, navigatio
 description: Learn a repeatable beginner procedure for testing ordinary data tables with a screen reader.
 status: published
 order: 16
+category: content-and-structure
 topics: [screen readers, data tables, captions, headers, reading order]
 prerequisites: [Basic keyboard use, Basic use of one screen reader]
 skillLevel: beginner

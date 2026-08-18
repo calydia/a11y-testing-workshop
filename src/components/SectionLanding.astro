@@ -3,17 +3,23 @@ interface Props {
   title: string;
   introduction: string;
   entries?: import('./content/ContentCard.astro').ContentCardData[];
+  groups?: import('./content/GroupedContentListing.astro').GroupedContentCards[];
 }
 
 import ContentListing from './content/ContentListing.astro';
+import GroupedContentListing from './content/GroupedContentListing.astro';
 
-const { title, introduction, entries = [] } = Astro.props;
+const { title, introduction, entries = [], groups } = Astro.props;
 ---
 
 <div class="my-8 mx-4 max-w-[80em] lg:mx-auto">
   <div class="mx-auto max-w-[40em]">
     <h1>{title}</h1>
     <p>{introduction}</p>
-    <ContentListing entries={entries} variant="sectionLanding" />
+    {groups ? (
+      <GroupedContentListing groups={groups} />
+    ) : (
+      <ContentListing entries={entries} variant="sectionLanding" />
+    )}
   </div>
 </div>

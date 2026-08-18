@@ -4,6 +4,7 @@ summary: Compare a parcel tracker before and after reduced motion and investigat
 description: Practise testing automatic, scroll-linked, and interaction-triggered motion without displaying hazardous flashing.
 status: published
 order: 28
+category: display-and-adaptation
 topics: [motion, animation, reduced motion, user controls, scrolling, flashing safety]
 prerequisites:
   - Understand the Testing motion, animation, and flashing method
