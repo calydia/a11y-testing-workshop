@@ -1,0 +1,283 @@
+<main class="fixture-shell">
+  <a class="return-link" href="/exercises/testing-session-timeout-in-a-community-support-application/">Return to the exercise</a>
+
+  <header>
+    <p class="eyebrow">Riverside community services</p>
+    <h1>Apply for community support</h1>
+    <p>Use this short application to tell the fictional community team what kind of appointment would help.</p>
+  </header>
+
+  <section class="practice-notice" aria-labelledby="practice-notice-heading">
+    <h2 id="practice-notice-heading">About this practice application</h2>
+    <p><strong>This is a fictional practice application. Nothing you enter is submitted, stored, or retained. Reloading or resetting the workspace removes all entered information.</strong></p>
+    <p>Use fictional sample information only. Do not enter personal or sensitive details.</p>
+  </section>
+
+  <section class="application" aria-labelledby="application-heading" data-application>
+    <h2 id="application-heading" tabindex="-1">Your support application</h2>
+    <form data-application-form>
+      <section data-step="1" aria-labelledby="step-one-heading">
+        <p class="step-label">Step 1 of 2</p>
+        <h3 id="step-one-heading" tabindex="-1">What support are you looking for?</h3>
+
+        <div class="field">
+          <label for="support-category">Support category</label>
+          <select id="support-category" name="support-category">
+            <option value="">Choose a fictional category</option>
+            <option value="activities">Community activities</option>
+            <option value="digital">Digital support</option>
+            <option value="housing">Housing-information appointment</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="sample-note">Sample note</label>
+          <p id="sample-note-instruction">Enter fictional practice information only. Do not describe a real situation.</p>
+          <textarea id="sample-note" name="sample-note" rows="5" aria-describedby="sample-note-instruction"></textarea>
+        </div>
+
+        <button type="button" data-next>Continue to appointment preferences</button>
+      </section>
+
+      <section data-step="2" aria-labelledby="step-two-heading" hidden>
+        <p class="step-label">Step 2 of 2</p>
+        <h3 id="step-two-heading" tabindex="-1">Appointment preferences</h3>
+        <fieldset>
+          <legend>Preferred appointment period</legend>
+          <label><input type="radio" name="appointment-period" value="morning" /> Morning</label>
+          <label><input type="radio" name="appointment-period" value="afternoon" /> Afternoon</label>
+          <label><input type="radio" name="appointment-period" value="no-preference" /> No preference</label>
+        </fieldset>
+        <div class="actions">
+          <button type="button" class="secondary" data-previous>Back to support details</button>
+          <button type="button" data-save>Save and finish later</button>
+        </div>
+      </section>
+    </form>
+  </section>
+
+  <section class="result" data-expired hidden aria-labelledby="expired-heading">
+    <h2 id="expired-heading" tabindex="-1">Your session has expired</h2>
+    <p>For security, you need to continue through a simulated sign-in before returning to the application.</p>
+    <p>No credentials are requested in this practice workspace.</p>
+    <button type="button" data-reauthenticate>Continue after simulated sign-in</button>
+  </section>
+
+  <section class="result confirmation" data-saved hidden aria-labelledby="saved-heading">
+    <h2 id="saved-heading" tabindex="-1">Save-later demonstration complete</h2>
+    <p><strong>This is a simulation. Nothing was saved.</strong></p>
+    <p>The practice application does not submit, store, or retain the information you entered.</p>
+  </section>
+
+  <aside class="testing-controls" aria-labelledby="testing-controls-heading">
+    <h2 id="testing-controls-heading" tabindex="-1">Testing controls</h2>
+    <p>These controls accelerate otherwise slow states for practice. They do not reproduce production timing or prove that a real time limit is usable.</p>
+    <div class="control-list">
+      <button type="button" data-start>Start short automatic demonstration</button>
+      <button type="button" data-show-warning>Show session warning</button>
+      <button type="button" data-expire>Expire session</button>
+      <button type="button" class="secondary" data-reset>Reset application</button>
+    </div>
+    <p class="test-status" data-test-status aria-live="polite">The demonstration is not running.</p>
+  </aside>
+
+  <dialog aria-labelledby="warning-heading" aria-describedby="warning-description" data-warning>
+    <div class="dialog-content">
+      <p class="eyebrow">Session warning</p>
+      <h2 id="warning-heading">Your session is about to expire</h2>
+      <p id="warning-description">Choose an action before the remaining time runs out.</p>
+      <p class="remaining-time"><strong>Time remaining:</strong> <span data-visible-countdown>5 seconds</span></p>
+      <p class="announcement" aria-live="assertive" aria-atomic="true" data-countdown-announcement></p>
+      <div class="actions">
+        <span class="extend-control" tabindex="-1" data-extend>Extend session</span>
+        <button type="button" data-dialog-save>Save and finish later</button>
+        <button type="button" class="secondary" data-dialog-reset>Reset practice application</button>
+      </div>
+    </div>
+  </dialog>
+</main>
+
+<script>
+  const application = document.querySelector<HTMLElement>('[data-application]');
+  const form = document.querySelector<HTMLFormElement>('[data-application-form]');
+  const stepOne = document.querySelector<HTMLElement>('[data-step="1"]');
+  const stepTwo = document.querySelector<HTMLElement>('[data-step="2"]');
+  const applicationHeading = document.querySelector<HTMLElement>('#application-heading');
+  const testingHeading = document.querySelector<HTMLElement>('#testing-controls-heading');
+  const warning = document.querySelector<HTMLDialogElement>('[data-warning]');
+  const visibleCountdown = document.querySelector<HTMLElement>('[data-visible-countdown]');
+  const countdownAnnouncement = document.querySelector<HTMLElement>('[data-countdown-announcement]');
+  const testStatus = document.querySelector<HTMLElement>('[data-test-status]');
+  const expired = document.querySelector<HTMLElement>('[data-expired]');
+  const saved = document.querySelector<HTMLElement>('[data-saved]');
+  let currentStep = 1;
+  let remainingSeconds = 5;
+  let warningDelay: number | undefined;
+  let countdownTimer: number | undefined;
+
+  const clearTimers = () => {
+    if (warningDelay !== undefined) window.clearTimeout(warningDelay);
+    if (countdownTimer !== undefined) window.clearInterval(countdownTimer);
+    warningDelay = undefined;
+    countdownTimer = undefined;
+  };
+
+  const showStep = (step: number, moveFocus = true) => {
+    currentStep = step;
+    application?.setAttribute('data-current-step', String(currentStep));
+    if (stepOne) stepOne.hidden = step !== 1;
+    if (stepTwo) stepTwo.hidden = step !== 2;
+    if (moveFocus) document.querySelector<HTMLElement>(`[data-step="${step}"] h3`)?.focus();
+  };
+
+  const closeWarning = () => {
+    if (warning?.open) warning.close();
+    if (countdownAnnouncement) countdownAnnouncement.textContent = '';
+  };
+
+  const updateCountdown = () => {
+    const message = `${remainingSeconds} ${remainingSeconds === 1 ? 'second' : 'seconds'} remaining`;
+    if (visibleCountdown) visibleCountdown.textContent = message;
+    if (countdownAnnouncement) countdownAnnouncement.textContent = message;
+  };
+
+  const expireSession = () => {
+    clearTimers();
+    closeWarning();
+    form?.reset();
+    showStep(1, false);
+    if (application) application.hidden = true;
+    if (saved) saved.hidden = true;
+    if (expired) expired.hidden = false;
+    if (testStatus) testStatus.textContent = 'The practice session has expired.';
+    document.querySelector<HTMLElement>('#expired-heading')?.focus();
+  };
+
+  const beginCountdown = () => {
+    clearTimers();
+    remainingSeconds = 5;
+    updateCountdown();
+    if (warning && !warning.open) warning.showModal();
+    if (testStatus) testStatus.textContent = 'The session warning is open.';
+    countdownTimer = window.setInterval(() => {
+      remainingSeconds -= 1;
+      if (remainingSeconds <= 0) {
+        expireSession();
+        return;
+      }
+      updateCountdown();
+    }, 1000);
+  };
+
+  const startDemonstration = () => {
+    clearTimers();
+    closeWarning();
+    if (testStatus) testStatus.textContent = 'The short automatic demonstration is running.';
+    warningDelay = window.setTimeout(beginCountdown, 4000);
+  };
+
+  const saveForLater = () => {
+    clearTimers();
+    closeWarning();
+    if (application) application.hidden = true;
+    if (expired) expired.hidden = true;
+    if (saved) saved.hidden = false;
+    if (testStatus) testStatus.textContent = 'The save-later simulation is complete.';
+    document.querySelector<HTMLElement>('#saved-heading')?.focus();
+  };
+
+  const resetApplication = () => {
+    clearTimers();
+    closeWarning();
+    form?.reset();
+    remainingSeconds = 5;
+    updateCountdown();
+    showStep(1, false);
+    if (application) application.hidden = false;
+    if (expired) expired.hidden = true;
+    if (saved) saved.hidden = true;
+    if (testStatus) testStatus.textContent = 'The application has been reset. Nothing was retained.';
+    applicationHeading?.focus();
+  };
+
+  document.querySelector('[data-next]')?.addEventListener('click', () => showStep(2));
+  document.querySelector('[data-previous]')?.addEventListener('click', () => showStep(1));
+  document.querySelector('[data-save]')?.addEventListener('click', saveForLater);
+  document.querySelector('[data-dialog-save]')?.addEventListener('click', saveForLater);
+  document.querySelector('[data-start]')?.addEventListener('click', startDemonstration);
+  document.querySelector('[data-show-warning]')?.addEventListener('click', beginCountdown);
+  document.querySelector('[data-expire]')?.addEventListener('click', expireSession);
+  document.querySelector('[data-reset]')?.addEventListener('click', resetApplication);
+  document.querySelector('[data-dialog-reset]')?.addEventListener('click', resetApplication);
+  document.querySelector('[data-extend]')?.addEventListener('click', () => {
+    clearTimers();
+    closeWarning();
+    if (testStatus) testStatus.textContent = 'The session was extended.';
+    window.setTimeout(() => testingHeading?.focus(), 0);
+  });
+  document.querySelector('[data-reauthenticate]')?.addEventListener('click', () => {
+    if (expired) expired.hidden = true;
+    if (application) application.hidden = false;
+    showStep(1, false);
+    applicationHeading?.focus();
+  });
+  warning?.addEventListener('cancel', clearTimers);
+  warning?.addEventListener('close', () => {
+    if (countdownAnnouncement) countdownAnnouncement.textContent = '';
+  });
+  window.addEventListener('pagehide', clearTimers);
+</script>
+
+<style>
+  :global(*) { box-sizing: border-box; }
+  :global(body) { margin: 0; background: #fafafa; color: #454545; font-family: 'Atkinson Hyperlegible', Arial, sans-serif; font-size: 1.125rem; line-height: 1.5; }
+  .fixture-shell { max-width: 54rem; margin: 0 auto; padding: 1.5rem; }
+  header { margin-block: 1.5rem 2rem; }
+  .eyebrow, .step-label { margin: 0 0 0.5rem; font-weight: 700; }
+  h1, h2, h3 { color: #303030; line-height: 1.2; }
+  h1 { margin-block: 0.25rem 0.75rem; font-size: clamp(2.25rem, 8vw, 3.5rem); }
+  h2 { margin-top: 0; font-size: 1.8rem; }
+  h3 { font-size: 1.4rem; }
+  a { color: #033573; text-underline-offset: 0.2em; }
+  .practice-notice, .application, .result, .testing-controls { margin-block: 1.5rem; padding: 1.25rem; border: 2px solid #bbc9f7; }
+  .practice-notice { border-width: 4px; background: #f5f0ff; }
+  .field { margin-block: 1.5rem; }
+  .field > label, legend { display: block; margin-bottom: 0.4rem; font-weight: 700; }
+  select, textarea { width: 100%; padding: 0.7rem; border: 2px solid #7a89ad; border-radius: 0.25rem; background: #fff; color: #18151f; font: inherit; }
+  fieldset { margin-block: 1.5rem; padding: 1rem; border: 2px solid #7a89ad; }
+  fieldset label { display: flex; gap: 0.5rem; margin-block: 0.65rem; }
+  input[type='radio'] { width: 1.25rem; height: 1.25rem; }
+  button, .extend-control { display: inline-flex; min-height: 3rem; align-items: center; justify-content: center; padding: 0.65rem 1rem; border: 4px solid transparent; border-radius: 0.25rem; background: #033573; color: #fff; font: inherit; font-weight: 700; cursor: pointer; }
+  button:hover, .extend-control:hover { border-color: #033573; background: transparent; color: #033573; }
+  button.secondary { border-color: #033573; background: transparent; color: #033573; }
+  button.secondary:hover { background: #e7f0ff; }
+  .actions, .control-list { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+  .test-status { margin-block: 1rem 0; font-weight: 700; }
+  .confirmation { border-color: #236627; }
+  dialog { width: min(38rem, calc(100% - 2rem)); padding: 0; border: 4px solid #6540a4; background: #fafafa; color: #454545; }
+  dialog::backdrop { background: rgb(1 0 23 / 75%); }
+  .dialog-content { padding: 1.5rem; }
+  .remaining-time { padding: 1rem; border: 2px solid #6540a4; font-size: 1.3rem; }
+  .announcement { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+  a:focus, button:focus, select:focus, textarea:focus, h2:focus, h3:focus { outline: 3px solid #000; outline-offset: 4px; box-shadow: 0 0 0 2px #fff; }
+
+  :global(.dark body) { background: #010017; color: #ababab; }
+  :global(.dark) h1, :global(.dark) h2, :global(.dark) h3 { color: #cfcfcf; }
+  :global(.dark) a { color: #ade5f8; }
+  :global(.dark) .practice-notice { background: #070038; border-color: #6540a4; }
+  :global(.dark) .application, :global(.dark) .result, :global(.dark) .testing-controls { border-color: #18399a; }
+  :global(.dark) .confirmation { border-color: #8ed391; }
+  :global(.dark) button, :global(.dark) .extend-control { background: #ade5f8; color: #000; }
+  :global(.dark) button:hover, :global(.dark) .extend-control:hover { border-color: #ade5f8; background: transparent; color: #ade5f8; }
+  :global(.dark) button.secondary { border-color: #ade5f8; background: transparent; color: #ade5f8; }
+  :global(.dark) button.secondary:hover { background: #100842; }
+  :global(.dark) dialog { border-color: #6540a4; background: #010017; color: #ababab; }
+  :global(.dark) a:focus, :global(.dark) button:focus, :global(.dark) select:focus, :global(.dark) textarea:focus, :global(.dark) h2:focus, :global(.dark) h3:focus { outline-color: #fff; box-shadow: 0 0 0 2px #010017; }
+
+  @media (max-width: 34rem) {
+    .fixture-shell { padding: 1rem; }
+    .practice-notice, .application, .result, .testing-controls { padding: 1rem; }
+    .actions, .control-list { align-items: stretch; flex-direction: column; }
+    button, .extend-control { width: 100%; }
+  }
+</style>

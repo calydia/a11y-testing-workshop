@@ -16,6 +16,7 @@ import PublicTransportJourneyPlannerFixture from '../components/exercise/fixture
 import ParcelTrackingMotionFixture from '../components/exercise/fixtures/ParcelTrackingMotionFixture.astro';
 import CommunityFestivalTouchFixture from '../components/exercise/fixtures/CommunityFestivalTouchFixture.astro';
 import CommunityAnnouncementMediaFixture from '../components/exercise/fixtures/CommunityAnnouncementMediaFixture.astro';
+import CommunitySupportSessionTimeoutFixture from '../components/exercise/fixtures/CommunitySupportSessionTimeoutFixture.astro';
 
 export interface InlineFixture {
   kind: 'inline';
@@ -234,6 +235,19 @@ export const fixtureRegistry: Record<string, ExerciseFixtureDefinition> = {
       'mistimed-caption-cue',
       'incomplete-transcript',
       'undescribed-visual-information',
+    ],
+  },
+  'community-support-session-timeout': {
+    kind: 'document',
+    component: CommunitySupportSessionTimeoutFixture,
+    title: 'Community support session-timeout exercise',
+    intentionalViolations: [
+      'late-warning',
+      'excessive-countdown-announcements',
+      'pointer-only-extension',
+      'unrelated-focus-restoration',
+      'discarded-entered-information',
+      'lost-interrupted-position',
     ],
   },
 };

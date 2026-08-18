@@ -41,6 +41,7 @@ test('exercise listing contains published exercises in collection order', async 
     'Testing language changes on a community library noticeboard',
     'Testing modal dialogs in account settings',
     'Testing a community-course registration form',
+    'Testing session timeout in a community-support application',
   ]);
   await expect(links.nth(0)).toHaveAttribute('href', '/exercises/keyboard-testing-a-preferences-form/');
   await expect(links.nth(1)).toHaveAttribute('href', '/exercises/finding-visual-problems-in-an-account-dashboard/');
@@ -59,4 +60,5 @@ test('exercise listing contains published exercises in collection order', async 
   await expect(links.nth(14)).toHaveAttribute('href', '/exercises/testing-language-changes-on-a-community-library-noticeboard/');
   await expect(links.nth(15)).toHaveAttribute('href', '/exercises/testing-modal-dialogs-in-account-settings/');
   await expect(links.nth(16)).toHaveAttribute('href', '/exercises/testing-a-community-course-registration-form/');
+  await expect(links.nth(17)).toHaveAttribute('href', '/exercises/testing-session-timeout-in-a-community-support-application/');
 });

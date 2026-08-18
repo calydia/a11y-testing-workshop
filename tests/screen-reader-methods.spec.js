@@ -65,6 +65,11 @@ const formsValidationMethod = {
   title: 'Testing forms and validation',
 };
 
+const timeLimitsMethod = {
+  path: '/methods/testing-time-limits-and-interruptions/',
+  title: 'Testing time limits and interruptions',
+};
+
 const screenReaderMethods = [
   {
     path: '/methods/screen-reader-page-structure-and-links/',
@@ -99,7 +104,9 @@ const methods = [
   controlsMethod,
   imageAlternativeMethod,
   formsValidationMethod,
-  ...screenReaderMethods.slice(1),
+  screenReaderMethods[1],
+  timeLimitsMethod,
+  ...screenReaderMethods.slice(2),
 ];
 
 const methodExercises = new Map([
@@ -117,6 +124,7 @@ const methodExercises = new Map([
   [controlsMethod.path, ['Testing controls in a community events finder', '/exercises/testing-controls-in-a-community-events-finder/', '25 minutes']],
   [imageAlternativeMethod.path, ['Evaluating image alternative text in context', '/exercises/evaluating-image-alternative-text-in-context/', '20 minutes']],
   [formsValidationMethod.path, ['Testing a community-course registration form', '/exercises/testing-a-community-course-registration-form/', '25 minutes']],
+  [timeLimitsMethod.path, ['Testing session timeout in a community-support application', '/exercises/testing-session-timeout-in-a-community-support-application/', '30 minutes']],
   [screenReaderMethods[1].path, ['Reviewing icons and SVGs in a community events dashboard', '/exercises/reviewing-icons-and-svgs-in-a-community-events-dashboard/', '20 minutes']],
   [screenReaderMethods[2].path, ['Testing language changes on a community library noticeboard', '/exercises/testing-language-changes-on-a-community-library-noticeboard/', '20 minutes']],
   [screenReaderMethods[3].path, ['Testing modal dialogs in account settings', '/exercises/testing-modal-dialogs-in-account-settings/', '25 minutes']],

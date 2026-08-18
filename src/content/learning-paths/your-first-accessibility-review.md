@@ -1,20 +1,21 @@
 ---
 title: Your first accessibility review
-summary: Build a practical beginner review through paired methods and Exercises for automated, keyboard, visual, user-preference, motion, mobile-touch, media, zoom, and forms testing.
-description: Follow an interleaved beginner path through automated, keyboard, visual, user preferences, motion, mobile touch, prerecorded media, zoom, screen-reader preparation, and forms testing.
+summary: Build a practical beginner review through paired methods and Exercises for automated, keyboard, visual, user-preference, motion, mobile-touch, media, zoom, forms, and time-limit testing.
+description: Follow an interleaved beginner path through automated, keyboard, visual, user preferences, motion, mobile touch, prerecorded media, zoom, screen-reader preparation, forms, and interrupted-session testing.
 status: published
 order: 10
-topics: [beginner, accessibility review, automated testing, keyboard, visual, text spacing, forced colors, motion, reduced motion, mobile, touch, orientation, media, captions, transcripts, audio description, user overrides, zoom, forms]
+topics: [beginner, accessibility review, automated testing, keyboard, visual, text spacing, forced colors, motion, reduced motion, mobile, touch, orientation, media, captions, transcripts, audio description, user overrides, zoom, forms, time limits, interruptions, session timeout]
 prerequisites:
   - Basic familiarity with using a web browser
 level: beginner
-estimatedMinutes: 475
+estimatedMinutes: 530
 outcomes:
   - Define and run a scoped automated accessibility check without treating it as complete coverage.
   - Perform baseline keyboard, visual, forced-colors, motion, mobile-touch, prerecorded-media, and zoom and reflow reviews.
   - Apply the complete text-spacing condition and check whether content and functionality remain available.
   - Prepare a screen reader for limited form-oriented verification.
   - Test form labels, instructions, groups, validation errors, focus handling, and success communication.
+  - Test session warnings, extension, expiry, work preservation, and return to an interrupted task.
   - Record reproducible findings and distinguish automated evidence from required human judgment.
 steps:
   - type: method
@@ -60,6 +61,10 @@ steps:
     entry: testing-forms-and-validation
   - type: exercise
     entry: testing-a-community-course-registration-form
+  - type: method
+    entry: testing-time-limits-and-interruptions
+  - type: exercise
+    entry: testing-session-timeout-in-a-community-support-application
 ---
 
 Work through this path across several sessions. Revisit each Testing method while you complete its Exercise.
@@ -76,7 +81,7 @@ The Testing method for forms and validation and its Exercise include a limited s
 4. Record what is actually announced and how the control behaves. Exact wording and timing can differ between screen readers and browsers.
 5. Keep your visual and keyboard observations separate from your screen-reader observations.
 
-You do not need to learn every screen-reader command before continuing. The goal is to gather enough direct evidence to inspect the form relationships and validation messages in the final Testing method and Exercise.
+You do not need to learn every screen-reader command before continuing. The goal is to gather enough direct evidence to inspect form relationships, validation messages, and session-interruption announcements in the final Testing methods and Exercises.
 
 ## Where to go next
 

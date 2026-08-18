@@ -26,6 +26,8 @@ const expectedSteps = [
   ['Path checkpoint', 'Prepare for screen-reader checks', '#prepare-for-screen-reader-checks'],
   ['Testing method', 'Testing forms and validation', '/methods/testing-forms-and-validation/'],
   ['Exercise', 'Testing a community-course registration form', '/exercises/testing-a-community-course-registration-form/'],
+  ['Testing method', 'Testing time limits and interruptions', '/methods/testing-time-limits-and-interruptions/'],
+  ['Exercise', 'Testing session timeout in a community-support application', '/exercises/testing-session-timeout-in-a-community-support-application/'],
 ];
 
 const expectedScreenReaderSteps = [
@@ -94,20 +96,20 @@ test('first Learning path renders metadata, outcomes, and navigation', async ({ 
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Your first accessibility review');
   const metadata = page.locator('[data-learning-path-meta]');
   await expect(metadata).toContainText('Level: beginner');
-  await expect(metadata).toContainText('Estimated time: About 8 hours');
+  await expect(metadata).toContainText('Estimated time: About 8 hours 50 minutes');
   await expect(metadata.locator('dl')).toHaveCSS('font-size', '16px');
   await expect(page.locator('[data-content-heading] [data-learning-path-meta]')).toHaveCount(1);
   const summary = page.locator('[data-content-heading] .introduction');
   expect(await summary.evaluate((element, metadataElement) => Boolean(element.compareDocumentPosition(metadataElement) & Node.DOCUMENT_POSITION_FOLLOWING), await metadata.elementHandle())).toBe(true);
   await expect(page.getByRole('heading', { level: 2, name: 'What you will learn' })).toBeVisible();
-  await expect(page.locator('[data-learning-outcomes] li')).toHaveCount(6);
+  await expect(page.locator('[data-learning-outcomes] li')).toHaveCount(7);
 
   const breadcrumb = page.getByRole('navigation', { name: 'Breadcrumbs' }).getByRole('listitem');
   await expect(breadcrumb).toHaveText(['Home/', 'Learning paths/', 'Your first accessibility review']);
   await expect(page.getByRole('navigation', { name: 'Learning paths' }).getByRole('link', { name: 'Your first accessibility review' })).toHaveAttribute('aria-current', 'page');
 });
 
-test('path renders the exact interleaved twenty-one-step sequence', async ({ page }) => {
+test('path renders the exact interleaved twenty-three-step sequence', async ({ page }) => {
   await page.goto(pathUrl);
   const steps = page.locator('[data-learning-path-steps] > li');
   await expect(steps).toHaveCount(expectedSteps.length);
@@ -124,7 +126,7 @@ test('path renders the exact interleaved twenty-one-step sequence', async ({ pag
 test('referenced steps include summaries and item durations', async ({ page }) => {
   await page.goto(pathUrl);
   const referencedSteps = page.locator('[data-learning-path-steps] > li:not([data-content-step])');
-  await expect(referencedSteps).toHaveCount(20);
+  await expect(referencedSteps).toHaveCount(22);
   for (const step of await referencedSteps.all()) {
     await expect(step.getByRole('heading', { level: 3 })).toHaveCSS('font-size', '20px');
     await expect(step.locator('[data-step-summary]')).not.toBeEmpty();
