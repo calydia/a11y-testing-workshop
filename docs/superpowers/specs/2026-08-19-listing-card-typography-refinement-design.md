@@ -16,11 +16,14 @@ The heading remains the strongest element. Metadata becomes the smallest support
 
 The change applies consistently to Learning paths, Testing methods, Exercises, and Testing journeys. It does not affect detail-page metadata, related-content cards, fixture cards, headings, or ordinary body text.
 
-Existing colors, spacing, borders, grid behavior, heading levels, focus styles, responsive behavior, and the screen-reader-hidden visual metadata separator remain unchanged.
+Give the summary paragraph a `1rem` bottom margin so wrapped or short summaries retain comfortable space at the bottom of each card. Keep the eyebrow and metadata margins unchanged.
+
+Existing colors, other spacing, borders, grid behavior, heading levels, focus styles, responsive behavior, and the screen-reader-hidden visual metadata separator remain unchanged.
 
 ## Verification
 
 - Assert the computed heading, metadata, and summary sizes on all four listing types.
+- Assert the summary paragraph's computed bottom margin is `16px`.
 - Preserve grouped and flat listing heading levels.
 - Confirm metadata and summaries wrap without horizontal overflow at a narrow viewport.
 - Confirm light- and dark-theme contrast and existing focus styles remain unchanged.
@@ -28,7 +31,7 @@ Existing colors, spacing, borders, grid behavior, heading levels, focus styles, 
 
 ## Out of scope
 
-- Changing card padding, margins, gaps, width, borders, or colors
+- Changing card padding, non-summary margins, gaps, width, borders, or colors
 - Changing title size or heading hierarchy
 - Changing detail-page or related-content typography
 - Rewriting listing copy or metadata

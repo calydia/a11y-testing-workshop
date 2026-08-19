@@ -15,7 +15,8 @@ Reduce section-listing card summary and metadata sizes while retaining the curre
 1. Retain the `20px` card-heading assertion across all four section listings.
 2. Change the section-listing summary expectation from `18px` to `16px`.
 3. Add a `14px` expectation for the level and duration metadata line.
-4. Preserve grouped and flat heading-level assertions, focus checks, equal grid gaps, and narrow-viewport overflow checks.
+4. Add a `16px` computed bottom-margin expectation for the summary paragraph.
+5. Preserve grouped and flat heading-level assertions, focus checks, equal grid gaps, and narrow-viewport overflow checks.
 
 ## Task 2: Refine the shared section-listing card type
 
@@ -28,8 +29,9 @@ Reduce section-listing card summary and metadata sizes while retaining the curre
 1. Keep the `sectionLanding` heading at `1.25rem` (`20px`).
 2. Reduce the `sectionLanding` summary to `1rem` (`16px`).
 3. Give section-listing metadata a dedicated `0.875rem` (`14px`) size.
-4. Keep default card typography unchanged.
-5. Preserve metadata order, hidden visual separator, colors, margins, padding, borders, and interaction styles.
+4. Give the section-listing summary a `1rem` bottom margin.
+5. Keep default card typography unchanged.
+6. Preserve metadata order, hidden visual separator, colors, other margins, padding, borders, and interaction styles.
 
 ## Task 3: Verify
 
@@ -41,7 +43,7 @@ Reduce section-listing card summary and metadata sizes while retaining the curre
 
 ## Out of scope
 
-- Card dimensions, spacing, colors, borders, or grid layout
+- Card dimensions, non-summary spacing, colors, borders, or grid layout
 - Detail-page and related-content typography
 - Heading size or hierarchy
 - Listing copy or metadata values
