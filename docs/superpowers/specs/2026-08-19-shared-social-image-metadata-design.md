@@ -19,7 +19,7 @@ Give all four A11ying with Sanna websites consistent social-sharing previews usi
 
 The user will add the same brand artwork to each repository as:
 
-`public/social-media-share.jpeg`
+`public/social-media-share.jpg`
 
 The image will be:
 
@@ -62,7 +62,7 @@ The migrated blog model does not expose alternative text for article-specific so
 
 ## Existing site images
 
-The current `some-share.jpeg` files in `a11ying-front` and `wcag-front` will no longer be referenced after this change. They will not be deleted as part of this metadata milestone; asset cleanup can occur after the new image has been added and reviewed.
+The user has replaced the current `some-share.jpeg` files in `a11ying-front` and `wcag-front` with the new shared image. The metadata change will adopt that replacement without restoring the superseded files.
 
 The existing profile and article images in `sanna` remain unchanged.
 
@@ -86,5 +86,4 @@ Run each repository's focused checks and production build. Run the broader quali
 - Generating multiple social-image sizes.
 - Adding per-page social artwork outside the existing `sanna` blog behavior.
 - Migrating blog image alternative text.
-- Deleting superseded image assets.
 - Changing visible layouts or site branding.
