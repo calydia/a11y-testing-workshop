@@ -18,6 +18,7 @@ import CommunityFestivalTouchFixture from '../components/exercise/fixtures/Commu
 import CommunityAnnouncementMediaFixture from '../components/exercise/fixtures/CommunityAnnouncementMediaFixture.astro';
 import CommunitySupportSessionTimeoutFixture from '../components/exercise/fixtures/CommunitySupportSessionTimeoutFixture.astro';
 import CommunityActivitiesStatusMessagesFixture from '../components/exercise/fixtures/CommunityActivitiesStatusMessagesFixture.astro';
+import CommunityServicesAuthenticationFixture from '../components/exercise/fixtures/CommunityServicesAuthenticationFixture.astro';
 
 export interface InlineFixture {
   kind: 'inline';
@@ -262,6 +263,18 @@ export const fixtureRegistry: Record<string, ExerciseFixtureDefinition> = {
       'unannounced-save-confirmation',
       'prepopulated-inserted-live-region',
       'late-no-results-live-semantics',
+    ],
+  },
+  'community-services-authentication': {
+    kind: 'document',
+    component: CommunityServicesAuthenticationFixture,
+    title: 'Community services authentication exercise',
+    intentionalViolations: [
+      'incorrect-credential-input-purposes',
+      'blocked-password-paste',
+      'blocked-verification-code-paste',
+      'unsupported-memory-task',
+      'destructive-verification-recovery',
     ],
   },
 };

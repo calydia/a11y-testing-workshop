@@ -75,6 +75,11 @@ const timeLimitsMethod = {
   title: 'Testing time limits and interruptions',
 };
 
+const authenticationMethod = {
+  path: '/methods/testing-authentication-and-verification/',
+  title: 'Testing authentication and verification',
+};
+
 const screenReaderMethods = [
   {
     path: '/methods/screen-reader-page-structure-and-links/',
@@ -112,6 +117,7 @@ const methods = [
   screenReaderMethods[1],
   statusMessagesMethod,
   timeLimitsMethod,
+  authenticationMethod,
   ...screenReaderMethods.slice(2),
 ];
 
@@ -134,7 +140,7 @@ const methodGroups = [
   {
     label: 'Interaction and tasks',
     id: 'interaction-and-tasks',
-    entries: [controlsMethod, formsValidationMethod, statusMessagesMethod, timeLimitsMethod, screenReaderMethods[3]],
+    entries: [controlsMethod, formsValidationMethod, statusMessagesMethod, timeLimitsMethod, authenticationMethod, screenReaderMethods[3]],
   },
 ];
 
@@ -155,6 +161,7 @@ const methodExercises = new Map([
   [formsValidationMethod.path, ['Testing a community-course registration form', '/exercises/testing-a-community-course-registration-form/', '25 minutes']],
   [statusMessagesMethod.path, ['Testing status messages in a community activities search', '/exercises/testing-status-messages-in-a-community-activities-search/', '30 minutes']],
   [timeLimitsMethod.path, ['Testing session timeout in a community-support application', '/exercises/testing-session-timeout-in-a-community-support-application/', '30 minutes']],
+  [authenticationMethod.path, ['Testing authentication for a community-services booking', '/exercises/testing-authentication-for-a-community-services-booking/', '35 minutes']],
   [screenReaderMethods[1].path, ['Reviewing icons and SVGs in a community events dashboard', '/exercises/reviewing-icons-and-svgs-in-a-community-events-dashboard/', '20 minutes']],
   [screenReaderMethods[2].path, ['Testing language changes on a community library noticeboard', '/exercises/testing-language-changes-on-a-community-library-noticeboard/', '20 minutes']],
   [screenReaderMethods[3].path, ['Testing modal dialogs in account settings', '/exercises/testing-modal-dialogs-in-account-settings/', '25 minutes']],

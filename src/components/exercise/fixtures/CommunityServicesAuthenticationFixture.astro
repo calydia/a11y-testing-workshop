@@ -1,0 +1,237 @@
+<main class="fixture-shell" data-authentication-fixture>
+  <a class="return-link" href="/exercises/testing-authentication-for-a-community-services-booking/">Return to the exercise</a>
+
+  <header>
+    <p class="eyebrow">Riverside community services</p>
+    <h1>Manage your community-services booking</h1>
+    <p>Use the fictional account flow to view and manage an existing advice appointment.</p>
+  </header>
+
+  <section class="practice-notice" aria-labelledby="practice-notice-heading">
+    <h2 id="practice-notice-heading">About this practice sign-in</h2>
+    <p><strong>Nothing you enter is submitted, stored, or retained. All account, booking, password, and verification details in this workspace are fictional.</strong></p>
+    <p>Use fictional sample values only. Do not enter a real email address, password, booking reference, verification code, or other personal information.</p>
+  </section>
+
+  <section class="booking-summary" aria-labelledby="booking-summary-heading" data-booking-summary>
+    <h2 id="booking-summary-heading">Your fictional booking</h2>
+    <dl>
+      <div><dt>Service</dt><dd>Housing advice appointment</dd></div>
+      <div><dt>Date</dt><dd>Thursday 27 August at 14:30</dd></div>
+      <div><dt>Booking reference</dt><dd><code data-booking-reference>RIVER-204</code></dd></div>
+    </dl>
+  </section>
+
+  <section class="authentication" aria-labelledby="authentication-heading" data-authentication>
+    <h2 id="authentication-heading" tabindex="-1">Sign in to manage this booking</h2>
+    <p data-workflow-message role="alert" hidden></p>
+
+    <form data-authentication-form>
+      <section data-authentication-step="sign-in" aria-labelledby="sign-in-heading">
+        <p class="step-label">Step 1 of 2</p>
+        <h3 id="sign-in-heading">Account details</h3>
+        <p>Enter fictional account details. Any non-empty fictional email address and password will continue to the practice verification step.</p>
+
+        <div class="field">
+          <label for="account-email">Email address</label>
+          <input id="account-email" name="account-email" type="email" required data-email />
+        </div>
+
+        <div class="field">
+          <label for="account-password">Password</label>
+          <div class="password-row">
+            <input id="account-password" name="account-password" type="password" autocomplete="new-password" required data-password />
+            <button type="button" class="secondary reveal-button" aria-pressed="false" data-reveal-password>Show password</button>
+          </div>
+        </div>
+
+        <button type="submit">Continue to verification</button>
+      </section>
+
+      <section data-authentication-step="verification" aria-labelledby="verification-heading" hidden>
+        <p class="step-label">Step 2 of 2</p>
+        <h3 id="verification-heading" tabindex="-1">Verify your booking</h3>
+        <p>Enter the booking reference shown before sign-in and the code from this fictional message.</p>
+
+        <div class="verification-message" aria-labelledby="verification-message-heading">
+          <h4 id="verification-message-heading">Fictional verification message</h4>
+          <p>Your verification code is <code data-verification-code>482951</code>.</p>
+        </div>
+
+        <div class="field">
+          <label for="booking-reference-input">Booking reference</label>
+          <input id="booking-reference-input" name="booking-reference" type="text" required disabled data-reference-input />
+        </div>
+
+        <div class="field">
+          <label for="verification-code-input">Verification code</label>
+          <input id="verification-code-input" name="verification-code" type="text" inputmode="numeric" required disabled data-code-input />
+        </div>
+
+        <button type="submit">Verify and continue</button>
+      </section>
+    </form>
+  </section>
+
+  <section class="result" data-authentication-success hidden aria-labelledby="success-heading">
+    <h2 id="success-heading" tabindex="-1">Practice verification complete</h2>
+    <p>You reached the fictional booking-management area.</p>
+    <p><strong>No account was accessed and no information was submitted, stored, or retained.</strong></p>
+  </section>
+
+  <button type="button" class="secondary" data-reset-authentication>Reset practice sign-in</button>
+</main>
+
+<script>
+  const authentication = document.querySelector<HTMLElement>('[data-authentication]');
+  const form = document.querySelector<HTMLFormElement>('[data-authentication-form]');
+  const signInStep = document.querySelector<HTMLElement>('[data-authentication-step="sign-in"]');
+  const verificationStep = document.querySelector<HTMLElement>('[data-authentication-step="verification"]');
+  const bookingSummary = document.querySelector<HTMLElement>('[data-booking-summary]');
+  const bookingReference = document.querySelector<HTMLElement>('[data-booking-reference]');
+  const email = document.querySelector<HTMLInputElement>('[data-email]');
+  const password = document.querySelector<HTMLInputElement>('[data-password]');
+  const referenceInput = document.querySelector<HTMLInputElement>('[data-reference-input]');
+  const codeInput = document.querySelector<HTMLInputElement>('[data-code-input]');
+  const revealButton = document.querySelector<HTMLButtonElement>('[data-reveal-password]');
+  const workflowMessage = document.querySelector<HTMLElement>('[data-workflow-message]');
+  const success = document.querySelector<HTMLElement>('[data-authentication-success]');
+
+  const setPasswordVisibility = (visible: boolean) => {
+    if (!password || !revealButton) return;
+    password.type = visible ? 'text' : 'password';
+    revealButton.setAttribute('aria-pressed', String(visible));
+    revealButton.textContent = visible ? 'Hide password' : 'Show password';
+  };
+
+  const showSignIn = (message = '') => {
+    if (signInStep) signInStep.hidden = false;
+    if (verificationStep) verificationStep.hidden = true;
+    if (bookingSummary) bookingSummary.hidden = false;
+    if (authentication) authentication.hidden = false;
+    if (success) success.hidden = true;
+    if (referenceInput) referenceInput.disabled = true;
+    if (codeInput) codeInput.disabled = true;
+    if (workflowMessage) {
+      workflowMessage.textContent = message;
+      workflowMessage.hidden = message.length === 0;
+    }
+  };
+
+  const showVerification = () => {
+    if (signInStep) signInStep.hidden = true;
+    if (verificationStep) verificationStep.hidden = false;
+    if (bookingSummary) bookingSummary.hidden = true;
+    if (referenceInput) referenceInput.disabled = false;
+    if (codeInput) codeInput.disabled = false;
+    if (workflowMessage) {
+      workflowMessage.textContent = '';
+      workflowMessage.hidden = true;
+    }
+    document.querySelector<HTMLElement>('#verification-heading')?.focus();
+  };
+
+  const showFailure = () => {
+    form?.reset();
+    setPasswordVisibility(false);
+    showSignIn('Verification failed. Try again.');
+    document.querySelector<HTMLElement>('#authentication-heading')?.focus();
+  };
+
+  const showSuccess = () => {
+    if (authentication) authentication.hidden = true;
+    if (bookingSummary) bookingSummary.hidden = true;
+    if (success) success.hidden = false;
+    document.querySelector<HTMLElement>('#success-heading')?.focus();
+  };
+
+  const resetAuthentication = () => {
+    form?.reset();
+    setPasswordVisibility(false);
+    showSignIn();
+    document.querySelector<HTMLElement>('#authentication-heading')?.focus();
+  };
+
+  form?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    if (!verificationStep || verificationStep.hidden) {
+      if (!email?.value || !password?.value) {
+        form.reportValidity();
+        return;
+      }
+      showVerification();
+      return;
+    }
+
+    if (referenceInput?.value.trim().toUpperCase() === 'RIVER-204' && codeInput?.value.trim() === '482951') showSuccess();
+    else showFailure();
+  });
+
+  revealButton?.addEventListener('click', () => {
+    setPasswordVisibility(password?.type === 'password');
+  });
+
+  password?.addEventListener('paste', (event) => event.preventDefault());
+  codeInput?.addEventListener('paste', (event) => event.preventDefault());
+  bookingReference?.addEventListener('copy', (event) => event.preventDefault());
+  document.querySelector('[data-reset-authentication]')?.addEventListener('click', resetAuthentication);
+</script>
+
+<style>
+  :global(*) { box-sizing: border-box; }
+  :global(body) { margin: 0; background: #fafafa; color: #454545; font-family: 'Atkinson Hyperlegible', Arial, sans-serif; font-size: 1.125rem; line-height: 1.5; }
+  .fixture-shell { max-width: 54rem; margin: 0 auto; padding: 1.5rem; }
+  header { margin-block: 1.5rem 2rem; }
+  .eyebrow, .step-label { margin: 0 0 0.5rem; font-weight: 700; }
+  h1, h2, h3, h4 { color: #303030; line-height: 1.2; }
+  h1 { margin-block: 0.25rem 0.75rem; font-size: clamp(2.25rem, 8vw, 3.5rem); }
+  h2 { margin-top: 0; font-size: 1.8rem; }
+  h3 { font-size: 1.4rem; }
+  h4 { margin-block: 0 0.75rem; font-size: 1.15rem; }
+  a { color: #033573; text-underline-offset: 0.2em; }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 1em; font-weight: 700; }
+  .practice-notice, .booking-summary, .authentication, .result { margin-block: 1.5rem; padding: 1.25rem; border: 2px solid #bbc9f7; }
+  .practice-notice { border-width: 4px; background: #f5f0ff; }
+  .booking-summary dl { margin: 0; }
+  .booking-summary dl div { display: grid; grid-template-columns: minmax(9rem, 1fr) 2fr; gap: 1rem; padding-block: 0.65rem; border-bottom: 1px solid #bbc9f7; }
+  .booking-summary dl div:last-child { border-bottom: 0; }
+  dt { font-weight: 700; }
+  dd { margin: 0; }
+  [data-booking-reference] { user-select: none; }
+  .field { margin-block: 1.5rem; }
+  .field > label { display: block; margin-bottom: 0.4rem; font-weight: 700; }
+  input { width: 100%; min-height: 3rem; padding: 0.65rem 0.75rem; border: 2px solid #7a89ad; border-radius: 0.25rem; background: #fff; color: #18151f; font: inherit; }
+  .password-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0.75rem; align-items: stretch; }
+  button { display: inline-flex; min-height: 3rem; align-items: center; justify-content: center; padding: 0.65rem 1rem; border: 4px solid transparent; border-radius: 0.25rem; background: #033573; color: #fff; font: inherit; font-weight: 700; cursor: pointer; }
+  button:hover { border-color: #033573; background: transparent; color: #033573; }
+  button.secondary { border-color: #033573; background: transparent; color: #033573; }
+  button.secondary:hover { background: #e7f0ff; }
+  .verification-message { margin-block: 1.5rem; padding: 1rem; border: 2px solid #6540a4; background: #f5f0ff; }
+  .verification-message p { margin-bottom: 0; }
+  [data-workflow-message] { padding: 1rem; border: 3px solid #a12626; background: #fff1f1; font-weight: 700; }
+  .result { border-color: #236627; }
+  a:focus, button:focus, input:focus, h2:focus, h3:focus { outline: 3px solid #000; outline-offset: 4px; box-shadow: 0 0 0 2px #fff; }
+
+  :global(.dark body) { background: #010017; color: #ababab; }
+  :global(.dark) h1, :global(.dark) h2, :global(.dark) h3, :global(.dark) h4 { color: #cfcfcf; }
+  :global(.dark) a { color: #ade5f8; }
+  :global(.dark) .practice-notice, :global(.dark) .verification-message { background: #070038; border-color: #6540a4; }
+  :global(.dark) .booking-summary, :global(.dark) .authentication { border-color: #18399a; }
+  :global(.dark) .booking-summary dl div { border-color: #18399a; }
+  :global(.dark) input { border-color: #8ea1d1; background: #010017; color: #fff; }
+  :global(.dark) button { background: #ade5f8; color: #000; }
+  :global(.dark) button:hover { border-color: #ade5f8; background: transparent; color: #ade5f8; }
+  :global(.dark) button.secondary { border-color: #ade5f8; background: transparent; color: #ade5f8; }
+  :global(.dark) button.secondary:hover { background: #100842; }
+  :global(.dark) [data-workflow-message] { border-color: #ff9b9b; background: #310808; }
+  :global(.dark) .result { border-color: #8ed391; }
+  :global(.dark) a:focus, :global(.dark) button:focus, :global(.dark) input:focus, :global(.dark) h2:focus, :global(.dark) h3:focus { outline-color: #fff; box-shadow: 0 0 0 2px #010017; }
+
+  @media (max-width: 38rem) {
+    .fixture-shell { padding: 1rem; }
+    .practice-notice, .booking-summary, .authentication, .result { padding: 1rem; }
+    .booking-summary dl div { grid-template-columns: 1fr; gap: 0.2rem; }
+    .password-row { grid-template-columns: 1fr; }
+    button { width: 100%; }
+  }
+</style>
