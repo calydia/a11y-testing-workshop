@@ -1,0 +1,249 @@
+<main class="fixture-shell">
+  <a href="/exercises/testing-status-messages-in-a-community-activities-search/">Return to the exercise</a>
+  <header>
+    <h1>Find community activities</h1>
+    <p>Search local activities and save options you want to compare.</p>
+    <p class="practice-note">This is a fictional practice search. Nothing is submitted, stored, or retained. Resetting or reloading removes your changes.</p>
+  </header>
+
+  <section aria-labelledby="search-heading" class="panel">
+    <h2 id="search-heading">Search activities</h2>
+    <label for="activity-keyword">Keyword</label>
+    <input id="activity-keyword" type="search" autocomplete="off" />
+
+    <fieldset>
+      <legend>Activity type</legend>
+      <label><input type="checkbox" name="activity-type" value="learning" /> Learning</label>
+      <label><input type="checkbox" name="activity-type" value="outdoors" /> Outdoors</label>
+      <label><input type="checkbox" name="activity-type" value="social" /> Social</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>Accessibility features</legend>
+      <label><input type="checkbox" name="feature" value="step-free" /> Step-free access</label>
+      <label><input type="checkbox" name="feature" value="quiet" /> Quiet space</label>
+    </fieldset>
+
+    <button id="clear-filters" type="button">Clear search and filters</button>
+  </section>
+
+  <p id="loading-message" role="alert" hidden>Loading activities</p>
+  <p id="results-summary">4 activities found</p>
+  <p id="no-results" hidden></p>
+  <div id="inserted-message"></div>
+  <p id="save-confirmation" hidden></p>
+
+  <section aria-labelledby="results-heading">
+    <h2 id="results-heading">Activities</h2>
+    <div id="activity-results" class="card-grid">
+      <article data-activity data-title="Creative writing circle" data-type="learning" data-features="quiet">
+        <h3>Creative writing circle</h3>
+        <p>Write short pieces in a small facilitated group.</p>
+        <p>Quiet space available.</p>
+        <button type="button" data-save="Creative writing circle">Save activity</button>
+      </article>
+      <article data-activity data-title="Accessible gardening morning" data-type="outdoors" data-features="step-free">
+        <h3>Accessible gardening morning</h3>
+        <p>Plant herbs and learn seasonal garden care.</p>
+        <p>Step-free access available.</p>
+        <button type="button" data-save="Accessible gardening morning">Save activity</button>
+      </article>
+      <article data-activity data-title="Neighbourhood board-game afternoon" data-type="social" data-features="step-free quiet">
+        <h3>Neighbourhood board-game afternoon</h3>
+        <p>Play familiar games or learn a new one.</p>
+        <p>Step-free access and a quiet space available.</p>
+        <button type="button" data-save="Neighbourhood board-game afternoon">Save activity</button>
+      </article>
+      <article data-activity data-title="Local history walk" data-type="outdoors" data-features="">
+        <h3>Local history walk</h3>
+        <p>Explore neighbourhood landmarks with a local guide.</p>
+        <p>The route includes steps and busy street crossings.</p>
+        <button type="button" data-save="Local history walk">Save activity</button>
+      </article>
+    </div>
+  </section>
+
+  <section aria-labelledby="saved-heading" class="panel">
+    <h2 id="saved-heading">Saved activities</h2>
+    <p id="saved-empty">No activities saved.</p>
+    <ul id="saved-list"></ul>
+    <div id="removal-status" role="status" aria-live="polite" aria-atomic="true"></div>
+  </section>
+
+  <section aria-labelledby="testing-heading" class="panel">
+    <h2 id="testing-heading">Testing controls</h2>
+    <p>Use this control to compare a genuinely urgent update with the routine loading feedback.</p>
+    <button id="service-error" type="button">Show urgent service error</button>
+    <div id="urgent-error" role="alert"></div>
+    <button id="reset-search" type="button">Reset activity search</button>
+  </section>
+</main>
+
+<script>
+  const keyword = document.querySelector<HTMLInputElement>('#activity-keyword');
+  const typeInputs = [...document.querySelectorAll<HTMLInputElement>('input[name="activity-type"]')];
+  const featureInputs = [...document.querySelectorAll<HTMLInputElement>('input[name="feature"]')];
+  const activityCards = [...document.querySelectorAll<HTMLElement>('[data-activity]')];
+  const resultsSummary = document.querySelector<HTMLElement>('#results-summary');
+  const loadingMessage = document.querySelector<HTMLElement>('#loading-message');
+  const noResults = document.querySelector<HTMLElement>('#no-results');
+  const insertedMessage = document.querySelector<HTMLElement>('#inserted-message');
+  const saveConfirmation = document.querySelector<HTMLElement>('#save-confirmation');
+  const savedList = document.querySelector<HTMLUListElement>('#saved-list');
+  const savedEmpty = document.querySelector<HTMLElement>('#saved-empty');
+  const removalStatus = document.querySelector<HTMLElement>('#removal-status');
+  const urgentError = document.querySelector<HTMLElement>('#urgent-error');
+  const savedActivities = new Set<string>();
+  let loadingTimer: number | undefined;
+
+  const showRoutineLoading = () => {
+    if (!loadingMessage) return;
+    window.clearTimeout(loadingTimer);
+    loadingMessage.hidden = false;
+    loadingMessage.textContent = `Loading activities at ${new Date().getTime()}`;
+    loadingTimer = window.setTimeout(() => {
+      loadingMessage.hidden = true;
+    }, 300);
+  };
+
+  const updateResults = () => {
+    showRoutineLoading();
+    const query = keyword?.value.trim().toLowerCase() ?? '';
+    const selectedTypes = typeInputs.filter((input) => input.checked).map((input) => input.value);
+    const selectedFeatures = featureInputs.filter((input) => input.checked).map((input) => input.value);
+    let visibleCount = 0;
+
+    activityCards.forEach((card) => {
+      const titleMatches = (card.dataset.title ?? '').toLowerCase().includes(query);
+      const typeMatches = selectedTypes.length === 0 || selectedTypes.includes(card.dataset.type ?? '');
+      const cardFeatures = (card.dataset.features ?? '').split(' ').filter(Boolean);
+      const featuresMatch = selectedFeatures.every((feature) => cardFeatures.includes(feature));
+      card.hidden = !(titleMatches && typeMatches && featuresMatch);
+      if (!card.hidden) visibleCount += 1;
+    });
+
+    if (resultsSummary) resultsSummary.textContent = `${visibleCount} ${visibleCount === 1 ? 'activity' : 'activities'} found`;
+    if (noResults) {
+      if (visibleCount === 0) {
+        noResults.hidden = false;
+        noResults.textContent = 'No activities match this search.';
+        noResults.setAttribute('aria-live', 'polite');
+      } else {
+        noResults.hidden = true;
+        noResults.textContent = '';
+        noResults.removeAttribute('aria-live');
+      }
+    }
+  };
+
+  const renderSaved = () => {
+    if (!savedList || !savedEmpty) return;
+    savedList.replaceChildren();
+    savedEmpty.hidden = savedActivities.size > 0;
+    savedActivities.forEach((title) => {
+      const item = document.createElement('li');
+      const text = document.createElement('span');
+      text.textContent = title;
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.textContent = `Remove ${title}`;
+      button.addEventListener('click', () => {
+        savedActivities.delete(title);
+        renderSaved();
+        if (removalStatus) removalStatus.textContent = `${title} removed from saved activities.`;
+      });
+      item.append(text, button);
+      savedList.append(item);
+    });
+  };
+
+  keyword?.addEventListener('input', updateResults);
+  [...typeInputs, ...featureInputs].forEach((input) => input.addEventListener('change', updateResults));
+
+  document.querySelectorAll<HTMLButtonElement>('[data-save]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const title = button.dataset.save ?? '';
+      savedActivities.add(title);
+      renderSaved();
+      if (saveConfirmation) {
+        saveConfirmation.hidden = false;
+        saveConfirmation.textContent = `${title} saved.`;
+      }
+    });
+  });
+
+  document.querySelector('#clear-filters')?.addEventListener('click', () => {
+    if (keyword) keyword.value = '';
+    [...typeInputs, ...featureInputs].forEach((input) => { input.checked = false; });
+    updateResults();
+    if (insertedMessage) insertedMessage.innerHTML = '<p role="status" aria-live="polite">Search and filters cleared.</p>';
+  });
+
+  document.querySelector('#service-error')?.addEventListener('click', () => {
+    if (urgentError) urgentError.textContent = 'The activity service is unavailable. Try again later.';
+  });
+
+  const reset = () => {
+    window.clearTimeout(loadingTimer);
+    if (keyword) keyword.value = '';
+    [...typeInputs, ...featureInputs].forEach((input) => { input.checked = false; });
+    activityCards.forEach((card) => { card.hidden = false; });
+    if (resultsSummary) resultsSummary.textContent = '4 activities found';
+    if (loadingMessage) { loadingMessage.hidden = true; loadingMessage.textContent = 'Loading activities'; }
+    if (noResults) { noResults.hidden = true; noResults.textContent = ''; noResults.removeAttribute('aria-live'); }
+    if (insertedMessage) insertedMessage.replaceChildren();
+    if (saveConfirmation) { saveConfirmation.hidden = true; saveConfirmation.textContent = ''; }
+    if (removalStatus) removalStatus.textContent = '';
+    if (urgentError) urgentError.textContent = '';
+    savedActivities.clear();
+    renderSaved();
+    document.querySelector<HTMLElement>('#search-heading')?.focus();
+  };
+
+  const resetButton = document.querySelector<HTMLButtonElement>('#reset-search');
+  resetButton?.addEventListener('click', () => {
+    reset();
+    resetButton.focus();
+  });
+  window.addEventListener('beforeunload', () => window.clearTimeout(loadingTimer));
+</script>
+
+<style>
+  :global(*) { box-sizing: border-box; }
+  :global(body) { margin: 0; background: #fafafa; color: #4d4d4d; font-family: 'Atkinson Hyperlegible', Arial, sans-serif; font-size: 1.125rem; line-height: 1.5; }
+  .fixture-shell { max-width: 62rem; margin: 0 auto; padding: 1.5rem; }
+  h1 { margin-block: 1.5rem .75rem; color: #333; font-size: clamp(2rem, 8vw, 3rem); line-height: 1.1; }
+  h2 { margin-block: 2rem .75rem; color: #333; font-size: 1.75rem; }
+  h3 { margin-block: 0 .75rem; color: #333; font-size: 1.35rem; }
+  p { margin-block: 0 1rem; }
+  a { color: #033573; text-underline-offset: .2em; }
+  a:hover { text-decoration-thickness: .15em; }
+  button { min-height: 2.75rem; padding: .55rem .85rem; border: 3px solid #033573; border-radius: .2rem; background: #033573; color: #fff; font: inherit; font-weight: 700; cursor: pointer; }
+  button:hover { background: transparent; color: #033573; }
+  a:focus, button:focus, input:focus { outline: 3px solid #000; outline-offset: 3px; box-shadow: 0 0 0 2px #fff; }
+  input[type='search'] { display: block; width: min(100%, 34rem); min-height: 2.75rem; margin-block: .35rem 1rem; padding: .5rem; border: 2px solid #4d4d4d; font: inherit; }
+  fieldset { display: flex; flex-wrap: wrap; gap: .75rem 1.25rem; margin-block: 1rem; padding: 1rem; border: 2px solid #bbc9f7; }
+  legend { padding-inline: .25rem; font-weight: 700; }
+  label { display: flex; align-items: center; gap: .5rem; }
+  label[for='activity-keyword'] { display: block; font-weight: 700; }
+  input[type='checkbox'] { width: 1.25rem; height: 1.25rem; }
+  .practice-note, .panel { margin-block: 1.5rem; padding: 1.25rem; border: 2px solid #bbc9f7; }
+  .panel h2 { margin-top: 0; }
+  #loading-message, #results-summary, #no-results, #save-confirmation { font-weight: 700; }
+  .card-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+  article { padding: 1.25rem; border: 2px solid #bbc9f7; }
+  #saved-list { padding-left: 1.5rem; }
+  #saved-list li { margin-block: .75rem; }
+  #saved-list span { display: inline-block; margin-right: 1rem; }
+  #service-error { margin-right: .75rem; }
+  [hidden] { display: none; }
+  :global(.dark body) { background: #010017; color: #ababab; }
+  :global(.dark) h1, :global(.dark) h2, :global(.dark) h3 { color: #cfcfcf; }
+  :global(.dark) a { color: #ade5f8; }
+  :global(.dark) button { border-color: #ade5f8; background: #ade5f8; color: #010017; }
+  :global(.dark) button:hover { background: transparent; color: #ade5f8; }
+  :global(.dark) a:focus, :global(.dark) button:focus, :global(.dark) input:focus { outline-color: #fff; box-shadow: 0 0 0 2px #010017; }
+  :global(.dark) input[type='search'] { border-color: #cfcfcf; background: #010017; color: #cfcfcf; }
+  :global(.dark) .practice-note, :global(.dark) .panel, :global(.dark) fieldset, :global(.dark) article { border-color: #18399a; }
+  @media (max-width: 42rem) { .fixture-shell { padding: 1rem; } .card-grid { grid-template-columns: 1fr; } article { padding: 1rem; } #service-error { margin-bottom: .75rem; } }
+</style>

@@ -17,6 +17,7 @@ import ParcelTrackingMotionFixture from '../components/exercise/fixtures/ParcelT
 import CommunityFestivalTouchFixture from '../components/exercise/fixtures/CommunityFestivalTouchFixture.astro';
 import CommunityAnnouncementMediaFixture from '../components/exercise/fixtures/CommunityAnnouncementMediaFixture.astro';
 import CommunitySupportSessionTimeoutFixture from '../components/exercise/fixtures/CommunitySupportSessionTimeoutFixture.astro';
+import CommunityActivitiesStatusMessagesFixture from '../components/exercise/fixtures/CommunityActivitiesStatusMessagesFixture.astro';
 
 export interface InlineFixture {
   kind: 'inline';
@@ -248,6 +249,19 @@ export const fixtureRegistry: Record<string, ExerciseFixtureDefinition> = {
       'unrelated-focus-restoration',
       'discarded-entered-information',
       'lost-interrupted-position',
+    ],
+  },
+  'community-activities-status-messages': {
+    kind: 'document',
+    component: CommunityActivitiesStatusMessagesFixture,
+    title: 'Community activities status-messages exercise',
+    intentionalViolations: [
+      'unannounced-result-count',
+      'assertive-routine-loading',
+      'excessive-typing-announcements',
+      'unannounced-save-confirmation',
+      'prepopulated-inserted-live-region',
+      'late-no-results-live-semantics',
     ],
   },
 };

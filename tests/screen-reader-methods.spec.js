@@ -65,6 +65,11 @@ const formsValidationMethod = {
   title: 'Testing forms and validation',
 };
 
+const statusMessagesMethod = {
+  path: '/methods/testing-status-messages-and-live-updates/',
+  title: 'Testing status messages and live updates',
+};
+
 const timeLimitsMethod = {
   path: '/methods/testing-time-limits-and-interruptions/',
   title: 'Testing time limits and interruptions',
@@ -105,6 +110,7 @@ const methods = [
   imageAlternativeMethod,
   formsValidationMethod,
   screenReaderMethods[1],
+  statusMessagesMethod,
   timeLimitsMethod,
   ...screenReaderMethods.slice(2),
 ];
@@ -128,7 +134,7 @@ const methodGroups = [
   {
     label: 'Interaction and tasks',
     id: 'interaction-and-tasks',
-    entries: [controlsMethod, formsValidationMethod, timeLimitsMethod, screenReaderMethods[3]],
+    entries: [controlsMethod, formsValidationMethod, statusMessagesMethod, timeLimitsMethod, screenReaderMethods[3]],
   },
 ];
 
@@ -147,6 +153,7 @@ const methodExercises = new Map([
   [controlsMethod.path, ['Testing controls in a community events finder', '/exercises/testing-controls-in-a-community-events-finder/', '25 minutes']],
   [imageAlternativeMethod.path, ['Evaluating image alternative text in context', '/exercises/evaluating-image-alternative-text-in-context/', '20 minutes']],
   [formsValidationMethod.path, ['Testing a community-course registration form', '/exercises/testing-a-community-course-registration-form/', '25 minutes']],
+  [statusMessagesMethod.path, ['Testing status messages in a community activities search', '/exercises/testing-status-messages-in-a-community-activities-search/', '30 minutes']],
   [timeLimitsMethod.path, ['Testing session timeout in a community-support application', '/exercises/testing-session-timeout-in-a-community-support-application/', '30 minutes']],
   [screenReaderMethods[1].path, ['Reviewing icons and SVGs in a community events dashboard', '/exercises/reviewing-icons-and-svgs-in-a-community-events-dashboard/', '20 minutes']],
   [screenReaderMethods[2].path, ['Testing language changes on a community library noticeboard', '/exercises/testing-language-changes-on-a-community-library-noticeboard/', '20 minutes']],
@@ -189,10 +196,13 @@ test('section navigation reflows from inline content to a sticky sidebar', async
   const heading = page.locator('[data-content-heading]');
   const body = page.locator('[data-content-body]');
   const container = page.locator('[data-section-navigation-container]');
+  const main = page.getByRole('main');
 
   await expect(navigation).toHaveCount(1);
-  expect(await heading.evaluate((element, navigationElement) => Boolean(element.compareDocumentPosition(navigationElement) & Node.DOCUMENT_POSITION_FOLLOWING), await navigation.elementHandle())).toBe(true);
-  expect(await navigation.evaluate((element, bodyElement) => Boolean(element.compareDocumentPosition(bodyElement) & Node.DOCUMENT_POSITION_FOLLOWING), await body.elementHandle())).toBe(true);
+  await expect(main.locator('[data-section-navigation-container]')).toHaveCount(0);
+  await expect(page.locator('main + [data-section-navigation-container]')).toHaveCount(1);
+  expect(await heading.evaluate((element, bodyElement) => Boolean(element.compareDocumentPosition(bodyElement) & Node.DOCUMENT_POSITION_FOLLOWING), await body.elementHandle())).toBe(true);
+  expect(await body.evaluate((element, navigationElement) => Boolean(element.compareDocumentPosition(navigationElement) & Node.DOCUMENT_POSITION_FOLLOWING), await navigation.elementHandle())).toBe(true);
   await expect(container).toHaveCSS('position', 'static');
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
 
@@ -440,14 +450,16 @@ test('ARIA modal contains focus, closes with Escape, and restores focus', async 
   await opener.click();
 
   const dialog = page.getByRole('dialog', { name: 'ARIA modal example' });
+  const pageLayout = page.locator('[data-page-layout]');
   await expect(dialog).toBeVisible();
   await expect(dialog.locator('input')).toBeFocused();
-  await expect(page.locator('main')).toHaveAttribute('inert', '');
+  await expect(pageLayout).toHaveAttribute('inert', '');
+  expect(await page.locator('[data-section-navigation-container]').evaluate((element) => element.closest('[inert]') !== null)).toBe(true);
 
   await page.keyboard.press('Escape');
   await expect(dialog).toBeHidden();
   await expect(opener).toBeFocused();
-  await expect(page.locator('main')).not.toHaveAttribute('inert');
+  await expect(pageLayout).not.toHaveAttribute('inert');
 });
 
 test('native dialog closes with Escape and restores focus', async ({ page }) => {

@@ -1,6 +1,6 @@
 import type { CollectionEntry, CollectionKey } from 'astro:content';
 import { getCollection } from 'astro:content';
-import { contentCategories, type ContentCategoryId } from './content-categories';
+import { contentCategories, type ContentCategory, type ContentCategoryId } from './content-categories';
 
 const isPublished = (entry: { data: { status: 'draft' | 'published' } }) => (
   import.meta.env.DEV || entry.data.status === 'published'
@@ -36,7 +36,16 @@ export function createSectionNavigationItems<C extends CollectionKey>(
   }));
 }
 
-export function groupEntriesByCategory<C extends CollectionKey>(entries: CollectionEntry<C>[]) {
+type CategorizedCollectionKey = 'testingMethods' | 'exercises';
+
+export interface CategorizedEntryGroup<C extends CategorizedCollectionKey> {
+  category: ContentCategory;
+  entries: CollectionEntry<C>[];
+}
+
+export function groupEntriesByCategory<C extends CategorizedCollectionKey>(
+  entries: CollectionEntry<C>[],
+): CategorizedEntryGroup<C>[] {
   return contentCategories
     .map((category) => ({
       category,

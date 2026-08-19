@@ -46,7 +46,9 @@ for (const route of routes.filter(({ path }) => ['/learn/', '/methods/', '/exerc
 
     const groupedListing = ['/methods/', '/exercises/'].includes(route.path);
     await expect(firstCard.getByRole('heading', { level: groupedListing ? 3 : 2 })).toHaveCSS('font-size', '20px');
-    await expect(firstCard.locator('p').last()).toHaveCSS('font-size', '18px');
+    await expect(firstCard.locator('[data-content-card-meta]')).toHaveCSS('font-size', '14px');
+    await expect(firstCard.locator('p').last()).toHaveCSS('font-size', '16px');
+    await expect(firstCard.locator('p').last()).toHaveCSS('margin-bottom', '16px');
 
     const firstCardLink = firstCard.getByRole('link').first();
     await firstCardLink.focus();
@@ -56,6 +58,42 @@ for (const route of routes.filter(({ path }) => ['/learn/', '/methods/', '/exerc
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
   });
 }
+
+test('section cards expose learner level and estimated time without announcing the visual separator', async ({ page }) => {
+  const cases = [
+    { path: '/learn/', level: 'Beginner', duration: 'About 8 hours 50 minutes' },
+    { path: '/methods/', level: 'Beginner', duration: 'About 15 minutes' },
+    { path: '/exercises/', level: 'Beginner', duration: 'About 15 minutes' },
+    { path: '/journeys/', level: 'Beginner', duration: 'About 1 hour 45 minutes' },
+  ];
+
+  for (const item of cases) {
+    await page.goto(item.path);
+    const metadata = page.locator('[data-content-card-meta]').first();
+    await expect(metadata.locator('[data-content-card-level]')).toHaveText(item.level);
+    await expect(metadata.locator('[data-content-card-duration]')).toHaveText(item.duration);
+    await expect(metadata.locator('[data-content-card-separator]')).toHaveAttribute('aria-hidden', 'true');
+  }
+});
+
+test('shared section navigation is a top-level complementary landmark', async ({ page }) => {
+  const cases = [
+    { path: '/learn/practical-screen-reader-testing/', navigationName: 'Learning paths' },
+    { path: '/methods/testing-keyboard-accessibility/', navigationName: 'Testing methods' },
+    { path: '/exercises/keyboard-testing-a-preferences-form/', navigationName: 'Exercises' },
+    { path: '/journeys/reviewing-a-course-registration-before-launch/', navigationName: 'Testing journeys' },
+  ];
+
+  for (const item of cases) {
+    await page.goto(item.path);
+    const main = page.getByRole('main');
+    const complementary = page.locator('main + aside[data-section-navigation-container]');
+
+    await expect(main.locator('aside[data-section-navigation-container]')).toHaveCount(0);
+    await expect(complementary).toHaveCount(1);
+    await expect(complementary.getByRole('navigation', { name: item.navigationName })).toHaveCount(1);
+  }
+});
 
 test('primary navigation matches the new information architecture', async ({ page }) => {
   await page.goto('/');

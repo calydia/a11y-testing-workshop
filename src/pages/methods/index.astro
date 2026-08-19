@@ -3,10 +3,11 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/navigation/Breadcrumbs.astro';
 import SectionLanding from '../../components/SectionLanding.astro';
 import { contentUrl, getVisibleEntries, groupEntriesByCategory } from '../../lib/content';
-const groups = groupEntriesByCategory(await getVisibleEntries('testingMethods')).map(({ category, entries }) => ({
+const groups = groupEntriesByCategory<'testingMethods'>(await getVisibleEntries('testingMethods')).map(({ category, entries }) => ({
   category,
   entries: entries.map((entry) => ({
     href: contentUrl('methods', entry.id), title: entry.data.title, summary: entry.data.summary,
+    level: entry.data.skillLevel, estimatedMinutes: entry.data.estimatedMinutes,
   })),
 }));
 ---

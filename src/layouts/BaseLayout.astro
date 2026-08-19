@@ -10,6 +10,7 @@ interface Props {
 }
 
 const { title, metaDescription, noindex = false } = Astro.props;
+const hasComplementary = Astro.slots.has('complementary');
 
 import '@fontsource/satisfy';
 import '@fontsource/atkinson-hyperlegible';
@@ -22,10 +23,24 @@ import '@fontsource/lato';
   </head>
   <body class="font-sans hyphens-auto">
     <SiteHeader />
-    <main id="skip-target" class={`text-lg lg:text-xl mb-8 md:mb-12 max-w-7xl md:mx-auto text-lt-gray dark:text-dk-gray`}>
-      <slot name="breadcrumb" />
-      <slot />
-    </main>
+    {hasComplementary ? (
+      <div data-page-layout class="text-lg lg:text-xl mb-8 md:mb-12 max-w-7xl md:mx-auto text-lt-gray dark:text-dk-gray">
+        <slot name="breadcrumb" />
+        <div class="my-8 mx-auto max-w-[80em] px-4">
+          <div data-page-layout-grid class="mx-auto lg:grid lg:max-w-[calc(40em+23rem)] lg:grid-cols-[minmax(0,40em)_minmax(14rem,20rem)] lg:items-start lg:gap-x-12">
+            <main id="skip-target" class="min-w-0 lg:col-start-1">
+              <slot />
+            </main>
+            <slot name="complementary" />
+          </div>
+        </div>
+      </div>
+    ) : (
+      <main id="skip-target" class="text-lg lg:text-xl mb-8 md:mb-12 max-w-7xl md:mx-auto text-lt-gray dark:text-dk-gray">
+        <slot name="breadcrumb" />
+        <slot />
+      </main>
+    )}
     <slot name="after-main" />
     <SiteFooter />
   </body>
@@ -241,7 +256,9 @@ import '@fontsource/lato';
   }
 
   #main-menu-nav a,
+  [aria-label="Breadcrumbs"] a,
   main a:not(.button),
+  [data-section-navigation-container] a:not(.button),
   footer a:not(.button) {
     @apply text-lt-blue-dark;
 

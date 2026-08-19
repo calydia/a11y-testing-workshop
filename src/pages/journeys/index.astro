@@ -5,6 +5,7 @@ import SectionLanding from '../../components/SectionLanding.astro';
 import { contentUrl, getVisibleEntries } from '../../lib/content';
 const entries = (await getVisibleEntries('testingJourneys')).map((entry) => ({
   href: contentUrl('journeys', entry.id), title: entry.data.title, summary: entry.data.summary,
+  level: entry.data.difficulty, estimatedMinutes: entry.data.estimatedMinutes,
 }));
 ---
 
