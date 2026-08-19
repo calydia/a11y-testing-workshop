@@ -31,7 +31,7 @@ Render the shared section-navigation `aside` as a sibling of `main` while preser
 2. Wrap `main` and the complementary slot in a neutral container.
 3. Apply the existing bounded two-column desktop geometry only when the slot exists.
 4. Keep ordinary pages on their current single-column layout.
-5. Preserve header, footer, breadcrumb, theme, and skip-link behavior.
+5. Preserve header, footer, theme, and skip-link behavior, and render the breadcrumb before the main/sidebar grid so the sidebar remains aligned with the page heading.
 
 ## Task 3: Move shared section navigation out of main
 

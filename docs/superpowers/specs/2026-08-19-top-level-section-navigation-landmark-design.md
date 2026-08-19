@@ -17,7 +17,7 @@ For pages with section navigation, the neutral wrapper will own the existing res
 - On mobile, render the complete main content first and the section navigation after it. This intentionally moves the navigation from its former position between the introduction and article body so the aside can remain a genuine top-level landmark without duplicating navigation or weakening `main` semantics.
 - At the existing large-screen breakpoint, render the main content and section navigation in the same two-column arrangement used today.
 - Retain the existing content-column width, navigation-column bounds, column gap, centering, horizontal gutters, sticky positioning, and vertical spacing.
-- Keep the breadcrumb, page heading, metadata, and body inside `main`.
+- Render the breadcrumb immediately before the neutral main/sidebar grid so the top-level aside remains aligned with the page heading. Keep the page heading, metadata, and body inside `main`.
 - Keep the section navigation's existing `aside` and nested labelled `nav` semantics.
 
 Pages without section navigation will retain their current single-column main-content layout.
@@ -30,6 +30,7 @@ Pages without section navigation will retain their current single-column main-co
 - Wrap `main` and that slot in a non-landmark layout container.
 - Apply the shared page-level grid only when the complementary slot exists.
 - Continue rendering the header and footer outside that wrapper.
+- Place the breadcrumb before the inner main/sidebar grid when a complementary slot is present.
 
 ### `ContentLayout.astro`
 
