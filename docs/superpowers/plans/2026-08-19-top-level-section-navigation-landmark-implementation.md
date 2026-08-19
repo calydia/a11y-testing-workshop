@@ -15,7 +15,7 @@ Render the shared section-navigation `aside` as a sibling of `main` while preser
 
 1. Assert that a representative content page renders the shared section-navigation `aside` outside `main`.
 2. Assert that the aside retains its labelled section-navigation `nav`.
-3. Assert the source order is `main` followed by the complementary landmark.
+3. Assert the source and mobile visual order is the complete `main` followed by the complementary landmark.
 4. Preserve existing desktop centering, column sizing, sticky navigation, compact first-heading spacing, and mobile overflow checks.
 5. Include representative section-navigation pages in Axe coverage.
 
@@ -44,7 +44,7 @@ Render the shared section-navigation `aside` as a sibling of `main` while preser
 1. Keep the article, heading, metadata, and content body inside `main`.
 2. Pass the existing section-navigation `aside` to the new top-level complementary slot.
 3. Transfer the current desktop column and sticky behavior to the new wrapper/aside relationship.
-4. Preserve mobile ordering and spacing.
+4. Move the mobile navigation below the complete article while preserving its spacing and horizontal fit.
 5. Leave contextual fixture and demonstration asides unchanged.
 
 ## Task 4: Verify

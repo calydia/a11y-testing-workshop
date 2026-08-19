@@ -14,7 +14,7 @@ Move the shared section-navigation `aside` out of `main` and render it as a sibl
 
 For pages with section navigation, the neutral wrapper will own the existing responsive layout:
 
-- On mobile, render the main content first and the section navigation after it, matching the current reading and visual order.
+- On mobile, render the complete main content first and the section navigation after it. This intentionally moves the navigation from its former position between the introduction and article body so the aside can remain a genuine top-level landmark without duplicating navigation or weakening `main` semantics.
 - At the existing large-screen breakpoint, render the main content and section navigation in the same two-column arrangement used today.
 - Retain the existing content-column width, navigation-column bounds, column gap, centering, horizontal gutters, sticky positioning, and vertical spacing.
 - Keep the breadcrumb, page heading, metadata, and body inside `main`.
@@ -50,7 +50,7 @@ No routes, navigation labels, link order, content, colors, typography, breakpoin
 - Assert that pages without section navigation do not gain an empty complementary landmark or wrapper behavior.
 - Run Axe checks on representative method, exercise, learning-path, and journey pages.
 - Compare computed desktop grid dimensions and navigation sticky positioning with the current contract.
-- Confirm mobile source order remains main content followed by section navigation and that no horizontal overflow appears.
+- Confirm mobile source and visual order is the complete main content followed by section navigation and that no horizontal overflow appears.
 - Run Astro diagnostics, a production build, focused layout tests, and the complete Playwright suite.
 
 ## Out of scope
