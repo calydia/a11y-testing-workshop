@@ -10,5 +10,11 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()]
   },
-  integrations: [sitemap()],
+  integrations: [sitemap({
+    filter: (page) => {
+      const pathname = new URL(page).pathname;
+      return !pathname.startsWith('/exercise-fixtures/')
+        && !pathname.startsWith('/journey-workspaces/');
+    },
+  })],
 });
