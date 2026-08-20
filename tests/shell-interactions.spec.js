@@ -60,6 +60,22 @@ test.describe('shared shell keyboard interactions', () => {
     await expect(page.locator('#page-top')).toHaveAttribute('tabindex', '-1');
   });
 
+  test('footer links to the related A11ying sites', async ({ page }) => {
+    await page.goto('/');
+    const relatedSites = page.getByRole('contentinfo').getByRole('navigation', { name: 'A11ying sites' });
+
+    await expect(relatedSites.getByRole('link')).toHaveCount(3);
+    await expect(relatedSites.getByRole('link', { name: 'I would if I could' })).toHaveAttribute('href', 'https://a11y.ing');
+    await expect(relatedSites.getByRole('link', { name: 'Almost, but not quite' })).toHaveAttribute('href', 'https://wcag.a11y.ing');
+    const blogLink = relatedSites.getByRole('link', { name: 'Accessibility blog' });
+    const blogListItem = blogLink.locator('..');
+    await expect(blogLink).toHaveAttribute('href', 'https://sanna.a11y.ing/blog/accessibility/');
+    await expect(blogListItem).toHaveCSS('margin-top', '0px');
+    await expect(blogListItem).toHaveCSS('margin-bottom', '0px');
+    await expect(blogLink).toHaveCSS('padding-top', '8px');
+    await expect(blogLink).toHaveCSS('padding-bottom', '8px');
+  });
+
   test('desktop navigation is visible without the menu toggle', async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 800 });
     await page.goto('/');

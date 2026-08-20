@@ -48,7 +48,7 @@ import '@fontsource/lato';
 
 <style is:global>
   @import "tailwindcss";
-  @config "../../tailwind.config.cjs";
+  @import "a11ying-ui/tokens";
 
   :root {
     --quote-icon: url('/icons/iconmonstr-quote-light.svg');
@@ -335,6 +335,10 @@ import '@fontsource/lato';
   ol li,
   ul li {
     @apply my-4;
+  }
+
+  footer [aria-label="A11ying sites"] li {
+    margin-block: 0;
   }
 
   .bodytext ol,

@@ -6,7 +6,15 @@ Testing Lab related-site links carry the same `py-2` utility classes as the A11y
 
 ## Decision
 
-Add `m-0` to each `<li>` in the `A11ying sites` footer navigation. This overrides the global list-item margins while retaining the existing `py-2` link padding.
+Add a scoped rule for each `<li>` in the `A11ying sites` footer navigation. This overrides the global list-item margins while retaining the existing `py-2` link padding:
+
+```css
+footer [aria-label="A11ying sites"] li {
+  margin-block: 0;
+}
+```
+
+A utility class is not sufficient here because the project's unlayered global list rule takes precedence over Tailwind utilities in the cascade.
 
 The resulting related-site entries have zero vertical item margins and `0.5rem` vertical link padding, matching the A11ying and WCAG related-site lists.
 
