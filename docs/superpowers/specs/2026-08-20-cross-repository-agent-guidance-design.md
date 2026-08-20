@@ -50,6 +50,14 @@ The files should give future contributors a consistent decision sequence:
 3. Is it reusable React component behavior required by both A11ying and WCAG? Consider placing it in `a11ying-ui` with Storybook and consumer coverage.
 4. Is the similarity only visual, or does only one site need it? Keep the component local and use shared tokens where appropriate.
 
+## Commit and push authority
+
+Agents may commit and push changes only in the `a11ying-ui` repository. This exception supports the package's tag-based release workflow when an approved cross-repository change requires a new consumable version.
+
+Changes in `a11ying-front`, `wcag-front`, `a11y-testing-astro`, and `sanna` must remain uncommitted for human review. An agent may implement and verify changes in those repositories, but must not commit or push them. This restriction applies even when a cross-repository task has already been approved and even when the package-side change has been committed and released.
+
+Every `AGENTS.md` must state the rule from its repository's perspective. Cross-repository workflow instructions must separate the package release step from the human-reviewed consumer commit step.
+
 ## Repository-specific content
 
 Each `AGENTS.md` should include:
@@ -62,6 +70,7 @@ Each `AGENTS.md` should include:
 - Accessibility, localization, theme, routing, and generated-output rules.
 - Relevant development, build, and test commands.
 - Cross-repository release and verification expectations.
+- The repository-specific commit and push authority rule.
 
 Existing accurate operational guidance should be retained and integrated. Obsolete statements that describe only A11ying and WCAG as supported consumers must be updated.
 
@@ -96,5 +105,5 @@ After updating the files:
 - Confirm the full-consumer versus tokens-only distinction is explicit in every relevant file.
 - Confirm commands and runtime requirements match each current `package.json` and test configuration.
 - Confirm no instruction tells Testing Lab or Sanna to adopt React components by default.
+- Confirm only `a11ying-ui` permits agent commits and pushes, while all four site repositories require human review before commit.
 - Review the files for contradictory ownership or release instructions.
-
