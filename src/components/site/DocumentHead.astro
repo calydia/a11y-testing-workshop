@@ -2,6 +2,7 @@
 interface Props { title: string; metaDescription: string; noindex?: boolean }
 const { title, metaDescription, noindex = false } = Astro.props;
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
+const socialImageUrl = new URL('/social-media-share.jpg', Astro.site);
 const structuredData = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
@@ -20,6 +21,14 @@ const structuredData = {
 <meta property="og:locale" content="en" />
 <meta property="og:site_name" content="Accessibility Testing Lab" />
 <meta property="og:url" content={canonicalUrl} />
+<meta property="og:image" content={socialImageUrl} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:alt" content="A11ying with Sanna" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content={socialImageUrl} />
+<meta name="twitter:image:alt" content="A11ying with Sanna" />
 <link rel="canonical" href={canonicalUrl} />
 <link rel="shortcut icon" href="/favicons/favicon.ico" type="image/x-icon" />
 <link rel="icon" href="/favicons/favicon.ico" type="image/x-icon" />

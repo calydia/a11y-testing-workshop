@@ -155,6 +155,14 @@ test('ordinary pages remain indexable and expose complete site metadata', async 
   await page.goto('/');
 
   await expect(page.locator('meta[name="robots"]')).toHaveCount(0);
+  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute('content', 'https://testing.a11y.ing/social-media-share.jpg');
+  await expect(page.locator('meta[property="og:image:width"]')).toHaveAttribute('content', '1200');
+  await expect(page.locator('meta[property="og:image:height"]')).toHaveAttribute('content', '630');
+  await expect(page.locator('meta[property="og:image:type"]')).toHaveAttribute('content', 'image/jpeg');
+  await expect(page.locator('meta[property="og:image:alt"]')).toHaveAttribute('content', 'A11ying with Sanna');
+  await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute('content', 'summary_large_image');
+  await expect(page.locator('meta[name="twitter:image"]')).toHaveAttribute('content', 'https://testing.a11y.ing/social-media-share.jpg');
+  await expect(page.locator('meta[name="twitter:image:alt"]')).toHaveAttribute('content', 'A11ying with Sanna');
   await expect(page.locator('link[rel="icon"][type="image/svg+xml"]')).toHaveAttribute('href', '/favicons/favicon.svg');
   await expect(page.locator('link[rel="icon"][type="image/png"]')).toHaveAttribute('href', '/favicons/favicon-96x96.png');
   await expect(page.locator('link[rel="apple-touch-icon"]')).toHaveAttribute('href', '/favicons/apple-touch-icon.png');
