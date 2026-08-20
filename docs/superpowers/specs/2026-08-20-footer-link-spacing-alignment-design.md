@@ -2,27 +2,21 @@
 
 ## Context
 
-Testing Lab footer links carry the same `py-2` utility classes as the A11ying and WCAG footers, but a later global `padding: 0` declaration overrides them. The links therefore have less vertical spacing and a smaller interactive area than their counterparts on the other sites.
+Testing Lab related-site links carry the same `py-2` utility classes as the A11ying and WCAG footers. However, Testing Lab also applies `my-4` globally to unordered-list items. This adds `1rem` above and below every related-site item, creating visibly larger gaps than on the other sites.
 
 ## Decision
 
-Add a footer-specific style after the shared link rule that restores `0.5rem` block padding for footer links that are not buttons:
+Add `m-0` to each `<li>` in the `A11ying sites` footer navigation. This overrides the global list-item margins while retaining the existing `py-2` link padding.
 
-```css
-footer a:not(.button) {
-  padding-block: 0.5rem;
-}
-```
-
-This matches the effective `py-2` spacing used by A11ying and WCAG while retaining zero horizontal padding.
+The resulting related-site entries have zero vertical item margins and `0.5rem` vertical link padding, matching the A11ying and WCAG related-site lists.
 
 ## Scope
 
-Only footer links change. Do not remove the broader padding reset because it also affects header, breadcrumb, main-content, and section-navigation links.
+Only related-site list items change. Leave the left `About the Lab` group unchanged because it serves the informational-navigation role that uses more generous spacing on the other sites. Do not change the global unordered-list rule because content lists rely on it.
 
 ## Verification
 
-- Assert that a related-site footer link has `8px` top and bottom padding.
+- Assert that a related-site list item has `0px` top and bottom margins.
+- Assert that its link retains `8px` top and bottom padding.
 - Retain the existing footer destination assertions.
 - Run the shell browser tests and production build.
-
