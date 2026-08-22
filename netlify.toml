@@ -3,6 +3,18 @@
   publish = "dist"
 
 [[redirects]]
+  from = "https://a11y-workshop.sanna.ninja/*"
+  to = "https://testing.a11y.ing/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://a11y-workshop.sanna.ninja/*"
+  to = "https://testing.a11y.ing/"
+  status = 301
+  force = true
+
+[[redirects]]
   from = "/testing-automated-tools/"
   to = "/methods/testing-with-automated-tools/"
   status = 301
