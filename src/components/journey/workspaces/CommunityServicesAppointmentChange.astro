@@ -1,0 +1,655 @@
+<main class="booking-shell" data-booking-workspace data-step="summary" data-session-phase="idle" data-timer-active="false">
+  <a class="return-link" href="/journeys/reviewing-a-community-services-appointment-change/">Return to the Testing journey</a>
+
+  <header class="service-header">
+    <p class="eyebrow">Riverside Community Services</p>
+    <h1>Manage your advice appointment</h1>
+    <p>Change the time and visit preferences for this fictional community advice booking.</p>
+  </header>
+
+  <section class="practice-notice" aria-labelledby="practice-notice-heading">
+    <h2 id="practice-notice-heading">Fictional practice service</h2>
+    <p><strong>Use only the sample information provided here.</strong> Nothing is submitted, sent, stored, or retained. Do not enter real personal information or credentials.</p>
+  </section>
+
+  <section class="booking-summary" aria-labelledby="booking-summary-heading">
+    <div>
+      <p class="eyebrow">Current booking</p>
+      <h2 id="booking-summary-heading">Community advice appointment</h2>
+    </div>
+    <dl>
+      <div><dt>Customer</dt><dd>Alex Example</dd></div>
+      <div><dt>Booking reference</dt><dd>RCS-2048</dd></div>
+      <div><dt>Current appointment</dt><dd>Tuesday at 10:30</dd></div>
+      <div><dt>Location</dt><dd>Riverside Service Centre</dd></div>
+      <div><dt>Status</dt><dd><span class="status-badge">Confirmed</span></dd></div>
+    </dl>
+  </section>
+
+  <div class="workspace-grid">
+    <aside class="testing-controls" aria-labelledby="testing-controls-heading">
+      <h2 id="testing-controls-heading">Testing controls</h2>
+      <p>These controls compress session behavior for practice. Their timing does not represent a production service.</p>
+      <div class="control-stack">
+        <button type="button" data-start-timer>Start accelerated timer</button>
+        <button type="button" data-show-warning>Show session warning</button>
+        <button type="button" data-expire-session>Expire session</button>
+        <button type="button" class="secondary" data-reset-workspace>Reset workspace</button>
+      </div>
+      <p class="timer-display" data-timer-display aria-live="off">Accelerated timer stopped.</p>
+      <p class="control-status" data-control-status role="status" aria-atomic="true"></p>
+    </aside>
+
+    <section class="application" aria-labelledby="application-heading">
+      <h2 id="application-heading">Change appointment</h2>
+
+      <div data-task-content>
+        <section data-view="summary" aria-labelledby="summary-step-heading">
+          <p class="step-label">Before you start</p>
+          <h3 id="summary-step-heading" tabindex="-1" data-view-heading>Review the current booking</h3>
+          <p>You will choose a new appointment, update fictional preferences, review the change, and confirm it.</p>
+          <button type="button" data-begin-change>Change this appointment</button>
+        </section>
+
+        <section data-view="appointment" aria-labelledby="appointment-step-heading" hidden>
+          <p class="step-label">Step 1 of 3</p>
+          <h3 id="appointment-step-heading" tabindex="-1" data-view-heading>Choose a new appointment</h3>
+          <form data-appointment-form>
+            <div class="field">
+              <label for="appointment-date">Appointment date</label>
+              <select id="appointment-date" name="appointment-date" data-appointment-date>
+                <option value="monday">Monday 14 September</option>
+                <option value="wednesday">Wednesday 16 September</option>
+                <option value="friday">Friday 18 September</option>
+              </select>
+            </div>
+
+            <fieldset>
+              <legend>Available appointment times</legend>
+              <p>Select one time for the chosen date.</p>
+              <div class="time-slots" data-time-slots></div>
+            </fieldset>
+
+            <p class="availability-summary" data-availability-summary>2 appointments available for Monday 14 September.</p>
+            <div class="actions">
+              <button type="submit">Continue to preferences</button>
+              <button type="button" class="secondary" data-cancel-change>Cancel change</button>
+            </div>
+          </form>
+        </section>
+
+        <section data-view="preferences" aria-labelledby="preferences-step-heading" hidden>
+          <p class="step-label">Step 2 of 3</p>
+          <h3 id="preferences-step-heading" tabindex="-1" data-view-heading>Update your preferences</h3>
+          <form data-preferences-form novalidate>
+            <fieldset data-confirmation-group>
+              <legend>How should we confirm the change?</legend>
+              <label><input type="radio" name="confirmation-method" value="Email" /> Email</label>
+              <label><input type="radio" name="confirmation-method" value="Text message" /> Text message</label>
+              <label><input type="radio" name="confirmation-method" value="Phone call" /> Phone call</label>
+              <p class="error" data-preferences-error hidden>Choose how Riverside should confirm the change.</p>
+            </fieldset>
+
+            <fieldset>
+              <legend>Visit-support information</legend>
+              <p>Choose any fictional information you want included with the appointment.</p>
+              <label><input type="checkbox" name="support" value="Step-free arrival information" /> Step-free arrival information</label>
+              <label><input type="checkbox" name="support" value="Quiet waiting area" /> Quiet waiting area</label>
+              <label><input type="checkbox" name="support" value="Communication support" /> Communication support</label>
+            </fieldset>
+
+            <div class="field">
+              <label for="support-note">Optional fictional support note</label>
+              <p id="support-note-instruction">Do not enter personal, medical, or contact information.</p>
+              <textarea id="support-note" name="support-note" rows="4" maxlength="160" aria-describedby="support-note-instruction" data-support-note></textarea>
+            </div>
+
+            <div class="actions">
+              <button type="button" class="secondary" data-back-to-appointment>Back to appointment</button>
+              <button type="submit">Review changes</button>
+            </div>
+          </form>
+        </section>
+
+        <section data-view="review" aria-labelledby="review-step-heading" hidden>
+          <p class="step-label">Step 3 of 3</p>
+          <h3 id="review-step-heading" tabindex="-1" data-view-heading>Review your changes</h3>
+          <dl class="review-list">
+            <div><dt>Date</dt><dd data-review-date></dd></div>
+            <div><dt>Time</dt><dd data-review-time></dd></div>
+            <div><dt>Confirmation</dt><dd data-review-confirmation></dd></div>
+            <div><dt>Visit support</dt><dd data-review-support></dd></div>
+            <div><dt>Support note</dt><dd data-review-note></dd></div>
+          </dl>
+          <div class="actions">
+            <button type="button" class="secondary" data-edit-appointment>Edit appointment</button>
+            <button type="button" class="secondary" data-edit-preferences>Edit preferences</button>
+            <button type="button" data-confirm-change>Confirm appointment change</button>
+          </div>
+        </section>
+
+        <section class="confirmation" data-view="confirmation" aria-labelledby="confirmation-heading" hidden>
+          <p class="eyebrow">Booking updated</p>
+          <h3 id="confirmation-heading" tabindex="-1" data-view-heading>Appointment change confirmed</h3>
+          <p>Your fictional community advice appointment is now shown as:</p>
+          <p class="confirmed-appointment"><strong data-confirmed-date></strong> at <strong data-confirmed-time></strong></p>
+          <p>No real booking was changed and no information was retained.</p>
+          <button type="button" class="secondary" data-start-over>Return to the original booking</button>
+        </section>
+      </div>
+
+      <section class="reauthentication" data-reauthentication aria-labelledby="sign-in-heading" hidden>
+        <div data-sign-in-panel>
+          <p class="step-label">Session expired</p>
+          <h3 id="sign-in-heading" tabindex="-1">Sign in again to continue</h3>
+          <p>Your fictional draft is still available. Use only these sample credentials:</p>
+          <dl class="sample-values">
+            <div><dt>Email</dt><dd><code>alex@example.test</code></dd></div>
+            <div><dt>Password</dt><dd><code>River-Example-24</code></dd></div>
+          </dl>
+          <p><strong>Do not enter a real email address or password.</strong> This form makes no network request.</p>
+
+          <form data-sign-in-form novalidate>
+            <div class="field">
+              <label for="sign-in-email">Email</label>
+              <input id="sign-in-email" name="email" type="email" autocomplete="username" data-sign-in-email />
+            </div>
+            <div class="field">
+              <label for="sign-in-password">Password</label>
+              <input id="sign-in-password" name="password" type="password" autocomplete="current-password" data-sign-in-password />
+              <button type="button" class="secondary reveal-button" aria-pressed="false" data-reveal-password>Show password</button>
+            </div>
+            <p class="error" data-sign-in-error role="alert" hidden>The fictional email or password does not match the sample values.</p>
+            <button type="submit">Continue to verification</button>
+          </form>
+        </div>
+
+        <div data-verification-panel hidden>
+          <p class="step-label">Verification</p>
+          <h3 id="verification-heading" tabindex="-1">Enter the verification code</h3>
+          <p>This fictional code was not sent anywhere. Use <code>482615</code>.</p>
+          <form data-verification-form novalidate>
+            <fieldset>
+              <legend>Six-digit verification code</legend>
+              <div class="code-inputs">
+                <label><span>Digit 1</span><input type="text" inputmode="numeric" maxlength="1" autocomplete="off" data-code-digit /></label>
+                <label><span>Digit 2</span><input type="text" inputmode="numeric" maxlength="1" autocomplete="off" data-code-digit /></label>
+                <label><span>Digit 3</span><input type="text" inputmode="numeric" maxlength="1" autocomplete="off" data-code-digit /></label>
+                <label><span>Digit 4</span><input type="text" inputmode="numeric" maxlength="1" autocomplete="off" data-code-digit /></label>
+                <label><span>Digit 5</span><input type="text" inputmode="numeric" maxlength="1" autocomplete="off" data-code-digit /></label>
+                <label><span>Digit 6</span><input type="text" inputmode="numeric" maxlength="1" autocomplete="off" data-code-digit /></label>
+              </div>
+            </fieldset>
+            <p class="error" data-verification-error role="alert" hidden>The fictional code is incorrect. Check all six digits and try again.</p>
+            <button type="submit">Verify and return to booking</button>
+          </form>
+        </div>
+      </section>
+    </section>
+  </div>
+
+  <dialog data-session-dialog aria-labelledby="session-warning-heading">
+    <div class="dialog-content">
+      <p class="eyebrow">Session warning</p>
+      <h2 id="session-warning-heading">Your session is about to expire</h2>
+      <p>For this accelerated demonstration, your session expires in <strong data-warning-countdown>5 seconds</strong>.</p>
+      <p>Your draft appointment change will remain available after fictional reauthentication.</p>
+      <div class="actions">
+        <button type="button" data-extend-session>Extend session</button>
+        <button type="button" class="secondary" data-sign-out-now>Sign out now</button>
+        <button type="button" class="secondary" data-reset-dialog>Reset workspace</button>
+      </div>
+    </div>
+  </dialog>
+</main>
+
+<script>
+  type TaskView = 'summary' | 'appointment' | 'preferences' | 'review' | 'confirmation';
+  type AppointmentDate = 'monday' | 'wednesday' | 'friday';
+  type SessionPhase = 'idle' | 'running' | 'warning' | 'expired';
+  type AuthenticationPhase = 'none' | 'sign-in' | 'verification';
+
+  interface WorkspaceState {
+    currentView: TaskView;
+    interruptedView: TaskView;
+    date: AppointmentDate;
+    time: string;
+    confirmationMethod: string;
+    supports: string[];
+    note: string;
+    sessionPhase: SessionPhase;
+    remainingSeconds: number;
+    authenticationPhase: AuthenticationPhase;
+  }
+
+  const dateOptions: Record<AppointmentDate, { label: string; times: string[] }> = {
+    monday: { label: 'Monday 14 September', times: ['09:00', '13:30'] },
+    wednesday: { label: 'Wednesday 16 September', times: ['11:00', '15:00'] },
+    friday: { label: 'Friday 18 September', times: ['10:15', '14:45'] },
+  };
+
+  const createInitialState = (): WorkspaceState => ({
+    currentView: 'summary',
+    interruptedView: 'summary',
+    date: 'monday',
+    time: '09:00',
+    confirmationMethod: '',
+    supports: [],
+    note: '',
+    sessionPhase: 'idle',
+    remainingSeconds: 30,
+    authenticationPhase: 'none',
+  });
+
+  const root = document.querySelector<HTMLElement>('[data-booking-workspace]');
+  const taskContent = document.querySelector<HTMLElement>('[data-task-content]');
+  const reauthentication = document.querySelector<HTMLElement>('[data-reauthentication]');
+  const signInPanel = document.querySelector<HTMLElement>('[data-sign-in-panel]');
+  const verificationPanel = document.querySelector<HTMLElement>('[data-verification-panel]');
+  const sessionDialog = document.querySelector<HTMLDialogElement>('[data-session-dialog]');
+  const dateSelect = document.querySelector<HTMLSelectElement>('[data-appointment-date]');
+  const timeSlots = document.querySelector<HTMLElement>('[data-time-slots]');
+  const availabilitySummary = document.querySelector<HTMLElement>('[data-availability-summary]');
+  const preferencesForm = document.querySelector<HTMLFormElement>('[data-preferences-form]');
+  const preferencesError = document.querySelector<HTMLElement>('[data-preferences-error]');
+  const supportNote = document.querySelector<HTMLTextAreaElement>('[data-support-note]');
+  const timerDisplay = document.querySelector<HTMLElement>('[data-timer-display]');
+  const controlStatus = document.querySelector<HTMLElement>('[data-control-status]');
+  const warningCountdown = document.querySelector<HTMLElement>('[data-warning-countdown]');
+  const signInForm = document.querySelector<HTMLFormElement>('[data-sign-in-form]');
+  const signInEmail = document.querySelector<HTMLInputElement>('[data-sign-in-email]');
+  const signInPassword = document.querySelector<HTMLInputElement>('[data-sign-in-password]');
+  const signInError = document.querySelector<HTMLElement>('[data-sign-in-error]');
+  const verificationForm = document.querySelector<HTMLFormElement>('[data-verification-form]');
+  const verificationError = document.querySelector<HTMLElement>('[data-verification-error]');
+  const codeDigits = [...document.querySelectorAll<HTMLInputElement>('[data-code-digit]')];
+  const sessionControlButtons = [
+    document.querySelector<HTMLButtonElement>('[data-start-timer]'),
+    document.querySelector<HTMLButtonElement>('[data-show-warning]'),
+    document.querySelector<HTMLButtonElement>('[data-expire-session]'),
+  ];
+
+  let state = createInitialState();
+  let timerId: number | undefined;
+  let warningReturnFocus: HTMLElement | null = null;
+
+  const setControlStatus = (message: string) => {
+    if (controlStatus) controlStatus.textContent = message;
+  };
+
+  const clearTimer = () => {
+    if (timerId !== undefined) window.clearInterval(timerId);
+    timerId = undefined;
+    if (root) root.dataset.timerActive = 'false';
+  };
+
+  const focusViewHeading = () => {
+    const heading = document.querySelector<HTMLElement>(`[data-view="${state.currentView}"] [data-view-heading]`);
+    heading?.focus();
+  };
+
+  const renderTimeSlots = () => {
+    if (!timeSlots || !dateSelect || !availabilitySummary) return;
+    const option = dateOptions[state.date];
+    dateSelect.value = state.date;
+    timeSlots.replaceChildren(...option.times.map((time) => {
+      const card = document.createElement('div');
+      card.className = 'time-slot';
+      card.dataset.timeSlot = '';
+      card.dataset.value = time;
+      card.dataset.selected = String(state.time === time);
+      card.textContent = time;
+      if (state.time === time) card.classList.add('selected');
+      return card;
+    }));
+    availabilitySummary.textContent = `${option.times.length} appointments available for ${option.label}.`;
+  };
+
+  const renderPreferences = () => {
+    document.querySelectorAll<HTMLInputElement>('input[name="confirmation-method"]').forEach((input) => {
+      input.checked = input.value === state.confirmationMethod;
+    });
+    document.querySelectorAll<HTMLInputElement>('input[name="support"]').forEach((input) => {
+      input.checked = state.supports.includes(input.value);
+    });
+    if (supportNote) supportNote.value = state.note;
+  };
+
+  const capturePreferences = () => {
+    state.confirmationMethod = document.querySelector<HTMLInputElement>('input[name="confirmation-method"]:checked')?.value ?? '';
+    state.supports = [...document.querySelectorAll<HTMLInputElement>('input[name="support"]:checked')].map((input) => input.value);
+    state.note = supportNote?.value ?? '';
+  };
+
+  const renderReview = () => {
+    const option = dateOptions[state.date];
+    const values: Array<[string, string]> = [
+      ['[data-review-date]', option.label],
+      ['[data-review-time]', state.time],
+      ['[data-review-confirmation]', state.confirmationMethod],
+      ['[data-review-support]', state.supports.length ? state.supports.join(', ') : 'No additional visit-support information'],
+      ['[data-review-note]', state.note || 'No support note'],
+      ['[data-confirmed-date]', option.label],
+      ['[data-confirmed-time]', state.time],
+    ];
+    values.forEach(([selector, value]) => {
+      const element = document.querySelector<HTMLElement>(selector);
+      if (element) element.textContent = value;
+    });
+  };
+
+  const renderSession = () => {
+    if (!root || !timerDisplay || !warningCountdown) return;
+    root.dataset.sessionPhase = state.sessionPhase;
+    root.dataset.step = state.currentView;
+    warningCountdown.textContent = `${state.remainingSeconds} ${state.remainingSeconds === 1 ? 'second' : 'seconds'}`;
+    timerDisplay.textContent = state.sessionPhase === 'running'
+      ? `Accelerated session: ${state.remainingSeconds} seconds remaining.`
+      : state.sessionPhase === 'warning'
+        ? `Session warning open with ${state.remainingSeconds} seconds remaining.`
+        : state.authenticationPhase !== 'none'
+          ? 'Accelerated session expired. Fictional reauthentication is required.'
+          : 'Accelerated timer stopped.';
+
+    const taskUnavailable = state.authenticationPhase !== 'none';
+    sessionControlButtons.forEach((button) => {
+      if (button) button.disabled = taskUnavailable || state.currentView === 'confirmation';
+    });
+  };
+
+  const render = () => {
+    document.querySelectorAll<HTMLElement>('[data-view]').forEach((view) => {
+      view.hidden = view.dataset.view !== state.currentView;
+    });
+    const authenticating = state.authenticationPhase !== 'none';
+    if (taskContent) taskContent.hidden = authenticating;
+    if (reauthentication) reauthentication.hidden = !authenticating;
+    if (signInPanel) signInPanel.hidden = state.authenticationPhase !== 'sign-in';
+    if (verificationPanel) verificationPanel.hidden = state.authenticationPhase !== 'verification';
+    renderTimeSlots();
+    renderPreferences();
+    renderReview();
+    renderSession();
+  };
+
+  const goToView = (view: TaskView, moveFocus = true) => {
+    state.currentView = view;
+    render();
+    if (moveFocus) focusViewHeading();
+  };
+
+  const expireSession = () => {
+    if (state.authenticationPhase !== 'none') return;
+    if (state.sessionPhase !== 'warning') state.interruptedView = state.currentView;
+    clearTimer();
+    if (sessionDialog?.open) sessionDialog.close();
+    state.sessionPhase = 'expired';
+    state.authenticationPhase = 'sign-in';
+    render();
+    setControlStatus('Accelerated session expired. Continue with fictional reauthentication.');
+    document.querySelector<HTMLElement>('#sign-in-heading')?.focus();
+  };
+
+  const showWarning = (automatic = false) => {
+    if (!sessionDialog || state.authenticationPhase !== 'none' || state.currentView === 'confirmation') return;
+    if (!automatic) {
+      clearTimer();
+      state.remainingSeconds = 5;
+    }
+    state.interruptedView = state.currentView;
+    state.sessionPhase = 'warning';
+    warningReturnFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    renderSession();
+    if (!sessionDialog.open) sessionDialog.showModal();
+  };
+
+  const extendSession = () => {
+    clearTimer();
+    state.sessionPhase = 'idle';
+    state.remainingSeconds = 30;
+    if (sessionDialog?.open) sessionDialog.close();
+    renderSession();
+    setControlStatus('Accelerated session extended. Your draft and task position were preserved.');
+    window.setTimeout(() => warningReturnFocus?.focus(), 0);
+  };
+
+  const startTimer = () => {
+    clearTimer();
+    state.interruptedView = state.currentView;
+    state.sessionPhase = 'running';
+    state.remainingSeconds = 30;
+    if (root) root.dataset.timerActive = 'true';
+    setControlStatus('Accelerated 30-second session started.');
+    renderSession();
+    timerId = window.setInterval(() => {
+      state.remainingSeconds -= 1;
+      renderSession();
+      if (state.remainingSeconds === 5) showWarning(true);
+      if (state.remainingSeconds <= 0) expireSession();
+    }, 1000);
+  };
+
+  const resetWorkspace = () => {
+    clearTimer();
+    if (sessionDialog?.open) sessionDialog.close();
+    state = createInitialState();
+    warningReturnFocus = null;
+    preferencesForm?.reset();
+    signInForm?.reset();
+    verificationForm?.reset();
+    if (signInPassword) signInPassword.type = 'password';
+    if (preferencesError) preferencesError.hidden = true;
+    if (signInError) signInError.hidden = true;
+    if (verificationError) verificationError.hidden = true;
+    setControlStatus('Workspace reset to the original booking.');
+    render();
+    document.querySelector<HTMLElement>('#summary-step-heading')?.focus();
+  };
+
+  document.querySelector('[data-begin-change]')?.addEventListener('click', () => goToView('appointment'));
+  document.querySelector('[data-cancel-change]')?.addEventListener('click', resetWorkspace);
+  document.querySelector('[data-back-to-appointment]')?.addEventListener('click', () => goToView('appointment'));
+  document.querySelector('[data-edit-appointment]')?.addEventListener('click', () => goToView('appointment'));
+  document.querySelector('[data-edit-preferences]')?.addEventListener('click', () => goToView('preferences'));
+  document.querySelector('[data-start-over]')?.addEventListener('click', resetWorkspace);
+  document.querySelector('[data-start-timer]')?.addEventListener('click', startTimer);
+  document.querySelector('[data-show-warning]')?.addEventListener('click', () => showWarning(false));
+  document.querySelector('[data-expire-session]')?.addEventListener('click', expireSession);
+  document.querySelector('[data-reset-workspace]')?.addEventListener('click', resetWorkspace);
+  document.querySelector('[data-extend-session]')?.addEventListener('click', extendSession);
+  document.querySelector('[data-sign-out-now]')?.addEventListener('click', expireSession);
+  document.querySelector('[data-reset-dialog]')?.addEventListener('click', resetWorkspace);
+
+  dateSelect?.addEventListener('change', () => {
+    state.date = dateSelect.value as AppointmentDate;
+    state.time = dateOptions[state.date].times[0];
+    renderTimeSlots();
+  });
+
+  timeSlots?.addEventListener('click', (event) => {
+    const card = event.target instanceof Element ? event.target.closest<HTMLElement>('[data-time-slot]') : null;
+    if (!card?.dataset.value) return;
+    state.time = card.dataset.value;
+    renderTimeSlots();
+  });
+
+  document.querySelector<HTMLFormElement>('[data-appointment-form]')?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    goToView('preferences');
+  });
+
+  preferencesForm?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    capturePreferences();
+    if (!state.confirmationMethod) {
+      if (preferencesError) preferencesError.hidden = false;
+      return;
+    }
+    if (preferencesError) preferencesError.hidden = true;
+    goToView('review');
+  });
+
+  preferencesForm?.addEventListener('input', capturePreferences);
+
+  document.querySelector('[data-confirm-change]')?.addEventListener('click', () => {
+    clearTimer();
+    state.sessionPhase = 'idle';
+    goToView('confirmation', false);
+  });
+
+  document.querySelector('[data-reveal-password]')?.addEventListener('click', () => {
+    if (!signInPassword) return;
+    signInPassword.type = signInPassword.type === 'password' ? 'text' : 'password';
+  });
+
+  signInForm?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    if (signInEmail?.value !== 'alex@example.test' || signInPassword?.value !== 'River-Example-24') {
+      if (signInError) signInError.hidden = false;
+      return;
+    }
+    if (signInError) signInError.hidden = true;
+    state.authenticationPhase = 'verification';
+    render();
+    document.querySelector<HTMLElement>('#verification-heading')?.focus();
+  });
+
+  codeDigits.forEach((input, index) => {
+    input.addEventListener('paste', (event) => event.preventDefault());
+    input.addEventListener('input', () => {
+      input.value = input.value.replace(/\D/g, '').slice(0, 1);
+      if (input.value && codeDigits[index + 1]) codeDigits[index + 1].focus();
+    });
+  });
+
+  verificationForm?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const code = codeDigits.map((input) => input.value).join('');
+    if (code !== '482615') {
+      if (verificationError) verificationError.hidden = false;
+      return;
+    }
+    if (verificationError) verificationError.hidden = true;
+    state.authenticationPhase = 'none';
+    state.sessionPhase = 'idle';
+    state.remainingSeconds = 30;
+    state.currentView = state.interruptedView;
+    signInForm?.reset();
+    verificationForm.reset();
+    if (signInPassword) signInPassword.type = 'password';
+    render();
+    setControlStatus('Fictional reauthentication complete. Your draft and task position were restored.');
+    focusViewHeading();
+  });
+
+  sessionDialog?.addEventListener('cancel', (event) => {
+    event.preventDefault();
+    extendSession();
+  });
+
+  window.addEventListener('beforeunload', clearTimer);
+  render();
+</script>
+
+<style>
+  :global(*) { box-sizing: border-box; }
+  :global(body) { margin: 0; background: #fafafa; color: #333; font-family: 'Atkinson Hyperlegible', Arial, sans-serif; font-size: 1.125rem; line-height: 1.55; }
+  [hidden] { display: none !important; }
+  .booking-shell { width: min(100% - 2rem, 72rem); margin-inline: auto; padding-block: 1.25rem 4rem; }
+  .return-link { display: inline-block; margin-bottom: 1.25rem; color: #033573; text-underline-offset: 0.2em; }
+  .service-header { padding: clamp(1.25rem, 4vw, 2.5rem); border: 3px solid #6540a4; background: #f5f0ff; }
+  .eyebrow, .step-label { margin-block: 0 0.35rem; color: #5a1230; font-weight: 700; }
+  h1, h2, h3 { color: #292929; line-height: 1.2; }
+  h1 { margin-block: 0.2rem 0.75rem; font-size: clamp(2.25rem, 7vw, 4rem); }
+  h2 { margin-block: 0 1rem; font-size: clamp(1.55rem, 4vw, 2rem); }
+  h3 { margin-block: 0.25rem 1rem; font-size: 1.45rem; }
+  .practice-notice { margin-block: 1.5rem; padding: 1.25rem; border-left: 0.5rem solid #b33567; background: #fff0f5; }
+  .practice-notice h2 { font-size: 1.35rem; }
+  .practice-notice p:last-child { margin-bottom: 0; }
+  .booking-summary { margin-block: 1.5rem; padding: 1.5rem; border: 2px solid #bbc9f7; background: #fff; }
+  .booking-summary dl, .review-list, .sample-values { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin-bottom: 0; }
+  dl div { min-width: 0; }
+  dt { font-weight: 700; }
+  dd { margin: 0.2rem 0 0; overflow-wrap: anywhere; }
+  .status-badge { display: inline-block; padding: 0.15rem 0.6rem; border-radius: 999px; background: #dff5e7; color: #174b2d; font-weight: 700; }
+  .workspace-grid { display: grid; grid-template-columns: minmax(15rem, 19rem) minmax(0, 1fr); gap: 1.5rem; align-items: start; }
+  .testing-controls, .application { padding: 1.4rem; border: 2px solid #bbc9f7; background: #fff; }
+  .testing-controls { position: sticky; top: 1rem; }
+  .testing-controls h2, .application > h2 { font-size: 1.45rem; }
+  .control-stack { display: grid; gap: 0.7rem; }
+  .timer-display { margin-bottom: 0; font-weight: 700; }
+  .control-status { min-height: 1.6em; margin-bottom: 0; }
+  form, fieldset { min-width: 0; }
+  fieldset { margin: 1.25rem 0; padding: 1rem; border: 2px solid #bbc9f7; }
+  legend, label { font-weight: 700; }
+  fieldset label { display: block; margin-block: 0.65rem; }
+  .field { margin-block: 1.25rem; }
+  .field > label { display: block; margin-bottom: 0.35rem; }
+  input:not([type='radio'], [type='checkbox']), select, textarea { width: 100%; max-width: 34rem; padding: 0.65rem; border: 2px solid #5e5e5e; border-radius: 0.2rem; background: #fff; color: #292929; font: inherit; }
+  input[type='radio'], input[type='checkbox'] { width: 1.25rem; height: 1.25rem; margin-right: 0.45rem; vertical-align: -0.2rem; }
+  button { min-height: 3rem; padding: 0.6rem 1rem; border: 3px solid transparent; border-radius: 0.25rem; background: #033573; color: #fff; font: inherit; font-weight: 700; cursor: pointer; }
+  button:hover { border-color: #033573; background: transparent; color: #033573; }
+  button.secondary { border-color: #033573; background: transparent; color: #033573; }
+  button.secondary:hover { background: #e7f0ff; }
+  button:disabled { border-color: #767676; background: #e4e4e4; color: #5c5c5c; cursor: not-allowed; }
+  .actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; }
+  .time-slots { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
+  .time-slot { padding: 0.8rem; border: 3px solid #6781cf; border-radius: 0.25rem; background: #f7f8ff; color: #292929; font-weight: 700; text-align: center; cursor: pointer; }
+  .time-slot:hover { border-color: #033573; }
+  .time-slot.selected { border-color: #b33567; box-shadow: inset 0 -0.35rem #b33567; }
+  .availability-summary { font-weight: 700; }
+  .error { padding: 0.65rem; border-left: 0.4rem solid #a30d3a; background: #fff0f5; color: #71102d; font-weight: 700; }
+  .review-list { margin-block: 1.25rem; }
+  .review-list div, .sample-values div { padding: 0.8rem; border: 1px solid #bbc9f7; }
+  .confirmation { padding: 1.25rem; border: 3px solid #39855b; background: #edf9f1; }
+  .confirmed-appointment { font-size: 1.3rem; }
+  .sample-values { margin-block: 1rem; }
+  code { overflow-wrap: anywhere; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
+  .reveal-button { margin-top: 0.65rem; }
+  .code-inputs { display: grid; grid-template-columns: repeat(6, minmax(2.8rem, 1fr)); gap: 0.5rem; max-width: 28rem; }
+  .code-inputs label { margin: 0; font-size: 0.9rem; text-align: center; }
+  .code-inputs span { display: block; }
+  .code-inputs input { width: 100%; padding-inline: 0.2rem; font-size: 1.4rem; text-align: center; }
+  dialog { width: min(38rem, calc(100% - 2rem)); max-height: calc(100dvh - 2rem); padding: 0; border: 4px solid #6540a4; background: #fafafa; color: #333; }
+  dialog::backdrop { background: rgb(1 0 23 / 75%); }
+  .dialog-content { padding: clamp(1.25rem, 4vw, 2rem); }
+  .dialog-content h2 { margin-top: 0.25rem; }
+  a:focus, button:focus, input:focus, select:focus, textarea:focus { outline: 3px solid #000; outline-offset: 3px; box-shadow: 0 0 0 2px #fff; }
+  [tabindex='-1']:focus { outline: none; }
+
+  :global(.dark body) { background: #010017; color: #c5c5c5; }
+  :global(.dark) h1, :global(.dark) h2, :global(.dark) h3 { color: #dedede; }
+  :global(.dark) .eyebrow, :global(.dark) .step-label { color: #ffd3e5; }
+  :global(.dark) .return-link { color: #ade5f8; }
+  :global(.dark) .service-header { border-color: #6540a4; background: #070038; }
+  :global(.dark) .practice-notice { border-color: #ef82ae; background: #21091b; }
+  :global(.dark) .booking-summary, :global(.dark) .testing-controls, :global(.dark) .application { border-color: #3152b5; background: #070038; }
+  :global(.dark) .status-badge { background: #123e24; color: #c9f7d8; }
+  :global(.dark) fieldset, :global(.dark) .review-list div, :global(.dark) .sample-values div { border-color: #3152b5; }
+  :global(.dark) input:not([type='radio'], [type='checkbox']), :global(.dark) select, :global(.dark) textarea { border-color: #a9b8e6; background: #010017; color: #dedede; }
+  :global(.dark) button { background: #ade5f8; color: #000; }
+  :global(.dark) button:hover { border-color: #ade5f8; background: transparent; color: #ade5f8; }
+  :global(.dark) button.secondary { border-color: #ade5f8; background: transparent; color: #ade5f8; }
+  :global(.dark) button.secondary:hover { background: #100842; }
+  :global(.dark) button:disabled { border-color: #777; background: #333; color: #aaa; }
+  :global(.dark) .time-slot { border-color: #6781cf; background: #100842; color: #dedede; }
+  :global(.dark) .time-slot.selected { border-color: #ef82ae; box-shadow: inset 0 -0.35rem #ef82ae; }
+  :global(.dark) .error { border-color: #ef82ae; background: #21091b; color: #ffd3e5; }
+  :global(.dark) .confirmation { border-color: #69bd87; background: #082616; }
+  :global(.dark) dialog { border-color: #6540a4; background: #010017; color: #c5c5c5; }
+  :global(.dark) a:focus, :global(.dark) button:focus, :global(.dark) input:focus, :global(.dark) select:focus, :global(.dark) textarea:focus { outline-color: #fff; box-shadow: 0 0 0 2px #010017; }
+
+  @media (max-width: 50rem) {
+    .workspace-grid { grid-template-columns: 1fr; }
+    .testing-controls { position: static; }
+  }
+
+  @media (max-width: 36rem) {
+    .booking-shell { width: min(100% - 1rem, 72rem); }
+    .service-header, .booking-summary, .testing-controls, .application { padding: 1rem; }
+    .booking-summary dl, .review-list, .sample-values { grid-template-columns: 1fr; }
+    .time-slots { grid-template-columns: 1fr; }
+    .actions button { width: 100%; }
+    .code-inputs { grid-template-columns: repeat(3, minmax(2.8rem, 1fr)); }
+  }
+</style>

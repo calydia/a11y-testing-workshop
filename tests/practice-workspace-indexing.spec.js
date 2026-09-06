@@ -5,11 +5,14 @@ const standaloneRoutes = [
   '/exercise-fixtures/keyboard-preferences-form/',
   '/journey-workspaces/community-conference-programme/',
   '/journey-workspaces/community-centre-open-day/',
+  '/journey-workspaces/community-services-appointment-change/',
 ];
 
 const ordinaryRoutes = [
   '/exercises/keyboard-testing-a-preferences-form/',
   '/journeys/reviewing-a-community-conference-programme/',
+  '/learn/testing-dynamic-and-authenticated-tasks/',
+  '/journeys/reviewing-a-community-services-appointment-change/',
 ];
 
 test('standalone practice routes remain reachable and emit noindex', async ({ page }) => {

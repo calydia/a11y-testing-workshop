@@ -4,6 +4,7 @@ import AxeBuilder from '@axe-core/playwright';
 const journeyPath = '/journeys/reviewing-a-course-registration-before-launch/';
 const conferenceJourneyPath = '/journeys/reviewing-a-community-conference-programme/';
 const openDayJourneyPath = '/journeys/reviewing-a-community-centre-open-day-before-launch/';
+const appointmentJourneyPath = '/journeys/reviewing-a-community-services-appointment-change/';
 
 const methods = [
   ['Testing with automated tools', '/methods/testing-with-automated-tools/'],
@@ -42,17 +43,36 @@ const conferenceStages = [
   'Consolidate and recommend',
 ];
 
-test('Testing journeys listing publishes the first journey', async ({ page }) => {
+const appointmentMethods = [
+  ['Testing controls with a screen reader', '/methods/testing-controls-with-a-screen-reader/'],
+  ['Testing forms and validation', '/methods/testing-forms-and-validation/'],
+  ['Testing status messages and live updates', '/methods/testing-status-messages-and-live-updates/'],
+  ['Testing time limits and interruptions', '/methods/testing-time-limits-and-interruptions/'],
+  ['Testing authentication and verification', '/methods/testing-authentication-and-verification/'],
+];
+
+const appointmentStages = [
+  'Define the safe review conditions',
+  'Reschedule the appointment',
+  'Validate and review the changes',
+  'Interrupt the task',
+  'Reauthenticate and resume',
+  'Confirm, consolidate, and recommend',
+];
+
+test('Testing journeys listing publishes all four journeys in authored order', async ({ page }) => {
   await page.goto('/journeys/');
   await expect(page.getByText('No published content is available in this section yet.')).toHaveCount(0);
   await expect(page.locator('main article h2 > a')).toHaveText([
     'Reviewing a course registration before launch',
     'Reviewing a community conference programme',
     'Reviewing a community centre open day before launch',
+    'Reviewing a community-services appointment change',
   ]);
   await expect(page.getByRole('link', { name: 'Reviewing a course registration before launch' })).toHaveAttribute('href', journeyPath);
   await expect(page.getByRole('link', { name: 'Reviewing a community conference programme' })).toHaveAttribute('href', conferenceJourneyPath);
   await expect(page.getByRole('link', { name: 'Reviewing a community centre open day before launch' })).toHaveAttribute('href', openDayJourneyPath);
+  await expect(page.getByRole('link', { name: 'Reviewing a community-services appointment change' })).toHaveAttribute('href', appointmentJourneyPath);
 });
 
 test('journey renders metadata, scenario, role, objectives, and navigation', async ({ page }) => {
@@ -155,6 +175,7 @@ test('conference journey renders intermediate metadata, scenario, and navigation
     'Reviewing a course registration before launch',
     'Reviewing a community conference programme',
     'Reviewing a community centre open day before launch',
+    'Reviewing a community-services appointment change',
   ]);
   await expect(navigation.getByRole('link', { name: 'Reviewing a community conference programme' })).toHaveAttribute('aria-current', 'page');
 });
@@ -254,6 +275,80 @@ test('open-day journey links to its workspace in the same tab and passes axe', a
   await expect(workspace).toHaveAttribute('href', '/journey-workspaces/community-centre-open-day/');
   await expect(workspace).not.toHaveAttribute('target');
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.reload();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
+});
+
+test('appointment-change journey publishes its intermediate review contract', async ({ page }) => {
+  const response = await page.goto(appointmentJourneyPath);
+  expect(response?.ok()).toBe(true);
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Reviewing a community-services appointment change');
+  const meta = page.locator('[data-journey-meta]');
+  await expect(meta).toContainText('Difficulty: intermediate');
+  await expect(meta).toContainText('Estimated time: 105 minutes');
+  await expect(page.locator('[data-journey-scenario]')).toContainText('Riverside Community Services');
+  await expect(page.locator('[data-journey-role]')).toContainText('Accessibility tester reviewing an appointment-change feature before release');
+  await expect(page.locator('[data-journey-objectives] li')).toHaveCount(7);
+
+  await expect(page.getByRole('navigation', { name: 'Breadcrumbs' }).getByRole('listitem')).toHaveText([
+    'Home/', 'Testing journeys/', 'Reviewing a community-services appointment change',
+  ]);
+  await expect(page.getByRole('navigation', { name: 'Testing journeys' }).getByRole('link', { name: 'Reviewing a community-services appointment change' })).toHaveAttribute('aria-current', 'page');
+});
+
+test('appointment-change journey lists five methods and its recommended path', async ({ page }) => {
+  await page.goto(appointmentJourneyPath);
+  const methodItems = page.locator('[data-journey-methods] > li');
+  await expect(methodItems).toHaveCount(appointmentMethods.length);
+  for (const [index, [title, href]] of appointmentMethods.entries()) {
+    await expect(methodItems.nth(index).getByRole('link', { name: title })).toHaveAttribute('href', href);
+  }
+
+  const preparation = page.locator('[data-journey-preparation]');
+  await expect(preparation.locator('[data-preparation-type="learning-path"]')).toHaveCount(1);
+  await expect(preparation.locator('[data-preparation-type="exercise"]')).toHaveCount(0);
+  await expect(preparation.getByRole('link', { name: 'Testing dynamic and authenticated tasks' })).toHaveAttribute(
+    'href',
+    '/learn/testing-dynamic-and-authenticated-tasks/',
+  );
+  await expect(preparation).toContainText('Level: intermediate');
+  await expect(preparation).toContainText('Estimated time: 310 minutes');
+});
+
+test('appointment-change journey renders six task-led stages and six deliverables', async ({ page }) => {
+  await page.goto(appointmentJourneyPath);
+  const stages = page.locator('[data-journey-stages] > li');
+  await expect(stages).toHaveCount(appointmentStages.length);
+  await expect(stages.getByRole('heading', { level: 3 })).toHaveText(appointmentStages);
+  await expect(stages.nth(0).locator('[data-stage-methods]')).toHaveCount(0);
+  await expect(stages.nth(1).getByRole('link')).toHaveText([appointmentMethods[0][0], appointmentMethods[2][0]]);
+  await expect(stages.nth(2).getByRole('link')).toHaveText([appointmentMethods[0][0], appointmentMethods[1][0], appointmentMethods[2][0]]);
+  await expect(stages.nth(3).getByRole('link')).toHaveText([appointmentMethods[3][0], appointmentMethods[2][0], appointmentMethods[0][0]]);
+  await expect(stages.nth(4).getByRole('link')).toHaveText([
+    appointmentMethods[4][0], appointmentMethods[1][0], appointmentMethods[0][0], appointmentMethods[2][0], appointmentMethods[3][0],
+  ]);
+  await expect(stages.nth(5).getByRole('link')).toHaveText(appointmentMethods.map(([title]) => title));
+  await expect(page.locator('[data-journey-deliverables] li')).toHaveCount(6);
+});
+
+test('appointment-change journey links to its workspace without solution leakage or progress UI', async ({ page }) => {
+  await page.goto(appointmentJourneyPath);
+  const workspace = page.getByRole('link', { name: 'Open the Testing journey workspace for the community-services appointment change' });
+  await expect(workspace).toHaveAttribute('href', '/journey-workspaces/community-services-appointment-change/');
+  await expect(workspace).not.toHaveAttribute('target');
+  await expect(page.getByRole('checkbox')).toHaveCount(0);
+  await expect(page.getByRole('progressbar')).toHaveCount(0);
+  await expect(page.locator('[data-progress], [data-complete], [data-grade], form')).toHaveCount(0);
+  await expect(page.getByText(/seven findings|required finding count|model answer|solution/i)).toHaveCount(0);
+});
+
+test('appointment-change journey passes axe, exposes focus, and fits a narrow viewport', async ({ page }) => {
+  await page.goto(appointmentJourneyPath);
+  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+  const workspace = page.getByRole('link', { name: 'Open the Testing journey workspace for the community-services appointment change' });
+  await workspace.focus();
+  await expect(workspace).toHaveCSS('outline-style', 'solid');
   await page.setViewportSize({ width: 390, height: 844 });
   await page.reload();
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);

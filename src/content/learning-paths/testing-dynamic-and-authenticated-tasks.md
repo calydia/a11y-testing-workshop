@@ -2,7 +2,7 @@
 title: Testing dynamic and authenticated tasks
 summary: Build intermediate skills for testing controls, forms, live updates, interruptions, and authentication through changing task states.
 description: Follow a self-contained intermediate path through controls, validation, status messages, time limits, authentication, and task recovery.
-status: draft
+status: published
 order: 30
 topics: [intermediate, interaction and tasks, controls, forms, validation, status messages, live regions, time limits, interruptions, authentication, verification, screen readers, focus, task recovery]
 prerequisites:
@@ -86,7 +86,7 @@ Not every field applies to every observation. Use the structure to preserve the 
 
 ## Where to go next
 
-A coordinated Testing journey will apply these skills to changing an existing community-services booking. It will combine controls, validation, dynamic confirmations, a session warning, reauthentication, preserved work, and return to the original task in one realistic workspace. The journey will be published with this path after its separate design and implementation are complete.
+Apply these skills together in [Reviewing a community-services appointment change](/journeys/reviewing-a-community-services-appointment-change/). The journey combines controls, validation, dynamic confirmations, a session warning, reauthentication, preserved work, and return to the original task in one realistic workspace.
 
 Use [Your first accessibility review](/learn/your-first-accessibility-review/) when you want a broader foundation in automated, keyboard, visual, user-preference, mobile, media, zoom, forms, and time-limit testing.
 

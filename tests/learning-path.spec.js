@@ -49,30 +49,39 @@ const expectedScreenReaderSteps = [
   ['Exercise', 'Testing modal dialogs in account settings', '/exercises/testing-modal-dialogs-in-account-settings/'],
 ];
 
-test('Learning paths listing publishes the first path', async ({ page }) => {
+const expectedDynamicTasksSteps = [
+  ['Path checkpoint', 'Prepare a safe, reproducible test environment', '#prepare-a-safe-reproducible-test-environment'],
+  ['Testing method', 'Testing controls with a screen reader', '/methods/testing-controls-with-a-screen-reader/'],
+  ['Exercise', 'Testing controls in a community events finder', '/exercises/testing-controls-in-a-community-events-finder/'],
+  ['Testing method', 'Testing forms and validation', '/methods/testing-forms-and-validation/'],
+  ['Exercise', 'Testing a community-course registration form', '/exercises/testing-a-community-course-registration-form/'],
+  ['Path checkpoint', 'Track state, context, and recovery', '#track-state-context-and-recovery'],
+  ['Testing method', 'Testing status messages and live updates', '/methods/testing-status-messages-and-live-updates/'],
+  ['Exercise', 'Testing status messages in a community activities search', '/exercises/testing-status-messages-in-a-community-activities-search/'],
+  ['Testing method', 'Testing time limits and interruptions', '/methods/testing-time-limits-and-interruptions/'],
+  ['Exercise', 'Testing session timeout in a community-support application', '/exercises/testing-session-timeout-in-a-community-support-application/'],
+  ['Testing method', 'Testing authentication and verification', '/methods/testing-authentication-and-verification/'],
+  ['Exercise', 'Testing authentication for a community-services booking', '/exercises/testing-authentication-for-a-community-services-booking/'],
+];
+
+test('Learning paths listing publishes all three paths in authored order', async ({ page }) => {
   await page.goto('/learn/');
   await expect(page.getByText('No published content is available in this section yet.')).toHaveCount(0);
   await expect(page.locator('main article h2 > a')).toHaveText([
     'Your first accessibility review',
     'Practical screen-reader testing',
+    'Testing dynamic and authenticated tasks',
   ]);
   await expect(page.getByRole('link', { name: 'Your first accessibility review' })).toHaveAttribute('href', pathUrl);
   await expect(page.getByRole('link', { name: 'Practical screen-reader testing' })).toHaveAttribute('href', screenReaderPathUrl);
+  await expect(page.getByRole('link', { name: 'Testing dynamic and authenticated tasks' })).toHaveAttribute('href', dynamicTasksPathUrl);
   await expect(page.getByText('recommended broad starting point', { exact: false })).toBeVisible();
   await expect(page.getByText('independently or after the first path', { exact: false })).toBeVisible();
-  await expect(page.getByText('data tables, controls, images, graphics, language changes, and modal dialogs', { exact: false })).toBeVisible();
-});
-
-test('draft dynamic tasks path remains excluded from production', async ({ page, request }) => {
-  await page.goto('/learn/');
-  await expect(page.getByRole('link', { name: 'Testing dynamic and authenticated tasks' })).toHaveCount(0);
-
-  const response = await request.get(dynamicTasksPathUrl);
-  expect(response.status()).toBe(404);
+  await expect(page.getByText('intermediate route for changing task states, interruptions, and authentication', { exact: false })).toBeVisible();
 });
 
 test('each Learning path explains what its total estimate includes', async ({ page }) => {
-  for (const url of [pathUrl, screenReaderPathUrl]) {
+  for (const url of [pathUrl, screenReaderPathUrl, dynamicTasksPathUrl]) {
     await page.goto(url);
     const note = page.locator('[data-learning-path-time-note]');
     await expect(note).toContainText('setup, note-taking, reviewing results, and repetition');
@@ -97,6 +106,15 @@ test('each Learning path links to its matching journey and optional companion pa
   );
   const whereNext = page.locator('[data-content-body] h2', { hasText: 'Where to go next' }).locator('~ p');
   await expect(whereNext.getByRole('link', { name: 'Your first accessibility review' })).toHaveAttribute('href', pathUrl);
+
+  await page.goto(dynamicTasksPathUrl);
+  await expect(page.getByRole('link', { name: 'Reviewing a community-services appointment change' })).toHaveAttribute(
+    'href',
+    '/journeys/reviewing-a-community-services-appointment-change/',
+  );
+  const dynamicWhereNext = page.locator('[data-content-body] h2', { hasText: 'Where to go next' }).locator('~ p');
+  await expect(dynamicWhereNext.getByRole('link', { name: 'Your first accessibility review' })).toHaveAttribute('href', pathUrl);
+  await expect(dynamicWhereNext.getByRole('link', { name: 'Practical screen-reader testing' })).toHaveAttribute('href', screenReaderPathUrl);
 });
 
 test('first Learning path renders metadata, outcomes, and navigation', async ({ page }) => {
@@ -186,6 +204,7 @@ test('Practical screen-reader testing renders independent metadata, outcomes, an
     'All Learning paths',
     'Your first accessibility review',
     'Practical screen-reader testing',
+    'Testing dynamic and authenticated tasks',
   ]);
   await expect(navigation.getByRole('link', { name: 'Practical screen-reader testing' })).toHaveAttribute('aria-current', 'page');
 });
@@ -222,10 +241,16 @@ test('each Learning path explains its own practice model', async ({ page }) => {
   await expect(page.getByRole('checkbox')).toHaveCount(0);
   await expect(page.getByRole('progressbar')).toHaveCount(0);
   await expect(page.locator('[data-progress], [data-complete], [data-grade]')).toHaveCount(0);
+
+  await page.goto(dynamicTasksPathUrl);
+  await expect(page.getByText('The Exercises use separate fictional interfaces rather than one continuous service.', { exact: false })).toBeVisible();
+  await expect(page.getByRole('checkbox')).toHaveCount(0);
+  await expect(page.getByRole('progressbar')).toHaveCount(0);
+  await expect(page.locator('[data-progress], [data-complete], [data-grade]')).toHaveCount(0);
 });
 
 test('each Learning path ends with contextual scope guidance', async ({ page }) => {
-  for (const url of [pathUrl, screenReaderPathUrl]) {
+  for (const url of [pathUrl, screenReaderPathUrl, dynamicTasksPathUrl]) {
     await page.goto(url);
     const content = page.locator('[data-content-body]');
     const heading = content.getByRole('heading', { level: 2, name: 'Keep the scope in mind' });
@@ -246,5 +271,57 @@ test('screen-reader path has visible focus and no narrow-viewport overflow', asy
   const firstStepLink = page.locator('[data-learning-path-steps] a').first();
   await firstStepLink.focus();
   await expect(firstStepLink).toHaveCSS('outline-style', 'solid');
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
+});
+
+test('dynamic tasks path publishes its intermediate metadata and navigation', async ({ page }) => {
+  const response = await page.goto(dynamicTasksPathUrl);
+  expect(response?.ok()).toBe(true);
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Testing dynamic and authenticated tasks');
+  await expect(page.locator('[data-learning-path-meta]')).toContainText('Level: intermediate');
+  await expect(page.locator('[data-learning-path-meta]')).toContainText('Estimated time: About 5 hours 10 minutes');
+  await expect(page.locator('[data-learning-outcomes] li')).toHaveCount(6);
+
+  await expect(page.getByRole('navigation', { name: 'Breadcrumbs' }).getByRole('listitem')).toHaveText([
+    'Home/', 'Learning paths/', 'Testing dynamic and authenticated tasks',
+  ]);
+  const navigation = page.getByRole('navigation', { name: 'Learning paths' });
+  await expect(navigation.getByRole('link')).toHaveText([
+    'All Learning paths',
+    'Your first accessibility review',
+    'Practical screen-reader testing',
+    'Testing dynamic and authenticated tasks',
+  ]);
+  await expect(navigation.getByRole('link', { name: 'Testing dynamic and authenticated tasks' })).toHaveAttribute('aria-current', 'page');
+});
+
+test('dynamic tasks path renders its exact interleaved progression and checkpoints', async ({ page }) => {
+  await page.goto(dynamicTasksPathUrl);
+  const steps = page.locator('[data-learning-path-steps] > li');
+  await expect(steps).toHaveCount(expectedDynamicTasksSteps.length);
+
+  for (const [index, [type, title, href]] of expectedDynamicTasksSteps.entries()) {
+    const step = steps.nth(index);
+    await expect(step.locator('[data-step-type]')).toHaveText(type);
+    await expect(step.getByRole('link', { name: title, exact: true })).toHaveAttribute('href', href);
+    if (type !== 'Path checkpoint') await expect(step.locator('[data-step-time]')).toContainText(/\d+ minutes/);
+  }
+
+  await steps.nth(0).getByRole('link').click();
+  await expect(page).toHaveURL(`${dynamicTasksPathUrl}#prepare-a-safe-reproducible-test-environment`);
+  await expect(page.getByRole('heading', { level: 2, name: 'Prepare a safe, reproducible test environment' })).toBeVisible();
+  await steps.nth(5).getByRole('link').click();
+  await expect(page).toHaveURL(`${dynamicTasksPathUrl}#track-state-context-and-recovery`);
+  await expect(page.getByRole('heading', { level: 2, name: 'Track state, context, and recovery' })).toBeVisible();
+});
+
+test('dynamic tasks path passes axe, exposes focus, and fits a narrow viewport', async ({ page }) => {
+  await page.goto(dynamicTasksPathUrl);
+  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+  const firstStepLink = page.locator('[data-learning-path-steps] a').first();
+  await firstStepLink.focus();
+  await expect(firstStepLink).toHaveCSS('outline-style', 'solid');
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.reload();
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
 });
