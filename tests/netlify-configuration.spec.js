@@ -13,13 +13,37 @@ function redirectBlocks(source) {
   }));
 }
 
+const expectedHostRedirects = [
+  {
+    from: 'https://a11y-workshop.sanna.ninja/*',
+    to: 'https://testing.a11y.ing/',
+    status: 301,
+    force: true,
+  },
+  {
+    from: 'http://a11y-workshop.sanna.ninja/*',
+    to: 'https://testing.a11y.ing/',
+    status: 301,
+    force: true,
+  },
+];
+
 test('Netlify uses the repository build contract', () => {
   expect(config).toMatch(/\[build\][\s\S]*command\s*=\s*"npm run build"/);
   expect(config).toMatch(/\[build\][\s\S]*publish\s*=\s*"dist"/);
 });
 
-test('Netlify redirects match Astro legacy redirects exactly', () => {
+test('Netlify redirects both old-domain schemes to the canonical site', () => {
   const redirects = redirectBlocks(config);
+  const hostRedirects = redirects.filter(({ from }) => from?.startsWith('http'));
+
+  expect(hostRedirects).toEqual(expectedHostRedirects);
+  expect(redirects).toHaveLength(expectedHostRedirects.length + Object.keys(legacyRedirects).length);
+});
+
+test('Netlify path redirects match Astro legacy redirects exactly', () => {
+  const redirects = redirectBlocks(config);
+  const pathRedirects = redirects.filter(({ from }) => from?.startsWith('/'));
   const expected = Object.entries(legacyRedirects).map(([from, to]) => ({
     from,
     to,
@@ -27,7 +51,7 @@ test('Netlify redirects match Astro legacy redirects exactly', () => {
     force: true,
   }));
 
-  expect(redirects).toEqual(expected);
+  expect(pathRedirects).toEqual(expected);
 });
 
 test('Netlify sends the approved baseline security headers', () => {
