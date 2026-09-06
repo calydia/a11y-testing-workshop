@@ -3,6 +3,7 @@ import AxeBuilder from '@axe-core/playwright';
 
 const pathUrl = '/learn/your-first-accessibility-review/';
 const screenReaderPathUrl = '/learn/practical-screen-reader-testing/';
+const dynamicTasksPathUrl = '/learn/testing-dynamic-and-authenticated-tasks/';
 
 const expectedSteps = [
   ['Testing method', 'Testing with automated tools', '/methods/testing-with-automated-tools/'],
@@ -60,6 +61,14 @@ test('Learning paths listing publishes the first path', async ({ page }) => {
   await expect(page.getByText('recommended broad starting point', { exact: false })).toBeVisible();
   await expect(page.getByText('independently or after the first path', { exact: false })).toBeVisible();
   await expect(page.getByText('data tables, controls, images, graphics, language changes, and modal dialogs', { exact: false })).toBeVisible();
+});
+
+test('draft dynamic tasks path remains excluded from production', async ({ page, request }) => {
+  await page.goto('/learn/');
+  await expect(page.getByRole('link', { name: 'Testing dynamic and authenticated tasks' })).toHaveCount(0);
+
+  const response = await request.get(dynamicTasksPathUrl);
+  expect(response.status()).toBe(404);
 });
 
 test('each Learning path explains what its total estimate includes', async ({ page }) => {
