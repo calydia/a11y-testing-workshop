@@ -6,7 +6,7 @@ status: published
 order: 30
 topics: [keyboard, zoom, reflow, forced colors, motion, reduced motion, touch targets, orientation, captions, transcripts, reporting]
 prerequisites:
-  - Familiarity with manual accessibility testing
+  - Complete or understand Testing display preferences, touch, and media
 difficulty: intermediate
 estimatedMinutes: 90
 scenario: Riverside Community Centre is preparing to launch its open-day website. You have been asked to review whether visitors can explore activities, filter the schedule, understand the venue map and travel information, and reach the booking action across a range of input, display, and preference conditions.
@@ -27,7 +27,7 @@ methods:
   - testing-media-accessibility
   - testing-zoom-and-reflow
 learningPaths:
-  - your-first-accessibility-review
+  - testing-display-preferences-touch-and-media
 stages:
   - title: Define the review scope and environments
     task: Record the workspace route, browsers, operating systems, input methods, viewport sizes, zoom conditions, themes, forced-colors and motion settings, media settings, and initial state. Identify checks that require a physical device or another platform.

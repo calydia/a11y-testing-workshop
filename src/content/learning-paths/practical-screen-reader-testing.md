@@ -23,6 +23,8 @@ steps:
   - type: content
     title: Prepare your screen reader
     anchor: prepare-your-screen-reader
+    summary: Set up one compatible screen-reader and browser combination and record the environment before beginning focused testing.
+    estimatedMinutes: 15
   - type: method
     entry: screen-reader-page-structure-and-links
   - type: exercise

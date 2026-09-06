@@ -39,6 +39,8 @@ const learningPaths = defineCollection({
         type: z.literal('content'),
         title: z.string(),
         anchor: z.string(),
+        summary: z.string().optional(),
+        estimatedMinutes: z.number().int().positive(),
       }),
     ])).min(1),
   }),

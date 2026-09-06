@@ -3,7 +3,7 @@ title: Testing dynamic and authenticated tasks
 summary: Build intermediate skills for testing controls, forms, live updates, interruptions, and authentication through changing task states.
 description: Follow a self-contained intermediate path through controls, validation, status messages, time limits, authentication, and task recovery.
 status: published
-order: 30
+order: 40
 topics: [intermediate, interaction and tasks, controls, forms, validation, status messages, live regions, time limits, interruptions, authentication, verification, screen readers, focus, task recovery]
 prerequisites:
   - Basic familiarity with using a web browser
@@ -22,6 +22,8 @@ steps:
   - type: content
     title: Prepare a safe, reproducible test environment
     anchor: prepare-a-safe-reproducible-test-environment
+    summary: Prepare fictional test data, record the environment and starting state, and keep observations safe and reproducible.
+    estimatedMinutes: 15
   - type: method
     entry: testing-controls-with-a-screen-reader
   - type: exercise
@@ -33,6 +35,8 @@ steps:
   - type: content
     title: Track state, context, and recovery
     anchor: track-state-context-and-recovery
+    summary: Use one evidence structure to follow visible changes, announcements, focus, retained values, and recovery across task states.
+    estimatedMinutes: 15
   - type: method
     entry: testing-status-messages-and-live-updates
   - type: exercise
@@ -88,11 +92,13 @@ Not every field applies to every observation. Use the structure to preserve the 
 
 Apply these skills together in [Reviewing a community-services appointment change](/journeys/reviewing-a-community-services-appointment-change/). The journey combines controls, validation, dynamic confirmations, a session warning, reauthentication, preserved work, and return to the original task in one realistic workspace.
 
-Use [Your first accessibility review](/learn/your-first-accessibility-review/) when you want a broader foundation in automated, keyboard, visual, user-preference, mobile, media, zoom, forms, and time-limit testing.
+Use [Your first accessibility review](/learn/your-first-accessibility-review/) when you want a broader foundation in automated, keyboard, visual, text-spacing, zoom, and forms testing.
+
+Use [Testing display preferences, touch, and media](/learn/testing-display-preferences-touch-and-media/) for focused practice with forced colors, reduced motion, touch, orientation, and prerecorded media.
 
 Use [Practical screen-reader testing](/learn/practical-screen-reader-testing/) for more focused practice with page structure, data tables, controls, images, graphics, language changes, and modal dialogs.
 
-These paths are optional supporting routes. You do not need to complete either one before working through this self-contained sequence.
+These paths are optional supporting routes. You do not need to complete any of them before working through this self-contained sequence.
 
 ## Keep the scope in mind
 

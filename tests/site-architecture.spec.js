@@ -61,7 +61,7 @@ for (const route of routes.filter(({ path }) => ['/learn/', '/methods/', '/exerc
 
 test('section cards expose learner level and estimated time without announcing the visual separator', async ({ page }) => {
   const cases = [
-    { path: '/learn/', level: 'Beginner', duration: 'About 8 hours 50 minutes' },
+    { path: '/learn/', level: 'Beginner', duration: 'About 4 hours 10 minutes' },
     { path: '/methods/', level: 'Beginner', duration: 'About 15 minutes' },
     { path: '/exercises/', level: 'Beginner', duration: 'About 15 minutes' },
     { path: '/journeys/', level: 'Beginner', duration: 'About 1 hour 45 minutes' },

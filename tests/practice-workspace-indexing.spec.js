@@ -11,6 +11,7 @@ const standaloneRoutes = [
 const ordinaryRoutes = [
   '/exercises/keyboard-testing-a-preferences-form/',
   '/journeys/reviewing-a-community-conference-programme/',
+  '/learn/testing-display-preferences-touch-and-media/',
   '/learn/testing-dynamic-and-authenticated-tasks/',
   '/journeys/reviewing-a-community-services-appointment-change/',
 ];

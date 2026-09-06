@@ -6,6 +6,7 @@ const routes = [
   '/learn/',
   '/learn/your-first-accessibility-review/',
   '/learn/practical-screen-reader-testing/',
+  '/learn/testing-display-preferences-touch-and-media/',
   '/learn/testing-dynamic-and-authenticated-tasks/',
   '/methods/',
   '/methods/testing-keyboard-accessibility/',

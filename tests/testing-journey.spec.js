@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
+import { readFile } from 'node:fs/promises';
 
 const journeyPath = '/journeys/reviewing-a-course-registration-before-launch/';
 const conferenceJourneyPath = '/journeys/reviewing-a-community-conference-programme/';
@@ -125,7 +126,7 @@ test('optional preparation and workspace reuse existing routes without solution 
   await expect(preparation.locator('[data-preparation-type="learning-path"]')).toHaveCount(1);
   await expect(preparation.getByRole('link', { name: 'Your first accessibility review' })).toHaveAttribute('href', '/learn/your-first-accessibility-review/');
   await expect(preparation).toContainText('Level: beginner');
-  await expect(preparation).toContainText('Estimated time: 530 minutes');
+  await expect(preparation).toContainText('Estimated time: 250 minutes');
   await expect(preparation).toContainText('25 minutes');
   await expect(preparation).toContainText(/before consulting the Exercise solution/i);
   await expect(page.getByRole('link', { name: 'Open the Testing journey workspace for course registration' })).toHaveAttribute('href', '/exercise-fixtures/course-registration/');
@@ -247,7 +248,15 @@ test('open-day journey publishes its intermediate review contract', async ({ pag
     'Testing zoom and reflow',
   ]);
   await expect(page.locator('[data-journey-preparation] [data-preparation-type="learning-path"]')).toHaveCount(1);
-  await expect(page.getByRole('link', { name: 'Your first accessibility review' })).toHaveAttribute('href', '/learn/your-first-accessibility-review/');
+  const preparation = page.locator('[data-journey-preparation] [data-preparation-type="learning-path"]');
+  await expect(preparation.getByRole('link', { name: 'Testing display preferences, touch, and media' })).toHaveAttribute(
+    'href',
+    '/learn/testing-display-preferences-touch-and-media/',
+  );
+  await expect(preparation).toContainText('Level: intermediate');
+  await expect(preparation).toContainText('Estimated time: 285 minutes');
+  const source = await readFile(new URL('../src/content/testing-journeys/reviewing-a-community-centre-open-day-before-launch.md', import.meta.url), 'utf8');
+  expect(source).toContain('- Complete or understand Testing display preferences, touch, and media');
 });
 
 test('open-day journey has six task-led stages and six static deliverables', async ({ page }) => {

@@ -3,6 +3,7 @@ import AxeBuilder from '@axe-core/playwright';
 
 const pathUrl = '/learn/your-first-accessibility-review/';
 const screenReaderPathUrl = '/learn/practical-screen-reader-testing/';
+const displayPreferencesPathUrl = '/learn/testing-display-preferences-touch-and-media/';
 const dynamicTasksPathUrl = '/learn/testing-dynamic-and-authenticated-tasks/';
 
 const expectedSteps = [
@@ -14,21 +15,11 @@ const expectedSteps = [
   ['Exercise', 'Finding visual problems in an account dashboard', '/exercises/finding-visual-problems-in-an-account-dashboard/'],
   ['Testing method', 'Testing text spacing and user overrides', '/methods/testing-text-spacing-and-user-overrides/'],
   ['Exercise', 'Testing text spacing on a community-services page', '/exercises/testing-text-spacing-on-a-community-services-page/'],
-  ['Testing method', 'Testing forced colors and high contrast', '/methods/testing-forced-colors-and-high-contrast/'],
-  ['Exercise', 'Testing forced colors in a journey planner', '/exercises/testing-forced-colors-in-a-journey-planner/'],
-  ['Testing method', 'Testing motion, animation, and flashing', '/methods/testing-motion-animation-and-flashing/'],
-  ['Exercise', 'Testing motion preferences on a parcel-tracking dashboard', '/exercises/testing-motion-preferences-on-a-parcel-tracking-dashboard/'],
-  ['Testing method', 'Testing mobile touch and orientation', '/methods/testing-mobile-touch-and-orientation/'],
-  ['Exercise', 'Testing touch interaction on a community-festival map', '/exercises/testing-touch-interaction-on-a-community-festival-map/'],
-  ['Testing method', 'Testing media accessibility', '/methods/testing-media-accessibility/'],
-  ['Exercise', 'Testing a community announcement video', '/exercises/testing-a-community-announcement-video/'],
   ['Testing method', 'Testing zoom and reflow', '/methods/testing-zoom-and-reflow/'],
   ['Exercise', 'Testing an appointment booking at high zoom', '/exercises/testing-an-appointment-booking-at-high-zoom/'],
   ['Path checkpoint', 'Prepare for screen-reader checks', '#prepare-for-screen-reader-checks'],
   ['Testing method', 'Testing forms and validation', '/methods/testing-forms-and-validation/'],
   ['Exercise', 'Testing a community-course registration form', '/exercises/testing-a-community-course-registration-form/'],
-  ['Testing method', 'Testing time limits and interruptions', '/methods/testing-time-limits-and-interruptions/'],
-  ['Exercise', 'Testing session timeout in a community-support application', '/exercises/testing-session-timeout-in-a-community-support-application/'],
 ];
 
 const expectedScreenReaderSteps = [
@@ -64,29 +55,65 @@ const expectedDynamicTasksSteps = [
   ['Exercise', 'Testing authentication for a community-services booking', '/exercises/testing-authentication-for-a-community-services-booking/'],
 ];
 
-test('Learning paths listing publishes all three paths in authored order', async ({ page }) => {
+const expectedDisplayPreferencesSteps = [
+  ['Path checkpoint', 'Prepare comparable test environments', '#prepare-comparable-test-environments'],
+  ['Testing method', 'Testing keyboard accessibility', '/methods/testing-keyboard-accessibility/'],
+  ['Exercise', 'Keyboard testing a preferences form', '/exercises/keyboard-testing-a-preferences-form/'],
+  ['Testing method', 'Testing zoom and reflow', '/methods/testing-zoom-and-reflow/'],
+  ['Exercise', 'Testing an appointment booking at high zoom', '/exercises/testing-an-appointment-booking-at-high-zoom/'],
+  ['Testing method', 'Testing forced colors and high contrast', '/methods/testing-forced-colors-and-high-contrast/'],
+  ['Exercise', 'Testing forced colors in a journey planner', '/exercises/testing-forced-colors-in-a-journey-planner/'],
+  ['Testing method', 'Testing motion, animation, and flashing', '/methods/testing-motion-animation-and-flashing/'],
+  ['Exercise', 'Testing motion preferences on a parcel-tracking dashboard', '/exercises/testing-motion-preferences-on-a-parcel-tracking-dashboard/'],
+  ['Path checkpoint', 'Separate defects from expected adaptation', '#separate-defects-from-expected-adaptation'],
+  ['Testing method', 'Testing mobile touch and orientation', '/methods/testing-mobile-touch-and-orientation/'],
+  ['Exercise', 'Testing touch interaction on a community-festival map', '/exercises/testing-touch-interaction-on-a-community-festival-map/'],
+  ['Testing method', 'Testing media accessibility', '/methods/testing-media-accessibility/'],
+  ['Exercise', 'Testing a community announcement video', '/exercises/testing-a-community-announcement-video/'],
+];
+
+test('Learning paths listing publishes all four paths in authored order', async ({ page }) => {
   await page.goto('/learn/');
   await expect(page.getByText('No published content is available in this section yet.')).toHaveCount(0);
   await expect(page.locator('main article h2 > a')).toHaveText([
     'Your first accessibility review',
     'Practical screen-reader testing',
+    'Testing display preferences, touch, and media',
     'Testing dynamic and authenticated tasks',
   ]);
   await expect(page.getByRole('link', { name: 'Your first accessibility review' })).toHaveAttribute('href', pathUrl);
   await expect(page.getByRole('link', { name: 'Practical screen-reader testing' })).toHaveAttribute('href', screenReaderPathUrl);
+  await expect(page.getByRole('link', { name: 'Testing display preferences, touch, and media' })).toHaveAttribute('href', displayPreferencesPathUrl);
   await expect(page.getByRole('link', { name: 'Testing dynamic and authenticated tasks' })).toHaveAttribute('href', dynamicTasksPathUrl);
   await expect(page.getByText('recommended broad starting point', { exact: false })).toBeVisible();
   await expect(page.getByText('independently or after the first path', { exact: false })).toBeVisible();
+  await expect(page.getByText('self-contained intermediate route for comparing tasks across environments', { exact: false })).toBeVisible();
   await expect(page.getByText('intermediate route for changing task states, interruptions, and authentication', { exact: false })).toBeVisible();
 });
 
 test('each Learning path explains what its total estimate includes', async ({ page }) => {
-  for (const url of [pathUrl, screenReaderPathUrl, dynamicTasksPathUrl]) {
+  for (const url of [pathUrl, screenReaderPathUrl, displayPreferencesPathUrl, dynamicTasksPathUrl]) {
     await page.goto(url);
     const note = page.locator('[data-learning-path-time-note]');
-    await expect(note).toContainText('setup, note-taking, reviewing results, and repetition');
-    await expect(note).toContainText('Individual step times cover the work in that Testing method or Exercise');
+    await expect(note).toContainText('The total is the sum of the visible step estimates');
+    await expect(note).toContainText('Actual time for setup, note-taking, reviewing results, and repetition varies by environment and experience');
     await expect(note).toHaveCSS('font-size', '16px');
+  }
+});
+
+test('each Learning path total equals its visible step estimates', async ({ page }) => {
+  for (const [url, expectedTotal] of [
+    [pathUrl, 250],
+    [screenReaderPathUrl, 320],
+    [displayPreferencesPathUrl, 285],
+    [dynamicTasksPathUrl, 310],
+  ]) {
+    await page.goto(url);
+    const total = await page.locator('[data-step-time]').evaluateAll((items) => items.reduce(
+      (sum, item) => sum + Number.parseInt(item.textContent ?? '0', 10),
+      0,
+    ));
+    expect(total).toBe(expectedTotal);
   }
 });
 
@@ -97,6 +124,7 @@ test('each Learning path links to its matching journey and optional companion pa
     '/journeys/reviewing-a-course-registration-before-launch/',
   );
   await expect(page.locator('[data-content-body]').getByRole('link', { name: 'Practical screen-reader testing' })).toHaveAttribute('href', screenReaderPathUrl);
+  await expect(page.locator('[data-content-body]').getByRole('link', { name: 'Testing display preferences, touch, and media' })).toHaveAttribute('href', displayPreferencesPathUrl);
   await expect(page.locator('main a[href="/methods/screen-reader-icons-and-svg/"]')).toHaveCount(0);
 
   await page.goto(screenReaderPathUrl);
@@ -107,6 +135,14 @@ test('each Learning path links to its matching journey and optional companion pa
   const whereNext = page.locator('[data-content-body] h2', { hasText: 'Where to go next' }).locator('~ p');
   await expect(whereNext.getByRole('link', { name: 'Your first accessibility review' })).toHaveAttribute('href', pathUrl);
 
+  await page.goto(displayPreferencesPathUrl);
+  await expect(page.getByRole('link', { name: 'Reviewing a community centre open day before launch' })).toHaveAttribute(
+    'href',
+    '/journeys/reviewing-a-community-centre-open-day-before-launch/',
+  );
+  const displayWhereNext = page.locator('[data-content-body] h2', { hasText: 'Where to go next' }).locator('~ p');
+  await expect(displayWhereNext.getByRole('link', { name: 'Your first accessibility review' })).toHaveAttribute('href', pathUrl);
+
   await page.goto(dynamicTasksPathUrl);
   await expect(page.getByRole('link', { name: 'Reviewing a community-services appointment change' })).toHaveAttribute(
     'href',
@@ -114,6 +150,7 @@ test('each Learning path links to its matching journey and optional companion pa
   );
   const dynamicWhereNext = page.locator('[data-content-body] h2', { hasText: 'Where to go next' }).locator('~ p');
   await expect(dynamicWhereNext.getByRole('link', { name: 'Your first accessibility review' })).toHaveAttribute('href', pathUrl);
+  await expect(dynamicWhereNext.getByRole('link', { name: 'Testing display preferences, touch, and media' })).toHaveAttribute('href', displayPreferencesPathUrl);
   await expect(dynamicWhereNext.getByRole('link', { name: 'Practical screen-reader testing' })).toHaveAttribute('href', screenReaderPathUrl);
 });
 
@@ -123,20 +160,20 @@ test('first Learning path renders metadata, outcomes, and navigation', async ({ 
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Your first accessibility review');
   const metadata = page.locator('[data-learning-path-meta]');
   await expect(metadata).toContainText('Level: beginner');
-  await expect(metadata).toContainText('Estimated time: About 8 hours 50 minutes');
+  await expect(metadata).toContainText('Estimated time: About 4 hours 10 minutes');
   await expect(metadata.locator('dl')).toHaveCSS('font-size', '16px');
   await expect(page.locator('[data-content-heading] [data-learning-path-meta]')).toHaveCount(1);
   const summary = page.locator('[data-content-heading] .introduction');
   expect(await summary.evaluate((element, metadataElement) => Boolean(element.compareDocumentPosition(metadataElement) & Node.DOCUMENT_POSITION_FOLLOWING), await metadata.elementHandle())).toBe(true);
   await expect(page.getByRole('heading', { level: 2, name: 'What you will learn' })).toBeVisible();
-  await expect(page.locator('[data-learning-outcomes] li')).toHaveCount(7);
+  await expect(page.locator('[data-learning-outcomes] li')).toHaveCount(6);
 
   const breadcrumb = page.getByRole('navigation', { name: 'Breadcrumbs' }).getByRole('listitem');
   await expect(breadcrumb).toHaveText(['Home/', 'Learning paths/', 'Your first accessibility review']);
   await expect(page.getByRole('navigation', { name: 'Learning paths' }).getByRole('link', { name: 'Your first accessibility review' })).toHaveAttribute('aria-current', 'page');
 });
 
-test('path renders the exact interleaved twenty-three-step sequence', async ({ page }) => {
+test('path renders the exact interleaved thirteen-step sequence', async ({ page }) => {
   await page.goto(pathUrl);
   const steps = page.locator('[data-learning-path-steps] > li');
   await expect(steps).toHaveCount(expectedSteps.length);
@@ -148,12 +185,22 @@ test('path renders the exact interleaved twenty-three-step sequence', async ({ p
     await expect(step.locator('[data-step-type]')).toHaveCSS('letter-spacing', 'normal');
     await expect(step.getByRole('link', { name: title, exact: true })).toHaveAttribute('href', href);
   }
+
+  for (const href of [
+    '/methods/testing-forced-colors-and-high-contrast/',
+    '/methods/testing-motion-animation-and-flashing/',
+    '/methods/testing-mobile-touch-and-orientation/',
+    '/methods/testing-media-accessibility/',
+    '/methods/testing-time-limits-and-interruptions/',
+  ]) {
+    await expect(page.locator(`[data-learning-path-steps] a[href="${href}"]`)).toHaveCount(0);
+  }
 });
 
 test('referenced steps include summaries and item durations', async ({ page }) => {
   await page.goto(pathUrl);
   const referencedSteps = page.locator('[data-learning-path-steps] > li:not([data-content-step])');
-  await expect(referencedSteps).toHaveCount(22);
+  await expect(referencedSteps).toHaveCount(12);
   for (const step of await referencedSteps.all()) {
     await expect(step.getByRole('heading', { level: 3 })).toHaveCSS('font-size', '20px');
     await expect(step.locator('[data-step-summary]')).not.toBeEmpty();
@@ -167,9 +214,23 @@ test('checkpoint links to its matching instructional section', async ({ page }) 
   await page.goto(pathUrl);
   const checkpoint = page.locator('[data-content-step]');
   await expect(checkpoint).toHaveCount(1);
+  await expect(checkpoint.locator('[data-step-summary]')).not.toBeEmpty();
+  await expect(checkpoint.locator('[data-step-time]')).toHaveText('20 minutes');
   await checkpoint.getByRole('link', { name: 'Prepare for screen-reader checks' }).click();
   await expect(page).toHaveURL(`${pathUrl}#prepare-for-screen-reader-checks`);
   await expect(page.getByRole('heading', { level: 2, name: 'Prepare for screen-reader checks' })).toBeVisible();
+});
+
+test('every published checkpoint has authored guidance and a visible duration', async ({ page }) => {
+  for (const url of [pathUrl, screenReaderPathUrl, displayPreferencesPathUrl, dynamicTasksPathUrl]) {
+    await page.goto(url);
+    const checkpoints = page.locator('[data-content-step]');
+    for (const checkpoint of await checkpoints.all()) {
+      await expect(checkpoint.locator('[data-step-summary]')).not.toBeEmpty();
+      await expect(checkpoint.locator('[data-step-summary]')).not.toHaveText('Build the supporting skills you need before continuing through the path.');
+      await expect(checkpoint.locator('[data-step-time]')).toContainText(/\d+ minutes/);
+    }
+  }
 });
 
 test('path has no progress tracking and passes axe', async ({ page }) => {
@@ -204,6 +265,7 @@ test('Practical screen-reader testing renders independent metadata, outcomes, an
     'All Learning paths',
     'Your first accessibility review',
     'Practical screen-reader testing',
+    'Testing display preferences, touch, and media',
     'Testing dynamic and authenticated tasks',
   ]);
   await expect(navigation.getByRole('link', { name: 'Practical screen-reader testing' })).toHaveAttribute('aria-current', 'page');
@@ -220,7 +282,7 @@ test('screen-reader path renders its exact interleaved progression', async ({ pa
     await expect(step.locator('[data-step-type]')).toHaveCSS('text-transform', 'none');
     await expect(step.getByRole('link', { name: title, exact: true })).toHaveAttribute('href', href);
     await expect(step.locator('[data-step-summary]')).not.toBeEmpty();
-    if (type !== 'Path checkpoint') await expect(step.locator('[data-step-time]')).toContainText(/\d+ minutes/);
+    await expect(step.locator('[data-step-time]')).toContainText(/\d+ minutes/);
   }
 });
 
@@ -242,6 +304,12 @@ test('each Learning path explains its own practice model', async ({ page }) => {
   await expect(page.getByRole('progressbar')).toHaveCount(0);
   await expect(page.locator('[data-progress], [data-complete], [data-grade]')).toHaveCount(0);
 
+  await page.goto(displayPreferencesPathUrl);
+  await expect(page.getByText('The Exercises use separate fictional interfaces rather than one continuous product.', { exact: false })).toBeVisible();
+  await expect(page.getByRole('checkbox')).toHaveCount(0);
+  await expect(page.getByRole('progressbar')).toHaveCount(0);
+  await expect(page.locator('[data-progress], [data-complete], [data-grade]')).toHaveCount(0);
+
   await page.goto(dynamicTasksPathUrl);
   await expect(page.getByText('The Exercises use separate fictional interfaces rather than one continuous service.', { exact: false })).toBeVisible();
   await expect(page.getByRole('checkbox')).toHaveCount(0);
@@ -250,7 +318,7 @@ test('each Learning path explains its own practice model', async ({ page }) => {
 });
 
 test('each Learning path ends with contextual scope guidance', async ({ page }) => {
-  for (const url of [pathUrl, screenReaderPathUrl, dynamicTasksPathUrl]) {
+  for (const url of [pathUrl, screenReaderPathUrl, displayPreferencesPathUrl, dynamicTasksPathUrl]) {
     await page.goto(url);
     const content = page.locator('[data-content-body]');
     const heading = content.getByRole('heading', { level: 2, name: 'Keep the scope in mind' });
@@ -274,6 +342,69 @@ test('screen-reader path has visible focus and no narrow-viewport overflow', asy
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
 });
 
+test('display-preferences path publishes its self-contained intermediate contract', async ({ page }) => {
+  const response = await page.goto(displayPreferencesPathUrl);
+  expect(response?.ok()).toBe(true);
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Testing display preferences, touch, and media');
+  await expect(page.locator('[data-learning-path-meta]')).toContainText('Level: intermediate');
+  await expect(page.locator('[data-learning-path-meta]')).toContainText('Estimated time: About 4 hours 45 minutes');
+  await expect(page.locator('[data-learning-outcomes] li')).toHaveCount(7);
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+    'href',
+    'https://testing.a11y.ing/learn/testing-display-preferences-touch-and-media/',
+  );
+  await expect(page.getByRole('heading', { level: 2, name: 'Prepare comparable test environments' }).locator('~ ul').first().getByRole('listitem')).toHaveText([
+    'Basic familiarity with using a web browser',
+    'Basic keyboard use',
+  ]);
+  await expect(page.getByRole('navigation', { name: 'Breadcrumbs' }).getByRole('listitem')).toHaveText([
+    'Home/', 'Learning paths/', 'Testing display preferences, touch, and media',
+  ]);
+  const navigation = page.getByRole('navigation', { name: 'Learning paths' });
+  await expect(navigation.getByRole('link')).toHaveText([
+    'All Learning paths',
+    'Your first accessibility review',
+    'Practical screen-reader testing',
+    'Testing display preferences, touch, and media',
+    'Testing dynamic and authenticated tasks',
+  ]);
+  await expect(navigation.getByRole('link', { name: 'Testing display preferences, touch, and media' })).toHaveAttribute('aria-current', 'page');
+});
+
+test('display-preferences path renders its exact progression and checkpoints', async ({ page }) => {
+  await page.goto(displayPreferencesPathUrl);
+  const steps = page.locator('[data-learning-path-steps] > li');
+  await expect(steps).toHaveCount(expectedDisplayPreferencesSteps.length);
+
+  for (const [index, [type, title, href]] of expectedDisplayPreferencesSteps.entries()) {
+    const step = steps.nth(index);
+    await expect(step.locator('[data-step-type]')).toHaveText(type);
+    await expect(step.getByRole('link', { name: title, exact: true })).toHaveAttribute('href', href);
+    await expect(step.locator('[data-step-summary]')).not.toBeEmpty();
+    await expect(step.locator('[data-step-time]')).toContainText(/\d+ minutes/);
+  }
+
+  await expect(steps.nth(0).locator('[data-step-time]')).toHaveText('15 minutes');
+  await expect(steps.nth(9).locator('[data-step-time]')).toHaveText('15 minutes');
+  await steps.nth(0).getByRole('link').click();
+  await expect(page).toHaveURL(`${displayPreferencesPathUrl}#prepare-comparable-test-environments`);
+  await expect(page.getByRole('heading', { level: 2, name: 'Prepare comparable test environments' })).toBeVisible();
+  await steps.nth(9).getByRole('link').click();
+  await expect(page).toHaveURL(`${displayPreferencesPathUrl}#separate-defects-from-expected-adaptation`);
+  await expect(page.getByRole('heading', { level: 2, name: 'Separate defects from expected adaptation' })).toBeVisible();
+});
+
+test('display-preferences path passes axe, exposes focus, and fits a narrow viewport', async ({ page }) => {
+  await page.goto(displayPreferencesPathUrl);
+  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+  const firstStepLink = page.locator('[data-learning-path-steps] a').first();
+  await firstStepLink.focus();
+  await expect(firstStepLink).toHaveCSS('outline-style', 'solid');
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.reload();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
+});
+
 test('dynamic tasks path publishes its intermediate metadata and navigation', async ({ page }) => {
   const response = await page.goto(dynamicTasksPathUrl);
   expect(response?.ok()).toBe(true);
@@ -290,6 +421,7 @@ test('dynamic tasks path publishes its intermediate metadata and navigation', as
     'All Learning paths',
     'Your first accessibility review',
     'Practical screen-reader testing',
+    'Testing display preferences, touch, and media',
     'Testing dynamic and authenticated tasks',
   ]);
   await expect(navigation.getByRole('link', { name: 'Testing dynamic and authenticated tasks' })).toHaveAttribute('aria-current', 'page');
@@ -304,7 +436,8 @@ test('dynamic tasks path renders its exact interleaved progression and checkpoin
     const step = steps.nth(index);
     await expect(step.locator('[data-step-type]')).toHaveText(type);
     await expect(step.getByRole('link', { name: title, exact: true })).toHaveAttribute('href', href);
-    if (type !== 'Path checkpoint') await expect(step.locator('[data-step-time]')).toContainText(/\d+ minutes/);
+    await expect(step.locator('[data-step-summary]')).not.toBeEmpty();
+    await expect(step.locator('[data-step-time]')).toContainText(/\d+ minutes/);
   }
 
   await steps.nth(0).getByRole('link').click();
