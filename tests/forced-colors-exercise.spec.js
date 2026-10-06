@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './helpers/test.js';
 import AxeBuilder from '@axe-core/playwright';
 import { expectStandaloneExercise } from './helpers/standalone-exercise.js';
 
@@ -101,7 +101,9 @@ test('passing comparisons remain available in simulated and real forced colors',
   for (const condition of ['simulation', 'real']) {
     const context = await browser.newContext({ forcedColors: condition === 'real' ? 'active' : 'none' });
     const page = await context.newPage();
-    await page.goto(fixturePath);
+    const response = await page.goto(fixturePath);
+    expect(response?.ok(), `${fixturePath} should resolve`).toBe(true);
+    await expect(page.locator('html')).toHaveAttribute('lang', 'en');
     if (condition === 'simulation') await page.locator('.simulation-toggle').click();
     await page.locator('.focus-comparison').focus();
     await expect(page.locator('.focus-comparison')).toHaveCSS('outline-style', 'solid');

@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './helpers/test.js';
 import AxeBuilder from '@axe-core/playwright';
 
 const workspacePath = '/journey-workspaces/community-services-appointment-change/';

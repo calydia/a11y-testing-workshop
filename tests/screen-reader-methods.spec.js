@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './helpers/test.js';
 
 const keyboardMethod = {
   path: '/methods/testing-keyboard-accessibility/',

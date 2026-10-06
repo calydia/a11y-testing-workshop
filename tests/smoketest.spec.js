@@ -1,5 +1,5 @@
 // @ts-check
-import { test, expect } from '@playwright/test';
+import { test, expect } from './helpers/test.js';
 
 test('has title', async ({ page }) => {
   await page.goto('/');

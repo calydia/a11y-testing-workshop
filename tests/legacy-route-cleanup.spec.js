@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './helpers/test.js';
 import { readdir, readFile } from 'node:fs/promises';
 import { legacyRedirects } from '../src/config/legacy-redirects.js';
 

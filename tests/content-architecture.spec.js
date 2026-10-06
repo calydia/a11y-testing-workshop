@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './helpers/test.js';
 import { readFile } from 'node:fs/promises';
 
 test('unknown nested content IDs use the normal 404 response', async ({ request }) => {

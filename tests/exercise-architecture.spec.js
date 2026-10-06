@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './helpers/test.js';
 
 test('exercise section explains the practice model without exposing fixture routes', async ({ page, request }) => {
   await page.goto('/exercises/');

@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './helpers/test.js';
 import { readFileSync } from 'node:fs';
 import { legacyRedirects } from '../src/config/legacy-redirects.js';
 

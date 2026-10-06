@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './helpers/test.js';
 
 test.describe('shared shell keyboard interactions', () => {
   test('skip link moves keyboard navigation to main content', async ({ page }) => {
