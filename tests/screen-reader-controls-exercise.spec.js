@@ -50,7 +50,10 @@ test('fixture exposes the five approved findings and passing comparisons', async
 
 test('fixture remains usable, themed, responsive, and free of unrelated axe findings', async ({ page }) => {
   await page.goto(fixturePath);
-  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+  // Axe 4.14 detects the documented Save event / Bookmark item mismatch.
+  const { violations } = await new AxeBuilder({ page }).analyze();
+  expect(violations.map(({ id }) => id)).toEqual(['label-content-name-mismatch']);
+  expect(violations[0].nodes.map(({ target }) => target)).toEqual([['#garden-save']]);
   await page.evaluate(() => localStorage.setItem('darkMode', 'enabled'));
   await page.setViewportSize({ width: 390, height: 844 });
   await page.reload();

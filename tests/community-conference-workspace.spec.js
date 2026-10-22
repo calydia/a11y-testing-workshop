@@ -26,7 +26,7 @@ test('workspace contains the intended structural, graphical, and language cases'
   await expect(page.locator('p[lang="sv"]')).toContainText('Sessionen innehåller');
   await expect(page.getByText('Tervetuloa rakentamaan')).not.toHaveAttribute('lang');
   await expect(page.locator('button.schedule-button')).toHaveAccessibleName('');
-  await expect(page.getByRole('link', { name: 'Harbor Hall venue and arrival information' })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Venue information for Harbor Hall and arrival' })).toBeVisible();
 });
 
 test('workspace adds a named schedule table without replacing session cards', async ({ page }) => {
