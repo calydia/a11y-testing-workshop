@@ -32,7 +32,10 @@ export function connectForm(form, stage) {
   form.addEventListener('submit', (event) => {
     event.preventDefault();
     clearFeedback();
-    // Earlier stages retain native constraint validation where attributes exist.
+    // In Stages 3–4 the browser blocks empty required fields before this event.
+    // Stage 5 also blocks malformed email. There is no native minlength rule.
+    // Other failures still reach the intentionally generic feedback below.
+    // Stage 6 uses novalidate so this handler manages every submission error.
     const errors = [];
     if (!email.value.trim()) {
       errors.push([email, 'Enter your email address.']);

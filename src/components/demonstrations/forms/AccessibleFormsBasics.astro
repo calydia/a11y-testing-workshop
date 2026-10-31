@@ -1,9 +1,9 @@
 ---
-import { stages, formHTML } from './stages';
+import { stages, formHTML, stageChangeHTML } from './stages';
 import behaviorSource from './form-behavior.js?raw';
 ---
 <div class="forms-basics">
-  <p><strong>Demonstration only.</strong> Use fictional details and a made-up password. Nothing is sent, logged or saved by this demo. Stages 1–4 show the password as plain text; Stage 5 introduces masking.</p>
+  <p><strong>Demonstration only.</strong> Use fictional details and a made-up password. Nothing is sent, logged or saved by this demo. Password inputs are masked in all six stages. The deliberately poor examples focus on labels, instructions and feedback.</p>
   <p data-demo-fallback>Enable JavaScript to try the interactive stages. You can still read the related <a href="/methods/testing-forms-and-validation/">form testing method</a>.</p>
   <div data-demo-interface hidden>
     <div id="forms-stage-content" tabindex="-1">
@@ -16,6 +16,9 @@ import behaviorSource from './form-behavior.js?raw';
       ))}
       <h3>Working example</h3>
       <div class="example-form" data-form-host></div>
+      {stages.map((stage, index) => (
+        <p data-stage-details={index + 1} data-validation-explanation hidden={index !== 0}><strong>What happens on submit?</strong> {stage.validation}</p>
+      ))}
       <p class="change-stage"><a href="#demo-stages">Change stage</a></p>
       <details>
         <summary>Why this change matters and how to test it</summary>
@@ -26,12 +29,27 @@ import behaviorSource from './form-behavior.js?raw';
           </div>
         ))}
       </details>
+      <details data-change-details>
+        <summary>HTML change to focus on</summary>
+        <p>This is an excerpt highlighting this stage’s focus, not a complete form. Existing attributes are retained. Use the complete HTML and JavaScript examples below to run it.</p>
+        {stages.map((_, index) => (
+          <pre data-stage-details={index + 1} hidden={index !== 0} tabindex="0" aria-label={`Stage ${index + 1} HTML excerpt, scrollable`}><code data-change-code={index + 1}>{stageChangeHTML(index + 1)}</code></pre>
+        ))}
+        <p>Stage 1 shows the starting inputs. Stage 6 shows novalidate and the error containers; submit the form to inspect generated error associations in the current HTML below.</p>
+      </details>
       <details data-html-details>
         <summary>HTML for this stage</summary>
-        <p>This is the form’s initial markup. Validation adds feedback and attributes after submission. Include the JavaScript below to run it locally; the HTML alone does not prevent navigation or implement the demonstration checks.</p>
+        <p>This is the complete form’s initial markup. Validation adds feedback and attributes after submission. Include the JavaScript below to run it locally; the HTML alone does not prevent navigation or implement the demonstration checks.</p>
         <button class="button" type="button" data-copy="html">Copy HTML</button>
         <p role="status" data-copy-status="html"></p>
         <pre tabindex="0" aria-label="HTML example, scrollable"><code data-html-code></code></pre>
+        <details data-current-html-details>
+          <summary>Current form HTML (entered values omitted)</summary>
+          <p>This view follows the working form after submission, correction and reset. Stage 6 adds aria-invalid and error IDs to aria-describedby when fields fail. The password hint stays associated. Browser validation popups and browser-provided invalid states are not additional HTML attributes. Entered values are always omitted.</p>
+          <button class="button" type="button" data-copy="rendered">Copy current HTML</button>
+          <p role="status" data-copy-status="rendered"></p>
+          <pre tabindex="0" aria-label="Current form HTML, values omitted, scrollable"><code data-rendered-html-code></code></pre>
+        </details>
       </details>
       <details>
         <summary>JavaScript for the working form</summary>
@@ -116,6 +134,7 @@ import behaviorSource from './form-behavior.js?raw';
     const host = root.querySelector<HTMLElement>('[data-form-host]')!;
     const panel = root.querySelector<HTMLElement>('#forms-stage-content')!;
     const htmlCode = root.querySelector<HTMLElement>('[data-html-code]')!;
+    const renderedHTMLCode = root.querySelector<HTMLElement>('[data-rendered-html-code]')!;
     const jsCode = root.querySelector<HTMLElement>('[data-js-code]')!;
     const links = root.querySelectorAll<HTMLAnchorElement>('[data-stage-link]');
     const stageFromURL = () => {
@@ -137,6 +156,17 @@ import behaviorSource from './form-behavior.js?raw';
       form.querySelector<HTMLInputElement>('#forms-email')!.value = email;
       form.querySelector<HTMLInputElement>('#forms-password')!.value = password;
       connectForm(form, stage);
+      function updateRenderedHTML() {
+        const copy = form.cloneNode(true) as HTMLFormElement;
+        copy.querySelectorAll('input').forEach((input) => {
+          input.value = '';
+          input.removeAttribute('value');
+        });
+        renderedHTMLCode.textContent = copy.outerHTML;
+      }
+      // Read after the actual form handler has applied all feedback changes.
+      ['submit', 'input', 'reset'].forEach((type) => form.addEventListener(type, () => queueMicrotask(updateRenderedHTML)));
+      updateRenderedHTML();
       // Browser Back/Forward should retain focus when the same field is replaced.
       if (focusedFieldId) form.querySelector<HTMLInputElement>(`#${focusedFieldId}`)?.focus({ preventScroll: true });
       htmlCode.textContent = template.innerHTML;
@@ -193,10 +223,10 @@ import behaviorSource from './form-behavior.js?raw';
         const kind = button.dataset.copy!;
         const status = root.querySelector<HTMLElement>(`[data-copy-status="${kind}"]`)!;
         status.textContent = '';
-        const code = kind === 'html' ? htmlCode : jsCode;
+        const code = kind === 'html' ? htmlCode : kind === 'rendered' ? renderedHTMLCode : jsCode;
         try {
           await navigator.clipboard.writeText(code.textContent || '');
-          status.textContent = `${kind === 'html' ? 'HTML' : 'JavaScript'} copied.`;
+          status.textContent = `${kind === 'html' ? 'HTML' : kind === 'rendered' ? 'Current HTML' : 'JavaScript'} copied.`;
         } catch {
           status.textContent = 'Copy unavailable. Select the code and copy it using your device’s copy command.';
         }

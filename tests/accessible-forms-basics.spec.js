@@ -1,6 +1,8 @@
 import { test, expect } from './helpers/test.js';
 import AxeBuilder from '@axe-core/playwright';
 
+/** @typedef {Window & { validationEvents: string[] }} ValidationWindow */
+
 const route = '/demos/accessible-forms-basics/';
 const email = (page) => page.locator('[data-form-host] #forms-email');
 const password = (page) => page.locator('[data-form-host] #forms-password');
@@ -46,7 +48,7 @@ test('stages expose the intended differences and native validation', async ({ pa
   await expect(page.locator('[data-form-host] label')).toHaveCount(0);
   await expect(email(page)).toHaveAttribute('placeholder', 'Email address');
   await expect(email(page)).not.toHaveAttribute('required');
-  await expect(password(page)).toHaveAttribute('type', 'text');
+  await expect(password(page)).toHaveAttribute('type', 'password');
   await submit(page).click();
   await expect(feedback(page)).toHaveText('Invalid input.');
   await expect(submit(page)).toBeFocused();
@@ -311,7 +313,7 @@ test('end-of-stage links guide progression, preserve values and focus the new st
     await expect(page.locator(`section[data-stage-details="${stage}"] h2`)).toBeFocused();
   }
   await expect(next).toBeHidden();
-  await expect(previous).toHaveText('Previous: Use native input features');
+  await expect(previous).toHaveText('Previous: Add email type and autocomplete');
   await expect(progression).toContainText('You’ve reached the final stage.');
   await page.goBack();
   await expect(previous).toHaveText('Previous: Connect password instructions');
@@ -340,4 +342,113 @@ test('progression links reflow and follow the code and guidance in both themes',
   const headingBox = await page.getByRole('heading', { level: 2, name: '4. Connect password instructions' }).boundingBox();
   expect(headingBox.y).toBeGreaterThanOrEqual(0);
   expect(headingBox.y).toBeLessThan(844);
+});
+
+test('every stage masks passwords and its HTML excerpt comes from the actual initial markup', async ({ page }) => {
+  for (let stage = 1; stage <= 6; stage++) {
+    await selectStage(page, stage);
+    await expect(password(page)).toHaveAttribute('type', 'password');
+    const markup = await page.locator('[data-html-code]').textContent();
+    const snippet = await page.locator(`[data-change-code="${stage}"]`).textContent();
+    expect(markup).toContain('type="password"');
+    for (const line of snippet.split('\n').filter((line) => !line.includes('<!--'))) {
+      // Browsers serialize boolean attributes as empty strings.
+      expect(markup).toContain(line.trim().replace(/\b(required|novalidate|hidden)(?=[ >])/g, '$1=""'));
+    }
+    await expect(password(page)).not.toHaveAttribute('minlength');
+    if (stage < 5) await expect(password(page)).not.toHaveAttribute('autocomplete');
+    else await expect(password(page)).toHaveAttribute('autocomplete', 'new-password');
+  }
+});
+
+for (const stage of [3, 4, 5]) {
+  test(`Stage ${stage} distinguishes native blocking from intentionally generic custom errors`, async ({ page }) => {
+    await selectStage(page, stage);
+    await page.evaluate(() => {
+      /** @type {ValidationWindow} */ (window).validationEvents = [];
+      const form = document.querySelector('[data-form-host] form');
+      form.addEventListener('invalid', () => /** @type {ValidationWindow} */ (window).validationEvents.push('native-invalid'), true);
+      form.addEventListener('submit', () => /** @type {ValidationWindow} */ (window).validationEvents.push('submit'));
+    });
+    await submit(page).click();
+    expect(await page.evaluate(() => /** @type {ValidationWindow} */ (window).validationEvents)).toEqual(['native-invalid', 'native-invalid']);
+    await expect(feedback(page)).toBeHidden();
+    await expect(email(page)).toBeFocused();
+    await email(page).fill('not-an-email');
+    await password(page).fill('fictional-password');
+    await page.evaluate(() => { /** @type {ValidationWindow} */ (window).validationEvents = []; });
+    await submit(page).click();
+    expect(await page.evaluate(() => /** @type {ValidationWindow} */ (window).validationEvents)).toEqual(stage === 5 ? ['native-invalid'] : ['submit']);
+    if (stage === 5) await expect(feedback(page)).toBeHidden();
+    else await expect(feedback(page)).toHaveText('Invalid input.');
+    await email(page).fill('learner@example.com');
+    await password(page).fill('short');
+    await page.evaluate(() => { /** @type {ValidationWindow} */ (window).validationEvents = []; });
+    await submit(page).click();
+    expect(await page.evaluate(() => /** @type {ValidationWindow} */ (window).validationEvents)).toEqual(['submit']);
+    await expect(feedback(page)).toHaveText('Invalid input.');
+    await expect(password(page)).not.toHaveAttribute('aria-invalid');
+    await expect(page.locator('[data-validation-explanation]:visible')).toContainText('browser');
+  });
+}
+
+test('current HTML reflects generated relationships and clears them without exposing entered values', async ({ page, context }) => {
+  await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+  const current = page.locator('[data-rendered-html-code]');
+  await selectStage(page, 6);
+  await expect(current).not.toContainText('aria-invalid');
+  await email(page).fill('private-invalid-value');
+  await password(page).fill('secret');
+  await submit(page).click();
+  await expect(current).toContainText('aria-invalid="true"');
+  await expect(current).toContainText('aria-describedby="forms-email-error"');
+  await expect(current).toContainText('aria-describedby="forms-password-hint forms-password-error"');
+  await expect(current).toContainText('Enter an email address such as learner@example.com.');
+  await expect(current).toContainText('Use at least 12 characters for your password.');
+  await expect(current).not.toContainText('private-invalid-value');
+  await expect(current).not.toContainText('secret');
+  // The full snapshot includes the summary, error text and relationships, not a
+  // fabricated validation example. Input values are properties, not attributes.
+  expect(await current.textContent()).toBe(await page.locator('[data-form-host] form').evaluate((form) => form.outerHTML));
+  await page.getByText('HTML for this stage', { exact: true }).click();
+  await page.getByText('Current form HTML (entered values omitted)', { exact: true }).click();
+  await page.getByRole('button', { name: 'Copy current HTML', exact: true }).click();
+  await expect(page.locator('[data-copy-status="rendered"]')).toHaveText('Current HTML copied.');
+  const copied = await page.evaluate(() => navigator.clipboard.readText());
+  expect(copied).toContain('forms-password-hint forms-password-error');
+  expect(copied).not.toContain('secret');
+  expect(copied).not.toContain('private-invalid-value');
+  await email(page).fill('learner@example.com');
+  await password(page).fill('fictional-password');
+  await submit(page).click();
+  await expect(current).not.toContainText('aria-invalid');
+  await expect(current).toContainText('aria-describedby="forms-password-hint"');
+  await expect(current).toContainText('Demo complete.');
+  await page.getByRole('button', { name: 'Reset form', exact: true }).click();
+  await expect(current).not.toContainText('Demo complete.');
+  await selectStage(page, 4);
+  await expect(current).not.toContainText('novalidate');
+  await expect(current).not.toContainText('forms-password-error');
+});
+
+test('expanded change snippets and current HTML fit both themes and narrow screens', async ({ page }, testInfo) => {
+  await selectStage(page, 6);
+  await submit(page).click();
+  await page.getByText('HTML change to focus on', { exact: true }).click();
+  await page.getByText('HTML for this stage', { exact: true }).click();
+  await page.getByText('Current form HTML (entered values omitted)', { exact: true }).click();
+  for (const theme of ['light', 'dark']) {
+    await page.evaluate((theme) => {
+      document.documentElement.classList.remove('light', 'dark');
+      document.documentElement.classList.add(theme);
+    }, theme);
+    for (const width of [320, 768, 1280]) {
+      await page.setViewportSize({ width, height: 900 });
+      expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
+    }
+    // Scan the final theme, after existing site-shell color transitions finish.
+    await page.evaluate(() => Promise.all(document.getAnimations().filter((animation) => animation instanceof CSSTransition).map((animation) => animation.finished.catch(() => {}))));
+    expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+    await page.locator('[data-change-details]').screenshot({ path: testInfo.outputPath(`html-change-${theme}.png`) });
+  }
 });
