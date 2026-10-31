@@ -109,7 +109,13 @@ const testingJourneys = defineCollection({
   }),
 });
 
+const demos = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/demos' }),
+  schema: z.object({ ...common, level, estimatedMinutes: z.number().int().positive() }),
+});
+
 export const collections = {
+  demos,
   learningPaths,
   testingMethods,
   exercises,

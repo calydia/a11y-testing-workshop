@@ -2,7 +2,7 @@ import { test, expect } from './helpers/test.js';
 import { readFile } from 'node:fs/promises';
 
 test('unknown nested content IDs use the normal 404 response', async ({ request }) => {
-  for (const path of ['/learn/not-an-entry/', '/methods/nested/not-an-entry/', '/exercises/not-an-entry/', '/journeys/not-an-entry/']) {
+  for (const path of ['/learn/not-an-entry/', '/methods/nested/not-an-entry/', '/exercises/not-an-entry/', '/journeys/not-an-entry/', '/demos/not-an-entry/']) {
     const response = await request.get(path);
     expect(response.status(), path).toBe(404);
   }

@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/navigation/Breadcrumbs.astro';
+import SectionLanding from '../../components/SectionLanding.astro';
+import { getVisibleEntries, contentUrl } from '../../lib/content';
+const entries = (await getVisibleEntries('demos')).map((entry) => ({
+  href: contentUrl('demos', entry.id), title: entry.data.title, summary: entry.data.summary,
+  level: entry.data.level, estimatedMinutes: entry.data.estimatedMinutes,
+}));
+---
+<BaseLayout title="Demos" metaDescription="Interactive accessibility demonstrations for exploring implementation choices, with or without the accompanying videos.">
+  <Breadcrumbs slot="breadcrumb" items={[{ label: 'Home', href: '/' }, { label: 'Demos' }]} />
+  <SectionLanding title="Demos" introduction="Explore accessibility through working examples and practical comparisons. These demos support A11ying with Sanna videos and also work on their own. Choose any stage and try the differences for yourself." entries={entries} />
+</BaseLayout>

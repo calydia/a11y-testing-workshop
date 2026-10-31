@@ -1,0 +1,32 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumbs from '../components/navigation/Breadcrumbs.astro';
+interface Props { title: string; description: string; summary: string; id: string }
+const { title, description, summary, id } = Astro.props;
+---
+<BaseLayout title={title} metaDescription={description}>
+  <Breadcrumbs slot="breadcrumb" items={[{ label: 'Home', href: '/' }, { label: 'Demos', href: '/demos/' }, { label: title }]} />
+  <div class="demo-page" id={id}>
+    <header class="demo-heading">
+      <p class="text-base font-bold">Demos</p>
+      <h1>{title}</h1>
+      <p>{summary}</p>
+    </header>
+    <div class="demo-workspace">
+      <div class="demo-navigation"><slot name="navigation" /></div>
+      <article class="demo-content bodytext"><slot /></article>
+    </div>
+  </div>
+</BaseLayout>
+<style>
+  .demo-page { max-width: 72rem; margin: 2rem auto; padding-inline: 1rem; }
+  .demo-heading { max-width: 42rem; }
+  .demo-heading h1 { margin-block-start: .5rem; }
+  .demo-workspace { display: grid; gap: 1.5rem; align-items: start; }
+  .demo-content, .demo-navigation { min-width: 0; }
+  @media (min-width: 64rem) {
+    .demo-workspace { grid-template-columns: minmax(0, 42rem) minmax(14rem, 19rem); gap: 3rem; }
+    .demo-navigation { grid-column: 2; grid-row: 1; position: sticky; top: 1rem; }
+    .demo-content { grid-column: 1; grid-row: 1; }
+  }
+</style>

@@ -39,6 +39,8 @@ limitations:
 
 This method checks whether people can understand a form, enter information, discover and correct validation errors, and recognize successful submission. It covers both visible communication and the programmatic relationships exposed to assistive technology.
 
+Try [Accessible Forms: The Basics Developers Should Get Right](/demos/accessible-forms-basics/) to compare six working implementations, from a deliberately problematic starting point to a form with clear correction feedback.
+
 ## What you need
 
 Use a web browser and keyboard for the baseline procedure. Add a screen reader and browser developer tools to verify accessible names, descriptions, groups, errors, and status announcements.

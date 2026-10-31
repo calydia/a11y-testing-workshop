@@ -5,6 +5,7 @@ const landingPages = [
   { path: '/methods/', label: 'Testing methods' },
   { path: '/exercises/', label: 'Exercises' },
   { path: '/journeys/', label: 'Testing journeys' },
+  { path: '/demos/', label: 'Demos' },
   { path: '/about/', label: 'About this Lab' },
   { path: '/accessibility/', label: 'Accessibility statement' },
 ];

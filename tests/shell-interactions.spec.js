@@ -82,7 +82,7 @@ test.describe('shared shell keyboard interactions', () => {
 
     const navigation = page.getByRole('navigation', { name: 'Main' });
     await expect(navigation.getByRole('button', { name: 'Menu' })).toBeHidden();
-    await expect(navigation.getByRole('link')).toHaveCount(4);
+    await expect(navigation.getByRole('link')).toHaveCount(5);
     const firstLink = navigation.getByRole('link').first();
     await expect(firstLink).toHaveCSS('font-size', '18px');
     await expect(firstLink).toHaveCSS('padding-top', '4px');

@@ -6,12 +6,13 @@
 `https://testing.a11y.ing/`. It is an English hands-on environment for learning
 and practising accessibility testing.
 
-Its four primary content areas are:
+Its five primary content areas are:
 
 - Learning paths (`/learn/`): self-contained sequences that teach skills progressively.
 - Testing methods (`/methods/`): reusable instructions for specific testing techniques.
 - Exercises (`/exercises/`): deliberately created examples visitors investigate.
 - Testing journeys (`/journeys/`): realistic scenarios that combine techniques.
+- Demos (`/demos/`): standalone interactive implementation comparisons, including video companions.
 
 Learning paths teach skills; testing journeys apply them. The accessible site
 shell explains each task, while exercise fixtures and journey workspaces may
@@ -55,9 +56,10 @@ tagged-package release workflow.
 ## Information Architecture and Content Rules
 
 - Keep primary navigation limited to Learning paths, Testing methods,
-  Exercises, and Testing journeys. About this Lab belongs in the footer.
+  Exercises, Testing journeys, and Demos. About this Lab belongs in the footer.
 - Use content collections and existing layouts for new paths, methods,
   exercises, and journeys; preserve their schema relationships and ordering.
+- Demos are self-contained resources with explicit boundaries, stage navigation, and code examples. Keep them separate from method content; link related methods instead.
 - Methods should be reusable references. Exercises should ask visitors to
   investigate rather than reveal the solution immediately. Journeys should
   combine techniques in a credible workflow.

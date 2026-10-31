@@ -6,6 +6,7 @@ const routes = [
   { path: '/methods/', heading: 'Testing methods' },
   { path: '/exercises/', heading: 'Exercises' },
   { path: '/journeys/', heading: 'Testing journeys' },
+  { path: '/demos/', heading: 'Demos' },
   { path: '/about/', heading: 'About this Lab' },
   { path: '/accessibility/', heading: 'Accessibility statement' },
 ];
@@ -15,6 +16,7 @@ const navigationItems = [
   { name: 'Testing methods', href: '/methods/' },
   { name: 'Exercises', href: '/exercises/' },
   { name: 'Testing journeys', href: '/journeys/' },
+  { name: 'Demos', href: '/demos/' },
 ];
 
 test.describe('Site routes', () => {
@@ -29,7 +31,7 @@ test.describe('Site routes', () => {
   }
 });
 
-for (const route of routes.filter(({ path }) => ['/learn/', '/methods/', '/exercises/', '/journeys/'].includes(path))) {
+for (const route of routes.filter(({ path }) => ['/learn/', '/methods/', '/exercises/', '/journeys/', '/demos/'].includes(path))) {
   test(`${route.path} uses compact section card typography`, async ({ page }) => {
     await page.goto(route.path);
     const firstCard = page.locator('main article').first();
@@ -192,13 +194,13 @@ test('About sets the scope and limitations of the Lab', async ({ page }) => {
 
 test('public overview copy uses the Lab content-type labels', async ({ page }) => {
   await page.goto('/about/');
-  await expect(page.locator('main')).toContainText('Learning paths for progressive learning, Testing methods for reusable references, Exercises for focused practice, and Testing journeys for realistic scenarios');
+  await expect(page.locator('main')).toContainText('Learning paths for progressive learning, Testing methods for reusable references, Exercises for focused practice, Testing journeys for realistic scenarios, and Demos for interactive implementation comparisons');
 
   await page.goto('/journeys/');
   await expect(page.locator('main')).toContainText('Learning paths teach skills; Testing journeys apply them.');
 });
 
-test('Home gives beginners a direct starting point while preserving all four content areas', async ({ page }) => {
+test('Home gives beginners a direct starting point while preserving all five content areas', async ({ page }) => {
   await page.goto('/');
   const start = page.getByRole('heading', { level: 2, name: 'New to accessibility testing?' });
   await expect(start).toBeVisible();

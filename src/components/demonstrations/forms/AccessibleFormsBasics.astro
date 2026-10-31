@@ -1,0 +1,206 @@
+---
+import { stages, formHTML } from './stages';
+import behaviorSource from './form-behavior.js?raw';
+---
+<div class="forms-basics">
+  <p><strong>Demonstration only.</strong> Use fictional details and a made-up password. Nothing is sent, logged or saved by this demo. Stages 1–4 show the password as plain text; Stage 5 introduces masking.</p>
+  <p data-demo-fallback>Enable JavaScript to try the interactive stages. You can still read the related <a href="/methods/testing-forms-and-validation/">form testing method</a>.</p>
+  <div data-demo-interface hidden>
+    <div id="forms-stage-content" tabindex="-1">
+      {stages.map((stage, index) => (
+        <section data-stage-details={index + 1} hidden={index !== 0}>
+          <h2 tabindex="-1">{index + 1}. {stage.name}</h2>
+          <p><strong>What changed?</strong> {stage.changed}</p>
+          <p class="stage-note">{stage.limitation}</p>
+        </section>
+      ))}
+      <h3>Working example</h3>
+      <div class="example-form" data-form-host></div>
+      <p class="change-stage"><a href="#demo-stages">Change stage</a></p>
+      <details>
+        <summary>Why this change matters and how to test it</summary>
+        {stages.map((stage, index) => (
+          <div data-stage-details={index + 1} hidden={index !== 0}>
+            <p><strong>Why does it matter?</strong> {stage.why}</p>
+            <p><strong>Try it:</strong> {stage.test}</p>
+          </div>
+        ))}
+      </details>
+      <details data-html-details>
+        <summary>HTML for this stage</summary>
+        <p>This is the form’s initial markup. Validation adds feedback and attributes after submission. Include the JavaScript below to run it locally; the HTML alone does not prevent navigation or implement the demonstration checks.</p>
+        <button class="button" type="button" data-copy="html">Copy HTML</button>
+        <p role="status" data-copy-status="html"></p>
+        <pre tabindex="0" aria-label="HTML example, scrollable"><code data-html-code></code></pre>
+      </details>
+      <details>
+        <summary>JavaScript for the working form</summary>
+        <p>This is the actual shared form handler for all six stages, including the deliberately poor feedback in Stages 1–5. After adding the HTML, call <code>connectForm(document.querySelector('#forms-basics-form'), STAGE_NUMBER)</code>, replacing <code>STAGE_NUMBER</code> with the selected number. Run this code in a module script. Stage 6 uses one custom validation flow; earlier stages also use browser constraint validation.</p>
+        <p>Errors are checked on submission, rather than announced while typing. Submit again after making corrections. On failure, Stage 6 focuses a summary with field links; on success it focuses a confirmation. There is no duplicate live-region announcement.</p>
+        <button class="button" type="button" data-copy="js">Copy JavaScript</button>
+        <p role="status" data-copy-status="js"></p>
+        <pre tabindex="0" aria-label="JavaScript example, scrollable"><code data-js-code>{behaviorSource}</code></pre>
+      </details>
+    </div>
+    <p class="sr-only" role="status" data-stage-status></p>
+  </div>
+  <details>
+    <summary>More ways to explore this demo</summary>
+    <ul>
+      <li>Use Tab and Shift+Tab to move between controls, and Enter to activate stage links or submit. Sidebar links keep focus in the stage list; Previous and Next links take focus to the new stage heading. Both preserve your entries. Reset form clears the entries and feedback in the current stage.</li>
+      <li>Click visible labels. Inspect the browser’s accessibility tree for names, required states, descriptions and invalid states.</li>
+      <li>With a screen reader, compare what you hear when entering each field and after submitting. Announcements vary with the screen reader and browser combination.</li>
+      <li>Try empty fields, a malformed email address and a password shorter than 12 characters. Then correct the values and submit again.</li>
+    </ul>
+    <p>Stages 1–5 are educational comparisons, not recommended complete implementations. The omissions interact; they do not each automatically represent a separate WCAG failure. Automated checks can miss disappearing prompts, missing instructions and unclear recovery. They cannot prove full WCAG conformance.</p>
+  <p>Based on W3C WAI guidance on <a href="https://www.w3.org/WAI/tutorials/forms/labels/">labels</a>, <a href="https://www.w3.org/WAI/tutorials/forms/instructions/">instructions</a>, <a href="https://www.w3.org/WAI/tutorials/forms/validation/">validation</a> and <a href="https://www.w3.org/WAI/tutorials/forms/notifications/">notifications</a>, and <a href="https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA21">ARIA21: identifying invalid fields</a>. Use the <a href="https://www.w3.org/WAI/tutorials/forms/">Forms Tutorial</a> alongside <a href="https://www.w3.org/TR/WCAG22/">WCAG 2.2</a> when reviewing a complete implementation.</p>
+  </details>
+  <nav aria-label="Stage progression" class="stage-progression" data-stage-pagination hidden>
+    <p data-stage-prompt>Tried this version? Explore the next improvement, or revisit an earlier stage.</p>
+    <div class="stage-progression-links">
+      <a class="button" href="?stage=1" data-stage-link="1" data-stage-direction="previous" hidden>Previous stage</a>
+      <a class="button" href="?stage=2" data-stage-link="2" data-stage-direction="next">Next: Add visible labels</a>
+    </div>
+  </nav>
+  <footer class="demo-end">
+    <p><strong>End of demo.</strong> Continue with <a href="/methods/testing-forms-and-validation/">Testing forms and validation</a>, or explore <a href="/demos/">all demos</a>.</p>
+  </footer>
+  {stages.map((_, index) => <template data-form-template={index + 1} set:html={formHTML(index + 1)} />)}
+</div>
+<style>
+  .forms-basics { margin-block: 0; min-width: 0; }
+  #forms-stage-content { scroll-margin-block-start: 1rem; }
+  .stage-note { border-inline-start: .3rem solid currentColor; padding-inline-start: 1rem; }
+  .example-form { border: 2px solid currentColor; padding: clamp(.75rem, 3vw, 1.5rem); margin-block: 1rem 2rem; }
+  .forms-basics :global(.form-field) { margin-block-end: 1.5rem; }
+  .forms-basics :global(.form-field label) { display: block; font-weight: bold; }
+  .forms-basics :global(.form-field input) { display: block; width: 100%; min-width: 0; margin-block-start: .5rem; padding: .65rem; }
+  .forms-basics :global(input) { border: 2px solid #555; background: #fff; color: #222; border-radius: .2rem; font: inherit; }
+  .forms-basics :global(input::placeholder) { color: #555; opacity: 1; }
+  :global(.dark) .forms-basics :global(input) { background: #111; color: #fff; border-color: #ccc; color-scheme: dark; }
+  :global(.dark) .forms-basics :global(input::placeholder) { color: #ccc; }
+  .forms-basics :global(button) { display: inline-block; margin: .35rem .35rem .35rem 0; font: inherit; cursor: pointer; }
+  .forms-basics :global(:is(input, a:not(.button), pre, summary, [tabindex="-1"]):focus) { outline: 3px solid currentColor; outline-offset: 3px; }
+  .forms-basics :global(#forms-feedback:not([hidden])) { border: 2px solid currentColor; padding: 1rem; margin-block-end: 1.5rem; }
+  .forms-basics :global(.field-error) { font-weight: bold; margin-block: .5rem; }
+  .forms-basics :global([aria-invalid="true"]) { border-style: dashed; border-width: 3px; }
+  .forms-basics :global(#forms-password-hint) { margin-block: .5rem; }
+  .forms-basics pre { max-width: 100%; white-space: pre-wrap; overflow-wrap: anywhere; padding: 1rem; border: 1px solid currentColor; font-size: .85em; tab-size: 2; }
+  .forms-basics :global(code) { max-width: 100%; overflow-wrap: anywhere; }
+  .forms-basics :global(pre code) { display: block; margin: 0; padding: 0; border: 0; box-shadow: none; background: transparent; color: inherit; font-size: inherit; white-space: inherit; overflow-wrap: inherit; }
+  .forms-basics details { margin-block: 1.5rem; }
+  .forms-basics [data-copy-status] { min-height: 1.5em; margin-block: .25rem; }
+  @media (forced-colors: active) {
+    .forms-basics :global(input) { border-color: ButtonText; }
+    .forms-basics :global([aria-invalid="true"]) { border-color: CanvasText; }
+  }
+  .forms-basics h2 { margin-block-start: 1rem; }
+  .forms-basics h3 { margin-block-start: 1rem; }
+  .forms-basics summary { font-weight: bold; cursor: pointer; padding-block: .6rem; }
+  .forms-basics details { border-block-end: 1px solid currentColor; padding-block-end: .5rem; }
+  .stage-progression { margin-block-start: 2rem; }
+  .stage-progression-links { display: flex; flex-wrap: wrap; gap: 1rem; }
+  .stage-progression-links a { display: block; max-width: 100%; overflow-wrap: anywhere; }
+  .stage-progression-links a[hidden] { display: none; }
+  .forms-basics h2[tabindex] { scroll-margin-block-start: 1rem; }
+  .demo-end { border-block-start: 2px solid currentColor; margin-block-start: 2rem; padding-block-start: 1rem; }
+  @media (min-width: 64rem) { .change-stage { display: none; } }
+</style>
+
+<script>
+  import { connectForm } from './form-behavior.js';
+  import { stages } from './stages';
+
+  const root = document.querySelector<HTMLElement>('#accessible-forms-basics');
+  if (root) {
+    const host = root.querySelector<HTMLElement>('[data-form-host]')!;
+    const panel = root.querySelector<HTMLElement>('#forms-stage-content')!;
+    const htmlCode = root.querySelector<HTMLElement>('[data-html-code]')!;
+    const jsCode = root.querySelector<HTMLElement>('[data-js-code]')!;
+    const links = root.querySelectorAll<HTMLAnchorElement>('[data-stage-link]');
+    const stageFromURL = () => {
+      const value = new URL(window.location.href).searchParams.get('stage');
+      return value && /^[1-6]$/.test(value) ? Number(value) : 1;
+    };
+    let currentStage = 0;
+    function showStage(stage: number, announce = false) {
+      if (currentStage === stage) return;
+      currentStage = stage;
+      // Values stay only in the controls; never interpolate them into markup/code.
+      const email = host.querySelector<HTMLInputElement>('#forms-email')?.value || '';
+      const password = host.querySelector<HTMLInputElement>('#forms-password')?.value || '';
+      const activeField = document.activeElement;
+      const focusedFieldId = activeField instanceof HTMLInputElement && host.contains(activeField) ? activeField.id : null;
+      const template = root!.querySelector<HTMLTemplateElement>(`[data-form-template="${stage}"]`)!;
+      host.replaceChildren(template.content.cloneNode(true));
+      const form = host.querySelector<HTMLFormElement>('form')!;
+      form.querySelector<HTMLInputElement>('#forms-email')!.value = email;
+      form.querySelector<HTMLInputElement>('#forms-password')!.value = password;
+      connectForm(form, stage);
+      // Browser Back/Forward should retain focus when the same field is replaced.
+      if (focusedFieldId) form.querySelector<HTMLInputElement>(`#${focusedFieldId}`)?.focus({ preventScroll: true });
+      htmlCode.textContent = template.innerHTML;
+      root!.querySelectorAll<HTMLElement>('[data-stage-details]').forEach((details) => {
+        details.hidden = Number(details.dataset.stageDetails) !== stage;
+      });
+      root!.querySelectorAll<HTMLAnchorElement>('[data-stage-direction]').forEach((link) => {
+        const target = stage + (link.dataset.stageDirection === 'previous' ? -1 : 1);
+        link.hidden = target < 1 || target > stages.length;
+        if (!link.hidden) {
+          link.dataset.stageLink = String(target);
+          link.href = `?stage=${target}`;
+          link.textContent = `${link.dataset.stageDirection === 'previous' ? 'Previous' : 'Next'}: ${stages[target - 1].name}`;
+        }
+      });
+      root!.querySelector<HTMLElement>('[data-stage-prompt]')!.textContent = stage === stages.length
+        ? 'You’ve reached the final stage. Revisit an earlier version to compare the differences.'
+        : 'Tried this version? Explore the next improvement, or revisit an earlier stage.';
+      links.forEach((link) => {
+        if (Number(link.dataset.stageLink) === stage) link.setAttribute('aria-current', 'step');
+        else link.removeAttribute('aria-current');
+      });
+      root!.querySelectorAll<HTMLElement>('[data-copy-status]').forEach((status) => { status.textContent = ''; });
+      root!.querySelector<HTMLElement>('[data-stage-status]')!.textContent = announce
+        ? `Stage ${stage} of 6: ${stages[stage - 1].name}.` : '';
+    }
+    links.forEach((link) => link.addEventListener('click', (event) => {
+      // Preserve normal modified-link behavior for opening a stage in another tab.
+      if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || event.button !== 0) return;
+      event.preventDefault();
+      const stage = Number(link.dataset.stageLink);
+      if (stage === stageFromURL()) return;
+      history.pushState(null, '', link.href);
+      const isProgression = Boolean(link.dataset.stageDirection);
+      showStage(stage, !isProgression);
+      if (isProgression) {
+        // Continuing from the end takes readers to the newly selected stage.
+        // Focus is the notification here, so no duplicate live message is sent.
+        root.querySelector<HTMLElement>(`section[data-stage-details="${stage}"] h2`)!.focus();
+        return;
+      }
+      // Bring the selected stage into view without moving keyboard focus.
+      const top = panel.getBoundingClientRect().top;
+      if (window.matchMedia('(min-width: 64rem)').matches && (top < 0 || top > window.innerHeight * .6)) panel.scrollIntoView({ block: 'start' });
+    }));
+    window.addEventListener('popstate', () => showStage(stageFromURL(), true));
+    showStage(stageFromURL());
+    root.querySelector<HTMLElement>('[data-demo-interface]')!.hidden = false;
+    root.querySelector<HTMLElement>('[data-demo-navigation]')!.hidden = false;
+    root.querySelector<HTMLElement>('[data-stage-pagination]')!.hidden = false;
+    root.querySelector<HTMLElement>('[data-demo-fallback]')!.hidden = true;
+    root.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach((button) => {
+      button.addEventListener('click', async () => {
+        const kind = button.dataset.copy!;
+        const status = root.querySelector<HTMLElement>(`[data-copy-status="${kind}"]`)!;
+        status.textContent = '';
+        const code = kind === 'html' ? htmlCode : jsCode;
+        try {
+          await navigator.clipboard.writeText(code.textContent || '');
+          status.textContent = `${kind === 'html' ? 'HTML' : 'JavaScript'} copied.`;
+        } catch {
+          status.textContent = 'Copy unavailable. Select the code and copy it using your device’s copy command.';
+        }
+      });
+    });
+  }
+</script>

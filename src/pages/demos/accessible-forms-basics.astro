@@ -1,0 +1,12 @@
+---
+import { getEntry } from 'astro:content';
+import DemoLayout from '../../layouts/DemoLayout.astro';
+import AccessibleFormsBasics from '../../components/demonstrations/forms/AccessibleFormsBasics.astro';
+import FormsStageNavigation from '../../components/demonstrations/forms/FormsStageNavigation.astro';
+const entry = await getEntry('demos', 'accessible-forms-basics');
+if (!entry) throw new Error('Missing accessible forms demo content');
+---
+<DemoLayout {...entry.data} id="accessible-forms-basics">
+  <FormsStageNavigation slot="navigation" />
+  <AccessibleFormsBasics />
+</DemoLayout>

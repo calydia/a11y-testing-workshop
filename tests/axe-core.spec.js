@@ -49,6 +49,8 @@ const routes = [
   '/exercises/testing-status-messages-in-a-community-activities-search/',
   '/exercises/testing-session-timeout-in-a-community-support-application/',
   '/exercises/testing-authentication-for-a-community-services-booking/',
+  '/demos/',
+  '/demos/accessible-forms-basics/',
   '/journeys/',
   '/journeys/reviewing-a-course-registration-before-launch/',
   '/journeys/reviewing-a-community-conference-programme/',

@@ -1,0 +1,25 @@
+---
+import { stages } from './stages';
+---
+<nav id="demo-stages" aria-labelledby="demo-stages-title" tabindex="-1" data-demo-navigation hidden>
+  <h2 id="demo-stages-title">Implementation stages</h2>
+  <p>Choose any stage. Your entries stay in the form.</p>
+  <ol>
+    {stages.map((stage, index) => <li><a href={`?stage=${index + 1}`} data-stage-link={index + 1} aria-controls="forms-stage-content">{index + 1}. {stage.name}</a></li>)}
+  </ol>
+  <a class="back-to-example" href="#forms-stage-content">Go to working example</a>
+  <p><a href="/demos/">All demos</a></p>
+</nav>
+<style>
+  nav { border-block: 2px solid var(--color-lt-perfume); padding-block: 1rem; }
+  :global(.dark) nav { border-color: var(--color-dk-purple-header); }
+  h2 { margin: 0 0 .5rem; font-size: 1.25rem; }
+  p { font-size: 1rem; margin-block: .5rem 1rem; }
+  ol { list-style: none; padding: 0; margin: 0; }
+  li { margin: .25rem 0; }
+  a[data-stage-link] { display: block; padding: .6rem .75rem; border-inline-start: .25rem solid transparent; font-size: 1rem; line-height: 1.4; }
+  a[aria-current="step"] { border-inline-start-color: currentColor; background: var(--color-lt-blue-middle); color: var(--color-lt-purple); font-weight: bold; }
+  :global(.dark) a[aria-current="step"] { background: var(--color-dk-code-bg); color: var(--color-dk-blue-light); }
+  .back-to-example { display: inline-block; font-size: 1rem; margin-block-start: 1rem; }
+  nav:focus, a:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+</style>
